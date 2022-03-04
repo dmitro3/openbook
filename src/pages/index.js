@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Box, Container, Grid } from "@mui/material";
-import { Budget } from "../components/Dashboard/budget";
+import { Budget } from "../components/Dashboard/Budget";
 import { LatestOrders } from "../components/Dashboard/LatestOrders";
 import { LatestProducts } from "../components/Dashboard/LatestProducts";
 import { Sales } from "../components/Dashboard/Sales";
