@@ -1,8 +1,5 @@
 import Head from "next/head";
 import { Box, Container, Grid, Pagination } from "@mui/material";
-import { products } from "../testdata/products";
-import { ProductListToolbar } from "../components/product/ProductListToolbar";
-import { ProductCard } from "../components/product/ProductCard";
 import { DashboardLayout } from "../components/DashboardLayout";
 
 const Products = () => (
@@ -18,14 +15,9 @@ const Products = () => (
       }}
     >
       <Container maxWidth={false}>
-        <ProductListToolbar />
         <Box sx={{ pt: 3 }}>
           <Grid container spacing={3}>
-            {products.map((product) => (
-              <Grid item key={product.id} lg={4} md={6} xs={12}>
-                <ProductCard product={product} />
-              </Grid>
-            ))}
+
           </Grid>
         </Box>
         <Box
