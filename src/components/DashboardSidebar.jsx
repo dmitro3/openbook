@@ -17,23 +17,73 @@ import { Cog as CogIcon } from "../utils/icons/cog";
 import { Selector as SelectorIcon } from "../utils/icons/selector";
 import { ShoppingBag as ShoppingBagIcon } from "../utils/icons/shopping-bag";
 import { NavItem } from "./NavItem";
+import { FaStar,FaFire,FaHandshake,FaGamepad,FaFutbol,FaBasketballBall,FaHockeyPuck,FaFootballBall,FaBaseballBall,FaFlagCheckered} from 'react-icons/fa';
+import {RiMouseFill,RiBoxingFill} from 'react-icons/ri'
 
-const items = [
+const items1 = [
   {
     href: "/",
-    icon: <ChartBarIcon fontSize="small" />,
-    title: "Dashboard",
+    icon: <FaStar />,
+    title: "Featured",
+  },
+  {
+    href: "/Trending",
+    icon: <FaFire/>,
+    title: "Trending Games",
   },
   {
     href: "/products",
-    icon: <ShoppingBagIcon fontSize="small" />,
-    title: "Products",
+    icon: <FaHandshake/>,
+    title: "Parlays",
+  }
+];
+
+const items2 = [
+  {
+    href: "/settings",
+    icon: <FaGamepad />,
+    title: "E-Sports",
   },
   {
     href: "/settings",
-    icon: <CogIcon fontSize="small" />,
-    title: "Settings",
-  }
+    icon: <FaFutbol />,
+    title: "Football",
+  },
+  {
+    href: "/settings",
+    icon: <FaBasketballBall />,
+    title: "Basketball",
+  },
+  {
+    href: "/settings",
+    icon: <FaHockeyPuck />,
+    title: "Ice Hockey",
+  },
+  {
+    href: "/settings",
+    icon: <FaFootballBall />,
+    title: "American Football",
+  },
+  {
+    href: "/settings",
+    icon: <RiMouseFill />,
+    title: "Onhovered Item",
+  },
+  {
+    href: "/settings",
+    icon: <FaBaseballBall />,
+    title: "Baseball",
+  },  
+  {
+    href: "/settings",
+    icon: <RiBoxingFill />,
+    title: "UFC/MMA",
+  },  
+  {
+    href: "/settings",
+    icon: <FaFlagCheckered />,
+    title: "Motorsports",
+  },   
 ];
 
 export const DashboardSidebar = (props) => {
@@ -64,7 +114,6 @@ export const DashboardSidebar = (props) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          height: "100%",
         }}>
         <div style={{
           overflow: "hidden",
@@ -91,12 +140,14 @@ export const DashboardSidebar = (props) => {
         </div>
         <Divider
           sx={{
-            borderColor: "#2D3748",
+            borderColor: "#787b7d",
             my: 3,
+            opacity: 0.3,
+            border: 1
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          {items.map((item) => (
+          {items1.map((item) => (
             <NavItem
               key={item.title}
               icon={item.icon}
@@ -105,7 +156,33 @@ export const DashboardSidebar = (props) => {
             />
           ))}
         </Box>
-        <Divider sx={{ borderColor: "#2D3748" }} />
+        <Divider
+          sx={{
+            borderColor: "#787b7d",
+            my: 3,
+            opacity: 0.3,
+            border: 1
+          }}
+        />
+        <Box sx={{ flexGrow: 1 }}>
+          {items2.map((item) => (
+            <NavItem
+              key={item.title}
+              icon={item.icon}
+              href={item.href}
+              title={item.title}
+            />
+          ))}
+        </Box>
+        
+        <Divider
+          sx={{
+            borderColor: "#787b7d",
+            my: 3,
+            opacity: 0.3,
+            border: 1
+          }}
+        />
         <Box
           sx={{
             px: 2,
