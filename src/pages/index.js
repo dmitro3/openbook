@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Box, Container, Grid } from "@mui/material";
-import { Budget } from "../components/Dashboard/Budget";
+import { MatchCard } from "../components/Dashboard/MatchCard";
 import { LatestOrders } from "../components/Dashboard/LatestOrders";
 import { LatestProducts } from "../components/Dashboard/LatestProducts";
 import { Sales } from "../components/Dashboard/Sales";
@@ -25,28 +25,52 @@ const Dashboard = () => (
       <Container maxWidth={false}>
         <Grid container spacing={3}>
           <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <Budget />
+            <MatchCard budgetNumber="21" />
           </Grid>
-          <Grid item xl={3} lg={3} sm={6} xs={12}>
-            <TotalCustomers />
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
           </Grid>
-          <Grid item xl={3} lg={3} sm={6} xs={12}>
-            <TasksProgress />
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
           </Grid>
-          <Grid item xl={3} lg={3} sm={6} xs={12}>
-            <TotalProfit sx={{ height: "100%" }} />
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
           </Grid>
-          <Grid item lg={8} md={12} xl={9} xs={12}>
-            <Sales />
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
           </Grid>
-          <Grid item lg={4} md={6} xl={3} xs={12}>
-            <TrafficByDevice sx={{ height: "100%" }} />
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
           </Grid>
-          <Grid item lg={4} md={6} xl={3} xs={12}>
-            <LatestProducts sx={{ height: "100%" }} />
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
           </Grid>
-          <Grid item lg={8} md={12} xl={9} xs={12}>
-            <LatestOrders />
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
+          </Grid>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
+          </Grid>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
+          </Grid>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
+          </Grid>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
+          </Grid>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
+          </Grid>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
+          </Grid>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
+          </Grid>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <MatchCard />
           </Grid>
         </Grid>
       </Container>

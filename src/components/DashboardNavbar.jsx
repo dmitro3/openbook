@@ -28,6 +28,7 @@ const options = [
   'Dashboard',
   'Your Tickets',
   'Settings',
+  'Support',
   'Disconnect Wallet'
 ];
 
@@ -37,7 +38,7 @@ export const DashboardNavbar = (props) => {
   
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState("one");
 
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
@@ -67,6 +68,7 @@ export const DashboardNavbar = (props) => {
           width: {
             lg: "calc(100% - 280px)",
           },
+          height: "10%"
         }}
         {...other}
       >
@@ -76,6 +78,7 @@ export const DashboardNavbar = (props) => {
             minHeight: 64,
             left: 0,
             px: 2,
+            fontSize: "20rem"
           }}
         >
         
@@ -102,9 +105,10 @@ export const DashboardNavbar = (props) => {
             textColor="secondary"
             indicatorColor="secondary"
             aria-label="secondary tabs example"
+            
           >
-            <Tab value="one" label="Bet Now" />
-            <Tab value="two" label="Be the Bookie" />
+            <Tab value="one" /*sx={{fontSize:'1.3rem'}}*/ label="Bet Now" />
+            <Tab value="two" /*sx={{fontSize:'1.3rem'}}*/ label="Be the Bookie" />
           </Tabs>
         </Box>
 
