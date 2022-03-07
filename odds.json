@@ -1,1 +1,45 @@
-{"Basketball": {"NBA": [{"id": "234dsfd3asda233", "match": "Dallas Mavericks VS Sacramento Kings", "outcomes": {"1": 2.1, "2": 1.67}}, {"id": "df32413123", "match": "New York Knicks VS LA Clippers", "outcomes": {"1": 2.42, "2": 1.4}}]}, "Soccer": {"EPL": [{"id": "dsf23gfs", "match": "Manchester City VS Manchester United", "outcomes": {"1": 1.4, "X": 6, "2": 4}}, {"id": "sdfvsd344", "match": "Liverpool VS Chelsea", "outcomes": {"1": 3, "X": 4, "2": 3}}], "La Liga": [{"id": "dg3433ds", "match": "Barcelona VS Real Madrid", "outcomes": {"1": 2.5, "X": 3.2, "2": 3}}]}, "MMA": {"UFC": [{"id": "rt34123gg", "match": "Nate Dias VS Vicente Luque", "outcomes": {"1": 1.4, "2": 3}}]}}
+{
+    "Basketball": 
+    {
+        "NBA": 
+        [
+            {"id": "234dsfd3asda233", "match": "Dallas Mavericks VS Sacramento Kings", "outcomes": {"1": 2.1, "2": 1.67}}, 
+            {"id": "ftgr324dgfsg", "match": "New York Knicks VS LA Clippers", "outcomes": {"1": 2.42, "2": 1.4}},
+            {"id": "safsd34523432", "match": "Bulls VS 76ers", "outcomes": {"1": 3.41, "2": 1.35}},
+            {"id": "sdfsdgg34234", "match": "Rockets VS Heats", "outcomes": {"1": 11.08, "2": 1.06}},
+            {"id": "aswee235432", "match": "Utah Jazz VS Dallas Maverics", "outcomes": {"1": 2.22, "2": 1.7}},
+            {"id": "hgfjf345dsd", "match": "Golden State Warriors VS Denver Nuggets", "outcomes": {"1": 3.88, "2": 1.27}}
+        ],
+        "NCAA": 
+        [
+            {"id": "asdf341234", "match": "Boston College VS Pittsburg", "outcomes": {"1": 1.95, "2": 1.96}}, 
+            {"id": "dg435df", "match": "Georgia Tech VS Louisville", "outcomes": {"1": 1.93, "2": 1.93}}
+        ]
+    }, 
+        
+    "Soccer": 
+    {
+        "EPL": 
+        [
+            {"id": "dsf23gfs", "match": "Manchester City VS Manchester United", "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"id": "dsf23gfs", "match": "Southampton VS Newcastle", "outcomes": {"1": 1.96, "X": 3.59, "2": 3.59}}, 
+            {"id": "seatert45", "match": "Leeds VS Aston Villa", "outcomes": {"1": 2.69, "X": 2.46, "2": 3.46}}, 
+            {"id": "dsf23gfs", "match": "Brentford VS Burnley", "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"id": "dsf23gfs", "match": "Everton VS Wolves", "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"id": "dsf23gfs", "match": "Chelsea VS Newscastle", "outcomes": {"1": 1.27, "X": 11.42, "2": 5.21}}
+        ], 
+            
+        "La Liga": 
+        [
+            {"id": "dg3433ds", "match": "Barcelona VS Real Madrid", "outcomes": {"1": 2.5, "X": 3.2, "2": 3}}
+        ]
+    }, 
+    
+    "MMA": 
+    {
+        "UFC": 
+        [
+            {"id": "rt34123gg", "match": "Nate Dias VS Vicente Luque", "outcomes": {"1": 1.4, "2": 3}}
+        ]
+    }
+}

@@ -17,7 +17,6 @@ app.get("/matches", (req, res, next) => {
     res.json(obj)
 });
 
-
 app.use(function(req, res){
     res.status(404);
 });
