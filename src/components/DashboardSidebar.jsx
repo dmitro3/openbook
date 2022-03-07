@@ -12,10 +12,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { ChartBar as ChartBarIcon } from "../utils/icons/chart-bar";
-import { Cog as CogIcon } from "../utils/icons/cog";
-import { Selector as SelectorIcon } from "../utils/icons/selector";
-import { ShoppingBag as ShoppingBagIcon } from "../utils/icons/shopping-bag";
 import { NavItem } from "./NavItem";
 import { FaStar,FaFire,FaHandshake,FaGamepad,FaFutbol,FaBasketballBall,FaHockeyPuck,FaFootballBall,FaBaseballBall,FaFlagCheckered} from 'react-icons/fa';
 import {RiMouseFill,RiBoxingFill} from 'react-icons/ri'
@@ -117,8 +113,6 @@ export const DashboardSidebar = (props) => {
         }}>
         <div style={{
           overflow: "hidden",
-          width: "80px",
-          height: "80px",
           margin: "1rem",
           alignSelf: "center",
           }}>
@@ -126,15 +120,28 @@ export const DashboardSidebar = (props) => {
             href="/" 
             passHref
             >
-            <a>
-                <Image
-                  src="/../public/static/templogosportsbook.png"
-                  alt="logo"
-                  width="100px"
-                  height="100px"
-                  layout="responsive"
-                  className="logoStyle"
-                />
+            <a style={{
+              textDecoration:"none"
+            }}>
+                <div style={{
+                  width:"100px",
+                  height:"100px",
+                  margin:"auto"
+                }}>
+                  <Image
+                    src="/../public/static/templogosportsbook.png"
+                    alt="logo"
+                    width="100"
+                    height="100"
+                    layout="responsive"
+                    className="logoStyle"
+                    loading="lazy"
+                  />
+                </div>
+                <Typography color="neutral.100" 
+                variant="h3" >
+                  OpenEdge
+                </Typography>
             </a>
           </NextLink>
         </div>
