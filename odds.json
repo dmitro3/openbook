@@ -3,17 +3,17 @@
     {
         "NBA": 
         [
-            {"id": "234dsfd3asda233", "match": "Dallas Mavericks VS Sacramento Kings", "outcomes": {"1": 2.1, "2": 1.67}}, 
-            {"id": "ftgr324dgfsg", "match": "New York Knicks VS LA Clippers", "outcomes": {"1": 2.42, "2": 1.4}},
-            {"id": "safsd34523432", "match": "Bulls VS 76ers", "outcomes": {"1": 3.41, "2": 1.35}},
-            {"id": "sdfsdgg34234", "match": "Rockets VS Heats", "outcomes": {"1": 11.08, "2": 1.06}},
-            {"id": "aswee235432", "match": "Utah Jazz VS Dallas Maverics", "outcomes": {"1": 2.22, "2": 1.7}},
-            {"id": "hgfjf345dsd", "match": "Golden State Warriors VS Denver Nuggets", "outcomes": {"1": 3.88, "2": 1.27}}
+            {"timestamp": "2022-03-13 20:10:00", "id": "234dsfd3asda233", "match": ["Dallas Mavericks", "Sacramento Kings"], "outcomes": {"1": 2.1, "2": 1.67}}, 
+            {"timestamp": "2022-03-14 20:10:00", "id": "ftgr324dgfsg", "match": ["New York Knicks", "LA Clippers"], "outcomes": {"1": 2.42, "2": 1.4}},
+            {"timestamp": "2022-03-15 20:10:00", "id": "safsd34523432", "match": ["Bulls", "76ers"], "outcomes": {"1": 3.41, "2": 1.35}},
+            {"timestamp": "2022-03-16 20:10:00", "id": "sdfsdgg34234", "match": ["Rockets", "Heats"], "outcomes": {"1": 11.08, "2": 1.06}},
+            {"timestamp": "2022-03-17 20:10:00", "id": "aswee235432", "match": ["Utah Jazz", "Dallas Maverics"], "outcomes": {"1": 2.22, "2": 1.7}},
+            {"timestamp": "2022-03-18 20:10:00", "id": "hgfjf345dsd", "match": ["Golden State Warriors", "Denver Nuggets"], "outcomes": {"1": 3.88, "2": 1.27}}
         ],
         "NCAA": 
         [
-            {"id": "asdf341234", "match": "Boston College VS Pittsburg", "outcomes": {"1": 1.95, "2": 1.96}}, 
-            {"id": "dg435df", "match": "Georgia Tech VS Louisville", "outcomes": {"1": 1.93, "2": 1.93}}
+            {"timestamp": "2022-03-15 20:10:00", "id": "asdf341234", "match": ["Boston College", "Pittsburg"], "outcomes": {"1": 1.95, "2": 1.96}}, 
+            {"timestamp": "2022-03-16 20:10:00", "id": "dg435df", "match": ["Georgia Tech", "Louisville"], "outcomes": {"1": 1.93, "2": 1.93}}
         ]
     }, 
         
@@ -21,17 +21,37 @@
     {
         "EPL": 
         [
-            {"id": "dsf23gfs", "match": "Manchester City VS Manchester United", "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
-            {"id": "dsf23gfs", "match": "Southampton VS Newcastle", "outcomes": {"1": 1.96, "X": 3.59, "2": 3.59}}, 
-            {"id": "seatert45", "match": "Leeds VS Aston Villa", "outcomes": {"1": 2.69, "X": 2.46, "2": 3.46}}, 
-            {"id": "dsf23gfs", "match": "Brentford VS Burnley", "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
-            {"id": "dsf23gfs", "match": "Everton VS Wolves", "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
-            {"id": "dsf23gfs", "match": "Chelsea VS Newscastle", "outcomes": {"1": 1.27, "X": 11.42, "2": 5.21}}
+            {"timestamp": "2022-04-03 20:10:00", "id": "dsf23gfs", "match": ["Manchester City", "Manchester United"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-03 20:10:00", "id": "45dfsdf", "match": ["Southampton", "Newcastle"], "outcomes": {"1": 1.96, "X": 3.59, "2": 3.59}}, 
+            {"timestamp": "2022-04-03 20:10:00", "id": "seatert45", "match": ["Leeds", "Aston Villa"], "outcomes": {"1": 2.69, "X": 2.46, "2": 3.46}}, 
+            {"timestamp": "2022-04-03 22:10:00", "id": "asdffg45", "match": ["Brentford", "Burnley"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-03 22:10:00", "id": "dfgdg34", "match": ["Everton", "Wolves"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-03 22:10:00", "id": "dfhdfh34", "match": ["Southampton", "Manchester United"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-04 10:10:00", "id": "fdghdf34", "match": ["Brentford", "Newcastle"], "outcomes": {"1": 1.96, "X": 3.59, "2": 3.59}}, 
+            {"timestamp": "2022-04-03 10:10:00", "id": "sdf4534", "match": ["Burnley", "Aston Villa"], "outcomes": {"1": 2.69, "X": 2.46, "2": 3.46}}, 
+            {"timestamp": "2022-04-03 10:10:00", "id": "sdgdfg34", "match": ["Brentford", "Leicester City"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-03 10:10:00", "id": "dfgdfh34", "match": ["Leeds", "Liverpool"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-03 10:10:00", "id": "dhtdfh3", "match": ["Norwich", "West Ham United"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-03 12:10:00", "id": "34dfgfg", "match": ["Liverpool", "Chelsea"], "outcomes": {"1": 1.96, "X": 3.59, "2": 3.59}}, 
+            {"timestamp": "2022-04-03 12:10:00", "id": "sdfs34", "match": ["Leeds", "Arsenal"], "outcomes": {"1": 2.69, "X": 2.46, "2": 3.46}}, 
+            {"timestamp": "2022-04-03 13:10:00", "id": "gdfhdryg3", "match": ["Wolves", "Burnley"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-03 23:10:00", "id": "sdf233", "match": ["Everton", "Wolves"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-03 23:10:00", "id": "dfsdf345", "match": ["Newcastle", "West Ham United"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-05 20:10:00", "id": "rfdgyt34", "match": ["Chelsea", "Brighton"], "outcomes": {"1": 1.96, "X": 3.59, "2": 3.59}}, 
+            {"timestamp": "2022-04-05 20:10:00", "id": "fhgjgyhj34", "match": ["Crystal Palace", "Aston Villa"], "outcomes": {"1": 2.69, "X": 2.46, "2": 3.46}}, 
+            {"timestamp": "2022-04-05 20:10:00", "id": "dfgdrf3", "match": ["Tottenham", "Leicester City"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-05 22:10:00", "id": "rdgdth3", "match": ["Arsenal", "Brentford"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-05 22:10:00", "id": "gfhfghj34", "match": ["Watford", "Manchester United"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-05 22:10:00", "id": "fgjfghj3", "match": ["Liverpool", "Newcastle"], "outcomes": {"1": 1.96, "X": 3.59, "2": 3.59}}, 
+            {"timestamp": "2022-04-06 20:00:00", "id": "dfgh344", "match": ["Leeds", "Manchester City"], "outcomes": {"1": 2.69, "X": 2.46, "2": 3.46}}, 
+            {"timestamp": "2022-04-06 20:00:00", "id": "fdggfd4", "match": ["Crystal Palace", "Burnley"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-06 22:00:00", "id": "hfg34", "match": ["Everton", "Southampton"], "outcomes": {"1": 1.4, "X": 6, "2": 4}}, 
+            {"timestamp": "2022-04-06 22:00:00", "id": "sdfdf2", "match": ["Chelsea", "Newscastle"], "outcomes": {"1": 1.27, "X": 11.42, "2": 5.21}}
         ], 
             
         "La Liga": 
         [
-            {"id": "dg3433ds", "match": "Barcelona VS Real Madrid", "outcomes": {"1": 2.5, "X": 3.2, "2": 3}}
+            {"timestamp": "2022-03-12 08:00:00", "id": "dg3433ds", "match": ["Barcelona", "Real Madrid"], "outcomes": {"1": 2.5, "X": 3.2, "2": 3}}
         ]
     }, 
     
@@ -39,7 +59,7 @@
     {
         "UFC": 
         [
-            {"id": "rt34123gg", "match": "Nate Dias VS Vicente Luque", "outcomes": {"1": 1.4, "2": 3}}
+            {"timestamp": "2022-04-15 12:10:00", "id": "rt34123gg", "match": ["Nate Dias", "Vicente Luque"], "outcomes": {"1": 1.4, "2": 3}}
         ]
     }
 }
