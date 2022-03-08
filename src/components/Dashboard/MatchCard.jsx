@@ -11,11 +11,11 @@ export const MatchCard = (props) => (
     sx={{ height: '100%' }}
     {...props}
   >
-    <CardContent style={{height:"100%",position:'relative',paddingBottom:'100px'}}>
+    <CardContent style={{height:"100%",position:'relative',paddingBottom:'100px', marginTop:'0px'}}>
       <Grid
         container
         spacing={3}
-        style={{ justifyContent: 'space-between', width:"100%",marginLeft:'0px',marginRight:'0px',marginTop:'0px',paddingTop:"24px"}}
+        style={{ justifyContent: 'space-between', width:"100%",marginLeft:'0px',marginRight:'0px',marginTop:'0px'}}
       >
         <Grid item 
         style={{paddingLeft:'0px',width:'30%'}}

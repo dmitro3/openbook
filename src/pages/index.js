@@ -34,7 +34,6 @@ const Dashboard = () => (
               outcome2={match.outcomes['2'].toFixed(2)}  
               dateString={dateStringForProps}  
               timeString={timeStringForProps}  
-            
               />
             </Grid>
             )
