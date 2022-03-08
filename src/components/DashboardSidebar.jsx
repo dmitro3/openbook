@@ -14,7 +14,7 @@ import {
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { NavItem } from "./NavItem";
 import { FaStar,FaFire,FaHandshake,FaGamepad,FaFutbol,FaBasketballBall,FaHockeyPuck,FaFootballBall,FaBaseballBall,FaFlagCheckered} from 'react-icons/fa';
-import {RiMouseFill,RiBoxingFill} from 'react-icons/ri'
+import {RiMouseFill,RiBoxingFill} from 'react-icons/ri';
 
 const items1 = [
   {
