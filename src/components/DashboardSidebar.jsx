@@ -16,7 +16,7 @@ import { NavItem } from "./NavItem";
 import { FaStar,FaFire,FaHandshake,FaGamepad,FaFutbol,FaBasketballBall,FaHockeyPuck,FaFootballBall,FaBaseballBall,FaFlagCheckered} from 'react-icons/fa';
 import {RiMouseFill,RiBoxingFill} from 'react-icons/ri';
 
-const items1 = [
+const bettingZoneitems = [
   {
     href: "/",
     icon: <FaStar />,
@@ -34,7 +34,7 @@ const items1 = [
   }
 ];
 
-const items2 = [
+const sportsItems = [
   {
     href: "/settings",
     icon: <FaGamepad />,
@@ -154,7 +154,7 @@ export const DashboardSidebar = (props) => {
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          {items1.map((item) => (
+          {bettingZoneitems.map((item) => (
             <NavItem
               key={item.title}
               icon={item.icon}
@@ -172,7 +172,7 @@ export const DashboardSidebar = (props) => {
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          {items2.map((item) => (
+          {sportsItems.map((item) => (
             <NavItem
               key={item.title}
               icon={item.icon}

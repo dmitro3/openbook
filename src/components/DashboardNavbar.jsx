@@ -19,11 +19,13 @@ import { UserCircle as UserCircleIcon } from "../utils/icons/user-circle";
 import React from 'react';
 import { Bell as BellIcon } from "../utils/icons/bell";
 
+/* Function that sets the navigation theme from template */
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[3],
 }));
 
+/* This is the options for the user drop down */
 const options = [
   'Dashboard',
   'Your Tickets',
@@ -33,14 +35,21 @@ const options = [
 ];
 
 export const DashboardNavbar = (props) => {
+  /* Template variables */
   const { onSidebarOpen, ...other } = props;
+  /* End template variables */
 
-  
+  /* User button drop down variables */
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const [value, setValue] = React.useState("one");
-
   const open = Boolean(anchorEl);
+  /* End user button drop down variables */
+
+  /* Top navigation bar tabs variables */
+  const [value, setValue] = React.useState("one");
+  /* End top navigation bar tabs variables */
+
+  /* User button drop down functions */
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -53,10 +62,13 @@ export const DashboardNavbar = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  /* End user button drop down functions */
 
+  /* Top navigation bar tabs variables */
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  /* End top navigation bar tabs variables */
 
   return (
     <>
@@ -83,7 +95,7 @@ export const DashboardNavbar = (props) => {
         >
         
           {
-          //Menu for the side bar menu component, appears when the screen width below certain value.
+          //Menu for the side bar menu component, appears when the screen width is too small.
           }
           <IconButton
             onClick={onSidebarOpen}
@@ -113,7 +125,7 @@ export const DashboardNavbar = (props) => {
         </Box>
 
           {
-          //This is the component that helps separate the left side and the right side of the nav bar
+          //This is the component that helps separate the left side and the right side of the top nav bar
           }
           <Box sx={{ flexGrow: 1 }} />
 
@@ -128,7 +140,9 @@ export const DashboardNavbar = (props) => {
             </IconButton> 
           </Tooltip>
           
-
+          {
+            //This is the user icon and the drop down
+          }
           <div>
             <ListItem
             button
@@ -147,7 +161,6 @@ export const DashboardNavbar = (props) => {
             open={open}
             onClose={handleClose}
             MenuListProps={{
-              'aria-labelledby': 'lock-button',
               role: 'listbox',
             }}
           >
