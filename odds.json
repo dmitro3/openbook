@@ -61,5 +61,13 @@
         [
             {"timestamp": "2022-04-15 12:10:00", "id": "rt34123gg", "match": ["Nate Dias", "Vicente Luque"], "outcomes": {"1": 1.4, "2": 3}}
         ]
+    },
+
+    "Ice Hockey": 
+    {
+        "NHL": 
+        [
+            {"timestamp": "2022-04-15 12:10:00", "id": "rt34123gg", "match": ["Nate Dias", "Vicente Luque"], "outcomes": {"1": 1.4, "2": 3}}
+        ]
     }
 }
