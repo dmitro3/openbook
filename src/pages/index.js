@@ -1,14 +1,10 @@
 import Head from "next/head";
 import { Box, Container, Grid } from "@mui/material";
 import { MatchCard } from "../components/Dashboard/MatchCard";
-import { LatestOrders } from "../components/Dashboard/LatestOrders";
-import { LatestProducts } from "../components/Dashboard/LatestProducts";
-import { Sales } from "../components/Dashboard/Sales";
-import { TasksProgress } from "../components/Dashboard/TasksProgress";
-import { TotalCustomers } from "../components/Dashboard/TotalCustomers";
-import { TotalProfit } from "../components/Dashboard/TotalProfix";
-import { TrafficByDevice } from "../components/Dashboard/TrafficByDevice";
 import { DashboardLayout } from "../components/DashboardLayout";
+
+let data = require('../../odds.json');
+let EPL_data = data.Soccer.EPL;
 
 const Dashboard = () => (
   <>
@@ -24,54 +20,26 @@ const Dashboard = () => (
     >
       <Container maxWidth={false}>
         <Grid container spacing={3}>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard budgetNumber="21" />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
-          <Grid item lg={3} sm={6} xl={3} xs={12}>
-            <MatchCard />
-          </Grid>
+        {EPL_data.map((match) => {
+          let datetime = new Date(match.timestamp);
+          let dateStringForProps=datetime.toLocaleString('default', { month: 'short', day:'numeric' })
+          let timeStringForProps=datetime.toLocaleString('default', { hour: 'numeric', minute:'numeric',  hourCycle: 'h23' })
+          return  (
+            <Grid key={match.id} item lg={4} sm={6} xl={3} xs={12}>
+              <MatchCard 
+              team1={match.match[0]} 
+              team2={match.match[1]} 
+              outcome1={match.outcomes['1'].toFixed(2)} 
+              outcomeX={match.outcomes['X'].toFixed(2)} 
+              outcome2={match.outcomes['2'].toFixed(2)}  
+              dateString={dateStringForProps}  
+              timeString={timeStringForProps}  
+              />
+            </Grid>
+            )
+          })
+        }
+
         </Grid>
       </Container>
     </Box>
