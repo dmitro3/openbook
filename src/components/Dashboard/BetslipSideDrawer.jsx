@@ -8,8 +8,10 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import TextField from '@mui/material/TextField'
 import {RiArrowRightCircleFill,RiTicket2Line,} from 'react-icons/ri';
 import {IoTrashBinSharp,IoTicketOutline} from 'react-icons/io5'
+import { Grid } from '@mui/material';
 
 
 export const BetslipSideDrawer = (props) => {
@@ -33,11 +35,14 @@ export const BetslipSideDrawer = (props) => {
         <Box
             sx={{ width: '320px',
                 backgroundColor:"white",
-                position:'relative',
-                height:'100%',
+                position:'fixed',
+                height:'fit-content',
                 borderRadius: '4px',
                 overflow: 'hidden',
-                marginRight: '15px'
+                right: '15px',
+                top: '128px',
+                
+
                 
             }}
             role="presentation"
@@ -77,37 +82,37 @@ export const BetslipSideDrawer = (props) => {
                 </Tabs>
             </Box>
             <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                <ListItem button key={text}>
-                <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-                </ListItem>
+            {['1', '2', '3', '4','5'].map((text, index) => (
+                <Box key={index} 
+                sx={{height:'95px',width:'100%',backgroundColor:'#dacdcd',marginBottom:'5px'}}>
+                </Box>
             ))}
             </List>
-            <List>
-            {['All mail', 'Trash', 'Spam', 'Trash', 'Spam', 'Trash', 'Spam', 'Trash', 'Spam', 'Trash', 'Spam'].map((text, index) => (
-                <ListItem button key={text}>
-                <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-                </ListItem>
-            ))}
-            </List>
+            <Box sx={{width:'95%',textAlign:'center',borderRadius:'5px',border:'1px solid black',marginLeft:'auto',marginRight:'auto',marginBottom:'10px'}}>
+                <TextField sx={{width:'40%',border:'none'}} id="outlined-basic" variant="outlined" placeholder='0.00'/>
+            </Box>
+
+            <Box sx={{display:'flex',marginBottom:'15px'}}>
+                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#dacdcd',borderRadius:'5px',marginRight:'5px'}}></Box>
+                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#dacdcd',borderRadius:'5px',marginRight:'5px'}}></Box>
+                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#dacdcd',borderRadius:'5px',marginRight:'5px'}}></Box>
+                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#dacdcd',borderRadius:'5px',marginRight:'5px'}}></Box>
+            </Box>
+
+            <Box sx={{width:'320px',height:'56px',alignItems:'center',textAlign:'center',backgroundColor:'#e57714',color:'white',fontSize:'20px',borderRadius:'5px',lineHeight:'56px'}}>
+                Connect To MetaMask
+            </Box>
+
+
             {/*<RiArrowRightCircleFill 
             style={{height:"40px",width:"40px",cursor:"pointer",position:'absolute',top:'0',left:'0'}} 
             onClick={toggleDrawer(anchor, true)}/>*/}
-        </Box>
+        </Box>  
     );
 
     return (
-    <div>
         <React.Fragment key={anchor}>
-            
             {list(anchor)}
         </React.Fragment>
-    </div>
     );
 }

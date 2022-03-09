@@ -2,7 +2,9 @@ import Head from "next/head";
 import { Box } from "@mui/material";
 import { DashboardLayout } from "../components/DashboardLayout";
 import { SportsBookPage } from "../components/Dashboard/SportsBookPage"
-import { BetslipSideDrawer } from "../components/Dashboard/BetslipSideDrawer"
+import { BetslipSideDrawerEmptyModal } from "../components/Dashboard/BetslipSideDrawerEmptyModal"
+import { BetslipSideDrawer} from "../components/Dashboard/BetslipSideDrawer"
+
 
 
 let data = require('../../odds.json');
@@ -24,7 +26,8 @@ const Dashboard = () =>
             }}
         > 
             <SportsBookPage EPL_data={EPL_data}/>
-            <BetslipSideDrawer/>
+            <BetslipSideDrawerEmptyModal />
+            <BetslipSideDrawer />
         </Box>
     </>
 )};
