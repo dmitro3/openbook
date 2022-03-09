@@ -15,6 +15,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { NavItem } from "./NavItem";
 import { FaStar,FaFire,FaHandshake,FaGamepad,FaFutbol,FaBasketballBall,FaHockeyPuck,FaFootballBall,FaBaseballBall,FaFlagCheckered} from 'react-icons/fa';
 import {RiMouseFill,RiBoxingFill} from 'react-icons/ri';
+import {CustomDivider} from '../components/Dashboard/CustomDivider'
 
 const bettingZoneitems = [
   {
@@ -145,14 +146,7 @@ export const DashboardSidebar = (props) => {
             </a>
           </NextLink>
         </div>
-        <Divider
-          sx={{
-            borderColor: "#787b7d",
-            my: 3,
-            opacity: 0.3,
-            border: 1
-          }}
-        />
+        <CustomDivider/>
         <Box sx={{ flexGrow: 1 }}>
           {bettingZoneitems.map((item) => (
             <NavItem
@@ -163,14 +157,7 @@ export const DashboardSidebar = (props) => {
             />
           ))}
         </Box>
-        <Divider
-          sx={{
-            borderColor: "#787b7d",
-            my: 3,
-            opacity: 0.3,
-            border: 1
-          }}
-        />
+        <CustomDivider/>
         <Box sx={{ flexGrow: 1 }}>
           {sportsItems.map((item) => (
             <NavItem
@@ -182,14 +169,7 @@ export const DashboardSidebar = (props) => {
           ))}
         </Box>
         
-        <Divider
-          sx={{
-            borderColor: "#787b7d",
-            my: 3,
-            opacity: 0.3,
-            border: 1
-          }}
-        />
+        <CustomDivider/>
         <Box
           sx={{
             px: 2,
