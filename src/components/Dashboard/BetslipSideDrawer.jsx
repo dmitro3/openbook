@@ -9,7 +9,6 @@ import MailIcon from '@mui/icons-material/Mail';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TextField from '@mui/material/TextField'
-import {RiArrowRightCircleFill,RiTicket2Line,} from 'react-icons/ri';
 import {IoTrashBinSharp,IoTicketOutline} from 'react-icons/io5'
 import { Grid } from '@mui/material';
 
@@ -42,8 +41,6 @@ export const BetslipSideDrawer = (props) => {
                 right: '15px',
                 top: '128px',
                 
-
-                
             }}
             role="presentation"
             onClick={toggleDrawer(anchor, false)}
@@ -73,21 +70,24 @@ export const BetslipSideDrawer = (props) => {
                     onChange={handleChange}
                     textColor="secondary"
                     TabIndicatorProps={{style: {backgroundColor: "white"}}}
-                    sx={{width:'90%'}}
+                    sx={{width:'100%'}}
                     
                 >
-                    <Tab value="Single Bet"  label="Single Bet" sx={{fontSize:'12px'}}/>
-                    <Tab value="Paylay" label="Parlay" sx={{fontSize:'12px'}}/>
-                    <Tab value="Others" label="Others" sx={{fontSize:'12px'}}/>
+                    <Tab value="Single Bet"  label="Single Bet" sx={{fontSize:'14px',paddingRight:'0px'}}/>
+                    <Tab value="Paylay" label="Parlay" sx={{fontSize:'14px',paddingRight:'0px'}}/>
+                    <Tab value="Others" label="Others" sx={{fontSize:'14px',paddingRight:'0px'}}/>
                 </Tabs>
             </Box>
-            <List>
-            {['1', '2', '3', '4','5'].map((text, index) => (
-                <Box key={index} 
-                sx={{height:'95px',width:'100%',backgroundColor:'#dacdcd',marginBottom:'5px'}}>
-                </Box>
-            ))}
-            </List>
+            <Box sx={{maxHeight:"60vh",overflow:'overlay',marginBottom:'10px'}}>
+                <List>
+                {['1', '2', '3', '4','5','1','1', '2', '3', '4','5','1','1', '2', '3', '4','5','1','1', '2', '3', '4','5','1'].map((text, index) => (
+                    <Box key={index} 
+                    sx={{height:'95px',width:'100%',backgroundColor:'#dacdcd',marginBottom:'5px'}}>
+                    </Box>
+                ))}
+                </List>
+            </Box>
+
             <Box sx={{width:'95%',textAlign:'center',borderRadius:'5px',border:'1px solid black',marginLeft:'auto',marginRight:'auto',marginBottom:'10px'}}>
                 <TextField sx={{width:'40%',border:'none'}} id="outlined-basic" variant="outlined" placeholder='0.00'/>
             </Box>

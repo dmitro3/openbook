@@ -16,7 +16,7 @@ import { NavItem } from "./NavItem";
 import { FaStar,FaFire,FaHandshake,FaGamepad,FaFutbol,FaBasketballBall,FaHockeyPuck,FaFootballBall,FaBaseballBall,FaFlagCheckered} from 'react-icons/fa';
 import {RiMouseFill,RiBoxingFill} from 'react-icons/ri';
 import {CustomDivider} from '../components/Dashboard/CustomDivider'
-
+import {IoTicketOutline} from 'react-icons/io5'
 const bettingZoneitems = [
   {
     href: "/featured",
@@ -80,7 +80,12 @@ const sportsItems = [
     href: "/settings",
     icon: <FaFlagCheckered />,
     title: "Motorsports",
-  },   
+  },
+  {
+    href: "/testing",
+    icon: <IoTicketOutline />,
+    title: "Bet Slip Testing Page",
+  }
 ];
 
 export const DashboardSidebar = (props) => {
