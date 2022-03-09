@@ -18,12 +18,12 @@ import {RiMouseFill,RiBoxingFill} from 'react-icons/ri';
 
 const bettingZoneitems = [
   {
-    href: "/",
+    href: "/featured",
     icon: <FaStar />,
     title: "Featured",
   },
   {
-    href: "/Trending",
+    href: "/trending",
     icon: <FaFire/>,
     title: "Trending Games",
   },
@@ -41,17 +41,17 @@ const sportsItems = [
     title: "E-Sports",
   },
   {
-    href: "/settings",
+    href: "/epl_football",
     icon: <FaFutbol />,
     title: "Football",
   },
   {
-    href: "/settings",
+    href: "/nba_basketball",
     icon: <FaBasketballBall />,
     title: "Basketball",
   },
   {
-    href: "/settings",
+    href: "/ahl_hockey",
     icon: <FaHockeyPuck />,
     title: "Ice Hockey",
   },
