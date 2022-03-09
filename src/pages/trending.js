@@ -9,7 +9,7 @@ let EPL_data = data.Soccer.EPL;
 const Dashboard = () => (
   <>
     <Head>
-      <title>Home | OpenEdge</title>
+      <title>Trending | Betting | OpenEdge</title>
     </Head>
     <Box
       component="main"

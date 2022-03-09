@@ -4,12 +4,12 @@ import { MatchCard } from "../components/Dashboard/MatchCard";
 import { DashboardLayout } from "../components/DashboardLayout";
 
 let data = require("../../odds.json");
-let EPL_data = data.Soccer.EPL;
+let NBA_data = data.Basketball.NBA;
 
 const Dashboard = () => (
   <>
     <Head>
-      <title>Home | OpenEdge</title>
+      <title>NBA | Betting | OpenEdge</title>
     </Head>
     <Box
       component="main"
@@ -20,7 +20,7 @@ const Dashboard = () => (
     >
       <Container maxWidth={false}>
         <Grid container spacing={3}>
-          {EPL_data.map((match) => {
+          {NBA_data.map((match) => {
             let datetime = new Date(match.timestamp);
             let dateStringForProps = datetime.toLocaleString("default", {
               month: "short",

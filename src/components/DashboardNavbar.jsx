@@ -18,6 +18,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { UserCircle as UserCircleIcon } from "../utils/icons/user-circle";
 import React from 'react';
 import { Bell as BellIcon } from "../utils/icons/bell";
+import PrimaryNavTabs from "./Dashboard/PrimaryNavTabs";
 
 /* Function that sets the navigation theme from template */
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
@@ -45,10 +46,6 @@ export const DashboardNavbar = (props) => {
   const open = Boolean(anchorEl);
   /* End user button drop down variables */
 
-  /* Top navigation bar tabs variables */
-  const [value, setValue] = React.useState("one");
-  /* End top navigation bar tabs variables */
-
   /* User button drop down functions */
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,12 +60,6 @@ export const DashboardNavbar = (props) => {
     setAnchorEl(null);
   };
   /* End user button drop down functions */
-
-  /* Top navigation bar tabs variables */
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  /* End top navigation bar tabs variables */
 
   return (
     <>
@@ -109,18 +100,8 @@ export const DashboardNavbar = (props) => {
           </IconButton>
 
 
-          <Box sx={{ width: '100%', borderColor: 'divider'}}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="secondary"
-            indicatorColor="secondary"
-            aria-label="secondary tabs example"
-            
-          >
-            <Tab value="one" /*sx={{fontSize:'1.3rem'}}*/ label="Bet Now" />
-            <Tab value="two" /*sx={{fontSize:'1.3rem'}}*/ label="Be the Bookie" />
-          </Tabs>
+        <Box sx={{ width: '100%', borderColor: 'divider'}}>
+          <PrimaryNavTabs />
         </Box>
 
           {
@@ -129,7 +110,7 @@ export const DashboardNavbar = (props) => {
           <Box sx={{ flexGrow: 1 }} />
 
           {
-          //This is the notificaiton component from the template
+          //This is the notification component from the template
           }
           <Tooltip title="Notifications">
             <IconButton sx={{ ml: 1 }}>

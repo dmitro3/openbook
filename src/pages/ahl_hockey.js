@@ -4,12 +4,12 @@ import { MatchCard } from "../components/Dashboard/MatchCard";
 import { DashboardLayout } from "../components/DashboardLayout";
 
 let data = require("../../odds.json");
-let EPL_data = data.Soccer.EPL;
+let EPL_data = data.IceHockey.AHL;
 
 const Dashboard = () => (
   <>
     <Head>
-      <title>Home | OpenEdge</title>
+      <title>AHL | Betting | OpenEdge</title>
     </Head>
     <Box
       component="main"
