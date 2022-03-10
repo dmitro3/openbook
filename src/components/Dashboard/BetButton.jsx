@@ -15,12 +15,13 @@ export const BetButton = (props) => {
         sx={{
             mr: 1,
             padding: 1.5,
-            backgroundColor: '#f5f5f5'
-        }}
+            backgroundColor: '#f5f5f5',
+            cursor: 'pointer',
+            '&:hover': {
+                cursor: 'pointer',
+                backgroundColor: '#d9d9d9'
+        }}}
         variant="body2"
-        onMouseEnter={(e)=>{e.target.style.backgroundColor = "#d9d9d9"}}
-        onMouseLeave={(e)=>{e.target.style.backgroundColor = "#f5f5f5"}}
-        
         >
             <Typography sx={{margin:'auto'}}>{props.number}</Typography>
             <div style={{padding:'10px'}}></div>

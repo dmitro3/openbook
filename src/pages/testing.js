@@ -4,6 +4,7 @@ import { DashboardLayout } from "../components/DashboardLayout";
 import { SportsBookPage } from "../components/Dashboard/SportsBookPage"
 import { BetslipSideDrawerEmptyModal } from "../components/Dashboard/BetslipSideDrawerEmptyModal"
 import { BetslipSideDrawer} from "../components/Dashboard/BetslipSideDrawer"
+import { useState} from "react"
 
 
 
@@ -12,6 +13,7 @@ let EPL_data = data.Soccer.EPL;
 
 const Dashboard = () => 
 {
+    const [isSlipOpened, setSlipOpen] = useState(false);
     return (
     <>
     <Head>
@@ -26,8 +28,8 @@ const Dashboard = () =>
             }}
         > 
             <SportsBookPage EPL_data={EPL_data}/>
-            <BetslipSideDrawerEmptyModal />
-            <BetslipSideDrawer />
+            <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
+            <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>
         </Box>
     </>
 )};

@@ -1,11 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import PropTypes from "prop-types";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Input from '@mui/material/Input'
@@ -13,7 +9,7 @@ import {IoTrashBinSharp,IoTicketOutline,IoCashOutline} from 'react-icons/io5'
 import {FaRegTimesCircle} from 'react-icons/fa'
 import { CgArrowRightR } from "react-icons/cg";
 import {Typography} from '@mui/material';
-import { Grid } from '@mui/material';
+
 
 
 export const BetslipSideDrawer = (props) => {
@@ -35,23 +31,46 @@ export const BetslipSideDrawer = (props) => {
     
     const list = (anchor) => (
         <Box
-            sx={{ width: '320px',
-                backgroundColor:"white",
-                position:'fixed',
-                height:'fit-content',
-                borderRadius: '4px',
-                //overflow: 'hidden',
-                right: '20px',
-                top: '128px',
-                
-            }}
+            sx={
+                props.isSlipOpened ? 
+                { 
+                    width: '320px',
+                    backgroundColor:"white",
+                    position:'fixed',
+                    height:'fit-content',
+                    borderRadius: '4px',
+                    //overflow: 'hidden',
+                    right: '20px',
+                    top: '128px',
+                    transition: '0.5s'
+                } :
+                { 
+                    width: '320px',
+                    backgroundColor:"white",
+                    position:'fixed',
+                    height:'fit-content',
+                    borderRadius: '4px',
+                    //overflow: 'hidden',
+                    right: '-330px',
+                    top: '128px',  
+                    transition: '0.5s'     
+                }
+            }
             role="presentation"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
 
             
         >
-        <CgArrowRightR style={{position:'absolute',top:'2.5%',left:'12.5px',width:'25px',height:'25px',zIndex:'1',color:'white',cursor:'pointer'}}/>
+        <CgArrowRightR 
+            style=
+            {
+                props.isSlipOpened ? 
+                {position:'absolute',top:'2.5%',left:'12.5px',width:'25px',height:'25px',zIndex:'1',color:'white',cursor:'pointer'} :
+                {position:'absolute',top:'2.5%',left:'-40px',width:'25px',height:'25px',zIndex:'1',color:'black',cursor:'pointer',transform: 'scaleX(-1)', transition: '0.5s'}
+            }
+            onClick={()=>(props.setSlipOpen(!props.isSlipOpened))}
+        />
             <Box                 
                 sx={{
                     height: '50px',
@@ -69,7 +88,7 @@ export const BetslipSideDrawer = (props) => {
             </Box>
             <Box sx={{borderBottom:'1px solid #d9d9d9',display:'flex',alignItems: 'center',justifyContent: 'center',textAlign:'center'}}>
                 <Box sx={{width:'50px',height:'100%'}}>
-                    <IoTrashBinSharp  style={{height:'25px',width:'25px', cursor:'pointer',display:'block',margin:'auto'}}/>
+                    <IoTrashBinSharp  style={{height:'25px',width:'25px', cursor:'pointer',display:'block',margin:'auto',}}/>
                 </Box>
                 <Tabs
                     value={value}
@@ -146,9 +165,10 @@ export const BetslipSideDrawer = (props) => {
                     <Box sx={{height:'28px',width:'76px',backgroundColor:'#d7d3cf',borderRadius:'5px',marginRight:'5px', fontSize: '16px',fontWeight: '700',textAlign: 'center', verticalAlign: 'middle',lineHeight: '30px'}}>Max</Box>
             </Box>
 
-            <Box sx={{width:'320px',height:'56px',alignItems:'center',textAlign:'center',backgroundColor:'#e57714',color:'white',fontSize:'20px',borderRadius:'5px',lineHeight:'56px',cusor:'pointer'}}>
+            <Box sx={{width:'320px',height:'56px',alignItems:'center',textAlign:'center',backgroundColor:'#e57714',color:'white',fontSize:'20px',borderRadius:'5px',lineHeight:'56px',cursor:'pointer'}}>
                 Connect To MetaMask
             </Box>
+
 
 
             {/*<RiArrowRightCircleFill 
@@ -166,3 +186,9 @@ export const BetslipSideDrawer = (props) => {
         </React.Fragment>
     );
 }
+
+BetslipSideDrawer.propTypes = {
+    setSlipOpen: PropTypes.func,
+    isSlipOpened: PropTypes.bool
+  };
+  

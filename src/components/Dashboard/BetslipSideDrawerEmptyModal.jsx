@@ -1,9 +1,25 @@
 import Box from '@mui/material/Box';
-export const BetslipSideDrawerEmptyModal = () => {
+import PropTypes from "prop-types";
+export const BetslipSideDrawerEmptyModal = (props) => {
 
     return(
-        <Box sx={{ 
-            marginLeft: '350px'
-        }}></Box>
+        <Box sx={
+        props.isSlipOpened ?
+        { 
+            marginLeft: '350px',
+            transition: '0.5s'
+        }
+        :
+        {
+            marginLeft: '30px',
+            transition: '0.5s'
+        }
+
+        }></Box>
     )
 }
+
+BetslipSideDrawerEmptyModal.propTypes = {
+    setSlipOpen: PropTypes.func,
+    isSlipOpened: PropTypes.bool
+  };
