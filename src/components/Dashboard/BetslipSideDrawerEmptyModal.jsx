@@ -3,7 +3,7 @@ export const BetslipSideDrawerEmptyModal = () => {
 
     return(
         <Box sx={{ 
-            marginLeft: '335px'
+            marginLeft: '350px'
         }}></Box>
     )
 }
