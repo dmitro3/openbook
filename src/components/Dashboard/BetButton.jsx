@@ -1,16 +1,9 @@
-import { Box, Typography, Button} from '@mui/material';
+import {Typography, Button} from '@mui/material';
 import PropTypes from "prop-types";
 
 export const BetButton = (props) => {
 
     return(
-        <Box
-            sx={{
-            pt: 2,
-            display: 'flex',
-            alignItems: 'center',
-            }}
-        >
         <Button
         sx={{
             mr: 1,
@@ -22,16 +15,16 @@ export const BetButton = (props) => {
                 backgroundColor: '#d9d9d9'
         }}}
         variant="body2"
-        >
-            <Typography sx={{margin:'auto'}}>{props.number}</Typography>
-            <div style={{padding:'10px'}}></div>
-            <Typography sx={{margin:'auto',color:'#005a98'}}>{props.outcome}</Typography>
+        id={props.BetButtonId}
+        onClick={(e)=>{e.target.id ? console.log(e.target.id) : reutrn}}>
+            <Typography sx={{margin:'auto',pointerEvents: 'none'}}>{props.number}</Typography>
+            <div style={{padding:'10px',pointerEvents: 'none'}}></div>
+            <Typography sx={{margin:'auto',color:'#005a98',pointerEvents: 'none'}}>{props.outcome}</Typography>
         </Button>
-
-        </Box>
 )};
 
 BetButton.propTypes = {
     number:PropTypes.string,
     outcome:PropTypes.string,
+    BetButtonId: PropTypes.string
 };

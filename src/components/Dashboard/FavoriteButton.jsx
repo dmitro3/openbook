@@ -1,27 +1,26 @@
-import {Box, Button} from '@mui/material';
+import {Button} from '@mui/material';
 import {RiStarLine} from 'react-icons/ri';
+import PropTypes from "prop-types";
 
 export const FavoriteButton = (props) => (
-    <>
-        <Box
-        sx={{
-        pt: 2,
-        display: 'flex',
-        alignItems: 'center',
-        }}
-        >
-            <Button
-            sx={{
-                mr: 1,
-                padding: '1rem',
-                backgroundColor: "#f5f5f5",
-                fontSize: '1.2rem'
-            }}
-            variant="body2"
-            >
-            <RiStarLine/>
-            </Button>
-        </Box>
-    </>
-
+    <Button
+    sx={{
+        mr: 1,
+        padding: '1rem',
+        backgroundColor: "#f5f5f5",
+        fontSize: '1.2rem',
+        cursor: 'pointer',
+        '&:hover': {
+            cursor: 'pointer',
+            backgroundColor: '#d9d9d9'
+    }}}
+    variant="body2"
+    id={props.FaviorteButtonId}
+    onClick={(e)=>{e.target.id ? console.log(e.target.id) : void(0)}}>
+    <RiStarLine sx={{pointerEvents: 'none'}}/>
+    </Button>
 );
+
+FavoriteButton.propTypes = {
+    FaviorteButtonId: PropTypes.string
+};

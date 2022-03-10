@@ -38,14 +38,21 @@ export const MatchCard = (props) => (
       
       <div style={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'10%',right:'10%'}}>
         <BetButton number={'1'} 
-        outcome={props.outcome1}/>
+        outcome={props.outcome1}
+        BetButtonId={props.matchId+"/"+"1"}
+        />
 
         <BetButton number={'X'} 
-        outcome={props.outcomeX}/>
+        outcome={props.outcomeX}
+        BetButtonId={props.matchId+"/"+"2"}
+        />
+        
         
         <BetButton number={'2'} 
-        outcome={props.outcome2}/>
-        <FavoriteButton/>
+        outcome={props.outcome2}
+        BetButtonId={props.matchId+"/"+"3"}
+        />
+        <FavoriteButton FaviorteButtonId={props.matchId+"/f"}/>
       </div>  
       </Grid>
     </CardContent>
@@ -59,5 +66,6 @@ MatchCard.propTypes = {
   outcomeX:PropTypes.number,
   outcome2:PropTypes.number,
   dateString:PropTypes.string,
-  timeString:PropTypes.string
+  timeString:PropTypes.string,
+  macthId: PropTypes.string
 };
