@@ -130,7 +130,7 @@ export const BetslipSideDrawer = (props) => {
                         <Typography sx={{color:'black',textAlign:'left',fontSize:'12px',fontWeight:'400',marginRight:'5px'}}>Possible payout:</Typography>
                             <Box sx={{width:'54px',marginLeft:'7px',marginRight:'7px',height:'100%',textAlign: 'center',display:'flex'}}>
                                 <Typography sx={{color:'black',textAlign:'left',fontSize:'15px',fontWeight:'700',textAlign:'center',marginTop:'-2px',marginRight:'5px'}}>600.00</Typography>
-                                <Typography sx={{color:'black',textAlign:'left',fontSize:'15px',fontWeight:'700',textAlign:'center',marginTop:'-2px'}}>DAO</Typography>
+                                <Typography sx={{color:'black',textAlign:'left',fontSize:'15px',fontWeight:'700',textAlign:'center',marginTop:'-2px'}}>DAI</Typography>
                             </Box>
                         </Box>
 
@@ -148,7 +148,7 @@ export const BetslipSideDrawer = (props) => {
                 <Input id="my-input" aria-describedby="my-helper-text" placeholder='0.00' inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} />
                 </Box>
                 <Box sx={{width:'35px',height:'100%',marginRight:'7px'}}>
-                    <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'700',marginRight:'5px',marginTop:'2px'}}>DAO</Typography>
+                    <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'700',marginRight:'5px',marginTop:'2px'}}>DAI</Typography>
                 </Box>
             </Box>
 
