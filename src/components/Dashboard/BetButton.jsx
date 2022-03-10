@@ -11,15 +11,18 @@ export const BetButton = (props) => {
             backgroundColor: '#f5f5f5',
             cursor: 'pointer',
             '&:hover': {
-                cursor: 'pointer',
                 backgroundColor: '#d9d9d9'
-        }}}
+            },
+            '*':{
+            pointerEvents: 'none'
+            }
+            }}
         variant="body2"
         id={props.BetButtonId}
-        onClick={(e)=>{e.target.id ? console.log(e.target.id) : reutrn}}>
-            <Typography sx={{margin:'auto',pointerEvents: 'none'}}>{props.number}</Typography>
-            <div style={{padding:'10px',pointerEvents: 'none'}}></div>
-            <Typography sx={{margin:'auto',color:'#005a98',pointerEvents: 'none'}}>{props.outcome}</Typography>
+        onClick={(e)=>{e.target.id ? console.log(e.target.id) : void(0)}}>
+            <Typography sx={{margin:'auto'}}>{props.number}</Typography>
+            <div style={{padding:'10px'}}></div>
+            <Typography sx={{margin:'auto',color:'#005a98'}}>{props.outcome}</Typography>
         </Button>
 )};
 

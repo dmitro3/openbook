@@ -10,6 +10,7 @@ import {FaRegTimesCircle} from 'react-icons/fa'
 import { CgArrowRightR } from "react-icons/cg";
 import {Typography} from '@mui/material';
 
+import styles from './BetSlipDrawer.module.css';
 
 
 export const BetslipSideDrawer = (props) => {
@@ -37,23 +38,23 @@ export const BetslipSideDrawer = (props) => {
                     width: '320px',
                     backgroundColor:"white",
                     position:'fixed',
-                    height:'fit-content',
+                    height:'auto',
                     borderRadius: '4px',
                     //overflow: 'hidden',
                     right: '20px',
                     top: '128px',
-                    transition: '0.5s'
+                    transition: '0.5s',
                 } :
                 { 
                     width: '320px',
                     backgroundColor:"white",
                     position:'fixed',
-                    height:'fit-content',
+                    height:'auto',
                     borderRadius: '4px',
                     //overflow: 'hidden',
                     right: '-330px',
                     top: '128px',  
-                    transition: '0.5s'     
+                    transition: '0.5s'  ,
                 }
             }
             role="presentation"
@@ -62,15 +63,8 @@ export const BetslipSideDrawer = (props) => {
 
             
         >
-        <CgArrowRightR 
-            style=
-            {
-                props.isSlipOpened ? 
-                {position:'absolute',top:'2.5%',left:'12.5px',width:'25px',height:'25px',zIndex:'1',color:'white',cursor:'pointer'} :
-                {position:'absolute',top:'2.5%',left:'-40px',width:'25px',height:'25px',zIndex:'1',color:'black',cursor:'pointer',transform: 'scaleX(-1)', transition: '0.5s'}
-            }
-            onClick={()=>(props.setSlipOpen(!props.isSlipOpened))}
-        />
+        <CgArrowRightR className={`${styles.slipArrow} ${props.isSlipOpened ? styles.slipArrowOpen : styles.slipArrowClosed}`} onClick={()=>(props.setSlipOpen(!props.isSlipOpened))}/>
+        
             <Box                 
                 sx={{
                     height: '50px',
@@ -88,7 +82,7 @@ export const BetslipSideDrawer = (props) => {
             </Box>
             <Box sx={{borderBottom:'1px solid #d9d9d9',display:'flex',alignItems: 'center',justifyContent: 'center',textAlign:'center'}}>
                 <Box sx={{width:'50px',height:'100%'}}>
-                    <IoTrashBinSharp  style={{height:'25px',width:'25px', cursor:'pointer',display:'block',margin:'auto',}}/>
+                    <IoTrashBinSharp  className={styles.trashBin}/>
                 </Box>
                 <Tabs
                     value={value}
@@ -109,7 +103,7 @@ export const BetslipSideDrawer = (props) => {
                     sx={{height:'95px',width:'100%',backgroundColor:'#white',marginBottom:'5px',borderBottom:'1px solid #d9d9d9'}}>
                     <Box sx={{height:'fit-content',backgroundColor:'#white',paddingBottom:'10px',paddingTop:'10px',display:'flex',textAlign:'center'}}>
                         <Box sx={{width:'50px',height:'100%'}}>
-                            <FaRegTimesCircle  style={{height:'100%',width:'25px', cursor:'pointer',display:'block',margin:'auto'}}/>
+                            <FaRegTimesCircle  className={styles.singleTicketDelete}/>
                         </Box>
                         <Box sx={{width:'270px',display:'flex'}}>
                             <Box sx={{backgroundColor:'white',width:'202px',height:'100%'}}>
@@ -148,7 +142,7 @@ export const BetslipSideDrawer = (props) => {
 
             <Box sx={{width:'304px',height:'44px',textAlign:'center',borderRadius:'5px',marginLeft:'auto',marginRight:'auto',marginBottom:'10px',marginTop:'10px',backgroundColor:'#fffaf6',paddingTop:'8px',paddingBottom:'8px',display:'flex',justifyContent: 'center'}}>
                 <Box sx={{width:'70px',height:'100%',marginRight:'7px',marginLeft:'7px'}}>
-                    <Typography sx={{color:'#555',textAlign:'left',fontSize:'12px',fontWeight:'400',marginRight:'5px',marginTop:'6px'}}>Bet Total:</Typography>
+                    <Typography sx={{color:'black',textAlign:'left',fontSize:'13px',fontWeight:'500',marginRight:'5px',marginTop:'8px'}}>Bet Total:</Typography>
                 </Box>
                 <Box sx={{width:'140px',height:'100%',marginRight:'15px'}}>
                 <Input id="my-input" aria-describedby="my-helper-text" placeholder='0.00' inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} />
@@ -158,14 +152,14 @@ export const BetslipSideDrawer = (props) => {
                 </Box>
             </Box>
 
-            <Box sx={{display:'flex',marginBottom:'30px',marginTop:'15px'}}>
-                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#d7d3cf',borderRadius:'5px',marginRight:'5px', fontSize: '16px',fontWeight: '700',textAlign: 'center', verticalAlign: 'middle',lineHeight: '30px'}}>100</Box>
-                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#d7d3cf',borderRadius:'5px',marginRight:'5px', fontSize: '16px',fontWeight: '700',textAlign: 'center', verticalAlign: 'middle',lineHeight: '30px'}}>200</Box>
-                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#d7d3cf',borderRadius:'5px',marginRight:'5px', fontSize: '16px',fontWeight: '700',textAlign: 'center', verticalAlign: 'middle',lineHeight: '30px'}}>500</Box>
-                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#d7d3cf',borderRadius:'5px',marginRight:'5px', fontSize: '16px',fontWeight: '700',textAlign: 'center', verticalAlign: 'middle',lineHeight: '30px'}}>Max</Box>
+            <Box sx={{display:'flex',marginBottom:'30px',marginTop:'15px',justifyContent: 'space-evenly'}}>
+                    <Box className={styles.presetBetButton}>100</Box>
+                    <Box className={styles.presetBetButton}>200</Box>
+                    <Box className={styles.presetBetButton}>500</Box>
+                    <Box className={styles.presetBetButton}>Max</Box>
             </Box>
 
-            <Box sx={{width:'320px',height:'56px',alignItems:'center',textAlign:'center',backgroundColor:'#e57714',color:'white',fontSize:'20px',borderRadius:'5px',lineHeight:'56px',cursor:'pointer'}}>
+            <Box className={styles.submitButton}>
                 Connect To MetaMask
             </Box>
 

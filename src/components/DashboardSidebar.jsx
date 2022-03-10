@@ -17,6 +17,7 @@ import { FaStar,FaFire,FaHandshake,FaGamepad,FaFutbol,FaBasketballBall,FaHockeyP
 import {RiMouseFill,RiBoxingFill} from 'react-icons/ri';
 import {CustomDivider} from '../components/Dashboard/CustomDivider'
 import {IoTicketOutline} from 'react-icons/io5'
+import {AiOutlineMergeCells} from 'react-icons/ai'
 const bettingZoneitems = [
   {
     href: "/featured",
@@ -30,7 +31,7 @@ const bettingZoneitems = [
   },
   {
     href: "/products",
-    icon: <FaHandshake/>,
+    icon: <AiOutlineMergeCells/>,
     title: "Parlays",
   }
 ];

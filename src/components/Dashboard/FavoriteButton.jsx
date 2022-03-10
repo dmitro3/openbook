@@ -11,13 +11,16 @@ export const FavoriteButton = (props) => (
         fontSize: '1.2rem',
         cursor: 'pointer',
         '&:hover': {
-            cursor: 'pointer',
             backgroundColor: '#d9d9d9'
-    }}}
+        },
+        '*':{
+            pointerEvents: 'none'
+        }
+    }}
     variant="body2"
     id={props.FaviorteButtonId}
     onClick={(e)=>{e.target.id ? console.log(e.target.id) : void(0)}}>
-    <RiStarLine sx={{pointerEvents: 'none'}}/>
+    <RiStarLine/>
     </Button>
 );
 
