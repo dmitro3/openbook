@@ -139,11 +139,11 @@ export const BetslipSideDrawer = (props) => {
                 </Box>
             </Box>
 
-            <Box sx={{display:'flex',marginBottom:'15px',marginTop:'15px'}}>
-                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#dacdcd',borderRadius:'5px',marginRight:'5px'}}></Box>
-                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#dacdcd',borderRadius:'5px',marginRight:'5px'}}></Box>
-                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#dacdcd',borderRadius:'5px',marginRight:'5px'}}></Box>
-                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#dacdcd',borderRadius:'5px',marginRight:'5px'}}></Box>
+            <Box sx={{display:'flex',marginBottom:'30px',marginTop:'15px'}}>
+                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#d7d3cf',borderRadius:'5px',marginRight:'5px', fontSize: '16px',fontWeight: '700',textAlign: 'center', verticalAlign: 'middle',lineHeight: '30px'}}>100</Box>
+                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#d7d3cf',borderRadius:'5px',marginRight:'5px', fontSize: '16px',fontWeight: '700',textAlign: 'center', verticalAlign: 'middle',lineHeight: '30px'}}>200</Box>
+                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#d7d3cf',borderRadius:'5px',marginRight:'5px', fontSize: '16px',fontWeight: '700',textAlign: 'center', verticalAlign: 'middle',lineHeight: '30px'}}>500</Box>
+                    <Box sx={{height:'28px',width:'76px',backgroundColor:'#d7d3cf',borderRadius:'5px',marginRight:'5px', fontSize: '16px',fontWeight: '700',textAlign: 'center', verticalAlign: 'middle',lineHeight: '30px'}}>Max</Box>
             </Box>
 
             <Box sx={{width:'320px',height:'56px',alignItems:'center',textAlign:'center',backgroundColor:'#e57714',color:'white',fontSize:'20px',borderRadius:'5px',lineHeight:'56px',cusor:'pointer'}}>
