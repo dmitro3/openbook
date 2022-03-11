@@ -123,9 +123,9 @@ app.get("/liquidity/allowed/:id", (req, res, next) => {
 
 
             if (row1['usedLiquidity'] == null)
-                return res.json(row['allowedLiquidity'])                                
+                return res.json(row['allowedLiquidity'] * 0.2)                                
             else    
-                return res.json(parseFloat(row['allowedLiquidity']) - parseFloat(row1['usedLiquidity']))
+                return res.json((parseFloat(row['allowedLiquidity']) - parseFloat(row1['usedLiquidity'])) * 0.2)
 
         });
       });
