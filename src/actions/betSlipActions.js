@@ -1,13 +1,20 @@
-export function addNumber(number){
+export function addBetSlipOutcome(outcomeID){
     return {
-        type: "ADD",
-        payload: number
+        type: "ADD_BET_SLIP_OUTCOME",
+        payload: outcomeID
     }
 }
 
-export function subtractNumber(number){
+export function removeBetSlipOutcome(outcomeID){
     return {
-        type: "SUBTRACT",
-        payload: number
+        type: "REMOVE_BET_SLIP_OUTCOME",
+        payload: outcomeID
+    }
+}
+
+export function removeAllBetSlipOutcomes(){
+    return{
+        type: "REMOVE_ALL_BEST_SLIP_OUTCOMES",
+        payload: ""
     }
 }

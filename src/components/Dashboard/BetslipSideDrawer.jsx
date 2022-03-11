@@ -9,11 +9,14 @@ import {IoTrashBinSharp,IoTicketOutline,IoCashOutline} from 'react-icons/io5'
 import {FaRegTimesCircle} from 'react-icons/fa'
 import { CgArrowRightR } from "react-icons/cg";
 import {Typography} from '@mui/material';
-
 import styles from './BetSlipDrawer.module.css';
 
+// Redux Dependencies
+import {connect} from "react-redux";
+import {addBetSlipOutcome,removeBetSlipOutcome, removeAllBetSlipOutcomes} from '../../actions/betSlipActions';
 
-export const BetslipSideDrawer = (props) => {
+
+const BetslipSideDrawer = (props) => {
     const [value, setValue] = React.useState("Single Bet");
 
     const handleChange = (event, newValue) => {
@@ -82,7 +85,7 @@ export const BetslipSideDrawer = (props) => {
             </Box>
             <Box sx={{borderBottom:'1px solid #d9d9d9',display:'flex',alignItems: 'center',justifyContent: 'center',textAlign:'center'}}>
                 <Box sx={{width:'50px',height:'100%'}}>
-                    <IoTrashBinSharp  className={styles.trashBin}/>
+                    <IoTrashBinSharp  className={styles.trashBin} onClick={()=>props.removeAllBetSlipOutcomes ()}/>
                 </Box>
                 <Tabs
                     value={value}
@@ -98,7 +101,7 @@ export const BetslipSideDrawer = (props) => {
             </Box>
             <Box sx={{maxHeight:"60vh",overflow:'overlay',marginBottom:'10px'}}>
                 <List>
-                {[1,2].map((text, index) => (
+                {props.betSlip.betSlipOutcomeArray.map((text, index) => (
                     <Box key={index} 
                     sx={{height:'95px',width:'100%',backgroundColor:'#white',marginBottom:'5px',borderBottom:'1px solid #d9d9d9'}}>
                     <Box sx={{height:'fit-content',backgroundColor:'#white',paddingBottom:'10px',paddingTop:'10px',display:'flex',textAlign:'center'}}>
@@ -181,8 +184,32 @@ export const BetslipSideDrawer = (props) => {
     );
 }
 
+const mapStateToProps = (state) => {
+    return {
+        betSlip: state.betSlip
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      addBetSlipMatch: (outcomeID) => {
+        dispatch(addBetSlipOutcome(outcomeID));
+      },
+      removeBetSlipMatch: (outcomeID) => {
+        dispatch(removeBetSlipOutcome(outcomeID));
+      },
+      removeAllBetSlipOutcomes: () => {
+          dispatch(removeAllBetSlipOutcomes());
+      }
+    };
+};
+  
+
 BetslipSideDrawer.propTypes = {
     setSlipOpen: PropTypes.func,
     isSlipOpened: PropTypes.bool
-  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BetslipSideDrawer);
+
   

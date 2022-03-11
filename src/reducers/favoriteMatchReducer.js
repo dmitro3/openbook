@@ -26,7 +26,6 @@ const favoriteMatchReducer = (state = {
                     }
                 }
                 else{
-                    console.log("i can't find item")
                     state = {
                         ...state
                     }

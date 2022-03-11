@@ -8,6 +8,7 @@ const static_english_soccer_icons_path = "/../public/static/images/english_socce
 // Redux Dependencies
 import {connect} from "react-redux";
 import {addFavoriteMatch,removeFavoriteMatch} from "../../actions/favoriteMatchActions";
+import {addBetSlipOutcome,removeBetSlipOutcome} from '../../actions/betSlipActions';
 
 const MatchCard = (props) => (
   <Card
@@ -42,17 +43,26 @@ const MatchCard = (props) => (
         <BetButton number={'1'} 
         outcome={props.outcome1}
         BetButtonId={props.matchId+"/"+"1"}
+        addBetSlipMatch={props.addBetSlipMatch}
+        removeBetSlipMatch={props.removeBetSlipMatch}
+        inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+"1")}
         />
 
         <BetButton number={'X'} 
         outcome={props.outcomeX}
         BetButtonId={props.matchId+"/"+"2"}
+        addBetSlipMatch={props.addBetSlipMatch}
+        removeBetSlipMatch={props.removeBetSlipMatch}
+        inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+"2")}
         />
         
         
         <BetButton number={'2'} 
         outcome={props.outcome2}
         BetButtonId={props.matchId+"/"+"3"}
+        addBetSlipMatch={props.addBetSlipMatch}
+        removeBetSlipMatch={props.removeBetSlipMatch}
+        inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+"3")}
         />
         <FavoriteButton FaviorteButtonId={props.matchId} addFavoriteMatch={props.addFavoriteMatch} removeFavoriteMatch={props.removeFavoriteMatch} favorited={props.favoriteMatch.favoritedMatchArray.includes(props.matchId)}/>
       </div>  
@@ -63,17 +73,24 @@ const MatchCard = (props) => (
 
 const mapStateToProps = (state) => {
   return {
-      favoriteMatch: state.favoriteMatch
+      favoriteMatch: state.favoriteMatch,
+      betSlip: state.betSlip
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
       addFavoriteMatch: (matchId) => {
-          dispatch(addFavoriteMatch(matchId));
+        dispatch(addFavoriteMatch(matchId));
         },
       removeFavoriteMatch: (matchId) => {
-          dispatch(removeFavoriteMatch(matchId));
+        dispatch(removeFavoriteMatch(matchId));
+      },
+      addBetSlipMatch: (outcomeID) => {
+        dispatch(addBetSlipOutcome(outcomeID));
+      },
+      removeBetSlipMatch: (outcomeID) => {
+        dispatch(removeBetSlipOutcome(outcomeID));
       }
     };
 };

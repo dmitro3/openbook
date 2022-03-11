@@ -3,12 +3,13 @@ import { Box } from "@mui/material";
 import { DashboardLayout } from "../components/DashboardLayout";
 import { SportsBookPage } from "../components/Dashboard/SportsBookPage";
 import { BetslipSideDrawerEmptyModal } from "../components/Dashboard/BetslipSideDrawerEmptyModal";
-import { BetslipSideDrawer} from "../components/Dashboard/BetslipSideDrawer";
+import  BetslipSideDrawer from "../components/Dashboard/BetslipSideDrawer";
 import { useState} from "react";
-import ReduxTestingButton from "../components/Dashboard/ReduxTestingButton"
+import {oddsConverter} from "../utils/oddsConverter"
 
 let data = require('../../odds.json');
 let EPL_data = data.Soccer.EPL;
+console.log(data);
 
 const Dashboard = (props) => 
 {
@@ -26,7 +27,7 @@ const Dashboard = (props) =>
             display: 'flex'
             }}
         > 
-            <ReduxTestingButton somethingelse='123' />
+
             <SportsBookPage EPL_data={EPL_data}/>
             <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
             <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>

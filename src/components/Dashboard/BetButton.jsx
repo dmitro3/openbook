@@ -2,7 +2,6 @@ import {Typography, Button} from '@mui/material';
 import PropTypes from "prop-types";
 
 export const BetButton = (props) => {
-
     return(
         <Button
         sx={{
@@ -19,7 +18,10 @@ export const BetButton = (props) => {
             }}
         variant="body2"
         id={props.BetButtonId}
-        onClick={(e)=>{e.target.id ? console.log(e.target.id) : void(0)}}>
+        onClick={(e)=>{props.inSlip ? props.removeBetSlipMatch(props.BetButtonId) : props.addBetSlipMatch(props.BetButtonId)}}
+        style={props.inSlip? {border:'2px solid green'} : { border:'none'}}
+        >
+        
             <Typography sx={{margin:'auto'}}>{props.number}</Typography>
             <div style={{padding:'0.5vw'}}></div>
             <Typography sx={{margin:'auto',color:'#005a98'}}>{props.outcome}</Typography>
@@ -29,5 +31,6 @@ export const BetButton = (props) => {
 BetButton.propTypes = {
     number:PropTypes.string,
     outcome:PropTypes.string,
-    BetButtonId: PropTypes.string
+    BetButtonId: PropTypes.string,
+    inSlip: PropTypes.bool
 };
