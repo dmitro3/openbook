@@ -26,7 +26,7 @@ const Dashboard = (props) =>
             display: 'flex'
             }}
         > 
-            <ReduxTestingButton />
+            <ReduxTestingButton somethingelse='123' />
             <SportsBookPage EPL_data={EPL_data}/>
             <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
             <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>

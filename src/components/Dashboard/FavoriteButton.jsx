@@ -1,9 +1,15 @@
 import {Button} from '@mui/material';
-import {RiStarLine} from 'react-icons/ri';
+import {RiStarLine,RiStarFill} from 'react-icons/ri';
 import PropTypes from "prop-types";
 
-export const FavoriteButton = (props) => (
-    <Button
+export const FavoriteButton = (props) => {
+    let temp = <b></b>
+    useEffect(() => {
+        // Update the document title using the browser API
+        temp = <b style={{fontSzie:'5px'}}>{props.favorited.toString()}</b>;
+      });
+    
+    return (<Button
     sx={{
         mr: 1,
         padding: '1rem',
@@ -19,11 +25,16 @@ export const FavoriteButton = (props) => (
     }}
     variant="body2"
     id={props.FaviorteButtonId}
-    onClick={(e)=>{e.target.id ? console.log(e.target.id) : void(0)}}>
-    <RiStarLine/>
+    onClick={(e)=>{props.favorited ? props.removeFavoriteMatch(props.FaviorteButtonId) : props.addFavoriteMatch(props.FaviorteButtonId)}}
+    >
+    {props.favorited ? <RiStarFill style={{color:'#ffdb28d1'}}/> : <RiStarLine/>}
+    {temp}
     </Button>
-);
+    
+    )
+};
 
 FavoriteButton.propTypes = {
-    FaviorteButtonId: PropTypes.string
+    FaviorteButtonId: PropTypes.string,
+    favorited: PropTypes.bool
 };

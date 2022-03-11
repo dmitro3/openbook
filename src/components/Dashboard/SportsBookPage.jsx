@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import { MatchCard } from "./MatchCard";
+import MatchCard from "./MatchCard";
 import PropTypes from "prop-types";
 
 export const SportsBookPage = (props) => {
@@ -19,11 +19,11 @@ export const SportsBookPage = (props) => {
                                 team1={match.match[0]} 
                                 team2={match.match[1]} 
                                 outcome1={match.outcomes['1'].toFixed(2)} 
-                                outcomex={match.outcomes['X'].toFixed(2)} 
+                                outcomeX={match.outcomes['X'].toFixed(2)} 
                                 outcome2={match.outcomes['2'].toFixed(2)}  
-                                datestring={dateStringForProps}  
-                                timestring={timeStringForProps}  
-                                matchid={match.id}
+                                dateString={dateStringForProps}  
+                                timeString={timeStringForProps}  
+                                matchId={match.id}
                                 />
                             </Grid>
                         )

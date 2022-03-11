@@ -1,12 +1,13 @@
-import {createStore,combineReducers,applyMiddleware,compose} from "redux";
+import {createStore,combineReducers,applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
 import promise from "redux-promise-middleware";
-
-import mathReducer from "./reducers/mathReducer";
-import userReducer from "./reducers/userReducer";
 import favoriteMatchReducer from "./reducers/favoriteMatchReducer";
 import betSlipReducer from "./reducers/betSlipReducer";
+
+// Development Only
+import logger from 'redux-logger';
+import mathReducer from "./reducers/mathReducer";
+import userReducer from "./reducers/userReducer";
 
 // const store = createStore(
 //     combineReducers({math: mathReducer, user: userReducer, favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer}),

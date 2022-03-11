@@ -5,11 +5,13 @@ import {BetButton} from './BetButton';
 import {FavoriteButton} from './FavoriteButton';
 const static_english_soccer_icons_path = "/../public/static/images/english_soccer_team_icons/";
 
+// Redux Dependencies
+import {connect} from "react-redux";
+import {addFavoriteMatch,removeFavoriteMatch} from "../../actions/favoriteMatchActions";
 
-export const MatchCard = (props) => (
+const MatchCard = (props) => (
   <Card
     sx={{ height: '100%' }}
-    {...props}
   >
     <CardContent style={{height:"100%",position:'relative',paddingBottom:'100px', marginTop:'0px'}}>
       <Grid
@@ -26,8 +28,8 @@ export const MatchCard = (props) => (
 
         <Grid item 
         style={{marginLeft:'auto',marginRight:'auto',marginTop:'30px',textAlign:'center',paddingLeft:'0px'}}>
-              <Typography>{props.datestring}</Typography>
-              <Typography>{props.timestring}</Typography>
+              <Typography>{props.dateString}</Typography>
+              <Typography>{props.timeString}</Typography>
         </Grid>       
         
         <Grid item 
@@ -39,25 +41,42 @@ export const MatchCard = (props) => (
       <div style={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'10%',right:'10%'}}>
         <BetButton number={'1'} 
         outcome={props.outcome1}
-        BetButtonId={props.matchid+"/"+"1"}
+        BetButtonId={props.matchId+"/"+"1"}
         />
 
         <BetButton number={'X'} 
-        outcome={props.outcomex}
-        BetButtonId={props.matchid+"/"+"2"}
+        outcome={props.outcomeX}
+        BetButtonId={props.matchId+"/"+"2"}
         />
         
         
         <BetButton number={'2'} 
         outcome={props.outcome2}
-        BetButtonId={props.matchid+"/"+"3"}
+        BetButtonId={props.matchId+"/"+"3"}
         />
-        <FavoriteButton FaviorteButtonId={props.matchid+"/f"}/>
+        <FavoriteButton FaviorteButtonId={props.matchId} addFavoriteMatch={props.addFavoriteMatch} removeFavoriteMatch={props.removeFavoriteMatch} favorited={props.favoriteMatch.favoritedMatchArray.includes(props.matchId)}/>
       </div>  
       </Grid>
     </CardContent>
   </Card>
 );
+
+const mapStateToProps = (state) => {
+  return {
+      favoriteMatch: state.favoriteMatch
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      addFavoriteMatch: (matchId) => {
+          dispatch(addFavoriteMatch(matchId));
+        },
+      removeFavoriteMatch: (matchId) => {
+          dispatch(removeFavoriteMatch(matchId));
+      }
+    };
+};
 
 MatchCard.propTypes = {
   team1:PropTypes.string,
@@ -67,5 +86,9 @@ MatchCard.propTypes = {
   outcome2:PropTypes.string,
   dateString:PropTypes.string,
   timeString:PropTypes.string,
-  macthId: PropTypes.string
+  matchid: PropTypes.string,
 };
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(MatchCard);
