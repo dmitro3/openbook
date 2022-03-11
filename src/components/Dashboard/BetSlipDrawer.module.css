@@ -29,10 +29,11 @@
     cursor:pointer;
     display:block;
     margin:auto;
+    color: #5c5c5c;
 }
 
 .trashBin:hover{
-    transform: scale(1.15);
+    color: black;
 }
 
 .singleTicketDelete{
@@ -41,10 +42,11 @@
     cursor:pointer;
     display:block;
     margin:auto;
+    color: #5c5c5c;
 }
 
 .singleTicketDelete:hover{
-    transform: scale(1.15);
+    color: black;
 }
 
 .presetBetButton{
@@ -65,7 +67,6 @@
 
 .presetBetButton:hover{
     font-weight:800;
-    transform: scale(1.15);
 }
 
 .submitButton{

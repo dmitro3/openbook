@@ -5,15 +5,16 @@ import { SportsBookPage } from "../components/Dashboard/SportsBookPage";
 import { BetslipSideDrawerEmptyModal } from "../components/Dashboard/BetslipSideDrawerEmptyModal";
 import  BetslipSideDrawer from "../components/Dashboard/BetslipSideDrawer";
 import { useState} from "react";
-import {oddsConverter} from "../utils/oddsConverter"
+
+
 
 let data = require('../../odds.json');
 let EPL_data = data.Soccer.EPL;
-console.log(data);
 
 const Dashboard = (props) => 
 {
     const [isSlipOpened, setSlipOpen] = useState(false);
+    
     return (
     <>
     <Head>
@@ -35,7 +36,6 @@ const Dashboard = (props) =>
         </Box>
     </>
 )};
-
 
 
 Dashboard.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;

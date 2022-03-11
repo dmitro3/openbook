@@ -44,25 +44,24 @@ const MatchCard = (props) => (
         outcome={props.outcome1}
         BetButtonId={props.matchId+"/"+"1"}
         addBetSlipMatch={props.addBetSlipMatch}
-        removeBetSlipMatch={props.removeBetSlipMatch}
+        removeBetSlipOutcome={props.removeBetSlipOutcome}
         inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+"1")}
         />
 
         <BetButton number={'X'} 
         outcome={props.outcomeX}
-        BetButtonId={props.matchId+"/"+"2"}
+        BetButtonId={props.matchId+"/"+"X"}
         addBetSlipMatch={props.addBetSlipMatch}
-        removeBetSlipMatch={props.removeBetSlipMatch}
-        inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+"2")}
+        removeBetSlipOutcome={props.removeBetSlipOutcome}
+        inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+"X")}
         />
-        
         
         <BetButton number={'2'} 
         outcome={props.outcome2}
-        BetButtonId={props.matchId+"/"+"3"}
+        BetButtonId={props.matchId+"/"+"2"}
         addBetSlipMatch={props.addBetSlipMatch}
-        removeBetSlipMatch={props.removeBetSlipMatch}
-        inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+"3")}
+        removeBetSlipOutcome={props.removeBetSlipOutcome}
+        inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+"2")}
         />
         <FavoriteButton FaviorteButtonId={props.matchId} addFavoriteMatch={props.addFavoriteMatch} removeFavoriteMatch={props.removeFavoriteMatch} favorited={props.favoriteMatch.favoritedMatchArray.includes(props.matchId)}/>
       </div>  
@@ -89,7 +88,7 @@ const mapDispatchToProps = (dispatch) => {
       addBetSlipMatch: (outcomeID) => {
         dispatch(addBetSlipOutcome(outcomeID));
       },
-      removeBetSlipMatch: (outcomeID) => {
+      removeBetSlipOutcome: (outcomeID) => {
         dispatch(removeBetSlipOutcome(outcomeID));
       }
     };
