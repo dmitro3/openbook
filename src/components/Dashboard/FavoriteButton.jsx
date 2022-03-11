@@ -4,10 +4,6 @@ import PropTypes from "prop-types";
 
 export const FavoriteButton = (props) => {
     let temp = <b></b>
-    useEffect(() => {
-        // Update the document title using the browser API
-        temp = <b style={{fontSzie:'5px'}}>{props.favorited.toString()}</b>;
-      });
     
     return (<Button
     sx={{
