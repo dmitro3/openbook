@@ -14,16 +14,16 @@ export const SportsBookPage = (props) => {
                     let dateStringForProps=datetime.toLocaleString('default', { month: 'short', day:'numeric' })
                     let timeStringForProps=datetime.toLocaleString('default', { hour: 'numeric', minute:'numeric',  hourCycle: 'h23' })
                     return  (
-                            <Grid key={match.id} item lg={12} sm={12} xl={4} xs={12}>
+                            <Grid key={match.id} item lg={6} sm={12} xl={4} xs={12}>
                                 <MatchCard 
                                 team1={match.match[0]} 
                                 team2={match.match[1]} 
                                 outcome1={match.outcomes['1'].toFixed(2)} 
-                                outcomeX={match.outcomes['X'].toFixed(2)} 
+                                outcomex={match.outcomes['X'].toFixed(2)} 
                                 outcome2={match.outcomes['2'].toFixed(2)}  
-                                dateString={dateStringForProps}  
-                                timeString={timeStringForProps}  
-                                matchId={match.id}
+                                datestring={dateStringForProps}  
+                                timestring={timeStringForProps}  
+                                matchid={match.id}
                                 />
                             </Grid>
                         )

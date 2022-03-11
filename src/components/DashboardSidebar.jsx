@@ -85,7 +85,7 @@ const sportsItems = [
   {
     href: "/testing",
     icon: <IoTicketOutline />,
-    title: "Bet Slip Testing Page",
+    title: "Redux Testing Page",
   }
 ];
 

@@ -21,7 +21,7 @@ export const BetButton = (props) => {
         id={props.BetButtonId}
         onClick={(e)=>{e.target.id ? console.log(e.target.id) : void(0)}}>
             <Typography sx={{margin:'auto'}}>{props.number}</Typography>
-            <div style={{padding:'10px'}}></div>
+            <div style={{padding:'0.5vw'}}></div>
             <Typography sx={{margin:'auto',color:'#005a98'}}>{props.outcome}</Typography>
         </Button>
 )};

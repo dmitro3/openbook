@@ -1,17 +1,16 @@
 import Head from "next/head";
 import { Box } from "@mui/material";
 import { DashboardLayout } from "../components/DashboardLayout";
-import { SportsBookPage } from "../components/Dashboard/SportsBookPage"
-import { BetslipSideDrawerEmptyModal } from "../components/Dashboard/BetslipSideDrawerEmptyModal"
-import { BetslipSideDrawer} from "../components/Dashboard/BetslipSideDrawer"
-import { useState} from "react"
-
-
+import { SportsBookPage } from "../components/Dashboard/SportsBookPage";
+import { BetslipSideDrawerEmptyModal } from "../components/Dashboard/BetslipSideDrawerEmptyModal";
+import { BetslipSideDrawer} from "../components/Dashboard/BetslipSideDrawer";
+import { useState} from "react";
+import ReduxTestingButton from "../components/Dashboard/ReduxTestingButton"
 
 let data = require('../../odds.json');
 let EPL_data = data.Soccer.EPL;
 
-const Dashboard = () => 
+const Dashboard = (props) => 
 {
     const [isSlipOpened, setSlipOpen] = useState(false);
     return (
@@ -27,12 +26,16 @@ const Dashboard = () =>
             display: 'flex'
             }}
         > 
+            <ReduxTestingButton />
             <SportsBookPage EPL_data={EPL_data}/>
             <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
             <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>
+            
         </Box>
     </>
 )};
+
+
 
 Dashboard.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 

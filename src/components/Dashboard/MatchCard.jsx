@@ -26,8 +26,8 @@ export const MatchCard = (props) => (
 
         <Grid item 
         style={{marginLeft:'auto',marginRight:'auto',marginTop:'30px',textAlign:'center',paddingLeft:'0px'}}>
-              <Typography>{props.dateString}</Typography>
-              <Typography>{props.timeString}</Typography>
+              <Typography>{props.datestring}</Typography>
+              <Typography>{props.timestring}</Typography>
         </Grid>       
         
         <Grid item 
@@ -39,20 +39,20 @@ export const MatchCard = (props) => (
       <div style={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'10%',right:'10%'}}>
         <BetButton number={'1'} 
         outcome={props.outcome1}
-        BetButtonId={props.matchId+"/"+"1"}
+        BetButtonId={props.matchid+"/"+"1"}
         />
 
         <BetButton number={'X'} 
-        outcome={props.outcomeX}
-        BetButtonId={props.matchId+"/"+"2"}
+        outcome={props.outcomex}
+        BetButtonId={props.matchid+"/"+"2"}
         />
         
         
         <BetButton number={'2'} 
         outcome={props.outcome2}
-        BetButtonId={props.matchId+"/"+"3"}
+        BetButtonId={props.matchid+"/"+"3"}
         />
-        <FavoriteButton FaviorteButtonId={props.matchId+"/f"}/>
+        <FavoriteButton FaviorteButtonId={props.matchid+"/f"}/>
       </div>  
       </Grid>
     </CardContent>
@@ -62,9 +62,9 @@ export const MatchCard = (props) => (
 MatchCard.propTypes = {
   team1:PropTypes.string,
   team2:PropTypes.string,
-  outcome1:PropTypes.number,
-  outcomeX:PropTypes.number,
-  outcome2:PropTypes.number,
+  outcome1:PropTypes.string,
+  outcomeX:PropTypes.string,
+  outcome2:PropTypes.string,
   dateString:PropTypes.string,
   timeString:PropTypes.string,
   macthId: PropTypes.string

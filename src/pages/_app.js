@@ -6,6 +6,10 @@ import { createEmotionCache } from "../utils/create-emotion-cache";
 import { theme } from "../styles/theme";
 import "../styles/globals.css";
 
+// New redux dependencies
+import {Provider} from "react-redux";
+import store from "../store";
+
 const clientSideEmotionCache = createEmotionCache();
 
 const App = (props) => {
@@ -21,10 +25,13 @@ const App = (props) => {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {getLayout(<Component {...pageProps} />)}
+        <Provider store={store}>
+          {getLayout(<Component {...pageProps} />)}
+        </Provider>
       </ThemeProvider>
     </CacheProvider>
   );
 };
+
 
 export default App;
