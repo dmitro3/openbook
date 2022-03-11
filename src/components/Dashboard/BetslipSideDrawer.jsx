@@ -12,6 +12,7 @@ import {Typography} from '@mui/material';
 import styles from './BetSlipDrawer.module.css';
 import {BetSlipEmpty} from "./BetSlipEmpty"
 import {getOdds} from "../../utils/getOdds"
+import {useState,useEffect} from 'react'
 
 // Redux Dependencies
 import {connect} from "react-redux";
@@ -39,8 +40,14 @@ const BetslipSideDrawer = (props) => {
         return props.betSlip.betSlipOutcomeArray.length == 0
     }
 
+    const [query, setQuery] = useState("");
+
+    useEffect(() => {
+        const timeOutId = setTimeout(() => props.setBetAmount(query), 200);
+        return () => clearTimeout(timeOutId);
+      }, [query]);
+      
     const odds = getOdds();
-    console.log(odds);
     
     const list = (anchor) => (
         <Box
@@ -51,6 +58,7 @@ const BetslipSideDrawer = (props) => {
                     backgroundColor:"white",
                     position:'fixed',
                     height:'auto',
+                    maxHeight: '70vh',
                     borderRadius: '4px',
                     //overflow: 'hidden',
                     right: '20px',
@@ -62,6 +70,7 @@ const BetslipSideDrawer = (props) => {
                     backgroundColor:"white",
                     position:'fixed',
                     height:'auto',
+                    maxHeight: '70vh',
                     borderRadius: '4px',
                     //overflow: 'hidden',
                     right: '-330px',
@@ -165,10 +174,10 @@ const BetslipSideDrawer = (props) => {
 
                 <Box sx={{width:'304px',height:'44px',textAlign:'center',borderRadius:'5px',marginLeft:'auto',marginRight:'auto',marginBottom:'10px',marginTop:'10px',backgroundColor:'#fffaf6',paddingTop:'8px',paddingBottom:'8px',display:'flex',justifyContent: 'center'}}>
                     <Box sx={{width:'70px',height:'100%',marginRight:'7px',marginLeft:'7px'}}>
-                        <Typography sx={{color:'black',textAlign:'left',fontSize:'13px',fontWeight:'500',marginRight:'5px',marginTop:'8px'}}>Bet Total:</Typography>
+                        <Typography sx={{color:'black',textAlign:'left',fontSize:'13px',fontWeight:'500',marginRight:'5px',marginTop:'8px'}}>Bet/Match:</Typography>
                     </Box>
-                    <Box sx={{width:'140px',height:'100%',marginRight:'15px'}}>
-                    <Input id="my-input" aria-describedby="my-helper-text" value={props.betSlip.betAmount} inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} />
+                    <Box sx={{width:'120px',height:'100%',marginRight:'15px'}}>
+                    <Input id="totalBetInput" aria-describedby="my-helper-text" value={query} onChange={event => setQuery(event.target.value)} inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} />
                     </Box>
                     <Box sx={{width:'35px',height:'100%',marginRight:'7px'}}>
                         <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'700',marginRight:'5px',marginTop:'2px'}}>DAI</Typography>
@@ -176,9 +185,16 @@ const BetslipSideDrawer = (props) => {
                 </Box>
 
                 <Box sx={{display:'flex',marginBottom:'30px',marginTop:'15px',justifyContent: 'space-evenly'}}>
-                        <Box className={styles.presetBetButton} onClick={()=>props.setBetAmount(100)}>100</Box>
-                        <Box className={styles.presetBetButton} onClick={()=>props.setBetAmount(200)}>200</Box>
-                        <Box className={styles.presetBetButton} onClick={()=>props.setBetAmount(500)}>500</Box>
+
+                {[100,200,300].map((value,index)=>{
+                    return(
+                    <>
+                        <Box className={styles.presetBetButton} key={index} onClick={()=>{props.setBetAmount(value);setQuery(value)}}>{value}</Box>
+                    </>
+
+                    )
+                })}
+
                         <Box className={styles.presetBetButton} /*onClick={()=>props.setBetAmount()}*/ disabled>Max</Box>
                 </Box>
 
