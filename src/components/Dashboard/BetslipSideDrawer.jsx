@@ -20,32 +20,32 @@ import {addBetSlipOutcome,removeBetSlipOutcome, removeAllBetSlipOutcomes, setBet
 
 
 const BetslipSideDrawer = (props) => {
-    const [value, setValue] = React.useState("Single Bet");
+    const [tabsValue, setTabsValue] = useState("Single Bet");
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        setTabsValue(newValue);
       };
 
     const anchor = 'right';
 
-    const [state, setState] = React.useState({
+    const [slipState, setSlipState] = useState({
         right: false,
       });
     
     const toggleDrawer = (anchor, open) => (event) => {
-        setState({ ...state, [anchor]: open });
+        setSlipState({ ...slipState, [anchor]: open });
     };
 
     const isBetSlipEmpty = () =>{
         return props.betSlip.betSlipOutcomeArray.length == 0
     }
 
-    const [query, setQuery] = useState("");
+    const [betInputQuery, setBetInputQuery] = useState("");
 
     useEffect(() => {
-        const timeOutId = setTimeout(() => props.setBetAmount(query), 200);
+        const timeOutId = setTimeout(() => props.setBetAmount(betInputQuery), 200);
         return () => clearTimeout(timeOutId);
-      }, [query]);
+      }, [betInputQuery]);
     
     const odds = getOdds();
     
@@ -72,7 +72,7 @@ const BetslipSideDrawer = (props) => {
                         <IoTrashBinSharp  className={styles.trashBin} onClick={()=>props.removeAllBetSlipOutcomes ()}/>
                     </Box>
                     <Tabs
-                        value={value}
+                        value={tabsValue}
                         onChange={handleChange}
                         textColor="secondary"
                         TabIndicatorProps={{style: {backgroundColor: "white"}}}
@@ -140,7 +140,7 @@ const BetslipSideDrawer = (props) => {
                         <Typography sx={{color:'black',textAlign:'left',fontSize:'13px',fontWeight:'500',marginRight:'5px',marginTop:'8px'}}>Bet/Match:</Typography>
                     </Box>
                     <Box sx={{width:'120px',height:'100%',marginRight:'15px'}}>
-                    <Input id="totalBetInput" aria-describedby="my-helper-text" value={query} placeholder="30.00" onChange={event => setQuery(event.target.value)} inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} />
+                    <Input id="totalBetInput" aria-describedby="my-helper-text" value={betInputQuery} placeholder="30.00" onChange={event => setBetInputQuery(event.target.value)} inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} />
                     </Box>
                     <Box sx={{width:'35px',height:'100%',marginRight:'7px'}}>
                         <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'700',marginRight:'5px',marginTop:'2px'}}>DAI</Typography>
@@ -152,7 +152,7 @@ const BetslipSideDrawer = (props) => {
                 {[100,200,300].map((value,index)=>{
                     return(
                     <>
-                        <Box className={styles.presetBetButton} key={index} onClick={()=>{props.setBetAmount(value);setQuery(value)}}>{value}</Box>
+                        <Box className={styles.presetBetButton} key={index} onClick={()=>{props.setBetAmount(value);setBetInputQuery(value)}}>{value}</Box>
                     </>
 
                     )

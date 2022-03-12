@@ -43,7 +43,7 @@ const MatchCard = (props) => (
           <BetButton
           key={outcomeKey}
           number={outcomeKey} 
-          outcome={outcomeValue}
+          outcome={Number(outcomeValue).toFixed(2).toString()}
           BetButtonId={props.matchId+"/"+outcomeKey}
           addBetSlipMatch={props.addBetSlipMatch}
           removeBetSlipOutcome={props.removeBetSlipOutcome}
