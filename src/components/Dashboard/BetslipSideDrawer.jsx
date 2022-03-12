@@ -46,38 +46,12 @@ const BetslipSideDrawer = (props) => {
         const timeOutId = setTimeout(() => props.setBetAmount(query), 200);
         return () => clearTimeout(timeOutId);
       }, [query]);
-      
+    
     const odds = getOdds();
     
     const list = (anchor) => (
         <Box
-            sx={
-                props.isSlipOpened ? 
-                { 
-                    width: '320px',
-                    backgroundColor:"white",
-                    position:'fixed',
-                    height:'auto',
-                    maxHeight: '70vh',
-                    borderRadius: '4px',
-                    //overflow: 'hidden',
-                    right: '20px',
-                    top: '128px',
-                    transition: '0.5s',
-                } :
-                { 
-                    width: '320px',
-                    backgroundColor:"white",
-                    position:'fixed',
-                    height:'auto',
-                    maxHeight: '70vh',
-                    borderRadius: '4px',
-                    //overflow: 'hidden',
-                    right: '-330px',
-                    top: '128px',  
-                    transition: '0.5s'  ,
-                }
-            }
+            className={`${styles.slip} ${props.isSlipOpened ? styles.slipOpen : styles.slipClose}`}
             role="presentation"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
@@ -86,26 +60,15 @@ const BetslipSideDrawer = (props) => {
         >
         <CgArrowRightR className={`${styles.slipArrow} ${props.isSlipOpened ? styles.slipArrowOpen : styles.slipArrowClosed}`} onClick={()=>(props.setSlipOpen(!props.isSlipOpened))}/>
         
-            <Box                 
-                sx={{
-                    height: '50px',
-                    width: '100%',
-                    backgroundColor: 'black',
-                    color: 'white',
-                    lineHeight: '50px',
-                    verticalAlign: 'middle',
-                    display:'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
-                <IoTicketOutline style={{height:'20px',width:'20px',marginRight:'10px'}}/>
+            <Box className={styles.slipTopIconBlackBox}>
+                <IoTicketOutline className={styles.ticketIcon}/>
                 Bet Slip
             </Box>
             { isBetSlipEmpty() ? <BetSlipEmpty /> : 
             
-            <Box sx={{}}>
-                <Box sx={{borderBottom:'1px solid #d9d9d9',display:'flex',alignItems: 'center',justifyContent: 'center',textAlign:'center'}}>
-                    <Box sx={{width:'50px',height:'100%'}}>
+            <Box>
+                <Box className={styles.slipTabsOutterBox}>
+                    <Box className={styles.slipTabsTrashBinBox}>
                         <IoTrashBinSharp  className={styles.trashBin} onClick={()=>props.removeAllBetSlipOutcomes ()}/>
                     </Box>
                     <Tabs
@@ -177,7 +140,7 @@ const BetslipSideDrawer = (props) => {
                         <Typography sx={{color:'black',textAlign:'left',fontSize:'13px',fontWeight:'500',marginRight:'5px',marginTop:'8px'}}>Bet/Match:</Typography>
                     </Box>
                     <Box sx={{width:'120px',height:'100%',marginRight:'15px'}}>
-                    <Input id="totalBetInput" aria-describedby="my-helper-text" value={query} onChange={event => setQuery(event.target.value)} inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} />
+                    <Input id="totalBetInput" aria-describedby="my-helper-text" value={query} placeholder="30.00" onChange={event => setQuery(event.target.value)} inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} />
                     </Box>
                     <Box sx={{width:'35px',height:'100%',marginRight:'7px'}}>
                         <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'700',marginRight:'5px',marginTop:'2px'}}>DAI</Typography>

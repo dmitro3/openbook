@@ -18,9 +18,7 @@ export const SportsBookPage = (props) => {
                                 <MatchCard 
                                 team1={match.match[0]} 
                                 team2={match.match[1]} 
-                                outcome1={match.outcomes['1'].toFixed(2)} 
-                                outcomeX={match.outcomes['X'].toFixed(2)} 
-                                outcome2={match.outcomes['2'].toFixed(2)}  
+                                outcomes={match.outcomes}
                                 dateString={dateStringForProps}  
                                 timeString={timeStringForProps}  
                                 matchId={match.id}

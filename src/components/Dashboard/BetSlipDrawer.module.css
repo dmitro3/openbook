@@ -87,3 +87,54 @@
     font-weight:600;
 }
 
+.slip{
+    width: 320px;
+    background-color:white;
+    position:fixed;
+    height:auto;
+    max-height: 70vh;
+    border-radius: 4px;
+    //overflow:hidden;
+    top: 128px;
+    transition: 0.5s;
+}
+
+.slipOpen{
+    right: 20px;
+}
+
+.slipClose{
+    right: -330px;
+}
+
+.slipTopIconBlackBox{
+    height: 50px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    line-height: 50px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticketIcon{
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+.slipTabsOutterBox{
+    border-bottom: 1px solid #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.slipTabsTrashBinBox{
+    width:50px;
+    height:'100%';
+}
+
