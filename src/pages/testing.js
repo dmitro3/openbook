@@ -7,7 +7,6 @@ import  BetslipSideDrawer from "../components/Dashboard/BetslipSideDrawer";
 import { useState} from "react";
 
 
-
 let data = require('../../odds.json');
 let EPL_data = data.Soccer.EPL;
 
