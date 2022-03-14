@@ -52,6 +52,22 @@ const BetslipSideDrawer = (props) => {
     // Bet/match input properties, the input is captured every 0.2 second
     const [betInputQuery, setBetInputQuery] = useState("30.00");
 
+    const validateInputOnKeyPress = (event) => {
+        var charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode != 46 && charCode > 31 
+          && (charCode < 48 || charCode > 57))
+           event.preventDefault();
+    }
+
+    const validateInputOnChange = (event) => {
+        var t = event.target.value;
+        event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+        if(Number.isNaN(Number(event.target.value))){
+            event.target.value = "";
+        }
+        setBetInputQuery(event.target.value);
+    }
+
     useEffect(() => {
         const timeOutId = setTimeout(() => props.setBetAmount(betInputQuery), 200);
         return () => clearTimeout(timeOutId);
@@ -61,6 +77,7 @@ const BetslipSideDrawer = (props) => {
     const isBetSlipEmpty = () =>{
         return props.betSlip.betSlipOutcomeArray.length == 0
     }
+
  
     const list = (anchor) => (
         <Box
@@ -167,7 +184,13 @@ const BetslipSideDrawer = (props) => {
                         <Typography sx={{color:'black',textAlign:'left',fontSize:'13px',fontWeight:'500',marginRight:'5px',marginTop:'8px'}}>Bet/Match:</Typography>
                     </Box>
                     <Box sx={{width:'120px',height:'100%',marginRight:'15px'}}>
-                    <Input id="totalBetInput" aria-describedby="my-helper-text" value={betInputQuery} placeholder="30.00" onChange={event => setBetInputQuery(event.target.value)} inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} />
+                    <Input id="totalBetInput" 
+                    aria-describedby="my-helper-text" 
+                    value={betInputQuery} placeholder="30.00"  
+                    onChange={event => validateInputOnChange(event)} 
+                    inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} 
+                    onKeyPress={(event) => validateInputOnKeyPress(event)}
+                    />
                     </Box>
                     <Box sx={{width:'35px',height:'100%',marginRight:'7px'}}>
                         <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'700',marginRight:'5px',marginTop:'2px'}}>DAI</Typography>
