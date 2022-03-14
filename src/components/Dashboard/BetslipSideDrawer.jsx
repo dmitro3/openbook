@@ -1,18 +1,15 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
 import PropTypes from "prop-types";
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Input from '@mui/material/Input'
-import {IoTrashBinSharp,IoTicketOutline,IoCashOutline,IoTicket} from 'react-icons/io5'
-import {FaRegTimesCircle} from 'react-icons/fa'
+import {IoTrashBinSharp,IoTicketOutline,IoCashOutline,IoTicket} from 'react-icons/io5';
+import {FaRegTimesCircle} from 'react-icons/fa';
 import { CgArrowRightR } from "react-icons/cg";
-import {Typography} from '@mui/material';
 import styles from '@styles/BetSlipDrawer.module.css';
-import {BetSlipEmpty} from "@components/Dashboard/BetSlipEmpty"
+import {BetSlipEmpty} from "@components/Dashboard/BetSlipEmpty";
 import {getOdds} from "@utils/getOdds";
-import {useState,useEffect} from 'react'
+import {useState,useEffect, Fragment} from 'react';
+import {DeleteAllMatchesInBetSlipModal} from "@components/Dashboard/DeleteAllMatchesInBetSlipModal"
+
+import {Box,List,Tabs,Tab,Input,Typography,useMediaQuery} from "@mui/material";
+import { useTheme } from '@mui/material/styles';
 
 // Redux Dependencies
 import {connect} from "react-redux";
@@ -20,12 +17,29 @@ import {addBetSlipOutcome,removeBetSlipOutcome, removeAllBetSlipOutcomes, setBet
 
 
 const BetslipSideDrawer = (props) => {
+    /* Delete all matches in slip confirm modal properties */
+    const [delteAllModalOpen, setdelteAllModalOpen] = useState(false);
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    
+    const handleClickOpen = () => {
+        setdelteAllModalOpen(true);
+      };
+
+      const handleClose = () => {
+        setdelteAllModalOpen(false);
+      };  
+
+
+
+    // Slip tabs for different betting schemes properties */
     const [tabsValue, setTabsValue] = useState("Single Bet");
 
     const handleChange = (event, newValue) => {
         setTabsValue(newValue);
       };
 
+    // Opening Slip Properties
     const anchor = 'right';
 
     const [slipState, setSlipState] = useState({
@@ -36,18 +50,34 @@ const BetslipSideDrawer = (props) => {
         setSlipState({ ...slipState, [anchor]: open });
     };
 
-    const isBetSlipEmpty = () =>{
-        return props.betSlip.betSlipOutcomeArray.length == 0
-    }
-
+    // Bet/match input properties, the input is captured every 0.2 second
     const [betInputQuery, setBetInputQuery] = useState("30.00");
 
     useEffect(() => {
         const timeOutId = setTimeout(() => props.setBetAmount(betInputQuery), 200);
         return () => clearTimeout(timeOutId);
       }, [betInputQuery]);
-    
+
+    // Helper function for checking betSlipOutcomeArray is empty or not
+    const isBetSlipEmpty = () =>{
+        return props.betSlip.betSlipOutcomeArray.length == 0
+    }
+
+    /* Helper function for gettings odds in this format:
+        {
+            "matchId" : 
+            {
+                "match":[],
+                timeStamp:"timeStampString",
+                outcomes:{'1':odds1,'2':odds2,'X':'oddsX'}
+            }
+        }
+    */
     const odds = getOdds();
+
+
+    
+
     
     const list = (anchor) => (
         <Box
@@ -69,7 +99,8 @@ const BetslipSideDrawer = (props) => {
             <Box>
                 <Box className={styles.slipTabsOutterBox}>
                     <Box className={styles.slipTabsTrashBinBox}>
-                        <IoTrashBinSharp  className={styles.trashBin} onClick={()=>props.removeAllBetSlipOutcomes ()}/>
+                        <IoTrashBinSharp  className={styles.trashBin} onClick={handleClickOpen}/>
+                        <DeleteAllMatchesInBetSlipModal fullScreen={fullScreen} open={delteAllModalOpen} handleClose={handleClose} removeAllBetSlipOutcomes={props.removeAllBetSlipOutcomes}/>
                     </Box>
                     <Tabs
                         value={tabsValue}
@@ -180,12 +211,9 @@ const BetslipSideDrawer = (props) => {
     );
 
     return (
-        <React.Fragment key={anchor}>
-            <div>
+        <Fragment key={anchor}>
                 {list(anchor)}
-            </div>
-            
-        </React.Fragment>
+        </Fragment>
     );
 }
 

@@ -70,7 +70,8 @@ export const DashboardNavbar = (props) => {
           },
           width: {
             lg: "calc(100% - 280px)",
-          }
+          },
+          paddingRight: '0px !important'
         }}
         {...other}
       >

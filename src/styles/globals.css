@@ -1,3 +1,8 @@
 .logoStyle {
 	border-radius:1rem;
 }
+
+body{
+	overflow: auto !important;
+	padding-right: 0px !important;
+}
