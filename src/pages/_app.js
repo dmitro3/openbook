@@ -2,9 +2,9 @@ import Head from "next/head";
 import { CacheProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { createEmotionCache } from "../utils/create-emotion-cache";
-import { theme } from "../styles/theme";
-import "../styles/globals.css";
+import { createEmotionCache } from "@utils/create-emotion-cache";
+import { theme } from "@styles/theme";
+import "@styles/globals.css";
 
 // New redux dependencies
 import {Provider} from "react-redux";

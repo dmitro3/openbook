@@ -1,14 +1,14 @@
 import {Card, CardContent, Grid, Typography,Box} from '@mui/material';
 import PropTypes from "prop-types";
-import {TeamCard } from './TeamCard';
-import {BetButton} from './BetButton';
-import {FavoriteButton} from './FavoriteButton';
+import {TeamCard } from '@components/Dashboard/TeamCard';
+import {BetButton} from '@components/Dashboard/BetButton';
+import {FavoriteButton} from '@components/Dashboard/FavoriteButton';
 const static_english_soccer_icons_path = "/../public/static/images/english_soccer_team_icons/";
 
 // Redux Dependencies
 import {connect} from "react-redux";
-import {addFavoriteMatch,removeFavoriteMatch} from "../../actions/favoriteMatchActions";
-import {addBetSlipOutcome,removeBetSlipOutcome} from '../../actions/betSlipActions';
+import {addFavoriteMatch,removeFavoriteMatch} from "@actions/favoriteMatchActions";
+import {addBetSlipOutcome,removeBetSlipOutcome} from '@actions/betSlipActions';
 
 const MatchCard = (props) => (
   <Card
@@ -21,7 +21,7 @@ const MatchCard = (props) => (
         style={{ justifyContent: 'space-between', width:"100%",marginLeft:'0px',marginRight:'0px',marginTop:'0px'}}
       >
         <Grid item style={{paddingLeft:'0px',width:'30%'}}>
-          <TeamCard teamName={props.team1} teamIconPath={static_english_soccer_icons_path + props.team1 + ".png"}/>
+          <TeamCard teamName={props.match1} teamIconPath={static_english_soccer_icons_path + props.match1 + ".png"}/>
         </Grid>
 
         <Grid item 
@@ -31,7 +31,7 @@ const MatchCard = (props) => (
         </Grid>       
         
         <Grid item style={{paddingLeft:'0px',width:'30%'}}>
-          <TeamCard teamName={props.team2} teamIconPath={static_english_soccer_icons_path + props.team2 + ".png"}/>
+          <TeamCard teamName={props.match2} teamIconPath={static_english_soccer_icons_path + props.match2 + ".png"}/>
         </Grid>
       
       <Box sx={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'10%',right:'10%'}}>
@@ -82,8 +82,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 MatchCard.propTypes = {
-  team1:PropTypes.string,
-  team2:PropTypes.string,
+  match1:PropTypes.string,
+  match2:PropTypes.string,
   outcomes:PropTypes.object,
   dateString:PropTypes.string,
   timeString:PropTypes.string,

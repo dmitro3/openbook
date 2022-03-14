@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { DashboardNavbar } from './DashboardNavbar';
-import { DashboardSidebar } from './DashboardSidebar';
+import { DashboardNavbar } from '@components/DashboardNavbar';
+import { DashboardSidebar } from '@components/DashboardSidebar';
 
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({

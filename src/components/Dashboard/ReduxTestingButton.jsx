@@ -2,7 +2,7 @@ import {Button} from '@mui/material';
 
 // New redux dependencies
 import {connect} from "react-redux";
-import {setName} from "../../actions/userActions";
+import {setName} from "@actions/userActions";
 
 const mapStateToProps = (state) => {
     return {

@@ -1,14 +1,10 @@
 import * as React from 'react';
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
-import NextLink from 'next/link';
+
 import {
   Stack,
   ToggleButtonGroup,
   ToggleButton,
-  Typography
 } from '@mui/material';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 export default function PrimaryNavTabs() {

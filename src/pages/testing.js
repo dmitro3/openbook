@@ -1,11 +1,10 @@
 import Head from "next/head";
 import { Box } from "@mui/material";
-import { DashboardLayout } from "../components/DashboardLayout";
-import { SportsBookPage } from "../components/Dashboard/SportsBookPage";
-import { BetslipSideDrawerEmptyModal } from "../components/Dashboard/BetslipSideDrawerEmptyModal";
-import  BetslipSideDrawer from "../components/Dashboard/BetslipSideDrawer";
+import { DashboardLayout } from "@components/DashboardLayout";
+import { SportsBookPage } from "@components/Dashboard/SportsBookPage";
+import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal";
+import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
 import { useState} from "react";
-
 
 let data = require('../../odds.json');
 let EPL_data = data.Soccer.EPL;

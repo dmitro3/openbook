@@ -15,10 +15,10 @@ import {
   Tabs
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { UserCircle as UserCircleIcon } from "../utils/icons/user-circle";
+import { UserCircle as UserCircleIcon } from "@utils/icons/user-circle";
 import React from 'react';
-import { Bell as BellIcon } from "../utils/icons/bell";
-import PrimaryNavTabs from "./Dashboard/PrimaryNavTabs";
+import { Bell as BellIcon } from "@utils/icons/bell";
+import PrimaryNavTabs from "@components/Dashboard/PrimaryNavTabs";
 
 /* Function that sets the navigation theme from template */
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
