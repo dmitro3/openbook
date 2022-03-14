@@ -4,7 +4,6 @@ import {FaRegTimesCircle} from 'react-icons/fa';
 import { CgArrowRightR } from "react-icons/cg";
 import styles from '@styles/BetSlipDrawer.module.css';
 import {BetSlipEmpty} from "@components/Dashboard/BetSlipEmpty";
-import {getOdds} from "@utils/getOdds";
 import {useState,useEffect, Fragment} from 'react';
 import {DeleteAllMatchesInBetSlipModal} from "@components/Dashboard/DeleteAllMatchesInBetSlipModal"
 
@@ -62,23 +61,7 @@ const BetslipSideDrawer = (props) => {
     const isBetSlipEmpty = () =>{
         return props.betSlip.betSlipOutcomeArray.length == 0
     }
-
-    /* Helper function for gettings odds in this format:
-        {
-            "matchId" : 
-            {
-                "match":[],
-                timeStamp:"timeStampString",
-                outcomes:{'1':odds1,'2':odds2,'X':'oddsX'}
-            }
-        }
-    */
-    const odds = getOdds();
-
-
-    
-
-    
+ 
     const list = (anchor) => (
         <Box
             className={`${styles.slip} ${props.isSlipOpened ? styles.slipOpen : styles.slipClose}`}
@@ -119,20 +102,20 @@ const BetslipSideDrawer = (props) => {
                     {props.betSlip.betSlipOutcomeArray.map((text, index) => {
                         let matchId = text.split('/')[0];
                         let outcomeId = text.split('/')[1];
-                        let winningOdds = odds[matchId]['outcomes'][outcomeId];
-                        //console.log(odds[matchId]['outcomes']);
+                        let winningOdds = props.odds.oddsDict[matchId]['outcomes'][outcomeId];
+                        //console.log(props.odds.oddsDict[matchId]['outcomes']);
                         //console.log(outcomeId);
-                        //console.log(odds);
+                        //console.log(props.odds.oddsDict);
                         let displayOutcome = "";
                         switch (outcomeId){
                             case '1':
-                                displayOutcome = odds[matchId]['match'][0];
+                                displayOutcome = props.odds.oddsDict[matchId]['match'][0];
                             break;
                             case 'X':
                                 displayOutcome = "DRAW";
                             break;
                             case '2':
-                                displayOutcome = odds[matchId]['match'][1];
+                                displayOutcome = props.odds.oddsDict[matchId]['match'][1];
                             break;
                         }
 
@@ -151,7 +134,7 @@ const BetslipSideDrawer = (props) => {
                                             <Typography sx={{color:'black',textAlign:'center',fontSize:'13px',fontWeight:'600',width:'50%'}}>{displayOutcome}</Typography>
                                         </Box>
                                         <Box>
-                                            <Typography sx={{color:'#555',textAlign:'left',fontSize:'11px',fontWeight:'400'}}>{odds[matchId]['match'][0]} vs. {odds[matchId]['match'][1]}</Typography>
+                                            <Typography sx={{color:'#555',textAlign:'left',fontSize:'11px',fontWeight:'400'}}>{props.odds.oddsDict[matchId]['match'][0]} vs. {props.odds.oddsDict[matchId]['match'][1]}</Typography>
                                         </Box>
                                     </Box>
                                     <Box sx={{width:'54px',marginLeft:'0px',marginRight:'20px',height:'100%',textAlign: 'center'}}>
@@ -219,7 +202,8 @@ const BetslipSideDrawer = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        betSlip: state.betSlip
+        betSlip: state.betSlip,
+        odds: state.odds
     };
 };
 

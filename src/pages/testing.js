@@ -4,7 +4,12 @@ import { DashboardLayout } from "@components/DashboardLayout";
 import { SportsBookPage } from "@components/Dashboard/SportsBookPage";
 import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal";
 import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
-import { useState} from "react";
+import { useState, useEffect} from "react";
+import {getOdds} from "@utils/getOdds"
+
+// Redux Dependencies
+import {connect} from "react-redux"
+import {setOdds} from "@actions/oddsActions"
 
 let data = require('../../odds.json');
 let EPL_data = data.Soccer.EPL;
@@ -12,6 +17,10 @@ let EPL_data = data.Soccer.EPL;
 const Dashboard = (props) => 
 {
     const [isSlipOpened, setSlipOpen] = useState(false);
+    useEffect(()=>{
+        const oddsData = getOdds();
+        props.setOdds(oddsData);
+    })
     
     return (
     <>
@@ -35,7 +44,21 @@ const Dashboard = (props) =>
     </>
 )};
 
+const mapStateToProps = (state) => {
+    return{
+        
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      setOdds: (oddsData) => {
+          dispatch(setOdds(oddsData))
+      }
+    };
+};
+
 
 Dashboard.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default Dashboard;
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
