@@ -11,14 +11,17 @@ import {
   ListItem,
   MenuItem,
   Menu,
-  Tab,
-  Tabs
+  Button
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { UserCircle as UserCircleIcon } from "@utils/icons/user-circle";
 import React from 'react';
 import { Bell as BellIcon } from "@utils/icons/bell";
 import PrimaryNavTabs from "@components/Dashboard/PrimaryNavTabs";
+import {checkWeb3, connectMetaMask} from "@utils/web3Provider";
+
+// Redux
+import {connect} from "react-redux";
 
 /* Function that sets the navigation theme from template */
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
@@ -35,7 +38,7 @@ const options = [
   'Disconnect Wallet'
 ];
 
-export const DashboardNavbar = (props) => {
+const DashboardNavbar = (props) => {
   /* Template variables */
   const { onSidebarOpen, ...other } = props;
   /* End template variables */
@@ -61,8 +64,15 @@ export const DashboardNavbar = (props) => {
   };
   /* End user button drop down functions */
 
+  React.useEffect(() =>{
+    checkWeb3();
+    
+  },[])
+
   return (
     <>
+      {/* <b style={{color:'black'}}>{props.user.web3Loading ? "Web3 is loading" : props.user.web3 ? "web3 is ready" : "install web3 plz"}</b>  */}
+      
       <DashboardNavbarRoot
         sx={{
           left: {
@@ -73,7 +83,6 @@ export const DashboardNavbar = (props) => {
           },
           paddingRight: '0px !important'
         }}
-        {...other}
       >
         <Toolbar
           disableGutters
@@ -84,7 +93,6 @@ export const DashboardNavbar = (props) => {
             fontSize: "20rem"
           }}
         >
-        
           {
           //Menu for the side bar menu component, appears when the screen width is too small.
           }
@@ -123,18 +131,20 @@ export const DashboardNavbar = (props) => {
           
           {
             //This is the user icon and the drop down
-          }
-          <div>
+            props.user.loggedIn ? 
+            (<div>
             <ListItem
             button
             id="lock-button"
             aria-haspopup="listbox"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClickListItem}
+            sx={{fontSize: '20px', color: 'black',whiteSpace: 'nowrap',width: '300px',marginRight: '300px'}}
           >
-            <Avatar>
+            {/*<Avatar>
               <UserCircleIcon fontSize="small" />
-            </Avatar>
+            </Avatar>*/}
+            {props.user.userAddress}
             </ListItem>
             <Menu
             id="lock-menu"
@@ -154,7 +164,14 @@ export const DashboardNavbar = (props) => {
               </MenuItem>
             ))}
             </Menu>
-          </div>
+          </div>) : (<Button 
+          onClick={() => connectMetaMask()}
+          sx={{whiteSpace: 'nowrap',marginLeft:'20px', fontSize:'16px', color:'white', backgroundColor:'#e57714','&:hover': {backgroundColor: '#ef882b',color:'white'}}}variant="contained">
+          Connect Wallet
+          </Button>)
+          }
+
+
         </Toolbar>
       </DashboardNavbarRoot>
     </>
@@ -164,3 +181,17 @@ export const DashboardNavbar = (props) => {
 DashboardNavbar.propTypes = {
   onSidebarOpen: PropTypes.func,
 };
+
+const mapStateToProps = (state) => {
+  return {
+      user: state.user
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardNavbar);
+
