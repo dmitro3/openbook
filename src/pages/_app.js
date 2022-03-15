@@ -5,6 +5,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { createEmotionCache } from "@utils/create-emotion-cache";
 import { theme } from "@styles/theme";
 import "@styles/globals.css";
+import { useEffect,useState } from "react";
+import {Loader} from "@components/Dashboard/Loader"
 
 // New redux dependencies
 import {Provider} from "react-redux";
@@ -12,10 +14,18 @@ import store from "../store";
 
 const clientSideEmotionCache = createEmotionCache();
 
+
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const getLayout = Component.getLayout ?? ((page) => page);
+  const [documentLoaded, setDocumentLoaded] = useState(false);
+
+  useEffect(()=>{
+
+      window.addEventListener("load", (e) => setDocumentLoaded(true));
+
+  })
 
   return (
     <CacheProvider value={emotionCache}>
@@ -26,7 +36,7 @@ const App = (props) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Provider store={store}>
-          {getLayout(<Component {...pageProps} />)}
+          {documentLoaded ? getLayout(<Component {...pageProps} />):<Loader/>}
         </Provider>
       </ThemeProvider>
     </CacheProvider>
