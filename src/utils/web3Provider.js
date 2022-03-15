@@ -26,8 +26,8 @@ export const connectMetaMask = () =>{
 
 const requestMetaMask = async () => {
     try{
-        await store.getState().user.provider.request({method:"eth_requestAccounts"})
-        store.getState().user.web3.eth.getAccounts().then((value)=>{
+            await store.getState().user.provider.request({method:"eth_requestAccounts"})
+            store.getState().user.web3.eth.getAccounts().then((value)=>{
             store.dispatch(logIn(value[0]));
         });
     }catch{

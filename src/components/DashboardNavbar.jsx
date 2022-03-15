@@ -19,9 +19,14 @@ import React from 'react';
 import { Bell as BellIcon } from "@utils/icons/bell";
 import PrimaryNavTabs from "@components/Dashboard/PrimaryNavTabs";
 import {checkWeb3, connectMetaMask} from "@utils/web3Provider";
+import {ConnectButton} from "@components/Dashboard/ConnectButton";
+import {DisplayUserAddressButton} from "@components/Dashboard/DisplayUserAddressButton";
+import {LoadingMetaMaskButton} from "@components/Dashboard/LoadingMetaMaskButton";
+import { InstallMetaMaskButton } from "./Dashboard/InstallMetaMaskButton";
 
 // Redux
 import {connect} from "react-redux";
+
 
 /* Function that sets the navigation theme from template */
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
@@ -29,40 +34,10 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   boxShadow: theme.shadows[3],
 }));
 
-/* This is the options for the user drop down */
-const options = [
-  'Dashboard',
-  'Your Tickets',
-  'Settings',
-  'Support',
-  'Disconnect Wallet'
-];
-
 const DashboardNavbar = (props) => {
   /* Template variables */
   const { onSidebarOpen, ...other } = props;
   /* End template variables */
-
-  /* User button drop down variables */
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const open = Boolean(anchorEl);
-  /* End user button drop down variables */
-
-  /* User button drop down functions */
-  const handleClickListItem = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
-    setAnchorEl(null);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  /* End user button drop down functions */
 
   React.useEffect(() =>{
     checkWeb3();
@@ -130,45 +105,7 @@ const DashboardNavbar = (props) => {
           </Tooltip>
           
           {
-            //This is the user icon and the drop down
-            props.user.loggedIn ? 
-            (<div>
-            <ListItem
-            button
-            id="lock-button"
-            aria-haspopup="listbox"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClickListItem}
-            sx={{fontSize: '20px', color: 'black',whiteSpace: 'nowrap',width: '300px',marginRight: '300px'}}
-          >
-            {/*<Avatar>
-              <UserCircleIcon fontSize="small" />
-            </Avatar>*/}
-            {props.user.userAddress}
-            </ListItem>
-            <Menu
-            id="lock-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              role: 'listbox',
-            }}
-          >
-            {options.map((option, index) => (
-              <MenuItem
-                key={option}
-                onClick={(event) => handleMenuItemClick(event, index)}
-              >
-                {option}
-              </MenuItem>
-            ))}
-            </Menu>
-          </div>) : (<Button 
-          onClick={() => connectMetaMask()}
-          sx={{whiteSpace: 'nowrap',marginLeft:'20px', fontSize:'16px', color:'white', backgroundColor:'#e57714','&:hover': {backgroundColor: '#ef882b',color:'white'}}}variant="contained">
-          Connect Wallet
-          </Button>)
+            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <InstallMetaMaskButton/> :props.user.loggedIn ? <DisplayUserAddressButton userAddress={props.user.userAddress}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
           }
 
 

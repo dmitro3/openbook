@@ -36,7 +36,8 @@ const App = (props) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Provider store={store}>
-          {documentLoaded ? getLayout(<Component {...pageProps} />):<Loader/>}
+          {/*documentLoaded ? getLayout(<Component {...pageProps} />):<Loader/>*/}
+          {getLayout(<Component {...pageProps} />)}
         </Provider>
       </ThemeProvider>
     </CacheProvider>
