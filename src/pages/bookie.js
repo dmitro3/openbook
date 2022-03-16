@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { Box, Container, Button, Grid, Typography } from "@mui/material";
-import { MatchCard } from "../components/Dashboard/MatchCard";
 import { DashboardLayout } from "../components/DashboardLayout";
 import NextLink from "next/link";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";

@@ -18,3 +18,10 @@ export function removeAllBetSlipOutcomes(){
         payload: ""
     }
 }
+
+export function setBetAmount(betAmount){
+    return{
+        type: "SET_BET_AMOUNT",
+        payload: betAmount
+    }
+}

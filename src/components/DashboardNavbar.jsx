@@ -11,14 +11,28 @@ import {
   ListItem,
   MenuItem,
   Menu,
+  Button,
   Tab,
   Tabs
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { UserCircle as UserCircleIcon } from "../utils/icons/user-circle";
 import React from 'react';
-import { Bell as BellIcon } from "../utils/icons/bell";
-import PrimaryNavTabs from "./Dashboard/PrimaryNavTabs";
+import { Bell as BellIcon } from "@utils/icons/bell";
+import {checkWeb3, connectMetaMask, disconnectMetaMask} from "@utils/web3Provider";
+import {ConnectButton} from "@components/Dashboard/ConnectButton";
+import {DisplayUserAddressButton} from "@components/Dashboard/DisplayUserAddressButton";
+import {LoadingMetaMaskButton} from "@components/Dashboard/LoadingMetaMaskButton";
+import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
+import { InstallMetaMaskSnackBar } from "@components/Dashboard/InstallMetaMaskSnackBar";
+import { WrapTab } from "@components/WrapTab";
+import { BetIcon } from "@components/Dashboard/BetIcon"; 
+import { TrophyIcon } from "@components/Dashboard/TrophyIcon";
+import { TicketIcon } from "@components/Dashboard/TicketIcon"
+import { LedgerIcon } from "@components/Dashboard/LedgerIcon";
+
+// Redux
+import {connect} from "react-redux";
+
 
 /* Function that sets the navigation theme from template */
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
@@ -26,43 +40,30 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   boxShadow: theme.shadows[3],
 }));
 
-/* This is the options for the user drop down */
-const options = [
-  'Dashboard',
-  'Your Tickets',
-  'Settings',
-  'Support',
-  'Disconnect Wallet'
-];
-
-export const DashboardNavbar = (props) => {
-  /* Template variables */
+const DashboardNavbar = (props) => {
+  /* Side navigation variables */
   const { onSidebarOpen, ...other } = props;
-  /* End template variables */
+  /* Side navigation variables */
 
-  /* User button drop down variables */
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const open = Boolean(anchorEl);
-  /* End user button drop down variables */
+  /* Top navigation bar tabs variables */
+  const [navigationTabsValue, setNavigationTabsValue] = React.useState(1);
+  /* End top navigation bar tabs variables */
 
-  /* User button drop down functions */
-  const handleClickListItem = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    /* Top navigation bar tabs variables */
+    const handleNavigationTabsChange = (event, newValue) => {
+      setNavigationTabsValue(newValue);
+    };
+    /* End top navigation bar tabs variables */
 
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
-    setAnchorEl(null);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  /* End user button drop down functions */
+  React.useEffect(() =>{
+    checkWeb3();
+    
+  },[])
 
   return (
     <>
+      {/* <b style={{color:'black'}}>{props.user.web3Loading ? "Web3 is loading" : props.user.web3 ? "web3 is ready" : "install web3 plz"}</b>  */}
+      
       <DashboardNavbarRoot
         sx={{
           left: {
@@ -70,9 +71,9 @@ export const DashboardNavbar = (props) => {
           },
           width: {
             lg: "calc(100% - 280px)",
-          }
+          },
+          paddingRight: '0px !important'
         }}
-        {...other}
       >
         <Toolbar
           disableGutters
@@ -83,7 +84,6 @@ export const DashboardNavbar = (props) => {
             fontSize: "20rem"
           }}
         >
-        
           {
           //Menu for the side bar menu component, appears when the screen width is too small.
           }
@@ -100,9 +100,21 @@ export const DashboardNavbar = (props) => {
           </IconButton>
 
 
-        <Box sx={{ width: '100%', borderColor: 'divider'}}>
-          <PrimaryNavTabs />
-        </Box>
+          <Box sx={{ width: '100%', borderColor: 'divider'}}>
+
+            <Tabs
+              value={navigationTabsValue}
+              aria-label="secondary tabs example"
+              onChange={handleNavigationTabsChange}
+              TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
+              // className={'cutom-navigation-tabs'}
+            >
+                <WrapTab value={1} href="/" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
+                <WrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+                <WrapTab value={3} href="/testing" label="My Bets"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+                <WrapTab value={4} href="/featured" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+            </Tabs>
+          </Box>
 
           {
           //This is the component that helps separate the left side and the right side of the top nav bar
@@ -121,39 +133,10 @@ export const DashboardNavbar = (props) => {
           </Tooltip>
           
           {
-            //This is the user icon and the drop down
+            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :props.user.loggedIn ? <DisplayUserAddressButton userAddress={props.user.userAddress} disconnectMetaMask={disconnectMetaMask}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
           }
-          <div>
-            <ListItem
-            button
-            id="lock-button"
-            aria-haspopup="listbox"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClickListItem}
-          >
-            <Avatar>
-              <UserCircleIcon fontSize="small" />
-            </Avatar>
-            </ListItem>
-            <Menu
-            id="lock-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              role: 'listbox',
-            }}
-          >
-            {options.map((option, index) => (
-              <MenuItem
-                key={option}
-                onClick={(event) => handleMenuItemClick(event, index)}
-              >
-                {option}
-              </MenuItem>
-            ))}
-            </Menu>
-          </div>
+
+
         </Toolbar>
       </DashboardNavbarRoot>
     </>
@@ -163,3 +146,17 @@ export const DashboardNavbar = (props) => {
 DashboardNavbar.propTypes = {
   onSidebarOpen: PropTypes.func,
 };
+
+const mapStateToProps = (state) => {
+  return {
+      user: state.user
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardNavbar);
+

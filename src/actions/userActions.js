@@ -1,25 +1,35 @@
-export function setName(name){
-    return (dispatch) => {
-        setTimeout(()=>{
-            dispatch({
-                type: "SET_NAME",
-                payload: name
-            })
-        },2000);
+export function logIn(userAddress){
+    return {
+        type: "LOG_IN",
+        payload: userAddress
     }
-    // return{
-    //     type: "SET_NAME",
-    //     payload: new Promise((resolve, reject) => {
-    //         setTimeout(()=>{
-    //             resolve(name);
-    //         },2000);
-    //     })
-    // }
 }
 
-export function setAge(age){
+export function logOut(){
     return {
-        type: "SET_AGE",
-        payload: age
+        type: "LOG_OUT",
+        payload: ""
     }
 }
+
+export function setWeb3(web3){
+    return {
+        type: "SET_WEB3",
+        payload: web3
+    }
+}
+
+export function setProvider(provider){
+    return {
+        type: "SET_PROVIDER",
+        payload: provider
+    }
+}
+
+export function setWeb3Loading(loading){
+    return {
+        type: "SET_WEB3_LOADING",
+        payload: loading
+    }
+}
+

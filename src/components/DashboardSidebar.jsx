@@ -12,10 +12,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { NavItem } from "./NavItem";
+import { NavItem } from "@components/NavItem";
 import { FaStar,FaFire,FaHandshake,FaGamepad,FaFutbol,FaBasketballBall,FaHockeyPuck,FaFootballBall,FaBaseballBall,FaFlagCheckered} from 'react-icons/fa';
 import {RiMouseFill,RiBoxingFill} from 'react-icons/ri';
-import {CustomDivider} from '../components/Dashboard/CustomDivider'
+import {CustomDivider} from '@components/Dashboard/CustomDivider'
 import {IoTicketOutline} from 'react-icons/io5'
 import {AiOutlineMergeCells} from 'react-icons/ai'
 const bettingZoneitems = [

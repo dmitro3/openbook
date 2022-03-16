@@ -1,13 +1,14 @@
 import {createStore,combineReducers,applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 import promise from "redux-promise-middleware";
-import favoriteMatchReducer from "./reducers/favoriteMatchReducer";
-import betSlipReducer from "./reducers/betSlipReducer";
+
 
 // Development Only
 import logger from 'redux-logger';
-import mathReducer from "./reducers/mathReducer";
-import userReducer from "./reducers/userReducer";
+import betSlipReducer from "@reducers/betSlipReducer";
+import favoriteMatchReducer from "@reducers/favoriteMatchReducer";
+import oddsReducer from "@reducers/oddsReducer";
+import userReducer from "@reducers/userReducer"
 
 // const store = createStore(
 //     combineReducers({math: mathReducer, user: userReducer, favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer}),
@@ -25,7 +26,7 @@ const bindMiddleware = (middleware) => {
   };
   
 export const makeStore = () => {
-    const rootReducer = combineReducers({math: mathReducer, user: userReducer, favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer});
+    const rootReducer = combineReducers({favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer,odds:oddsReducer,user:userReducer});
     const store = createStore(
         rootReducer,
         bindMiddleware([logger,thunk,promise])
