@@ -110,8 +110,8 @@ const DashboardNavbar = (props) => {
             >
                 <WrapTab value={1} href="/" label="Bet Now"  />
                 <WrapTab value={2} href="/bookie" label="Bookie"/>
-                <WrapTab value={3} href="/mybets" label="My Bets"/>
-                <WrapTab value={4} href="/leaderboard" label="Leaderboard"/>
+                <WrapTab value={3} href="/testing" label="My Bets"/>
+                <WrapTab value={4} href="/featured" label="Leaderboard"/>
             </Tabs>
           </Box>
 
