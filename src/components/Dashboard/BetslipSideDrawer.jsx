@@ -105,7 +105,6 @@ const BetslipSideDrawer = (props) => {
                     <Tabs
                         value={tabsValue}
                         onChange={handleChange}
-                        textColor="secondary"
                         TabIndicatorProps={{style: {backgroundColor: "white"}}}
                         
                     >

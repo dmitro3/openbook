@@ -106,9 +106,8 @@ const DashboardNavbar = (props) => {
               value={navigationTabsValue}
               aria-label="secondary tabs example"
               onChange={handleNavigationTabsChange}
-              TabIndicatorProps={{style: {background:'#be5df6'}}}
-
-              
+              TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
+              // className={'cutom-navigation-tabs'}
             >
                 <WrapTab value={1} href="/" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
                 <WrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px'}}/>

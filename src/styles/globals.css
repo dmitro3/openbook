@@ -9,4 +9,9 @@ body{
 
 .MuiButtonBase-root.MuiTab-root.MuiTab-labelIcon  > span{
 	margin-right: 10px !important;
-  }
+}
+
+/* .cutom-navigation-tabs a.Mui-selected {
+	color: #be5df6 !important;
+} */
+
