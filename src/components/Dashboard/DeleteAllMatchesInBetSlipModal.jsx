@@ -17,11 +17,11 @@ export const DeleteAllMatchesInBetSlipModal = (props) => {
                     </DialogContentText>
                     </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={()=>{props.removeAllBetSlipOutcomes();props.handleClose()}}>
-                        Yes
-                    </Button>
                     <Button onClick={props.handleClose} autoFocus>
                         No
+                    </Button>
+                    <Button autoFocus onClick={()=>{props.removeAllBetSlipOutcomes();props.handleClose()}}>
+                        Yes
                     </Button>
                 </DialogActions>
         </Dialog>

@@ -4,6 +4,7 @@ export const WrapTab = (props) => {
     const { href } = props
     return (
     <Link href={href} style={{ width: "100%" }}>
-      <Tab {...props} />
+      <Tab {...props} >
+      </Tab>
     </Link>
 )}

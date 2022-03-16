@@ -16,18 +16,19 @@ import {
   Tabs
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { UserCircle as UserCircleIcon } from "@utils/icons/user-circle";
 import React from 'react';
 import { Bell as BellIcon } from "@utils/icons/bell";
-import PrimaryNavTabs from "@components/Dashboard/PrimaryNavTabs";
 import {checkWeb3, connectMetaMask} from "@utils/web3Provider";
 import {ConnectButton} from "@components/Dashboard/ConnectButton";
 import {DisplayUserAddressButton} from "@components/Dashboard/DisplayUserAddressButton";
 import {LoadingMetaMaskButton} from "@components/Dashboard/LoadingMetaMaskButton";
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 import { InstallMetaMaskSnackBar } from "@components/Dashboard/InstallMetaMaskSnackBar";
-import Link from 'next/link';
 import { WrapTab } from "./WrapTab";
+import { BetIcon } from "./Dashboard/BetIcon"; 
+import { TrophyIcon } from "./Dashboard/TrophyIcon";
+import { TicketIcon } from "./Dashboard/TicketIcon"
+import { LedgerIcon } from "./Dashboard/LedgerIcon";
 
 // Redux
 import {connect} from "react-redux";
@@ -103,15 +104,16 @@ const DashboardNavbar = (props) => {
 
             <Tabs
               value={navigationTabsValue}
-              textColor="secondary"
-              indicatorColor="secondary"
               aria-label="secondary tabs example"
               onChange={handleNavigationTabsChange}
+              TabIndicatorProps={{style: {background:'#be5df6'}}}
+
+              
             >
-                <WrapTab value={1} href="/" label="Bet Now"  />
-                <WrapTab value={2} href="/bookie" label="Bookie"/>
-                <WrapTab value={3} href="/testing" label="My Bets"/>
-                <WrapTab value={4} href="/featured" label="Leaderboard"/>
+                <WrapTab value={1} href="/" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
+                <WrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+                <WrapTab value={3} href="/testing" label="My Bets"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+                <WrapTab value={4} href="/featured" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
             </Tabs>
           </Box>
 

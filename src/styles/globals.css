@@ -6,3 +6,7 @@ body{
 	overflow: auto !important;
 	padding-right: 0px !important;
 }
+
+.MuiButtonBase-root.MuiTab-root.MuiTab-labelIcon  > span{
+	margin-right: 10px !important;
+  }
