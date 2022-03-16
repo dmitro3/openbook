@@ -12,6 +12,7 @@ import {addBetSlipOutcome,removeBetSlipOutcome} from '@actions/betSlipActions';
 
 const MatchCard = (props) => (
   <Card
+    style={{props.style}}
     sx={{ height: '100%' }}
   >
     <CardContent style={{height:"100%",position:'relative',paddingBottom:'100px', marginTop:'0px'}}>
