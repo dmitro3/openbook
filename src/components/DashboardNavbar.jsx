@@ -18,17 +18,17 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import React from 'react';
 import { Bell as BellIcon } from "@utils/icons/bell";
-import {checkWeb3, connectMetaMask} from "@utils/web3Provider";
+import {checkWeb3, connectMetaMask, disconnectMetaMask} from "@utils/web3Provider";
 import {ConnectButton} from "@components/Dashboard/ConnectButton";
 import {DisplayUserAddressButton} from "@components/Dashboard/DisplayUserAddressButton";
 import {LoadingMetaMaskButton} from "@components/Dashboard/LoadingMetaMaskButton";
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 import { InstallMetaMaskSnackBar } from "@components/Dashboard/InstallMetaMaskSnackBar";
-import { WrapTab } from "./WrapTab";
-import { BetIcon } from "./Dashboard/BetIcon"; 
-import { TrophyIcon } from "./Dashboard/TrophyIcon";
-import { TicketIcon } from "./Dashboard/TicketIcon"
-import { LedgerIcon } from "./Dashboard/LedgerIcon";
+import { WrapTab } from "@components/WrapTab";
+import { BetIcon } from "@components/Dashboard/BetIcon"; 
+import { TrophyIcon } from "@components/Dashboard/TrophyIcon";
+import { TicketIcon } from "@components/Dashboard/TicketIcon"
+import { LedgerIcon } from "@components/Dashboard/LedgerIcon";
 
 // Redux
 import {connect} from "react-redux";
@@ -133,7 +133,7 @@ const DashboardNavbar = (props) => {
           </Tooltip>
           
           {
-            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :props.user.loggedIn ? <DisplayUserAddressButton userAddress={props.user.userAddress}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
+            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :props.user.loggedIn ? <DisplayUserAddressButton userAddress={props.user.userAddress} disconnectMetaMask={disconnectMetaMask}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
           }
 
 

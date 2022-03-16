@@ -2,7 +2,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
 
 //redux
-import {setProvider,setWeb3,setWeb3Loading,logIn} from "@actions/userActions";
+import {setProvider,setWeb3,setWeb3Loading,logIn,logOut} from "@actions/userActions";
 import store from "../store"
 
 export const checkWeb3 =  async () => {
@@ -27,13 +27,22 @@ export const connectMetaMask = () =>{
 const requestMetaMask = async () => {
     try{
             await store.getState().user.provider.request({method:"eth_requestAccounts"})
-            store.getState().user.web3.eth.getAccounts().then((value)=>{
+            store.getState().user.web3.eth.getAccounts()
+            .then((value)=>{
             store.dispatch(logIn(value[0]));
-        });
+            })
+            .catch((error)=>{
+                console.error(error);
+            });
     }catch{
         console.error("Can not retrieve account")
     }
 }
+
+export const disconnectMetaMask = async () => {
+    store.dispatch(logOut());
+}
+
 
 
 

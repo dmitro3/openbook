@@ -20,6 +20,9 @@ export const DisplayUserAddressButton = (props) => {
       const handleMenuItemClick = (event, index) => {
         setSelectedIndex(index);
         setAnchorEl(null);
+        if(index==2){
+          props.disconnectMetaMask();
+        }
       };
     
       const handleClose = () => {
