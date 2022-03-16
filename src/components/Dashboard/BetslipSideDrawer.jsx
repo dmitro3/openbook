@@ -209,7 +209,7 @@ const BetslipSideDrawer = (props) => {
                 </Box>
 
                 <Box className={styles.submitButton}>
-                    Connect To MetaMask
+                    Connect Wallet
                 </Box>
 
             </Box>}

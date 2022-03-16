@@ -11,7 +11,9 @@ import {
   ListItem,
   MenuItem,
   Menu,
-  Button
+  Button,
+  Tab,
+  Tabs
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { UserCircle as UserCircleIcon } from "@utils/icons/user-circle";
@@ -24,6 +26,8 @@ import {DisplayUserAddressButton} from "@components/Dashboard/DisplayUserAddress
 import {LoadingMetaMaskButton} from "@components/Dashboard/LoadingMetaMaskButton";
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 import { InstallMetaMaskSnackBar } from "@components/Dashboard/InstallMetaMaskSnackBar";
+import Link from 'next/link';
+import { WrapTab } from "./WrapTab";
 
 // Redux
 import {connect} from "react-redux";
@@ -36,9 +40,19 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 const DashboardNavbar = (props) => {
-  /* Template variables */
+  /* Side navigation variables */
   const { onSidebarOpen, ...other } = props;
-  /* End template variables */
+  /* Side navigation variables */
+
+  /* Top navigation bar tabs variables */
+  const [navigationTabsValue, setNavigationTabsValue] = React.useState(1);
+  /* End top navigation bar tabs variables */
+
+    /* Top navigation bar tabs variables */
+    const handleNavigationTabsChange = (event, newValue) => {
+      setNavigationTabsValue(newValue);
+    };
+    /* End top navigation bar tabs variables */
 
   React.useEffect(() =>{
     checkWeb3();
@@ -85,9 +99,21 @@ const DashboardNavbar = (props) => {
           </IconButton>
 
 
-        <Box sx={{ width: '100%', borderColor: 'divider'}}>
-          <PrimaryNavTabs />
-        </Box>
+          <Box sx={{ width: '100%', borderColor: 'divider'}}>
+
+            <Tabs
+              value={navigationTabsValue}
+              textColor="secondary"
+              indicatorColor="secondary"
+              aria-label="secondary tabs example"
+              onChange={handleNavigationTabsChange}
+            >
+                <WrapTab value={1} href="/" label="Bet Now"  />
+                <WrapTab value={2} href="/bookie" label="Bookie"/>
+                <WrapTab value={3} href="/mybets" label="My Bets"/>
+                <WrapTab value={4} href="/leaderboard" label="Leaderboard"/>
+            </Tabs>
+          </Box>
 
           {
           //This is the component that helps separate the left side and the right side of the top nav bar

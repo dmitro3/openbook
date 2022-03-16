@@ -2,8 +2,6 @@ import {ListItem,Button,Menu,MenuItem} from '@mui/material';
 import React from 'react';
 
 const options = [
-    'Dashboard',
-    'Your Tickets',
     'Settings',
     'Support',
     'Disconnect Wallet'
@@ -28,6 +26,9 @@ export const DisplayUserAddressButton = (props) => {
         setAnchorEl(null);
       };
 
+    const userAddress = props.userAddress;
+    const displayAddress = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`
+
     return(
         <div>
             <ListItem
@@ -42,7 +43,7 @@ export const DisplayUserAddressButton = (props) => {
               <UserCircleIcon fontSize="small" />
             </Avatar>*/}
 
-            <Button sx={{fontSize: '20px', color: 'black',whiteSpace: 'nowrap'}}>{props.userAddress}</Button>
+            <Button sx={{fontSize: '15px', color: 'black',whiteSpace: 'nowrap'}}>{displayAddress}</Button>
             
             </ListItem>
             <Menu
