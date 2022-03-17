@@ -8,7 +8,8 @@
         "@reducers/*": ["reducers/*"],
         "@actions/*": ["actions/*"],
         "@hooks/*": ["hooks/*"],
-        "@pages/*": ["pages/*"]
+        "@pages/*": ["pages/*"],
+        "@root/*": ["../*"]
       }
     }
 }

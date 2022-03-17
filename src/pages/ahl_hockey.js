@@ -6,7 +6,7 @@ import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDr
 import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer"
 import { useState} from "react"
 
-let data = require('../../odds.json');
+let data = require('@root/odds.json');
 let EPL_data = data.IceHockey.AHL;
 
 const Dashboard = () => 

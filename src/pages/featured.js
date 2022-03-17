@@ -1,16 +1,14 @@
 import Head from "next/head";
-import { Box, Typography } from "@mui/material";
+import { Box} from "@mui/material";
 import { DashboardLayout } from "@components/DashboardLayout";
-import { SportsBookPage } from "@components/Dashboard/SportsBookPage"
 import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal"
 import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer"
 import { useState} from "react"
-import CustomSwiper from "@components/Dashboard/CustomSwiper";
-import CustomSwiperForFeatureRows from "@components/Dashboard/CustomSwiperForFeatureRows";
 import { FeaturedSportPage } from "@components/Dashboard/FeaturedSportPage";
+import {CustomSwiper} from "@components/Dashboard/CustomSwiper" 
 
-let data = require('../../odds.json');
-let EPL_data = data.Soccer.EPL;
+let data = require('@root/odds.json');
+console.log(data);
 
 const Dashboard = () => 
 {
@@ -29,7 +27,7 @@ const Dashboard = () =>
             display: 'flex'
             }}
         >
-        {/*<CustomSwiper/>*/}
+
         <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />        
         </Box>
 
@@ -39,7 +37,7 @@ const Dashboard = () =>
             display: 'flex'
             }}>
 
-            <FeaturedSportPage/>
+            <FeaturedSportPage isSlipOpened={isSlipOpened} data={data}/>
             <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
         </Box>
         <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>

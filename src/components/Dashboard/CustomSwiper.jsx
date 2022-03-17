@@ -18,10 +18,9 @@ export default function CustomSwiper() {
         cssMode={true}
         navigation={true}
         mousewheel={true}
-        keyboard={true}
         modules={[Navigation, Mousewheel, Keyboard]}
         className="feature-page-pictures-swiper"
-        style={{paddingTop:'0px',marginLeft:'20px',marginRight:'20px'}}
+        style={{paddingTop:'0px',width:'100%'}}
         slidesPerView={'3'}
         spaceBetween={30}
         loop={true}

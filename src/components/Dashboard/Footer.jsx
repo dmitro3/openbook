@@ -12,7 +12,7 @@ export const Footer = () => {
           <FooterCustomDivider/>
             <Container>
               <Grid container spacing={3} sx={{backgroundColor:'#f9fafc',marginLeft:'45px'}}>
-                <Grid item lg={6} sm={12} xl={3} xs={12}>
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
                   <Typography sx={{display:'block', color:'black', fontSize:'25px'}}>About</Typography>
                   {["Privacy Policy","About Us", "Documentation" ,"Terms and Conditions"].map((item,index)=>{
                     return(
@@ -20,7 +20,7 @@ export const Footer = () => {
                     )
                   })}
                 </Grid>
-                <Grid item lg={6} sm={12} xl={3} xs={12} >
+                <Grid item lg={3} sm={6} xl={3} xs={12} >
                   <Typography sx={{display:'block', color:'black', fontSize:'25px'}}>Community</Typography>
                   {["Leaderboards","Blog", "Twitter" ,"Discord"].map((item,index)=>{
                     return(
@@ -28,7 +28,7 @@ export const Footer = () => {
                     )
                   })}
                 </Grid>
-                <Grid item lg={6} sm={12} xl={3} xs={12} >
+                <Grid item lg={3} sm={6} xl={3} xs={12} >
                   <Typography sx={{display:'block', color:'black', fontSize:'25px'}}>Support</Typography>
                   {["About Us", "Responsive Gambling" ,"FAQ", "General Betting Rules", "Contact Information"].map((item,index)=>{
                     return(
@@ -36,7 +36,7 @@ export const Footer = () => {
                     )
                   })}
                 </Grid>
-                <Grid item lg={6} sm={12} xl={3} xs={12} >
+                <Grid item lg={3} sm={6} xl={3} xs={12} >
                   <Typography sx={{display:'block', color:'black', fontSize:'25px'}}>Developers</Typography>
                   {["API","GitHub", "Smart Contracts" ,"Polygon"].map((item,index)=>{
                     return(

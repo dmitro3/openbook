@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Box, Container, Typography } from "@mui/material";
-import { DashboardLayout } from "../components/DashboardLayout";
+import { DashboardLayout } from "@components/DashboardLayout";
 
 const Settings = () => (
   <>

@@ -13,6 +13,12 @@
     "lint-fix": "next lint --fix"
   },
   "dependencies": {
+    "@dicebear/avatars": "^4.10.2",
+    "@dicebear/avatars-bottts-sprites": "^4.10.2",
+    "@dicebear/avatars-identicon-sprites": "^4.10.2",
+    "@dicebear/avatars-male-sprites": "^4.10.2",
+    "@dicebear/big-smile": "^4.10.2",
+    "@dicebear/miniavs": "^4.10.2",
     "@emotion/cache": "^11.5.0",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.3.0",
@@ -42,6 +48,7 @@
     "redux-thunk": "^2.4.1",
     "sass": "^1.49.9",
     "sqlite3": "^5.0.2",
+    "styled-jsx": "^5.0.1",
     "swiper": "^8.0.7",
     "uuid": "^8.3.0",
     "web3": "^1.7.1",

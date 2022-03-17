@@ -17,7 +17,8 @@ export const TeamCard = (props) => (
         height:"40px",
         margin:"auto"
         }}>
-        <Image
+        
+        {/* <Image
             src={props.teamIconPath}
             alt="logo"
             width="100"
@@ -25,7 +26,7 @@ export const TeamCard = (props) => (
             layout="responsive"
             className="logoStyle"
             loading="lazy"
-        />
+        /> */}
         </div>
 
         </Avatar>

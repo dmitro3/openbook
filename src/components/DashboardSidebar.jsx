@@ -136,7 +136,7 @@ export const DashboardSidebar = (props) => {
                   margin:"auto"
                 }}>
                   <Image
-                    src="/../public/static/templogosportsbook.png"
+                    src="/static/templogosportsbook.png"
                     alt="logo"
                     width="100"
                     height="100"

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { DashboardLayout } from "../components/DashboardLayout";
+import { DashboardLayout } from "@components/DashboardLayout";
 import BookieGrid from "@components/BookieGrid";
 
 const Dashboard = () => (

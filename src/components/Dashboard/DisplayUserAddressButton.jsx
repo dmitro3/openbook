@@ -1,5 +1,7 @@
-import {ListItem,Button,Menu,MenuItem} from '@mui/material';
-import React from 'react';
+import {ListItem,Button,Menu,MenuItem, Avatar} from '@mui/material';
+import React, { useEffect } from 'react';
+
+import { CustomAvatar } from './CustomAvatar';
 
 const options = [
     'Settings',
@@ -40,17 +42,11 @@ export const DisplayUserAddressButton = (props) => {
             aria-haspopup="listbox"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClickListItem}
-            sx={{
-              padding:'0px',
-              marginLeft:'15px'
-            }}
+            sx={{width:'fit-content',px:'0px',py:'0px',marginLeft:'20px'}}
           >
 
-            {/*<Avatar>
-              <UserCircleIcon fontSize="small" />
-            </Avatar>*/}
-
-            <Button sx={{fontSize: '15px', color: 'black',whiteSpace: 'nowrap',backgroundColor:'#f5f5f5',px:'32px',py:'10px'}}>{displayAddress}</Button>
+            <Button sx={{fontSize: '15px', color: 'black',whiteSpace: 'nowrap',backgroundColor:'#f5f5f5',px:'20px',py:'10px'}}>{displayAddress}<Avatar sx={{marginLeft:'10px'}}><CustomAvatar seed={displayAddress}/>
+            </Avatar></Button>
             
             </ListItem>
             <Menu
@@ -62,7 +58,7 @@ export const DisplayUserAddressButton = (props) => {
               role: 'listbox',
             }}
             PaperProps={{ sx: {
-                right: '12px',
+                right: '18px',
                 left: 'auto !important' 
             } }}
           >

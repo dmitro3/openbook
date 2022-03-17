@@ -11,7 +11,7 @@ import {getOdds} from "@utils/getOdds"
 import {connect} from "react-redux"
 import {setOdds} from "@actions/oddsActions"
 
-let data = require('../../odds.json');
+let data = require('@root/odds.json');
 let EPL_data = data.Soccer.EPL;
 
 const Dashboard = (props) => 
