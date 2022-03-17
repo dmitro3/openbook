@@ -35,7 +35,6 @@ const Dashboard = (props) =>
             display: 'flex'
             }}
         > 
-
             <SportsBookPage EPL_data={EPL_data}/>
             <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
             <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>
