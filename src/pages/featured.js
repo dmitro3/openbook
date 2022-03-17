@@ -21,7 +21,7 @@ const Dashboard = () =>
         <Box
             component="main"
         >
-        <Box
+        {/* <Box
             sx={{
             paddingTop: 8,
             display: 'flex'
@@ -29,11 +29,11 @@ const Dashboard = () =>
         >
 
         <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />        
-        </Box>
+        </Box> */}
 
         <Box
             sx={{
-            py: 8,
+            py: 3,
             display: 'flex'
             }}>
 

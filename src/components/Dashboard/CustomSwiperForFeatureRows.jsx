@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, Keyboard } from "swiper";
 import {Typography} from "@mui/material"
 import { MdOutlineNavigateBefore,MdOutlineNavigateNext } from "react-icons/md";
+import {FeaturePageIcons} from "@components/Icons/FeaturePageIcons"
 
 
 import "swiper/css";
@@ -18,7 +19,8 @@ export default function CustomSwiperForFeatureRows(props) {
   return (
     <>
         <div style={{width:"100%",textAlign:'right',paddingRight:'20px',display:'flex',paddingBottom:'0px',marginTop:'20px'}}>
-        <Typography  sx={{marginLeft:'20px',paddingTop:'30px',paddingBottom:'20px',fontSize:'17px', fontWeight:'500',marginTop:'auto'}}>{`${props.sport_key} / ${props.league_name}`}</Typography>
+        <Typography  sx={{marginLeft:'20px',paddingTop:'30px',paddingBottom:'0px',fontSize:'17px', fontWeight:'500',marginTop:'auto',marginRight:'10px'}}>{`${props.sport_key} / ${props.league_name}`}</Typography>
+        <FeaturePageIcons sport={props.sport_key}/>
         <button className="custom-feature-swpier-button custom-feature-swpier-prev-button" onClick={()=>{my_swiper.slidePrev()}}><MdOutlineNavigateBefore className="custom-feature-swpier-button-inner-svg"/></button>
         <button className="custom-feature-swpier-button custom-feature-swpier-next-button" onClick={()=>{my_swiper.slideNext()}}><MdOutlineNavigateNext className="custom-feature-swpier-button-inner-svg"/></button>
         <style>{`
