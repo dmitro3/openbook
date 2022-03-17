@@ -10,8 +10,14 @@ const flatten = (curr) => {
 
 export const getOdds = () =>{
     let data = require('@root/odds.json');
-    let EPL_data = data.Soccer.EPL;
-    let flatten_PPL_data = flatten(EPL_data);
-    return flatten_PPL_data;
+    let all_league_data_array = []
+    Object.values(data).map((item,index)=>{
+        return Object.values(item).map((item2,index2)=>{
+            all_league_data_array.push(flatten(item2))
+        })
+    })
+    let all_league_data_obj = Object.assign({},...all_league_data_array);
+    console.log(all_league_data_obj)
+    return all_league_data_obj;
 }
 

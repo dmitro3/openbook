@@ -27,11 +27,12 @@ return (
     <style>{`
     .featured-sport-page{
             height: 100%;
-            width: 97%;
+            width: 95%;
             -webkit-transition: width 0.5s ;
             -moz-transition: width 0.5s ;
             -o-transition: width 0.5s ;
             transition: width 0.5s ;
+            margin: auto;
         }
     .featured-sport-page-narrow{
         width: calc(100% - 350px);

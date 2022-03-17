@@ -2,7 +2,6 @@ import {FaGamepad,FaFutbol,FaBasketballBall,FaHockeyPuck,FaFootballBall,FaBaseba
 import {RiBoxingFill} from 'react-icons/ri';
 
 export const FeaturePageIcons = (props) => {
-    console.log(props.sport)
     switch(props.sport){
         case "Soccer":
 

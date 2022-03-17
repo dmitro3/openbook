@@ -107,8 +107,8 @@ const BetslipSideDrawer = (props) => {
                         
                     >
                         <Tab key={1} value="Single Bet"  label="Single Bet" sx={{fontSize:'14px',padding:'0px'}}/>
-                        <Tab key={2} value="Paylay" label="Parlay" sx={{fontSize:'14px',padding:'0px'}}/>
-                        <Tab key={3} value="Others" label="Others" sx={{fontSize:'14px',padding:'0px'}}/>
+                        <Tab disabled={true} key={2} value="Paylay" label="Parlay" sx={{fontSize:'14px',padding:'0px'}}/>
+                        <Tab disabled={true} key={3} value="Others" label="Others" sx={{fontSize:'14px',padding:'0px'}}/>
                     </Tabs>
                 </Box>
                 <Box sx={{maxHeight:"60vh",overflow:'overlay',marginBottom:'10px'}}>
@@ -136,8 +136,8 @@ const BetslipSideDrawer = (props) => {
                         let possiblePayOut = (Number(winningOdds) * Number(props.betSlip.betAmount)).toFixed(2);
                         return (
                         <Box key={index} 
-                            sx={{height:'110px',width:'100%',backgroundColor:'#white',marginBottom:'5px',borderBottom:'1px solid #d9d9d9'}}>
-                            <Box sx={{height:'fit-content',backgroundColor:'#white',paddingBottom:'10px',paddingTop:'10px',display:'flex',textAlign:'center'}}>
+                            sx={{height:'auto',width:'100%',backgroundColor:'white',marginBottom:'5px',borderBottom:'1px solid #d9d9d9',paddingTop:'5px',paddingBottom:'5px'}}>
+                            <Box sx={{height:'fit-content',backgroundColor:'white',paddingBottom:'10px',paddingTop:'10px',display:'flex',textAlign:'center'}}>
                                 <Box sx={{width:'50px',height:'100%'}}>
                                     <FaRegTimesCircle  className={styles.singleTicketDelete} onClick={()=>props.removeBetSlipOutcome(props.betSlip.betSlipOutcomeArray[index])} />
                                 </Box>
@@ -158,7 +158,7 @@ const BetslipSideDrawer = (props) => {
                                 </Box>
 
                             </Box>
-                            <Box sx={{height:'fit-content', backgroundColor:'#white',display:'flex',textAlign:'center',paddingTop:'3px',paddingBottom:'3px'}}>
+                            <Box sx={{height:'fit-content', backgroundColor:'white',display:'flex',textAlign:'center',paddingTop:'3px',paddingBottom:'3px'}}>
                                 <Box sx={{width:'50px',height:'100%'}}>
                                         <IoCashOutline  style={{height:'100%',width:'25px',display:'block',margin:'auto'}}/>
                                 </Box>
