@@ -1,12 +1,10 @@
-import _JSXStyle from 'styled-jsx/style'
-
 export const Loader = () => {
     return (
         <div className="load">
             <div className="load-one"></div>
             <div className="load-two"></div>
             <div className="load-three"></div>
-            <_JSXStyle>{`
+            <style>{`
                 * {
                     margin:0px;
                     }
@@ -52,6 +50,6 @@ export const Loader = () => {
                 }
 
             }
-        `}</_JSXStyle>
+        `}</style>
     </div>)
 }

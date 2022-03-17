@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, Keyboard } from "swiper";
-import {Button} from "@mui/material"
+import {Typography} from "@mui/material"
+import { MdOutlineNavigateBefore,MdOutlineNavigateNext } from "react-icons/md";
 
 
 import "swiper/css";
@@ -10,16 +11,45 @@ import "swiper/css/navigation";
 import FeaturedMatchCard from "./FeaturedMatchCard";
 
 
+
 export default function CustomSwiperForFeatureRows(props) {
     const [my_swiper, set_my_swiper] = useState({});
 
   return (
     <>
-        <div style={{width:"100%",textAlign:'right',paddingRight:'20px',display:'flex'}}>
-        <Button sx={{marginLeft:'auto',marginRight:'10px',borderRadius: '8'}} variant="contained" onClick={()=>{my_swiper.slidePrev()}}>{'<'}</Button>
-        <Button variant="contained" onClick={()=>{my_swiper.slideNext()}}>{'>'}</Button>
+        <div style={{width:"100%",textAlign:'right',paddingRight:'20px',display:'flex',paddingBottom:'0px',marginTop:'20px'}}>
+        <Typography  sx={{marginLeft:'20px',paddingTop:'30px',paddingBottom:'20px',fontSize:'17px', fontWeight:'500',marginTop:'auto'}}>{`${props.sport_key} / ${props.league_name}`}</Typography>
+        <button className="custom-feature-swpier-button custom-feature-swpier-prev-button" onClick={()=>{my_swiper.slidePrev()}}><MdOutlineNavigateBefore className="custom-feature-swpier-button-inner-svg"/></button>
+        <button className="custom-feature-swpier-button custom-feature-swpier-next-button" onClick={()=>{my_swiper.slideNext()}}><MdOutlineNavigateNext className="custom-feature-swpier-button-inner-svg"/></button>
+        <style>{`
+        .custom-feature-swpier-button{
+          margin-right: 10px;
+          border-radius: 50%;
+          background-color: white;
+          border: none;
+          padding: 5px;
+          height: fit-content;
+          margin-top: auto;
+          cursor:pointer;
+          padding-top: 3px;
+          padding-bottom: 3px;
+        }
+        .custom-feature-swpier-prev-button{
+          margin-left: auto;
+
+        }
+        .custom-feature-swpier-next-button{
+
+        }
+        .custom-feature-swpier-button:hover{
+          background-color:black;
+          color:white;
+        }
+        .custom-feature-swpier-button-inner-svg{
+          font-size:18px;
+        }
+        `}</style>
         </div>
-        
         <Swiper
             onInit={(ev) => {
             set_my_swiper(ev)
@@ -55,9 +85,8 @@ export default function CustomSwiperForFeatureRows(props) {
                 )
             })
         }
-        
-
       </Swiper>
+
     </>
   );
 }

@@ -142,7 +142,7 @@ export const DashboardSidebar = (props) => {
                     height="100"
                     layout="responsive"
                     className="logoStyle"
-                    loading="lazy"
+                    priority={true}
                   />
                 </div>
                 <Typography color="neutral.100" 

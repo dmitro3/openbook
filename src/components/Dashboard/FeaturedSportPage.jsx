@@ -1,6 +1,6 @@
 import {Box,Typography} from "@mui/material"
 import CustomSwiperForFeatureRows from "./CustomSwiperForFeatureRows"
-import _JSXStyle from 'styled-jsx/style'
+
 
 export const FeaturedSportPage = (props) => {
     let data = props.data
@@ -17,18 +17,17 @@ return (
                 if(league.length != 0){
                     returnComponent = (
                     <div key={index2}>
-                    <Typography  sx={{marginLeft:'20px',paddingTop:'30px',paddingBottom:'20px',fontSize:'17px', fontWeight:'500'}}>{`${key} / ${leagues_keys[index2]}`}</Typography>
-                    <CustomSwiperForFeatureRows league_data={league.slice(0,5)}/>           
+                    <CustomSwiperForFeatureRows league_data={league.slice(0,5)} sport_key={key} league_name={leagues_keys[index2]}/>           
                     </div>)
                 }
                 return returnComponent;
         })
     })}
 
-    <_JSXStyle>{`
+    <style>{`
     .featured-sport-page{
             height: 100%;
-            width: 100%;
+            width: 97%;
             -webkit-transition: width 0.5s ;
             -moz-transition: width 0.5s ;
             -o-transition: width 0.5s ;
@@ -38,9 +37,9 @@ return (
         width: calc(100% - 350px);
     }
     .featured-sport-page-full{
-        width:100%;
+        width:97%;
     }
-    `}</_JSXStyle>
+    `}</style>
     </Box>
 )
 }
