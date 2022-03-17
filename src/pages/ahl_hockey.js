@@ -6,8 +6,7 @@ import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDr
 import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer"
 import { useState} from "react"
 
-let data = require('@root/odds.json');
-let EPL_data = data.IceHockey.AHL;
+
 
 const Dashboard = () => 
 {
@@ -17,18 +16,6 @@ const Dashboard = () =>
     <Head>
         <title>AHL | Betting | OpenEdge</title>
     </Head>
-        <Box
-            component="main"
-            sx={{
-            flexGrow: 1,
-            py: 8,
-            display: 'flex'
-            }}
-        > 
-            <SportsBookPage EPL_data={EPL_data}/>
-            <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
-            <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>
-        </Box>
     </>
 )};
 

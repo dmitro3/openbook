@@ -7,8 +7,7 @@ import { CoinBaseIcon } from '@components/Dashboard/CoinBaseIcon';
 import { Box,Container, Grid, Typography, Link } from '@mui/material';
 export const Footer = () => {
     return(
-        <Box>
-        <Box sx={{paddingBottom:'200px'}}>
+        <Box sx={{paddingBottom:'200px',marginTop:"100px"}}>
           <FooterCustomDivider/>
             <Container>
               <Grid container spacing={3} sx={{backgroundColor:'#f9fafc',marginLeft:'45px'}}>
@@ -65,6 +64,5 @@ export const Footer = () => {
             <Typography align="right" sx={{marginRight:'2.5%'}} >1.0.0</Typography>
           </Box>
         </Box>
-      </Box>
     )
 }
