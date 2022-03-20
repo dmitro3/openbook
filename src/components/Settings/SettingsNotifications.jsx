@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 
 export const SettingsNotifications = (props) => (
-  <form {...props}>
+  <form>
     <Card>
       <CardHeader
         subheader="Manage the notifications"

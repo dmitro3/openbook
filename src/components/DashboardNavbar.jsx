@@ -13,8 +13,10 @@ import {
   Menu,
   Button,
   Tab,
-  Tabs
+  Tabs,
+  useMediaQuery
 } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
 import MenuIcon from "@mui/icons-material/Menu";
 import React from 'react';
 import { Bell as BellIcon } from "@utils/icons/bell";
@@ -29,9 +31,14 @@ import { BetIcon } from "@components/Dashboard/BetIcon";
 import { TrophyIcon } from "@components/Dashboard/TrophyIcon";
 import { TicketIcon } from "@components/Dashboard/TicketIcon"
 import { LedgerIcon } from "@components/Dashboard/LedgerIcon";
+import {SettingsModal} from "@components/Settings/SettingsModal"
+import {useState} from "react"
 
 // Redux
 import {connect} from "react-redux";
+// import {openSettingsModal,closeSettingsModal} from "@actions/settingsActions"
+import {setPreferUsername} from "@actions/userActions";
+import {setOddsFormat} from "@actions/settingsActions";
 
 
 /* Function that sets the navigation theme from template */
@@ -41,6 +48,19 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 const DashboardNavbar = (props) => {
+  /* Properties for settings modal */
+  const [settingsModalOpen, setSettingsModalOpen] = useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  
+  const handleClickOpen = () => {
+      setSettingsModalOpen(true);
+    };
+
+    const handleClose = () => {
+      setSettingsModalOpen(false);
+    };  
+
   /* Side navigation variables */
   const { onSidebarOpen, ...other } = props;
   /* Side navigation variables */
@@ -59,6 +79,11 @@ const DashboardNavbar = (props) => {
     checkWeb3();
     
   },[])
+
+  function confirmSettings(settings){
+    props.setPreferUsername(settings.preferUsername);
+    props.setOddsFormat(settings.oddsFormat);
+  }
 
   return (
     <>
@@ -133,11 +158,12 @@ const DashboardNavbar = (props) => {
           </Tooltip>
           
           {
-            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :props.user.loggedIn ? <DisplayUserAddressButton userAddress={props.user.userAddress} disconnectMetaMask={disconnectMetaMask}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
+            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :props.user.loggedIn ? <DisplayUserAddressButton preferUsername={props.user.preferUsername} userAddress={props.user.userAddress} disconnectMetaMask={disconnectMetaMask} openSettingsModal={handleClickOpen}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
           }
 
 
         </Toolbar>
+      <SettingsModal fullScreen={fullScreen} open={settingsModalOpen} handleClose={handleClose} preferUsername ={props.user.preferUsername} oddsFormat={props.settings.oddsFormat} confirmSettings={confirmSettings}/>
       </DashboardNavbarRoot>
     </>
   );
@@ -149,12 +175,19 @@ DashboardNavbar.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-      user: state.user
+      user: state.user,
+      settings: state.settings
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+      setPreferUsername: (preferUsername) => {
+        dispatch(setPreferUsername(preferUsername));
+      },
+      setOddsFormat: (oddsFormat) => {
+        dispatch(setOddsFormat(oddsFormat))
+      }
     }
 };
 

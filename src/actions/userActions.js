@@ -33,3 +33,10 @@ export function setWeb3Loading(loading){
     }
 }
 
+export function setPreferUsername(preferUserName){
+    return {
+        type: "SET_PREFER_USERNAME",
+        payload: preferUserName
+    }
+}
+

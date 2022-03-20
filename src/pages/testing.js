@@ -6,6 +6,7 @@ import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDr
 import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
 import { useState, useEffect} from "react";
 import {getOdds} from "@utils/getOdds"
+import {CustomSettingsPane} from "@components/Settings/CustomSettingsPane"
 
 // Redux Dependencies
 import {connect} from "react-redux"
@@ -35,10 +36,8 @@ const Dashboard = (props) =>
             display: 'flex'
             }}
         > 
+        <CustomSettingsPane/>
 
-            <SportsBookPage EPL_data={EPL_data}/>
-            <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
-            <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>
             
         </Box>
     </>

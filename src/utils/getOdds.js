@@ -17,7 +17,7 @@ export const getOdds = () =>{
         })
     })
     let all_league_data_obj = Object.assign({},...all_league_data_array);
-    console.log(all_league_data_obj)
+    // console.log(all_league_data_obj)
     return all_league_data_obj;
 }
 

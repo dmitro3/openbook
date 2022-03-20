@@ -2,7 +2,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
 
 //redux
-import {setProvider,setWeb3,setWeb3Loading,logIn,logOut} from "@actions/userActions";
+import {setProvider,setWeb3,setWeb3Loading,logIn,logOut,setPreferUsername} from "@actions/userActions";
 import store from "../store"
 
 export const checkWeb3 =  async () => {
@@ -29,7 +29,13 @@ const requestMetaMask = async () => {
             await store.getState().user.provider.request({method:"eth_requestAccounts"})
             store.getState().user.web3.eth.getAccounts()
             .then((value)=>{
-            store.dispatch(logIn(value[0]));
+            if(value.length != 0){
+                let userAddress = value[0];
+                let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
+                store.dispatch(logIn(userAddress));
+                store.dispatch(setPreferUsername(preferUserName));
+            }
+
             })
             .catch((error)=>{
                 console.error(error);
