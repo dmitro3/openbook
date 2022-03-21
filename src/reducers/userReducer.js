@@ -40,12 +40,6 @@ const oddsReducer = (state = {
                         web3Loading: action.payload
                     }
                     break;
-                case "SET_PREFER_USERNAME":
-                    state ={
-                        ...state,
-                        preferUsername: action.payload
-                    }
-                    break;
       }
       return state;
   };

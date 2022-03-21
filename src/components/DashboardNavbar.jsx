@@ -37,8 +37,7 @@ import {useState} from "react"
 // Redux
 import {connect} from "react-redux";
 // import {openSettingsModal,closeSettingsModal} from "@actions/settingsActions"
-import {setPreferUsername} from "@actions/userActions";
-import {setOddsFormat} from "@actions/settingsActions";
+import {setOddsFormat,setPreferUsername} from "@actions/settingsActions";
 
 
 /* Function that sets the navigation theme from template */
@@ -158,12 +157,12 @@ const DashboardNavbar = (props) => {
           </Tooltip>
           
           {
-            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :props.user.loggedIn ? <DisplayUserAddressButton preferUsername={props.user.preferUsername} userAddress={props.user.userAddress} disconnectMetaMask={disconnectMetaMask} openSettingsModal={handleClickOpen}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
+            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :props.user.loggedIn ? <DisplayUserAddressButton preferUsername={props.settings.preferUsername} userAddress={props.user.userAddress} disconnectMetaMask={disconnectMetaMask} openSettingsModal={handleClickOpen}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
           }
 
 
         </Toolbar>
-      <SettingsModal fullScreen={fullScreen} open={settingsModalOpen} handleClose={handleClose} preferUsername ={props.user.preferUsername} oddsFormat={props.settings.oddsFormat} confirmSettings={confirmSettings}/>
+      <SettingsModal fullScreen={fullScreen} open={settingsModalOpen} handleClose={handleClose} preferUsername ={props.settings.preferUsername} oddsFormat={props.settings.oddsFormat} confirmSettings={confirmSettings}/>
       </DashboardNavbarRoot>
     </>
   );

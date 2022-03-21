@@ -2,8 +2,9 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
 
 //redux
-import {setProvider,setWeb3,setWeb3Loading,logIn,logOut,setPreferUsername} from "@actions/userActions";
-import store from "../store"
+import {setProvider,setWeb3,setWeb3Loading,logIn,logOut} from "@actions/userActions";
+import {setPreferUsername,setPreferUsernameFlag} from "@actions/settingsActions";
+import {store} from "../store"
 
 export const checkWeb3 =  async () => {
     const provider = await detectEthereumProvider();
@@ -11,6 +12,8 @@ export const checkWeb3 =  async () => {
         const web3 = new Web3(provider);
         store.dispatch(setProvider(provider));
         store.dispatch(setWeb3(web3));
+        // store.dispatch(setProvider(true));
+        // store.dispatch(setWeb3(true));
         store.dispatch(setWeb3Loading(false));
         
     }else{
@@ -32,8 +35,11 @@ const requestMetaMask = async () => {
             if(value.length != 0){
                 let userAddress = value[0];
                 let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
+                let preferUsernameFlag = store.getState().settings.preferUsernameFlag;
                 store.dispatch(logIn(userAddress));
-                store.dispatch(setPreferUsername(preferUserName));
+                if(!preferUsernameFlag)
+                    store.dispatch(setPreferUsername(preferUserName));
+                    store.dispatch(setPreferUsernameFlag());
             }
 
             })

@@ -10,7 +10,8 @@ import { Loader } from "@components/Dashboard/Loader";
 
 // New redux dependencies
 import { Provider } from "react-redux";
-import store from "../store";
+import {persistor,store} from "../store";
+import { PersistGate } from 'redux-persist/integration/react'
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -24,6 +25,8 @@ const App = (props) => {
     window.addEventListener("load", (e) => setDocumentLoaded(true));
   });
 
+  //console.log(store);
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -33,8 +36,10 @@ const App = (props) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Provider store={store}>
-          {/*documentLoaded ? getLayout(<Component {...pageProps} />):<Loader/>*/}
+        <PersistGate loading={<Loader/>} persistor={persistor}>
           {getLayout(<Component {...pageProps} />)}
+        </PersistGate>
+          {/*documentLoaded ? getLayout(<Component {...pageProps} />):<Loader/>*/}
         </Provider>
       </ThemeProvider>
     </CacheProvider>

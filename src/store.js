@@ -1,21 +1,48 @@
 import {createStore,combineReducers,applyMiddleware} from "redux";
+
+// Third party middlewares
 import thunk from 'redux-thunk';
 import promise from "redux-promise-middleware";
 
-
 // Development Only
 import logger from 'redux-logger';
+
+// Custom reducers
 import betSlipReducer from "@reducers/betSlipReducer";
 import favoriteMatchReducer from "@reducers/favoriteMatchReducer";
 import oddsReducer from "@reducers/oddsReducer";
-import userReducer from "@reducers/userReducer"
+import userReducer from "@reducers/userReducer";
 import settingsReducer from "@reducers/settingsReducer";
 
+// Redux-persist
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import { createTransform } from 'redux-persist';
+import {parse, stringify} from 'flatted';
 // const store = createStore(
 //     combineReducers({math: mathReducer, user: userReducer, favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer}),
 //     {},
 //     bindMiddleware(logger,thunk,promise)
 // );
+
+// const transformCircular = 
+//   createTransform(
+//     (inboundState, key) => {
+//       console.log(inboundState)
+//       return stringify(inboundState)
+//     },
+//     (outboundState, key) => {
+//       return parse(outboundState)
+//     },
+//     { whitelist: ['user'] }
+//   )
+
+const persistConfig = {
+  key: 'root',
+  storage: storage,
+  // transforms: [transformCircular],
+  blacklist: ['user','odds']
+}
 
 const bindMiddleware = (middleware) => {
     if (process.env.NODE_ENV !== "production") {
@@ -28,15 +55,17 @@ const bindMiddleware = (middleware) => {
   
 export const makeStore = () => {
     const rootReducer = combineReducers({favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer,odds:oddsReducer,user:userReducer,settings:settingsReducer});
+    const persistedReducer = persistReducer(persistConfig, rootReducer)
     const store = createStore(
-        rootReducer,
+        persistedReducer,
         bindMiddleware([logger,thunk,promise])
     );
-    return store;
+    let persistor = persistStore(store)
+    return {persistor,store};
 };
 
-const store = makeStore();
+const {persistor,store} = makeStore();
 
 
 
-export default store;
+export {persistor,store};
