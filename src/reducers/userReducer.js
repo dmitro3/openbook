@@ -5,7 +5,6 @@ const oddsReducer = (state = {
     provider: null,
     web3Loading: true,
     loggedIn: false,
-    preferUsername: null
   }, action) => {
       switch (action.type) {
             case "LOG_IN":
@@ -19,7 +18,9 @@ const oddsReducer = (state = {
                     state = {
                         ...state,
                         userAddress : "",
-                        loggedIn: false
+                        loggedIn: false,
+                        provider: {},
+                        web3: {}
                     }   
                     break;
                 case "SET_WEB3":

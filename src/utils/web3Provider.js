@@ -29,8 +29,19 @@ export const connectMetaMask = () =>{
 
 const requestMetaMask = async () => {
     try{
-            await store.getState().user.provider.request({method:"eth_requestAccounts"})
-            store.getState().user.web3.eth.getAccounts()
+            const provider = await detectEthereumProvider();
+            const web3 = {}
+            if(provider){
+                web3 = new Web3(provider);
+                store.dispatch(setProvider(provider));
+                store.dispatch(setWeb3(web3));
+            }
+            else{
+                alert("MetaMask not detected")
+                return
+            }
+            await provider.request({method:"eth_requestAccounts"})
+            web3.eth.getAccounts()
             .then((value)=>{
             if(value.length != 0){
                 let userAddress = value[0];
