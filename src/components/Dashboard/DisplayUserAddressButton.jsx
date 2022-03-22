@@ -48,7 +48,7 @@ export const DisplayUserAddressButton = (props) => {
             sx={{width:'fit-content',px:'0px',py:'0px',marginLeft:'20px'}}
           >
 
-            <Button sx={{fontSize: '15px', color: 'black',whiteSpace: 'nowrap',backgroundColor:'#f5f5f5',px:'20px',py:'10px',minWidth:'157px'}}>{preferUsername}<Avatar sx={{marginLeft:'10px'}}><CustomAvatar seed={userAddress}/>
+            <Button sx={{fontSize: '15px', color: 'black',whiteSpace: 'nowrap',backgroundColor:'#f5f5f5',px:'20px',py:'10px',minWidth:'157px'}}>{preferUsername}<Avatar sx={{marginLeft:'10px'}}><CustomAvatar seed={userAddress} avatarStyle={props.preferAvatarStyle}/>
             </Avatar></Button>
             
             </ListItem>

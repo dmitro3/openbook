@@ -1,15 +1,20 @@
-import {Button,Dialog,DialogActions,DialogContent,DialogTitle,Typography,TextField,Box,FormControl,Select,MenuItem,FormHelperText,Divider} from "@mui/material";
+import {Button,Dialog,DialogActions,DialogContent,DialogTitle,Typography,TextField,Box,FormControl,Select,MenuItem,Avatar,Divider} from "@mui/material";
 import {useEffect, useState} from 'react'
+import { CustomAvatar } from "@components/Dashboard/CustomAvatar";
 
 export const SettingsModal = (props) => {
     const [oddsFormat, setOddsFormat] = useState(props.oddsFormat);
+    const [avatarStyle,setAvatarStyle] = useState("robot");
+
+    const handleAvatarChange = (event) =>{
+        setAvatarStyle(event.target.value);
+    }
 
     const handleChange = (event) => {
         setOddsFormat(event.target.value);
     };
 
     const [preferUsernameInputQuery, setPreferUsernameInputQuery] = useState(props.preferUsername?props.preferUsername:"");
-
 
     const validateInputOnChange = (event) => {
         var t = event.target.value;
@@ -35,6 +40,12 @@ export const SettingsModal = (props) => {
             open={props.open}
             onClose={props.handleClose}
             aria-labelledby="responsive-dialog-title"
+            PaperProps={{
+                sx:{
+                    px:'30px',
+                    py:'10px'
+                }
+            }}
             >
         <DialogTitle id="responsive-dialog-title">
         {"Settings"}
@@ -63,11 +74,37 @@ export const SettingsModal = (props) => {
             autoComplete="off"
         >
             <Typography>
+                {"Prefer Avatar Style:"}
+            </Typography>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <Select
+                value={avatarStyle}
+                onChange={handleAvatarChange}
+                >
+                <MenuItem value={'robot'}>Robot</MenuItem>
+                <MenuItem value={'miniavs'}>Miniavs</MenuItem>
+                <MenuItem value={'bigsmile'}>Big Smile</MenuItem>
+                <MenuItem value={'adventurer'}>Adventurer</MenuItem>
+                <MenuItem value={'micah'}>Micah</MenuItem>
+                <MenuItem value={'bigear'}>Big Ear</MenuItem>
+                </Select>
+            </FormControl>
+            <Avatar sx={{width:'100px !important',height:'100px',mx:'auto !important'}}><CustomAvatar avatarStyle={avatarStyle} style={{height:'80px',width:'80px'}} seed={props.userAddress}/></Avatar>
+        </Box>
+        <Divider sx={{my:'2rem'}}/>
+        <Box
+            component="form"
+            sx={{
+                '& > :not(style)': { m: 1, width: '25ch' },
+            }}
+            noValidate
+            autoComplete="off"
+        >
+            <Typography>
                 {"Odds Format:"}
             </Typography>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <Select
-                id="demo-simple-select-helper"
                 value={oddsFormat}
                 onChange={handleChange}
                 >
@@ -83,7 +120,7 @@ export const SettingsModal = (props) => {
             <Button onClick={()=>{props.handleClose()}} autoFocus>
                 Cancel
             </Button>
-            <Button autoFocus onClick={()=>{props.confirmSettings({preferUsername:preferUsernameInputQuery,oddsFormat:oddsFormat});props.handleClose()}}>
+            <Button autoFocus onClick={()=>{props.confirmSettings({preferUsername:preferUsernameInputQuery,oddsFormat:oddsFormat,preferAvatarStyle:avatarStyle});props.handleClose()}}>
                 Confirm
             </Button>
         </DialogActions>

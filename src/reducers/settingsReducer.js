@@ -1,7 +1,8 @@
 const settingsReducer = (state = {
     oddsFormat: "decimal",
-    preferUsername: "",
-    preferUsernameFlag: false
+    preferUsername: {},
+    preferUsernameFlag: {},
+    preferAvatarStyle: {}
   }, action) => {
       switch (action.type) {
             case "SET_ODDS_FORMAT":
@@ -13,15 +14,20 @@ const settingsReducer = (state = {
             case "SET_PREFER_USERNAME":
                 state ={
                     ...state,
-                    preferUsername: action.payload
+                    preferUsername: Object.assign({},state.preferUsername,action.payload)
                 }
                 break;
             case "SET_PREFER_USERNAME_FLAG":
                 state ={
                     ...state,
-                    preferUsernameFlag: true
+                    preferUsernameFlag: Object.assign({},state.preferUsernameFlag,action.payload)
                 }
                 break;
+            case "SET_PREFER_AVATAR_STYLE":
+                state = {
+                    ...state,
+                    preferAvatarStyle: Object.assign({},state.preferAvatarStyle,action.payload)
+                }
       }
       return state;
   };

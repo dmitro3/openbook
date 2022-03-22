@@ -5,16 +5,23 @@ export function setOddsFormat(oddsFormat){
     }  
 }
 
-export function setPreferUsername(preferUserName){
+export function setPreferUsername(userAddress,preferUsername){
     return {
         type: "SET_PREFER_USERNAME",
-        payload: preferUserName
+        payload: {[userAddress]:preferUsername}
     }
 }
 
-export function setPreferUsernameFlag(){
+export function setPreferUsernameFlag(userAddress){
     return{
         type: "SET_PREFER_USERNAME_FLAG",
-        payload: ""
+        payload: {[userAddress]:true}
+    }
+}
+
+export function setPreferAvatarStyle(userAddress,preferAvatarStyle){
+    return {
+        type: "SET_PREFER_AVATAR_STYLE",
+        payload: {[userAddress]:preferAvatarStyle}
     }
 }

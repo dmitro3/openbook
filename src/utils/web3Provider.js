@@ -3,7 +3,7 @@ import Web3 from 'web3';
 
 //redux
 import {setProvider,setWeb3,setWeb3Loading,logIn,logOut} from "@actions/userActions";
-import {setPreferUsername,setPreferUsernameFlag} from "@actions/settingsActions";
+import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
 import {store} from "../store"
 
 export const checkWeb3 =  async () => {
@@ -35,11 +35,13 @@ const requestMetaMask = async () => {
             if(value.length != 0){
                 let userAddress = value[0];
                 let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
-                let preferUsernameFlag = store.getState().settings.preferUsernameFlag;
+                let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
                 store.dispatch(logIn(userAddress));
-                if(!preferUsernameFlag)
-                    store.dispatch(setPreferUsername(preferUserName));
-                    store.dispatch(setPreferUsernameFlag());
+                if(!preferUsernameFlag){
+                    store.dispatch(setPreferUsername(userAddress,preferUserName));
+                    store.dispatch(setPreferUsernameFlag(userAddress));
+                    store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
+                }
             }
 
             })

@@ -13,11 +13,13 @@
     "lint-fix": "next lint --fix"
   },
   "dependencies": {
-    "@dicebear/avatars": "^4.10.2",
+    "@dicebear/adventurer": "^4.10.2",
     "@dicebear/avatars-bottts-sprites": "^4.10.2",
     "@dicebear/avatars-identicon-sprites": "^4.10.2",
     "@dicebear/avatars-male-sprites": "^4.10.2",
+    "@dicebear/big-ears": "^4.10.2",
     "@dicebear/big-smile": "^4.10.2",
+    "@dicebear/micah": "^4.10.2",
     "@dicebear/miniavs": "^4.10.2",
     "@emotion/cache": "^11.5.0",
     "@emotion/server": "^11.4.0",

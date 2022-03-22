@@ -37,7 +37,7 @@ import {useState} from "react"
 // Redux
 import {connect} from "react-redux";
 // import {openSettingsModal,closeSettingsModal} from "@actions/settingsActions"
-import {setOddsFormat,setPreferUsername} from "@actions/settingsActions";
+import {setOddsFormat,setPreferUsername,setPreferAvatarStyle} from "@actions/settingsActions";
 
 
 /* Function that sets the navigation theme from template */
@@ -80,8 +80,9 @@ const DashboardNavbar = (props) => {
   },[])
 
   function confirmSettings(settings){
-    props.setPreferUsername(settings.preferUsername);
+    props.setPreferUsername(props.user.userAddress,settings.preferUsername);
     props.setOddsFormat(settings.oddsFormat);
+    props.setPreferAvatarStyle(props.user.userAddress,settings.preferAvatarStyle);
   }
 
   return (
@@ -157,12 +158,12 @@ const DashboardNavbar = (props) => {
           </Tooltip>
           
           {
-            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :props.user.loggedIn ? <DisplayUserAddressButton preferUsername={props.settings.preferUsername} userAddress={props.user.userAddress} disconnectMetaMask={disconnectMetaMask} openSettingsModal={handleClickOpen}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
+            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :props.user.loggedIn ? <DisplayUserAddressButton preferUsername={props.settings.preferUsername[props.user.userAddress]} preferAvatarStyle={props.settings.preferAvatarStyle[props.user.userAddress]} userAddress={props.user.userAddress} disconnectMetaMask={disconnectMetaMask} openSettingsModal={handleClickOpen}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
           }
 
 
         </Toolbar>
-      <SettingsModal fullScreen={fullScreen} open={settingsModalOpen} handleClose={handleClose} preferUsername ={props.settings.preferUsername} oddsFormat={props.settings.oddsFormat} confirmSettings={confirmSettings}/>
+      <SettingsModal fullScreen={fullScreen} open={settingsModalOpen} handleClose={handleClose} preferUsername ={props.settings.preferUsername[props.user.userAddress]} oddsFormat={props.settings.oddsFormat} confirmSettings={confirmSettings} userAddress={props.user.userAddress}/>
       </DashboardNavbarRoot>
     </>
   );
@@ -181,11 +182,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      setPreferUsername: (preferUsername) => {
-        dispatch(setPreferUsername(preferUsername));
+      setPreferUsername: (userAddress,preferUserName) => {
+        dispatch(setPreferUsername(userAddress,preferUserName));
       },
       setOddsFormat: (oddsFormat) => {
         dispatch(setOddsFormat(oddsFormat))
+      },
+      setPreferAvatarStyle: (userAddress,preferAvatarStyle) => {
+        dispatch(setPreferAvatarStyle(userAddress,preferAvatarStyle))
       }
     }
 };
