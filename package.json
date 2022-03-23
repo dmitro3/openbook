@@ -13,6 +13,7 @@
     "lint-fix": "next lint --fix"
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.4.0",
     "@dicebear/adventurer": "^4.10.2",
     "@dicebear/avatars-bottts-sprites": "^4.10.2",
     "@dicebear/avatars-identicon-sprites": "^4.10.2",

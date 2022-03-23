@@ -2,7 +2,7 @@ const hre = require("hardhat");
 
 async function main() {
     const OpenBook = await hre.ethers.getContractFactory("OpenBook");
-    const obook = await OpenBook.deploy("OpenBook");
+    const obook = await OpenBook.deploy();
 
     await obook.deployed();
 
