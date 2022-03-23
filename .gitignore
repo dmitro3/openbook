@@ -33,3 +33,12 @@ out
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#Hardhat
+coverage
+coverage.json
+typechain
+
+#Hardhat files
+cache
+artifacts
