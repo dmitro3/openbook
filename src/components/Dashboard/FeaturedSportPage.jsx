@@ -4,25 +4,35 @@ import CustomSwiperForFeatureRows from "./CustomSwiperForFeatureRows"
 
 export const FeaturedSportPage = (props) => {
     let data = props.data
-    let sport_keys = Object.keys(props.data);
+
+    let data_entries = Object.entries(data);
+    let sports_arr = []
+    let leagues_arr = []
+    data_entries.map((item,index)=>{
+        sports_arr.push(item[0]);
+        leagues_arr.push(item[1]);
+    })
+
+    let featured_data = {}
+    leagues_arr.map((league_dict,index)=>{
+        let leagues = Object.values(league_dict)
+        featured_data[sports_arr[index]] = leagues.flat()
+    })
 
 return (
     <Box className={`featured-sport-page ${props.isSlipOpened ? "featured-sport-page-narrow" : "featured-sport-page-full"}`}>
     
-    {sport_keys.map((key,index)=>{
-        let leagues = Object.values(data[key]);
-        let leagues_keys = Object.keys(data[key]);
-        return leagues.map((league,index2)=>{
-            let returnComponent = <div key={index2}></div>
-                if(league.length != 0){
-                    returnComponent = (
-                    <div key={index2}>
-                    <CustomSwiperForFeatureRows league_data={league.slice(0,5)} sport_key={key} league_name={leagues_keys[index2]}/>           
-                    </div>)
-                }
-                return returnComponent;
-        })
-    })}
+     {Object.entries(featured_data).map((sport_league_entries,index)=>{
+        if(sport_league_entries[1].length == 0){
+            return
+        }
+        else{
+            let sport_key = sport_league_entries[0];
+            let league_data = sport_league_entries[1].slice(0,6);
+            return (<CustomSwiperForFeatureRows key={index} sport_key={sport_key} league_data={league_data}/>)
+        }
+
+    })} 
 
     <style>{`
     .featured-sport-page{
