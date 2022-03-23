@@ -41,7 +41,7 @@ const persistConfig = {
   key: 'root',
   storage: storage,
   // transforms: [transformCircular],
-  blacklist: ['user','odds']
+  blacklist: ['user']
 }
 
 const bindMiddleware = (middleware) => {

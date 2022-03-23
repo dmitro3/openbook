@@ -1,4 +1,5 @@
 import {ListItem,Button,Menu,MenuItem, Avatar} from '@mui/material';
+
 import React, { useEffect } from 'react';
 
 import { CustomAvatar } from './CustomAvatar';
@@ -38,7 +39,7 @@ export const DisplayUserAddressButton = (props) => {
     const preferUsername = props.preferUsername;
 
     return(
-        <div>
+        <>
             <ListItem
             button
             id="lock-button"
@@ -74,6 +75,6 @@ export const DisplayUserAddressButton = (props) => {
               </MenuItem>
             ))}
             </Menu>
-        </div>
+        </>
     )
 }

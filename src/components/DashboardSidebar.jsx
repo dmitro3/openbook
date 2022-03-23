@@ -136,7 +136,7 @@ export const DashboardSidebar = (props) => {
                   margin:"auto"
                 }}>
                   <Image
-                    src="/static/templogosportsbook.png"
+                    src="/static/open_book_logo.png"
                     alt="logo"
                     width="100"
                     height="100"
@@ -147,7 +147,7 @@ export const DashboardSidebar = (props) => {
                 </div>
                 <Typography color="neutral.100" 
                 variant="h3" >
-                  OpenEdge
+                  OpenBook
                 </Typography>
             </a>
           </NextLink>

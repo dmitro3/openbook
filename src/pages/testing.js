@@ -5,8 +5,7 @@ import { SportsBookPage } from "@components/Dashboard/SportsBookPage";
 import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal";
 import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
 import { useState, useEffect} from "react";
-import {getOdds} from "@utils/getOdds"
-import {CustomSettingsPane} from "@components/Settings/CustomSettingsPane"
+import {getOdds} from "@utils/getOdds";
 
 // Redux Dependencies
 import {connect} from "react-redux"
@@ -36,7 +35,6 @@ const Dashboard = (props) =>
             display: 'flex'
             }}
         > 
-        <CustomSettingsPane/>
 
             
         </Box>

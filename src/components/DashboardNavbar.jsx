@@ -14,7 +14,8 @@ import {
   Button,
   Tab,
   Tabs,
-  useMediaQuery
+  useMediaQuery,
+  Typography
 } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from "@mui/icons-material/Menu";
@@ -33,6 +34,8 @@ import { TicketIcon } from "@components/Dashboard/TicketIcon"
 import { LedgerIcon } from "@components/Dashboard/LedgerIcon";
 import {SettingsModal} from "@components/Settings/SettingsModal"
 import {useState} from "react"
+import { DaiIcon } from "@components/Dashboard/DaiIcon";
+
 
 // Redux
 import {connect} from "react-redux";
@@ -145,12 +148,18 @@ const DashboardNavbar = (props) => {
           //This is the component that helps separate the left side and the right side of the top nav bar
           }
           <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display:'flex',flexGrow: 1 }}>
+
+          </Box>
+          <DaiIcon/>
+          <Typography sx={{color: 'black',mx:'0.3rem',fontSize:'15px',fontWeight:'500'}}>$91.00</Typography>
+
 
           {
           //This is the notification component from the template
           }
           <Tooltip title="Notifications">
-            <IconButton sx={{ ml: 1 }}>
+            <IconButton sx={{ ml: '1rem',mr:'0.5rem' }}>
               <Badge badgeContent={4} color="primary" variant="dot">
                 <BellIcon fontSize="small" />
               </Badge>
