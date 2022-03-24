@@ -6,7 +6,7 @@ import { useState } from 'react';
 import {MdOutlineKeyboardArrowDown} from "react-icons/md";
 
 export const NavItemWithSubItems = (props) => {
-  const { href, icon, title, leagues, ...others } = props;
+  const { href, icon, sport, leagues, ...others } = props;
   const router = useRouter();
   const active = href ? (router.pathname === href) : false;
   const [open, setOpen] = useState(false);
@@ -50,7 +50,7 @@ export const NavItemWithSubItems = (props) => {
           onClick={handleClick}
         >
           <Box sx={{ flexGrow: 1 }}>
-            {title}
+            {sport}
           </Box>
           <MdOutlineKeyboardArrowDown className={`nav-item-button-arrow ${open ? "nav-item-button-arrow-opened" : ""} `}/>
           <style>
@@ -72,7 +72,7 @@ export const NavItemWithSubItems = (props) => {
     <List component="div" disablePadding>
     {leagues.map((league,leagueIndex)=>{
         return(<ListItem 
-          key={{leagueIndex}}
+          key={`${league}/${leagueIndex}`}
           disableGutters
             sx={{
                 display: 'flex',
@@ -81,6 +81,7 @@ export const NavItemWithSubItems = (props) => {
                 px: 2,
                 ml: '10%'
             }}>
+        <NextLink passHref href={{ pathname: `/Matches/${sport}/${league}`}}>
           <Button
           component="a"
           disableRipple
@@ -106,6 +107,7 @@ export const NavItemWithSubItems = (props) => {
             {league}
           </Box>
         </Button>
+        </NextLink>
         </ListItem>
         )
 
@@ -119,5 +121,5 @@ export const NavItemWithSubItems = (props) => {
 NavItemWithSubItems.propTypes = {
   href: PropTypes.string,
   icon: PropTypes.node,
-  title: PropTypes.string
+  sport: PropTypes.string
 };

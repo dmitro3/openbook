@@ -83,14 +83,13 @@ export const DashboardSidebar = (props) => {
       sports_arr.push(item[0]);
       leagues_arr.push(item[1]);
   })
-  console.log(leagues_arr[0])
   let sportsItems = []
   sports_arr.map((sport,sport_index)=>{
     sportsItems.push({
       href: "/settings",
       icon: mapSportToIcon(sport),
-      title: sport,
-      leagues: Object.keys(leagues_arr[sport_index])
+      sport: sport,
+      leagues: Object.keys(leagues_arr[sport_index]),
     })
   })
 
@@ -162,12 +161,12 @@ export const DashboardSidebar = (props) => {
         </Box>
         <CustomDivider/>
         <Box sx={{ flexGrow: 1 }}>
-          {sportsItems.map((item) => (
+          {sportsItems.map((item,index) => (
             <NavItemWithSubItems
-              key={item.title}
+              key={index}
               icon={item.icon}
               href={item.href}
-              title={item.title}
+              sport={item.sport}
               leagues={item.leagues}
             />
           ))}
