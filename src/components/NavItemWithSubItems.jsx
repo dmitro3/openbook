@@ -78,8 +78,8 @@ export const NavItemWithSubItems = (props) => {
                 display: 'flex',
                 mb: 0.5,
                 py: 0,
-                px: 2,
-                ml: '10%'
+                paddingLeft: '15%',
+                width:'95%'
             }}>
         <NextLink passHref href={{ pathname: `/Matches/${sport}/${league}`}}>
           <Button

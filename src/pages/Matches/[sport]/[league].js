@@ -7,6 +7,7 @@ import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
 import { useState, useEffect} from "react";
 import {getOdds} from "@utils/getOdds"
 import {useRouter} from 'next/router';
+import { SportsBookPageSkeleton } from "@components/Dashboard/SportsBookPageSkeleton";
 
 // Redux Dependencies
 import {connect} from "react-redux"
@@ -61,7 +62,7 @@ const Dashboard = (props) =>
             <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
             <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>
             
-        </Box>:<h1>Loading</h1>}
+        </Box>:<SportsBookPageSkeleton/>}
     </>
 )};
 
