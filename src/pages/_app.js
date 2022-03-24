@@ -5,8 +5,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import { createEmotionCache } from "@utils/create-emotion-cache";
 import { theme } from "@styles/theme";
 import "@styles/globals.css";
-import { useEffect, useState } from "react";
 import { Loader } from "@components/Dashboard/Loader";
+import Router from 'next/router';
+import NextNProgress from "nextjs-progressbar";
 
 // New redux dependencies
 import { Provider } from "react-redux";
@@ -19,11 +20,6 @@ const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const getLayout = Component.getLayout ?? ((page) => page);
-  const [documentLoaded, setDocumentLoaded] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener("load", (e) => setDocumentLoaded(true));
-  });
 
   //console.log(store);
 
@@ -37,9 +33,9 @@ const App = (props) => {
         <CssBaseline />
         <Provider store={store}>
         <PersistGate loading={<Loader/>} persistor={persistor}>
+        <NextNProgress color="#34b8ff" />
           {getLayout(<Component {...pageProps} />)}
         </PersistGate>
-          {/*documentLoaded ? getLayout(<Component {...pageProps} />):<Loader/>*/}
         </Provider>
       </ThemeProvider>
     </CacheProvider>
