@@ -18,6 +18,7 @@ import {RiMouseFill,RiBoxingFill} from 'react-icons/ri';
 import {CustomDivider} from '@components/Dashboard/CustomDivider'
 import {IoTicketOutline} from 'react-icons/io5'
 import {AiOutlineMergeCells} from 'react-icons/ai'
+import { NavItemWithSubItems } from "@components/NavItemWithSubItems";
 const bettingZoneitems = [
   {
     href: "/featured",
@@ -36,58 +37,36 @@ const bettingZoneitems = [
   }
 ];
 
-const sportsItems = [
-  {
-    href: "/settings",
-    icon: <FaGamepad />,
-    title: "E-Sports",
-  },
-  {
-    href: "/epl_football",
-    icon: <FaFutbol />,
-    title: "Football",
-  },
-  {
-    href: "/nba_basketball",
-    icon: <FaBasketballBall />,
-    title: "Basketball",
-  },
-  {
-    href: "/ahl_hockey",
-    icon: <FaHockeyPuck />,
-    title: "Ice Hockey",
-  },
-  {
-    href: "/settings",
-    icon: <FaFootballBall />,
-    title: "American Football",
-  },
-  {
-    href: "/settings",
-    icon: <RiMouseFill />,
-    title: "Onhovered Item",
-  },
-  {
-    href: "/settings",
-    icon: <FaBaseballBall />,
-    title: "Baseball",
-  },  
-  {
-    href: "/settings",
-    icon: <RiBoxingFill />,
-    title: "UFC/MMA",
-  },  
-  {
-    href: "/settings",
-    icon: <FaFlagCheckered />,
-    title: "Motorsports",
-  },
-  {
-    href: "/testing",
-    icon: <IoTicketOutline />,
-    title: "Redux Testing Page",
-  }
-];
+const mapSportToIcon = (sport) => {
+    switch(sport){
+      case "American Football":
+        return <FaFootballBall />
+      break;
+
+      case "Baseball":
+        return <FaBaseballBall />
+      break;
+
+      case "Basketball":
+        return <FaBasketballBall />
+      break;
+
+      case "Ice Hockey":
+        return <FaHockeyPuck />
+      break;
+
+      case "MMA":
+        return <RiBoxingFill />
+      break;
+
+      case "Soccer":
+        return <FaFutbol />
+      break;
+
+      default:
+        return <RiMouseFill />
+    }
+}
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
@@ -96,6 +75,24 @@ export const DashboardSidebar = (props) => {
     defaultMatches: true,
     noSsr: false,
   });
+
+  let data_entries = Object.entries(require('@root/odds.json'));
+  let sports_arr = []
+  let leagues_arr = []
+  data_entries.map((item,index)=>{
+      sports_arr.push(item[0]);
+      leagues_arr.push(item[1]);
+  })
+  console.log(leagues_arr[0])
+  let sportsItems = []
+  sports_arr.map((sport,sport_index)=>{
+    sportsItems.push({
+      href: "/settings",
+      icon: mapSportToIcon(sport),
+      title: sport,
+      leagues: Object.keys(leagues_arr[sport_index])
+    })
+  })
 
   useEffect(
     () => {
@@ -166,51 +163,14 @@ export const DashboardSidebar = (props) => {
         <CustomDivider/>
         <Box sx={{ flexGrow: 1 }}>
           {sportsItems.map((item) => (
-            <NavItem
+            <NavItemWithSubItems
               key={item.title}
               icon={item.icon}
               href={item.href}
               title={item.title}
+              leagues={item.leagues}
             />
           ))}
-        </Box>
-        
-        <CustomDivider/>
-        <Box
-          sx={{
-            px: 2,
-            py: 3,
-          }}
-        >
-          <Typography color="neutral.100" variant="subtitle2">
-            Need something to put here?
-          </Typography>
-          <Typography color="neutral.500" variant="body2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              mt: 2,
-              mx: "auto",
-              width: "160px",
-              "& img": {
-                width: "100%",
-              },
-            }}>
-          </Box>
-          <NextLink href="/" passHref>
-            <Button
-              color="secondary"
-              component="a"
-              endIcon={<OpenInNewIcon />}
-              fullWidth
-              sx={{ mt: 2 }}
-              variant="contained"
-              >
-              Superfluous Button
-            </Button>
-          </NextLink>
         </Box>
       </Box>
     </>

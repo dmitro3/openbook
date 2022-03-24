@@ -6,7 +6,6 @@ import { createEmotionCache } from "@utils/create-emotion-cache";
 import { theme } from "@styles/theme";
 import "@styles/globals.css";
 import { Loader } from "@components/Dashboard/Loader";
-import Router from 'next/router';
 import NextNProgress from "nextjs-progressbar";
 
 // New redux dependencies

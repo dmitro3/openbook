@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel, Keyboard } from "swiper";
 import {Typography} from "@mui/material"
 import { MdOutlineNavigateBefore,MdOutlineNavigateNext } from "react-icons/md";
 import {FeaturePageIcons} from "@components/Icons/FeaturePageIcons"
@@ -102,9 +101,8 @@ export default function CustomSwiperForFeatureRows(props) {
             }}
             cssMode={false}
             navigation={false}
-            mousewheel={true}
+            mousewheel={false}
             keyboard={false}
-            modules={[Mousewheel]}
             className="feature-page-pictures-swiper"
             style={{paddingTop:'0px',marginLeft:'20px',marginRight:'20px'}}
             slidesPerView={'3'}

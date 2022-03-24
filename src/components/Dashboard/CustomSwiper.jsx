@@ -27,7 +27,7 @@ export const CustomSwiper = () => {
       >
       
         {['NBA_Betting.jpg','EPL_Betting.jpg','Esport_Betting_2.jpeg','Esport_Betting.jpg',"Online_Betting.jpg"].map((item,index)=>{
-          return(<SwiperSlide key={index} style={{borderRadius:"30px",overflow:'auto',width:'770px',height:'350px',cursor:'pointer'}} ><Image style={{cursor:'pointer'}} src={`/static/images/featured_page_pictures/${item}`} layout='fill'/></SwiperSlide>)
+          return(<SwiperSlide key={index} style={{borderRadius:"30px",overflow:'auto',width:'770px',height:'350px',cursor:'pointer'}} ><Image src={`/static/images/featured_page_pictures/${item}`} layout='fill'/></SwiperSlide>)
         })}
         
 
