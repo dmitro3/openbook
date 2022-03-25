@@ -209,16 +209,17 @@ const BetslipSideDrawer = (props) => {
 
                         <Box className={styles.presetBetButton} /*onClick={()=>props.setBetAmount()}*/ disabled>Max</Box>
                 </Box>
+
+                <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',my:'1rem',color:'black'}}>
+                    <Typography>Total possible payout</Typography>
+                    <Typography sx={{fontWeight:'700'}}>: {Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)} DAI</Typography>
+                </Box>
                 {
                     !props.user.provider ?
                     <InstallMetaMaskButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}}/> :
                     props.user.loggedIn ?
                     <button className={styles.submitButton}>
-                        <Typography sx={{fontSize:'18px',fontWeight:'500'}}>Place Bet</Typography>
-                        <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
-                            <Typography>Total possible payout</Typography>
-                            <Typography sx={{fontWeight:'600'}}>: {Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)} DAI</Typography>
-                        </div>
+                        <Typography sx={{fontSize:'25px',fontWeight:'600'}}>Place Bet</Typography>
                     </button> :
                     <ConnectButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}} setDisconnected={props.setDisconnected} connectMetaMask={connectMetaMask}/>
                 }
