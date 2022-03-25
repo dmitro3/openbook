@@ -19,9 +19,8 @@ import {
 } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from "@mui/icons-material/Menu";
-import React from 'react';
 import { Bell as BellIcon } from "@utils/icons/bell";
-import {checkWeb3, connectMetaMask, disconnectMetaMask} from "@utils/web3Provider";
+import {checkWeb3, connectMetaMask, disconnectMetaMask, switchAccount} from "@utils/web3Provider";
 import {ConnectButton} from "@components/Dashboard/ConnectButton";
 import {DisplayUserAddressButton} from "@components/Dashboard/DisplayUserAddressButton";
 import {LoadingMetaMaskButton} from "@components/Dashboard/LoadingMetaMaskButton";
@@ -33,14 +32,14 @@ import { TrophyIcon } from "@components/Dashboard/TrophyIcon";
 import { TicketIcon } from "@components/Dashboard/TicketIcon"
 import { LedgerIcon } from "@components/Dashboard/LedgerIcon";
 import {SettingsModal} from "@components/Settings/SettingsModal"
-import {useState} from "react"
+import {useState,useEffect} from "react"
 import { DaiIcon } from "@components/Dashboard/DaiIcon";
+
 
 
 // Redux
 import {connect} from "react-redux";
-// import {openSettingsModal,closeSettingsModal} from "@actions/settingsActions"
-import {setOddsFormat,setPreferUsername,setPreferAvatarStyle} from "@actions/settingsActions";
+import {setOddsFormat,setPreferUsername,setPreferAvatarStyle,setDisconnected} from "@actions/settingsActions";
 
 
 /* Function that sets the navigation theme from template */
@@ -68,7 +67,7 @@ const DashboardNavbar = (props) => {
   /* Side navigation variables */
 
   /* Top navigation bar tabs variables */
-  const [navigationTabsValue, setNavigationTabsValue] = React.useState(1);
+  const [navigationTabsValue, setNavigationTabsValue] = useState(1);
   /* End top navigation bar tabs variables */
 
     /* Top navigation bar tabs variables */
@@ -77,10 +76,42 @@ const DashboardNavbar = (props) => {
     };
     /* End top navigation bar tabs variables */
 
-  React.useEffect(() =>{
-    checkWeb3();
-    
-  },[])
+  useEffect(function autoLogin() {
+      checkWeb3()
+      .then((web3Existed)=>{
+        if(!web3Existed)
+          return
+        if(props.settings.disconnected)
+          return
+
+        connectMetaMask();
+      })
+      .catch((error)=>{
+        console.error(error);
+      });
+  }, []); // Or [] if effect doesn't need props or state
+
+  useEffect(() => {
+    async function listenMMAccount() {
+      if(window.ethereum){
+        window.ethereum.on("accountsChanged", async function() {
+          switchAccount();
+        });
+      }
+    }
+    listenMMAccount();
+  }, []);
+
+  useEffect(() => {
+    async function listenMetaMaskDisconnect() {
+      if(window.ethereum){
+        window.ethereum.on("disconnect", async function() {
+          disconnectMetaMask();
+        });
+      }
+    }
+    listenMetaMaskDisconnect();
+  }, []);
 
   function confirmSettings(settings){
     props.setPreferUsername(props.user.userAddress,settings.preferUsername);
@@ -88,10 +119,9 @@ const DashboardNavbar = (props) => {
     props.setPreferAvatarStyle(props.user.userAddress,settings.preferAvatarStyle);
   }
 
+
   return (
-    <>
-      {/* <b style={{color:'black'}}>{props.user.web3Loading ? "Web3 is loading" : props.user.web3 ? "web3 is ready" : "install web3 plz"}</b>  */}
-      
+    <>    
       <DashboardNavbarRoot
         sx={{
           left: {
@@ -167,9 +197,23 @@ const DashboardNavbar = (props) => {
           </Tooltip>
           
           {
-            props.user.web3Loading ? <LoadingMetaMaskButton/> : !props.user.provider ?  <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :props.user.loggedIn ? <DisplayUserAddressButton preferUsername={props.settings.preferUsername[props.user.userAddress]} preferAvatarStyle={props.settings.preferAvatarStyle[props.user.userAddress]} userAddress={props.user.userAddress} disconnectMetaMask={disconnectMetaMask} openSettingsModal={handleClickOpen}/> : <ConnectButton connectMetaMask={connectMetaMask}/>
+            props.user.web3Loading ? 
+            <LoadingMetaMaskButton/> : 
+            !props.user.provider ?  
+            <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :
+            props.user.loggedIn ? 
+            <DisplayUserAddressButton 
+              preferUsername={props.settings.preferUsername[props.user.userAddress]} 
+              preferAvatarStyle={props.settings.preferAvatarStyle[props.user.userAddress]} 
+              userAddress={props.user.userAddress} 
+              disconnectMetaMask={disconnectMetaMask} 
+              openSettingsModal={handleClickOpen}
+              setDisconnected={props.setDisconnected} 
+            /> : 
+            <ConnectButton setDisconnected={props.setDisconnected} 
+              connectMetaMask={connectMetaMask}
+            />
           }
-
 
         </Toolbar>
       <SettingsModal fullScreen={fullScreen} open={settingsModalOpen} handleClose={handleClose} preferUsername ={props.settings.preferUsername[props.user.userAddress]} oddsFormat={props.settings.oddsFormat} confirmSettings={confirmSettings} userAddress={props.user.userAddress}/>
@@ -199,6 +243,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setPreferAvatarStyle: (userAddress,preferAvatarStyle) => {
         dispatch(setPreferAvatarStyle(userAddress,preferAvatarStyle))
+      },
+      setDisconnected: (disconnected) => {
+        dispatch(setDisconnected(disconnected))
       }
     }
 };

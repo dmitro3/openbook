@@ -1,8 +1,9 @@
 const settingsReducer = (state = {
     oddsFormat: "decimal",
+    disconnected: true,
     preferUsername: {},
     preferUsernameFlag: {},
-    preferAvatarStyle: {}
+    preferAvatarStyle: {},
   }, action) => {
       switch (action.type) {
             case "SET_ODDS_FORMAT":
@@ -28,6 +29,13 @@ const settingsReducer = (state = {
                     ...state,
                     preferAvatarStyle: Object.assign({},state.preferAvatarStyle,action.payload)
                 }
+                break;
+            case "SET_DISCONNECTED":
+                state = {
+                    ...state,
+                    disconnected: action.payload
+                }
+                break;
       }
       return state;
   };

@@ -22,7 +22,7 @@ export const InstallMetaMaskSnackBar = () => {
         sx={{top:'70px !important'}}
         autoHideDuration={4000}
         >
-        <Alert severity="error">Unable To Detect MetaMask. <a style={{color:"inherit",fontSize:"15px"}}rel="noreferrer" target="_blank" href="https://metamask.io/">Get metamask here</a> </Alert>    
+        <Alert severity="error">Unable To Detect MetaMask. <a style={{color:"inherit",fontSize:"15px"}}rel="noreferrer" target="_blank" href="https://metamask.io/">{'Get MetaMask here!'}</a> </Alert>    
         </Snackbar>
     )
 }

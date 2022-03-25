@@ -25,6 +25,7 @@ export const DisplayUserAddressButton = (props) => {
         setAnchorEl(null);
         if(index==2){
           props.disconnectMetaMask();
+          props.setDisconnected(true);
         }
         else if(index == 0){
           props.openSettingsModal();

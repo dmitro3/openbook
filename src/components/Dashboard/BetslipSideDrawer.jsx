@@ -6,13 +6,16 @@ import styles from '@styles/BetSlipDrawer.module.css';
 import {BetSlipEmpty} from "@components/Dashboard/BetSlipEmpty";
 import {useState,useEffect, Fragment} from 'react';
 import {DeleteAllMatchesInBetSlipModal} from "@components/Dashboard/DeleteAllMatchesInBetSlipModal"
-
-import {Box,List,Tabs,Tab,Input,Typography,useMediaQuery} from "@mui/material";
+import {Box,List,Tabs,Tab,Input,Typography,useMediaQuery, Button} from "@mui/material";
 import { useTheme } from '@mui/material/styles';
+import {ConnectButton} from "@components/Dashboard/ConnectButton";
+import {connectMetaMask} from "@utils/web3Provider";
+import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 
 // Redux Dependencies
 import {connect} from "react-redux";
 import {addBetSlipOutcome,removeBetSlipOutcome, removeAllBetSlipOutcomes, setBetAmount} from '@actions/betSlipActions';
+import {setDisconnected} from "@actions/settingsActions"
 
 
 const BetslipSideDrawer = (props) => {
@@ -78,7 +81,8 @@ const BetslipSideDrawer = (props) => {
         return props.betSlip.betSlipOutcomeArray.length == 0
     }
 
- 
+    let totalPossiblePayoutDict = {}
+
     const list = (anchor) => (
         <Box
             className={`${styles.slip} ${props.isSlipOpened ? styles.slipOpen : styles.slipClose}`}
@@ -134,6 +138,7 @@ const BetslipSideDrawer = (props) => {
                         }
 
                         let possiblePayOut = (Number(winningOdds) * Number(props.betSlip.betAmount)).toFixed(2);
+                        totalPossiblePayoutDict = {...totalPossiblePayoutDict,[matchId]:possiblePayOut};
                         return (
                         <Box key={index} 
                             sx={{height:'auto',width:'100%',backgroundColor:'white',marginBottom:'5px',borderBottom:'1px solid #d9d9d9',paddingTop:'5px',paddingBottom:'5px'}}>
@@ -204,10 +209,20 @@ const BetslipSideDrawer = (props) => {
 
                         <Box className={styles.presetBetButton} /*onClick={()=>props.setBetAmount()}*/ disabled>Max</Box>
                 </Box>
-
-                <Box className={styles.submitButton}>
-                    Connect Wallet
-                </Box>
+                {
+                    !props.user.provider ?
+                    <InstallMetaMaskButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}}/> :
+                    props.user.loggedIn ?
+                    <button className={styles.submitButton}>
+                        <Typography sx={{fontSize:'18px',fontWeight:'500'}}>Place Bet</Typography>
+                        <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                            <Typography>Total possible payout</Typography>
+                            <Typography sx={{fontWeight:'600'}}>: {Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)} DAI</Typography>
+                        </div>
+                    </button> :
+                    <ConnectButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}} setDisconnected={props.setDisconnected} connectMetaMask={connectMetaMask}/>
+                }
+                
 
             </Box>}
         </Box>  
@@ -223,7 +238,8 @@ const BetslipSideDrawer = (props) => {
 const mapStateToProps = (state) => {
     return {
         betSlip: state.betSlip,
-        odds: state.odds
+        odds: state.odds,
+        user: state.user
     };
 };
 
@@ -240,6 +256,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setBetAmount: (betAmount)=>{
           dispatch(setBetAmount(betAmount))
+      },
+      setDisconnected: (disconnected) => {
+        dispatch(setDisconnected(disconnected))
       }
     };
 };

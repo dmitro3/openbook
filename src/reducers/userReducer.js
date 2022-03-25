@@ -11,7 +11,7 @@ const oddsReducer = (state = {
                 state = {
                     ...state,
                     userAddress : action.payload,
-                    loggedIn: true
+                    loggedIn: true,
                     }   
                     break;
                 case "LOG_OUT":
@@ -20,7 +20,7 @@ const oddsReducer = (state = {
                         userAddress : "",
                         loggedIn: false,
                         provider: {},
-                        web3: {}
+                        web3: {},
                     }   
                     break;
                 case "SET_WEB3":

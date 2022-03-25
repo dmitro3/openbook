@@ -15,15 +15,17 @@ export const checkWeb3 =  async () => {
         // store.dispatch(setProvider(true));
         // store.dispatch(setWeb3(true));
         store.dispatch(setWeb3Loading(false));
+        return true;
         
     }else{
         store.dispatch(setWeb3Loading(false));
         console.error("Please install MetaMask")
+        return false;
     }
     
 }
 
-export const connectMetaMask = () =>{
+export const connectMetaMask = async () =>{
     store.getState().user.provider ?  requestMetaMask() : console.error("Cannot connect MetaMask, try reload browser!")
 } 
 
@@ -64,8 +66,29 @@ const requestMetaMask = async () => {
     }
 }
 
-export const disconnectMetaMask = async () => {
+export const disconnectMetaMask  = () => {
     store.dispatch(logOut());
+}
+
+export const switchAccount = (accounts) => {
+    store.getState().user.web3.eth.getAccounts().then((accounts)=>{
+        if(accounts.length == 0){
+            disconnectMetaMask();
+            return
+        }
+        else{
+            let userAddress = accounts[0]
+            let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
+            store.dispatch(logIn(userAddress));
+            if(!preferUsernameFlag){
+                let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
+                store.dispatch(setPreferUsername(userAddress,preferUserName));
+                store.dispatch(setPreferUsernameFlag(userAddress));
+                store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
+            }
+        }
+    })
+
 }
 
 

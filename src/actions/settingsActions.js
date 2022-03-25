@@ -25,3 +25,10 @@ export function setPreferAvatarStyle(userAddress,preferAvatarStyle){
         payload: {[userAddress]:preferAvatarStyle}
     }
 }
+
+export function setDisconnected(disconnected){
+    return{
+        type: "SET_DISCONNECTED",
+        payload: disconnected
+    }
+}
