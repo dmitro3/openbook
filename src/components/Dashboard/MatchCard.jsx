@@ -38,12 +38,26 @@ const MatchCard = (props) => (
       {
         Object.keys(props.outcomes).map( item => {
           let outcomeKey = item.toString();
-          let outcomeValue = props.outcomes[item].toString();
+          let outcomeValue = ""
+          switch(props.settings.oddsFormat){
+            case "decimal":
+              outcomeValue = Number(props.outcomes[item]).toFixed(2).toString();
+              break;
+            case "american":
+              outcomeValue = Number(props.outcomesInUS[item]).toFixed(0).toString();
+              break;
+            case "percentage":
+              outcomeValue = `${(Number(props.outcomesInProb[item])*100).toFixed(1).toString()}%`;
+              break;
+            default:
+              outcomeValue = props.outcomes[item].toString();
+          }
+          
           return(
           <BetButton
           key={outcomeKey}
           number={outcomeKey} 
-          outcome={Number(outcomeValue).toFixed(2).toString()}
+          outcome={outcomeValue}
           BetButtonId={props.matchId+"/"+outcomeKey}
           addBetSlipMatch={props.addBetSlipMatch}
           removeBetSlipOutcome={props.removeBetSlipOutcome}
@@ -60,7 +74,8 @@ const MatchCard = (props) => (
 const mapStateToProps = (state) => {
   return {
       favoriteMatch: state.favoriteMatch,
-      betSlip: state.betSlip
+      betSlip: state.betSlip,
+      settings: state.settings
   };
 };
 

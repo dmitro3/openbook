@@ -6,21 +6,15 @@ import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer"
 import { useState,useEffect} from "react"
 import { FeaturedSportPage } from "@components/Dashboard/FeaturedSportPage";
 import {CustomSwiper} from "@components/Dashboard/CustomSwiper" 
-import {getOdds} from "@utils/getOdds"
 
 // Redux Dependencies
 import {connect} from "react-redux"
 import {setOdds} from "@actions/oddsActions"
 
-let data = require('@root/odds.json');
-
 const Dashboard = (props) => 
 {
     const [isSlipOpened, setSlipOpen] = useState(false);
-    useEffect(()=>{
-        const oddsData = getOdds();
-        props.setOdds(oddsData);
-    })
+    let data = props.odds.unformattedOddsDict;
 
     return (
     <>
@@ -56,15 +50,13 @@ const Dashboard = (props) =>
 
 const mapStateToProps = (state) => {
     return{
-        
+        odds: state.odds
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      setOdds: (oddsData) => {
-          dispatch(setOdds(oddsData))
-      }
+        
     };
 };
 

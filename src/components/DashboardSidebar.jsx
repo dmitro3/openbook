@@ -19,6 +19,7 @@ import {CustomDivider} from '@components/Dashboard/CustomDivider'
 import {IoTicketOutline} from 'react-icons/io5'
 import {AiOutlineMergeCells} from 'react-icons/ai'
 import { NavItemWithSubItems } from "@components/NavItemWithSubItems";
+import {store} from "store"
 const bettingZoneitems = [
   {
     href: "/featured",
@@ -31,7 +32,7 @@ const bettingZoneitems = [
     title: "Trending Games",
   },
   {
-    href: "/products",
+    href: "/trending",
     icon: <AiOutlineMergeCells/>,
     title: "Parlays",
   }
@@ -76,7 +77,7 @@ export const DashboardSidebar = (props) => {
     noSsr: false,
   });
 
-  let data_entries = Object.entries(require('@root/odds.json'));
+  let data_entries = Object.entries(store.getState().odds.unformattedOddsDict);
   let sports_arr = []
   let leagues_arr = []
   data_entries.map((item,index)=>{
@@ -86,7 +87,6 @@ export const DashboardSidebar = (props) => {
   let sportsItems = []
   sports_arr.map((sport,sport_index)=>{
     sportsItems.push({
-      href: "/settings",
       icon: mapSportToIcon(sport),
       sport: sport,
       leagues: Object.keys(leagues_arr[sport_index]),
@@ -120,7 +120,7 @@ export const DashboardSidebar = (props) => {
           alignSelf: "center",
           }}>
           <NextLink 
-            href="/" 
+            href="/featured" 
             passHref
             >
             <a style={{

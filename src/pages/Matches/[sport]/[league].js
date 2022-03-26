@@ -5,7 +5,6 @@ import { SportsBookPage } from "@components/Dashboard/SportsBookPage";
 import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal";
 import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
 import { useState, useEffect} from "react";
-import {getOdds} from "@utils/getOdds"
 import {useRouter} from 'next/router';
 import { SportsBookPageSkeleton } from "@components/Dashboard/SportsBookPageSkeleton";
 
@@ -13,20 +12,15 @@ import { SportsBookPageSkeleton } from "@components/Dashboard/SportsBookPageSkel
 import {connect} from "react-redux"
 import {setOdds} from "@actions/oddsActions"
 
-
-
 const Dashboard = (props) => 
 {
+   
     const [routerReady,setRouterReady] = useState(false);
     const [isSlipOpened, setSlipOpen] = useState(false);
 
     const router = useRouter()
-    let data = require('@root/odds.json');
+    let data = props.odds.unformattedOddsDict;
 
-    useEffect(()=>{
-        const oddsData = getOdds();
-        props.setOdds(oddsData);
-    })
 
     useEffect(()=>{
         if(!router.isReady) return;
@@ -68,15 +62,12 @@ const Dashboard = (props) =>
 
 const mapStateToProps = (state) => {
     return{
-        
+        odds: state.odds
     }
 };
-
 const mapDispatchToProps = (dispatch) => {
     return {
-      setOdds: (oddsData) => {
-          dispatch(setOdds(oddsData))
-      }
+
     };
 };
 

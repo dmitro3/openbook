@@ -7,11 +7,15 @@ import { theme } from "@styles/theme";
 import "@styles/globals.css";
 import { Loader } from "@components/Dashboard/Loader";
 import NextNProgress from "nextjs-progressbar";
+import { useEffect } from "react";
 
 // New redux dependencies
 import { Provider } from "react-redux";
 import {persistor,store} from "../store";
 import { PersistGate } from 'redux-persist/integration/react'
+
+// Setting odds, and store them into redux
+import { getOdds } from "@utils/getOdds" 
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -19,8 +23,10 @@ const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const getLayout = Component.getLayout ?? ((page) => page);
-
-  //console.log(store);
+  
+  useEffect(()=>{
+    getOdds();
+  },[])
 
   return (
     <CacheProvider value={emotionCache}>

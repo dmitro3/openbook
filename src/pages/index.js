@@ -5,22 +5,14 @@ import { SportsBookPage } from "@components/Dashboard/SportsBookPage";
 import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal";
 import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
 import { useState, useEffect} from "react";
-import {getOdds} from "@utils/getOdds"
 
 // Redux Dependencies
 import {connect} from "react-redux"
-import {setOdds} from "@actions/oddsActions"
-
-let data = require('@root/odds.json');
-let EPL_data = data.Soccer.EPL;
 
 const Dashboard = (props) => 
 {
     const [isSlipOpened, setSlipOpen] = useState(false);
-    useEffect(()=>{
-        const oddsData = getOdds();
-        props.setOdds(oddsData);
-    })
+    let data = props.odds.unformattedOddsDict;
     
     return (
     <>
@@ -35,7 +27,7 @@ const Dashboard = (props) =>
             display: 'flex'
             }}
         > 
-            <SportsBookPage EPL_data={EPL_data}/>
+            <SportsBookPage EPL_data={data}/>
             <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
             <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>
             
@@ -45,15 +37,12 @@ const Dashboard = (props) =>
 
 const mapStateToProps = (state) => {
     return{
-        
+        odds: state.odds
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      setOdds: (oddsData) => {
-          dispatch(setOdds(oddsData))
-      }
     };
 };
 

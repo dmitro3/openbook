@@ -20,6 +20,8 @@ export const SportsBookPage = (props) => {
                                 match1={match.match[0]} 
                                 match2={match.match[1]} 
                                 outcomes={match.outcomes}
+                                outcomesInUS={match.outcomesInUS}
+                                outcomesInProb={match.outcomesInProb}
                                 dateString={dateStringForProps}  
                                 timeString={timeStringForProps}  
                                 matchId={match.id}
