@@ -1,12 +1,13 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { Box, Button, ListItem, Collapse,List,ListItemText } from '@mui/material';
+import { Box, Button, ListItem, Collapse,List,Chip } from '@mui/material';
 import { useState } from 'react';
 import {MdOutlineKeyboardArrowDown} from "react-icons/md";
+import {NavItembutton} from "@components/NavItemButtonEmpty"
 
 export const NavItemWithSubItems = (props) => {
-  const { href, icon, sport, leagues, ...others } = props;
+  const { href, icon, sport, leagues, leagues_length_arr, ...others } = props;
   const router = useRouter();
   const active = href ? (router.pathname === href) : false;
   const [open, setOpen] = useState(false);
@@ -71,7 +72,10 @@ export const NavItemWithSubItems = (props) => {
     <Collapse in={open} timeout="auto">
     <List component="div" disablePadding>
     {leagues.map((league,leagueIndex)=>{
-        return(<ListItem 
+        let empty = leagues_length_arr[leagueIndex] == 0
+        let href = `/Matches/${sport}/${league}`
+        return(
+        <ListItem 
           key={`${league}/${leagueIndex}`}
           disableGutters
             sx={{
@@ -81,33 +85,7 @@ export const NavItemWithSubItems = (props) => {
                 paddingLeft: '15%',
                 width:'95%'
             }}>
-        <NextLink passHref href={{ pathname: `/Matches/${sport}/${league}`}}>
-          <Button
-          component="a"
-          disableRipple
-          sx={{
-            backgroundColor: active && 'rgba(255,255,255, 0.08)',
-            borderRadius: 1,
-            color: active ? 'secondary.main' : 'neutral.300',
-            fontWeight: active && 'fontWeightBold',
-            justifyContent: 'flex-start',
-            px: 3,
-            textAlign: 'left',
-            textTransform: 'none',
-            width: '100%',
-            '& .MuiButton-startIcon': {
-              color: active ? 'secondary.main' : 'neutral.400'
-            },
-            '&:hover': {
-              backgroundColor: 'rgba(255,255,255, 0.08)'
-            }
-          }}
-        >
-          <Box sx={{ flexGrow: 1 }}>
-            {league}
-          </Box>
-        </Button>
-        </NextLink>
+            <NavItembutton league={league} empty={empty} active={false} href={href}/> 
         </ListItem>
         )
 

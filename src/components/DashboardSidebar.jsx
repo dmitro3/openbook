@@ -90,6 +90,7 @@ export const DashboardSidebar = (props) => {
       icon: mapSportToIcon(sport),
       sport: sport,
       leagues: Object.keys(leagues_arr[sport_index]),
+      leagues_length_arr: Object.values(leagues_arr[sport_index]).map(item=>item.length)
     })
   })
 
@@ -168,6 +169,7 @@ export const DashboardSidebar = (props) => {
               href={item.href}
               sport={item.sport}
               leagues={item.leagues}
+              leagues_length_arr = {item.leagues_length_arr}
             />
           ))}
         </Box>
