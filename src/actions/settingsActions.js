@@ -32,3 +32,10 @@ export function setDisconnected(disconnected){
         payload: disconnected
     }
 }
+
+export function setBetSlipOpen(isBetSlipOpen){
+    return {
+        type: "SET_BETSLIP_OPEN",
+        payload: isBetSlipOpen
+    }
+}

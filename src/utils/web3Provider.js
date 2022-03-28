@@ -2,7 +2,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
 
 //redux
-import {setProvider,setWeb3,setWeb3Loading,logIn,logOut} from "@actions/userActions";
+import {setProvider,setWeb3,setWeb3Loading,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance} from "@actions/userActions";
 import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
 import {store} from "../store"
 
@@ -10,10 +10,8 @@ export const checkWeb3 =  async () => {
     const provider = await detectEthereumProvider();
     if(provider){
         const web3 = new Web3(provider);
-        store.dispatch(setProvider(provider));
-        store.dispatch(setWeb3(web3));
-        // store.dispatch(setProvider(true));
-        // store.dispatch(setWeb3(true));
+        store.dispatch(setHasWeb3True());
+        store.dispatch(setHasProviderTrue());
         store.dispatch(setWeb3Loading(false));
         return true;
         
@@ -26,7 +24,7 @@ export const checkWeb3 =  async () => {
 }
 
 export const connectMetaMask = async () =>{
-    store.getState().user.provider ?  requestMetaMask() : console.error("Cannot connect MetaMask, try reload browser!")
+    store.getState().user.hasProvider ?  requestMetaMask() : console.error("Cannot connect MetaMask, try reload browser!")
 } 
 
 const requestMetaMask = async () => {
@@ -55,6 +53,13 @@ const requestMetaMask = async () => {
                     store.dispatch(setPreferUsernameFlag(userAddress));
                     store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
                 }
+                web3.eth.getBalance(userAddress)
+                .then(balance=>{
+                    let balanceInEther = web3.utils.fromWei(balance,'ether')
+                    balanceInEther = Number(balanceInEther).toFixed(2)
+                    store.dispatch(setBalance(balanceInEther))
+                })
+                .catch(error=>console.error(error))
             }
 
             })
@@ -71,7 +76,9 @@ export const disconnectMetaMask  = () => {
 }
 
 export const switchAccount = (accounts) => {
-    store.getState().user.web3.eth.getAccounts().then((accounts)=>{
+    let web3 = store.getState().user.web3
+    web3.eth.getAccounts()
+    .then((accounts)=>{
         if(accounts.length == 0){
             disconnectMetaMask();
             return
@@ -86,11 +93,20 @@ export const switchAccount = (accounts) => {
                 store.dispatch(setPreferUsernameFlag(userAddress));
                 store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
             }
+            web3.eth.getBalance(userAddress)
+            .then(balance=>{
+                let balanceInEther = web3.utils.fromWei(balance,'ether')
+                balanceInEther = Number(balanceInEther).toFixed(2)
+                store.dispatch(setBalance(balanceInEther))
+            })
+            .catch(error=>console.error(error))
         }
+    })
+    .catch(error=>{
+        console.error(error)
     })
 
 }
-
 
 
 

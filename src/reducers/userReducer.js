@@ -5,6 +5,9 @@ const oddsReducer = (state = {
     provider: null,
     web3Loading: true,
     loggedIn: false,
+    hasWeb3: false,
+    hasProvider: false,
+    balance: 0
   }, action) => {
       switch (action.type) {
             case "LOG_IN":
@@ -39,6 +42,24 @@ const oddsReducer = (state = {
                     state = {
                         ...state,
                         web3Loading: action.payload
+                    }
+                    break;
+                case "SET_HAS_WEB3_TRUE":
+                    state = {
+                        ...state,
+                        hasWeb3: true
+                    }
+                    break;
+                case "SET_HAS_PROVIDER_TRUE":
+                    state = {
+                        ...state,
+                        hasProvider: true
+                    }
+                    break;
+                case "SET_BALANCE":
+                    state = {
+                        ...state,
+                        balance: action.payload
                     }
                     break;
       }

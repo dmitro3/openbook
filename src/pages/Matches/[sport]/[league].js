@@ -10,13 +10,11 @@ import { SportsBookPageSkeleton } from "@components/Dashboard/SportsBookPageSkel
 
 // Redux Dependencies
 import {connect} from "react-redux"
-import {setOdds} from "@actions/oddsActions"
+import { setBetSlipOpen } from "@actions/settingsActions";
 
 const Dashboard = (props) => 
 {
-   
     const [routerReady,setRouterReady] = useState(false);
-    const [isSlipOpened, setSlipOpen] = useState(false);
 
     const router = useRouter()
     let data = props.odds.unformattedOddsDict;
@@ -53,8 +51,8 @@ const Dashboard = (props) =>
             }}
         > 
             <SportsBookPage EPL_data={league_data}/>
-            <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
-            <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>
+            <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />
+            <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
             
         </Box>:<SportsBookPageSkeleton/>}
     </>
@@ -62,12 +60,15 @@ const Dashboard = (props) =>
 
 const mapStateToProps = (state) => {
     return{
-        odds: state.odds
+        odds: state.odds,
+        settings: state.settings
     }
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        setBetSlipOpen: (isBetSlipOpen) => {
+            dispatch(setBetSlipOpen(isBetSlipOpen));
+          },
     };
 };
 

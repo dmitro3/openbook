@@ -22,9 +22,9 @@ export const BetButton = (props) => {
         style={props.inSlip? {border:'2px solid black'} : { border:'none'}}
         >
         
-            <Typography sx={{margin:'auto'}}>{props.number}</Typography>
+            <Typography sx={{mr:'auto'}}>{props.number}</Typography>
             <div style={{padding:'0.5vw'}}></div>
-            <Typography sx={{margin:'auto',color:'#005a98'}}>{props.outcome}</Typography>
+            <Typography sx={{ml:'auto',color:'#005a98'}}>{props.outcome}</Typography>
         </Button>
 )};
 

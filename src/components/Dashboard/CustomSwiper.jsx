@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
-// Import Swiper React components
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { getSwiperSlideCountByScreenWidth } from "@utils/getSwiperSlideCountByScreenWidth";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,6 +11,16 @@ import { Navigation, Mousewheel, Keyboard } from "swiper";
 import Image from 'next/image'
 
 export const CustomSwiper = () => {
+  const [slideCount,setSlideCount] = useState(1);
+
+  const handleResize = () =>{
+    setSlideCount(getSwiperSlideCountByScreenWidth())
+  }
+
+  useEffect(()=>{
+    setSlideCount(getSwiperSlideCountByScreenWidth())
+    window.addEventListener("resize", handleResize);
+  },[])
   return (
     <>
       <Swiper
@@ -21,7 +30,7 @@ export const CustomSwiper = () => {
         modules={[Navigation, Mousewheel, Keyboard]}
         className="feature-page-pictures-swiper"
         style={{paddingTop:'0px',width:'95%'}}
-        slidesPerView={'3'}
+        slidesPerView={slideCount}
         spaceBetween={30}
         loop={true}
       >

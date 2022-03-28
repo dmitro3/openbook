@@ -211,11 +211,16 @@ const BetslipSideDrawer = (props) => {
                 </Box>
 
                 <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',my:'1rem',color:'black'}}>
-                    <Typography>Total possible payout</Typography>
-                    <Typography sx={{fontWeight:'700'}}>: {Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)} DAI</Typography>
+                    <Typography sx={{whiteSpace: 'pre-wrap'}}>Bet Total: </Typography>
+                    <Typography sx={{fontWeight:'700'}}>{(Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2)} DAI</Typography>
+                </Box>
+
+                <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',my:'1rem',color:'black'}}>
+                    <Typography sx={{whiteSpace: 'pre-wrap'}}>Total possible payout: </Typography>
+                    <Typography sx={{fontWeight:'700'}}>{Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)} DAI</Typography>
                 </Box>
                 {
-                    !props.user.provider ?
+                    !props.user.hasProvider ?
                     <InstallMetaMaskButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}}/> :
                     props.user.loggedIn ?
                     <button className={styles.submitButton}>

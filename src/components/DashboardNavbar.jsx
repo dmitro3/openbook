@@ -2,17 +2,11 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import {
   AppBar,
-  Avatar,
   Badge,
   Box,
   IconButton,
   Toolbar,
   Tooltip,
-  ListItem,
-  MenuItem,
-  Menu,
-  Button,
-  Tab,
   Tabs,
   useMediaQuery,
   Typography
@@ -179,29 +173,28 @@ const DashboardNavbar = (props) => {
           }
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display:'flex',flexGrow: 1 }}>
-
           </Box>
-          <DaiIcon/>
-          <Typography sx={{color: 'black',mx:'0.3rem',fontSize:'15px',fontWeight:'500'}}>$91.00</Typography>
-
-
-          {
-          //This is the notification component from the template
-          }
-          <Tooltip title="Notifications">
-            <IconButton sx={{ ml: '1rem',mr:'0.5rem' }}>
-              <Badge badgeContent={4} color="primary" variant="dot">
-                <BellIcon fontSize="small" />
-              </Badge>
-            </IconButton> 
-          </Tooltip>
-          
+    
           {
             props.user.web3Loading ? 
             <LoadingMetaMaskButton/> : 
-            !props.user.provider ?  
+            !props.user.hasProvider ?  
             <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :
             props.user.loggedIn ? 
+            
+            <>             
+            <DaiIcon/>
+              <Typography sx={{color: 'black',mx:'0.3rem',fontSize:'15px',fontWeight:'500'}}>${props.user.balance}</Typography>
+              
+
+              <Tooltip title="Notifications">
+                <IconButton sx={{ ml: '1rem',mr:'0.5rem' }}>
+                  <Badge badgeContent={4} color="primary" variant="dot">
+                    <BellIcon fontSize="small" />
+                  </Badge>
+                </IconButton> 
+              </Tooltip>
+
             <DisplayUserAddressButton 
               preferUsername={props.settings.preferUsername[props.user.userAddress]} 
               preferAvatarStyle={props.settings.preferAvatarStyle[props.user.userAddress]} 
@@ -209,14 +202,16 @@ const DashboardNavbar = (props) => {
               disconnectMetaMask={disconnectMetaMask} 
               openSettingsModal={handleClickOpen}
               setDisconnected={props.setDisconnected} 
-            /> : 
+            /> 
+            </> 
+            : 
             <ConnectButton setDisconnected={props.setDisconnected} 
               connectMetaMask={connectMetaMask}
             />
           }
 
         </Toolbar>
-      <SettingsModal fullScreen={fullScreen} open={settingsModalOpen} handleClose={handleClose} preferUsername ={props.settings.preferUsername[props.user.userAddress]} oddsFormat={props.settings.oddsFormat} confirmSettings={confirmSettings} userAddress={props.user.userAddress}/>
+      <SettingsModal fullScreen={fullScreen} open={settingsModalOpen} handleClose={handleClose} preferUsername ={props.settings.preferUsername[props.user.userAddress]} oddsFormat={props.settings.oddsFormat} preferAvatarStyle={props.settings.preferAvatarStyle[props.user.userAddress]} confirmSettings={confirmSettings} userAddress={props.user.userAddress}/>
       </DashboardNavbarRoot>
     </>
   );

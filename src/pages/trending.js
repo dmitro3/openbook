@@ -8,11 +8,11 @@ import { useState, useEffect} from "react";
 
 // Redux Dependencies
 import {connect} from "react-redux"
+import { setBetSlipOpen } from "@actions/settingsActions";
 
 const Dashboard = (props) => 
 {
-    const [isSlipOpened, setSlipOpen] = useState(false);
-    let data = props.odds.unformattedOddsDict;
+    let data = props.odds.unformattedOddsDict.Basketball.NBA;
     
     return (
     <>
@@ -28,8 +28,8 @@ const Dashboard = (props) =>
             }}
         > 
             <SportsBookPage EPL_data={data}/>
-            <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
-            <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>
+            <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />
+            <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
             
         </Box>
     </>
@@ -37,14 +37,18 @@ const Dashboard = (props) =>
 
 const mapStateToProps = (state) => {
     return{
-        odds: state.odds
+        odds: state.odds,
+        settings: state.settings
     }
 };
-
 const mapDispatchToProps = (dispatch) => {
     return {
+        setBetSlipOpen: (isBetSlipOpen) => {
+            dispatch(setBetSlipOpen(isBetSlipOpen));
+          },
     };
 };
+
 
 
 Dashboard.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;

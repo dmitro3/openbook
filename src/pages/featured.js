@@ -9,7 +9,7 @@ import {CustomSwiper} from "@components/Dashboard/CustomSwiper"
 
 // Redux Dependencies
 import {connect} from "react-redux"
-import {setOdds} from "@actions/oddsActions"
+import { setBetSlipOpen } from "@actions/settingsActions";
 
 const Dashboard = (props) => 
 {
@@ -31,7 +31,7 @@ const Dashboard = (props) =>
             }}
         >
         <CustomSwiper/>
-        <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />        
+        <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />    
         </Box>
 
         <Box
@@ -40,23 +40,26 @@ const Dashboard = (props) =>
             display: 'flex'
             }}>
 
-            <FeaturedSportPage isSlipOpened={isSlipOpened} data={data}/>
-            <BetslipSideDrawerEmptyModal setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}  />
+            <FeaturedSportPage isSlipOpened={props.settings.isBetSlipOpen} data={data}/>
+            <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />  
         </Box>
-        <BetslipSideDrawer setSlipOpen={setSlipOpen} isSlipOpened={isSlipOpened}/>
+        
+            <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
         </Box>
     </>
 )};
 
 const mapStateToProps = (state) => {
     return{
-        odds: state.odds
+        odds: state.odds,
+        settings: state.settings
     }
 };
-
 const mapDispatchToProps = (dispatch) => {
     return {
-        
+        setBetSlipOpen: (isBetSlipOpen) => {
+            dispatch(setBetSlipOpen(isBetSlipOpen));
+          },
     };
 };
 

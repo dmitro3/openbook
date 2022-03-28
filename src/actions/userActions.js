@@ -33,5 +33,27 @@ export function setWeb3Loading(loading){
     }
 }
 
+export function setHasWeb3True(){
+    return {
+        type: "SET_HAS_WEB3_TRUE",
+        payload: ""
+    }
+}
+
+export function setHasProviderTrue(){
+    return {
+        type: "SET_HAS_PROVIDER_TRUE",
+        payload: ""
+    }
+}
+
+export function setBalance(balance){
+    return {
+        type: "SET_BALANCE",
+        payload: balance
+    }
+}
+
+
 
 

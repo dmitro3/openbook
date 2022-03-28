@@ -3,9 +3,8 @@ import {useEffect, useState} from 'react'
 import { CustomAvatar } from "@components/Dashboard/CustomAvatar";
 
 export const SettingsModal = (props) => {
-    const [oddsFormat, setOddsFormat] = useState(props.oddsFormat);
+    const [oddsFormat, setOddsFormat] = useState("decimal");
     const [avatarStyle,setAvatarStyle] = useState("robot");
-
     const handleAvatarChange = (event) =>{
         setAvatarStyle(event.target.value);
     }
@@ -33,6 +32,10 @@ export const SettingsModal = (props) => {
     useEffect(()=>{
         setOddsFormat(props.oddsFormat)
     },[props.open,props.oddsFormat])
+
+    useEffect(()=>{
+        setAvatarStyle(props.preferAvatarStyle)
+    },[props.open,props.preferAvatarStyle])   
 
     return (
         <Dialog

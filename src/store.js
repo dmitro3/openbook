@@ -25,23 +25,25 @@ import {parse, stringify} from 'flatted';
 //     bindMiddleware(logger,thunk,promise)
 // );
 
-// const transformCircular = 
-//   createTransform(
-//     (inboundState, key) => {
-//       console.log(inboundState)
-//       return stringify(inboundState)
-//     },
-//     (outboundState, key) => {
-//       return parse(outboundState)
-//     },
-//     { whitelist: ['user'] }
-//   )
+const transformCircular = 
+  createTransform(
+    (inboundState, key) => {
+      return inboundState
+
+    },
+    (outboundState, key) => {
+      if(key=="settings")
+        outboundState.isBetSlipOpen = false;
+      return outboundState
+    },
+    { whitelist: ['settings'] }
+  )
 
 const persistConfig = {
   key: 'root',
   storage: storage,
-  // transforms: [transformCircular],
-  blacklist: ['user']
+  transforms: [transformCircular],
+  blacklist: ['user','odds']
 }
 
 const bindMiddleware = (middleware) => {
