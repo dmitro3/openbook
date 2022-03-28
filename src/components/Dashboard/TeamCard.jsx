@@ -17,7 +17,7 @@ export const TeamCard = (props) => (
         height:"40px",
         margin:"auto"
         }}>
-        
+
         {/* <Image
             src={props.teamIconPath}
             alt="logo"

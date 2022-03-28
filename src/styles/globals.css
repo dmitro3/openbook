@@ -1,3 +1,8 @@
+:root {
+    --background-default: #f3f5f9;
+  }
+
+
 .logoStyle {
 	border-radius:1rem;
 }
@@ -18,4 +23,5 @@ body{
 .feature-page-pictures-swiper{
 	top: 10px !important
 }
+
 

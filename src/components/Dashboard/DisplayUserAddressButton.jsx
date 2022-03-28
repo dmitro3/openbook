@@ -1,6 +1,6 @@
-import {ListItem,Button,Menu,MenuItem, Avatar} from '@mui/material';
+import {ListItem,Button,Menu,MenuItem, Avatar, Typography, Box} from '@mui/material';
 
-import React, { useEffect } from 'react';
+import { useRef,useState } from 'react';
 
 import { CustomAvatar } from './CustomAvatar';
 
@@ -12,13 +12,14 @@ const options = [
   
 export const DisplayUserAddressButton = (props) => {
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [selectedIndex, setSelectedIndex] = useState(0);
     const open = Boolean(anchorEl);
+    const ref = useRef(null);
 
     const handleClickListItem = (event) => {
         setAnchorEl(event.currentTarget);
-      };
+    };
     
       const handleMenuItemClick = (event, index) => {
         setSelectedIndex(index);
@@ -40,18 +41,35 @@ export const DisplayUserAddressButton = (props) => {
     const preferUsername = props.preferUsername;
 
     return(
-        <>
+        <div ref={ref}>
             <ListItem
             button
             id="lock-button"
             aria-haspopup="listbox"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClickListItem}
-            sx={{width:'fit-content',px:'0px',py:'0px',marginLeft:'20px'}}
+            sx={{width:'fit-content',px:'0px',py:'0px',marginLeft:'0px'}}
           >
 
-            <Button sx={{fontSize: '15px', color: 'black',whiteSpace: 'nowrap',backgroundColor:'#f5f5f5',px:'20px',py:'10px',minWidth:'157px'}}>{preferUsername}<Avatar sx={{marginLeft:'10px'}}><CustomAvatar seed={userAddress} avatarStyle={props.preferAvatarStyle}/>
-            </Avatar></Button>
+            <Button sx={{fontSize: '15px', color: 'black',whiteSpace: 'nowrap',px:'20px',py:'10px',minWidth:'157px'}}>
+              <Avatar sx={{marginLeft:'10px',width:'50px',height:'50px'}}>
+                <CustomAvatar style={{width:'46px'}} seed={userAddress} avatarStyle={props.preferAvatarStyle}/>
+              </Avatar>
+              <Box sx={{marginLeft:'0.8rem'}}>
+                <Typography sx={{fontFamily: "Roboto, sans-serif",fontSize: "1rem",fontWeight: "500",color:'#626972',textAlign:'left'}}>
+                  {preferUsername}
+                </Typography>
+                <Box sx={{"display":"flex","alignItems":"baseline"}}>
+                <Typography sx={{"fontSize":"1.15rem","fontWeight":"500","margin":"0 0.5rem 0 0"}}>
+                  {/* {props.balance*500}$ */}
+                  {5384.31}$
+                </Typography>
+                <Typography sx={{"fontSize":"0.875rem","color":"#a3a9b0","margin":"0"}}>                
+                  +4650
+                </Typography>
+                </Box>
+              </Box>
+            </Button>
             
             </ListItem>
             <Menu
@@ -63,8 +81,9 @@ export const DisplayUserAddressButton = (props) => {
               role: 'listbox',
             }}
             PaperProps={{ sx: {
-                right: '18px',
-                left: 'auto !important' 
+                right: '0px',
+                left: 'auto !important',
+                width: `${ref.current ? ref.current.offsetWidth : 0}px`
             } }}
           >
             {options.map((option, index) => (
@@ -76,6 +95,6 @@ export const DisplayUserAddressButton = (props) => {
               </MenuItem>
             ))}
             </Menu>
-        </>
+        </div>
     )
 }

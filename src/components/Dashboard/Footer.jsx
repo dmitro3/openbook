@@ -10,7 +10,7 @@ export const Footer = () => {
         <Box sx={{paddingBottom:'200px',marginTop:"100px"}}>
           <FooterCustomDivider/>
             <Container>
-              <Grid container spacing={3} sx={{backgroundColor:'#f9fafc',marginLeft:'45px'}}>
+              <Grid container spacing={3} sx={{backgroundColor:"var(--bg-color)",marginLeft:'45px'}}>
                 <Grid item lg={3} sm={6} xl={3} xs={12}>
                   <Typography sx={{display:'block', color:'black', fontSize:'25px'}}>About</Typography>
                   {["Privacy Policy","About Us", "Documentation" ,"Terms and Conditions"].map((item,index)=>{

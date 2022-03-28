@@ -28,6 +28,7 @@ import { LedgerIcon } from "@components/Dashboard/LedgerIcon";
 import {SettingsModal} from "@components/Settings/SettingsModal"
 import {useState,useEffect} from "react"
 import { DaiIcon } from "@components/Dashboard/DaiIcon";
+import {Notification} from "@utils/icons/notification";
 
 
 
@@ -124,7 +125,8 @@ const DashboardNavbar = (props) => {
           width: {
             lg: "calc(100% - 280px)",
           },
-          paddingRight: '0px !important'
+          paddingRight: '0px !important',
+          py:'0.3rem'
         }}
       >
         <Toolbar
@@ -132,7 +134,7 @@ const DashboardNavbar = (props) => {
           sx={{
             minHeight: 64,
             left: 0,
-            px: 2,
+            px: 0.5,
             fontSize: "20rem"
           }}
         >
@@ -164,7 +166,7 @@ const DashboardNavbar = (props) => {
                 <WrapTab value={1} href="/" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
                 <WrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px'}}/>
                 <WrapTab value={3} href="/testing" label="My Bets"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px'}}/>
-                <WrapTab value={4} href="/featured" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+                <WrapTab value={4} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
             </Tabs>
           </Box>
 
@@ -182,18 +184,15 @@ const DashboardNavbar = (props) => {
             <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :
             props.user.loggedIn ? 
             
-            <>             
-            <DaiIcon/>
-              <Typography sx={{color: 'black',mx:'0.3rem',fontSize:'15px',fontWeight:'500'}}>${props.user.balance}</Typography>
-              
+            <>                           
+            <Tooltip title="Notifications">
+              <IconButton sx={{ ml: '1rem',mr:'0.5rem'}}>
+                <Badge badgeContent={4} color="primary" variant="dot">
+                  <Notification fontSize="big" />
+                </Badge>
+              </IconButton> 
+            </Tooltip>             
 
-              <Tooltip title="Notifications">
-                <IconButton sx={{ ml: '1rem',mr:'0.5rem' }}>
-                  <Badge badgeContent={4} color="primary" variant="dot">
-                    <BellIcon fontSize="small" />
-                  </Badge>
-                </IconButton> 
-              </Tooltip>
 
             <DisplayUserAddressButton 
               preferUsername={props.settings.preferUsername[props.user.userAddress]} 
@@ -202,6 +201,7 @@ const DashboardNavbar = (props) => {
               disconnectMetaMask={disconnectMetaMask} 
               openSettingsModal={handleClickOpen}
               setDisconnected={props.setDisconnected} 
+              balance={props.user.balance}
             /> 
             </> 
             : 

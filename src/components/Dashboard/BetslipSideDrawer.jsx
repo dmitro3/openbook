@@ -115,8 +115,9 @@ const BetslipSideDrawer = (props) => {
                         <Tab disabled={true} key={3} value="Others" label="Others" sx={{fontSize:'14px',padding:'0px'}}/>
                     </Tabs>
                 </Box>
-                <Box sx={{maxHeight:"60vh",overflow:'overlay',marginBottom:'10px'}}>
-                    <List>
+                <Box className={styles.boxBeforeBetSlipSelectedMatchBox}/>
+                <Box className={styles.betSlipSelectedMatchBox}>
+                    <List sx={{paddingBottom:'0px'}}>
                     {props.betSlip.betSlipOutcomeArray.map((text, index) => {
                         let matchId = text.split('/')[0];
                         let outcomeId = text.split('/')[1];
@@ -141,7 +142,7 @@ const BetslipSideDrawer = (props) => {
                         totalPossiblePayoutDict = {...totalPossiblePayoutDict,[matchId]:possiblePayOut};
                         return (
                         <Box key={index} 
-                            sx={{height:'auto',width:'100%',backgroundColor:'white',marginBottom:'5px',borderBottom:'1px solid #d9d9d9',paddingTop:'5px',paddingBottom:'5px'}}>
+                            sx={{height:'auto',width:'100%',backgroundColor:'white',borderBottom:'1px solid #d9d9d9',paddingTop:'5px',paddingBottom:'5px'}}>
                             <Box sx={{height:'fit-content',backgroundColor:'white',paddingBottom:'10px',paddingTop:'10px',display:'flex',textAlign:'center'}}>
                                 <Box sx={{width:'50px',height:'100%'}}>
                                     <FaRegTimesCircle  className={styles.singleTicketDelete} onClick={()=>props.removeBetSlipOutcome(props.betSlip.betSlipOutcomeArray[index])} />
@@ -181,7 +182,7 @@ const BetslipSideDrawer = (props) => {
                     </List>
                 </Box>
 
-                <Box sx={{width:'304px',height:'44px',textAlign:'center',borderRadius:'5px',marginLeft:'auto',marginRight:'auto',marginBottom:'10px',marginTop:'10px',backgroundColor:'#fffaf6',paddingTop:'8px',paddingBottom:'8px',display:'flex',justifyContent: 'center'}}>
+                <Box sx={{width:'304px',height:'44px',textAlign:'center',borderRadius:'5px',marginLeft:'auto',marginRight:'auto',marginBottom:'10px',backgroundColor:'#f1f1f1',display:'flex',justifyContent: 'center', marginTop: '25px', marginBottom: '20px'}}>
                     <Box sx={{width:'70px',height:'100%',marginRight:'7px',marginLeft:'7px'}}>
                         <Typography sx={{color:'black',textAlign:'left',fontSize:'13px',fontWeight:'500',marginRight:'5px',marginTop:'8px'}}>Bet/Match:</Typography>
                     </Box>
@@ -199,7 +200,7 @@ const BetslipSideDrawer = (props) => {
                     </Box>
                 </Box>
 
-                <Box sx={{display:'flex',marginBottom:'30px',marginTop:'15px',justifyContent: 'space-evenly'}}>
+                <Box className={styles.betSlipButtonsBox}>
 
                 {[100,200,300].map((value,index)=>{
                     return(
@@ -210,21 +211,25 @@ const BetslipSideDrawer = (props) => {
                         <Box className={styles.presetBetButton} /*onClick={()=>props.setBetAmount()}*/ disabled>Max</Box>
                 </Box>
 
-                <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',my:'1rem',color:'black'}}>
-                    <Typography sx={{whiteSpace: 'pre-wrap'}}>Bet Total: </Typography>
-                    <Typography sx={{fontWeight:'700'}}>{(Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2)} DAI</Typography>
+                <Box className={styles.boxBeforeBetSlipSelectedMatchBox}/>
+                <Box sx={{display:'flex'}}>
+                    <Box sx={{"paddingRight":"0.8rem","borderRight":"1px solid #efefef","display":"block","marginLeft":"7%","paddingTop":"10px","marginBottom":"10px","textAlign":"left"}}>
+                        <Typography sx={{whiteSpace: 'pre-wrap'}}>Bet Total</Typography>
+                        <Typography sx={{"color":"#e57714","margin":"0","fontSize":"1.35rem"}}>{(Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2)} DAI</Typography>
+                    </Box>
+
+                    <Box sx={{"display":"block","paddingTop":"10px","paddingLeft":"1rem","textAlign":"left"}}>
+                        <Typography sx={{whiteSpace: 'pre-wrap'}}>Possible Winnings</Typography>
+                        <Typography sx={{"color":"#52b49c","margin":"0","fontSize":"1.35rem"}}>{Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)} DAI</Typography>
+                    </Box>
                 </Box>
 
-                <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',my:'1rem',color:'black'}}>
-                    <Typography sx={{whiteSpace: 'pre-wrap'}}>Total possible payout: </Typography>
-                    <Typography sx={{fontWeight:'700'}}>{Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)} DAI</Typography>
-                </Box>
                 {
                     !props.user.hasProvider ?
                     <InstallMetaMaskButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}}/> :
                     props.user.loggedIn ?
                     <button className={styles.submitButton}>
-                        <Typography sx={{fontSize:'25px',fontWeight:'600'}}>Place Bet</Typography>
+                        <Typography sx={{fontSize:'25px',fontWeight:'600'}}>Place a Bet</Typography>
                     </button> :
                     <ConnectButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}} setDisconnected={props.setDisconnected} connectMetaMask={connectMetaMask}/>
                 }
