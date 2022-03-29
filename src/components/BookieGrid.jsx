@@ -1,110 +1,59 @@
 import { Box, Paper, Grid, Card, CardContent, Typography } from '@mui/material';
-import styles from '@styles/BookieGrid.module.css';
+import { makeStyles } from "@mui/styles";
+import { BookieGridCard } from '@components/BookieGridCard';
+import { BookieGridItem } from '@components/BookieGridItem';
 
-const data = {
+const temp = {
 	total: "$1,765,843.29",
-	myLq: "$453.77",
-	myPct: "0.005%"
+	nextPayout: "$1287.55",
+	yields: ["3.321%", "1.246%"],
+	performance: "<performance graphic goes here>",
+	lifetimePayouts: ["$5,919", "$824,753"]
 }
 
-export default function BookieGrid(props) {
+export const BookieGrid = (props) => {
+
   return (
-	<div>
-		<Box sx={{ 
-			flexGrow: 1,
-			p: '2rem',
-		}}>
-			<h1 className={styles.bookieHeader}>Bookie Liquidity Pool</h1>
-			<Grid container 
-			spacing={2}
-			zeroMinWidth
-			//columns={{ xs: 2, sm: 4, md: 6, lg: 8, xl: 12 }}
-			>
-				<Grid item
-				xs={4}
-				key="myLiqDisplay"
-				noWrap
-				>
-					<Card 
-					variant="outlined"
-					>
-						<CardContent sx={{padding: "1rem"}}>
-							<Typography 
-							variant="subtitle1"
-							sx={{paddingBottom: "1rem"}}
-							>
-								My Liquidity
-							</Typography>
-							<Typography 
-							variant="h6" 
-							className={styles.numbers}
-							>
-								{data.myLq}
-							</Typography>
-						</CardContent>
-					</Card>
-				</Grid>
-				<Grid item
-				xs={4}
-				key="totalLiqDisplay"
-				noWrap
-				>
-					<Card 
-					variant="outlined"
-					>
-						<CardContent sx={{padding: "1rem"}}>
-							<Typography 
-							variant="subtitle1"
-							sx={{paddingBottom: "1rem"}}
-							>
-								Total Liquidity
-							</Typography>
-							<Typography 
-							variant="h6" 
-							className={styles.numbers}
-							>
-								{data.total}
-							</Typography>
-						</CardContent>
-					</Card>
-				</Grid>
-				<Grid item 
-				xs={4}
-				key="myPctLiqDisplay"
-				noWrap
-				>
-					<Card 
-					variant="outlined"
-					>
-						<CardContent sx={{padding: "1rem"}}>
-							<Typography 
-							variant="subtitle1"
-							sx={{paddingBottom: "1rem"}}
-							>
-								Percent Ownership
-							</Typography>
-							<Typography 
-							variant="h6" 
-							className={styles.numbers}
-							>
-								{data.myPct}
-							</Typography>
-						</CardContent>
-					</Card>
-				</Grid>
-				<Grid item 
-				xs={12}
-				key="lpPerformanceGraph"
-				>
-					<Card variant="outlined">
-						<CardContent sx={{padding: "1rem"}}>
-							<Typography>Graph of Recent Performance</Typography>
-						</CardContent>
-					</Card>
-				</Grid>
-			</Grid>
-		</Box>
-	</div>
-  );
-}
-
+	<Box sx={{ 
+		flexGrow: 1,
+		p: '2rem',
+	}}>
+		<Grid container 
+		id="bookieOverview"
+		alignItems="center"
+		spacing={4}
+		zeroMinWidth
+		>
+				<BookieGridItem 
+				id="totalLiqDisplay"
+				title="Total Liquidity"
+				size="4" 
+				data={temp.total}
+				/>
+				<BookieGridItem 
+				id="estNextPayout"
+				title="Estimated Next Payout"
+				size="4" 
+				data={temp.nextPayout}
+				/>
+				<BookieGridItem 
+				id="stakingYields"
+				title="Staking Yields"
+				size="4" 
+				data={temp.yields}
+				/>
+				<BookieGridItem 
+				id="recentPerformanceGraph"
+				title="Recent Performance Graph"
+				size="12" 
+				data={temp.performance}
+				/>
+				<BookieGridItem 
+				id="totalPayouts"
+				title="Lifetime Payouts"
+				size="12" 
+				data={temp.lifetimePayouts}
+				/>
+		</Grid>
+	</Box>
+)};
