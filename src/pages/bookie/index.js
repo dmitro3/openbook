@@ -6,6 +6,10 @@ import { DashboardLayout } from "@components/DashboardLayout";
 import { BookieLayout } from "@components/BookieLayout";
 import { BookieGrid } from "@components/BookieGrid";
 
+/* Temporily put them here */
+import {Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle, Box, TextField} from "@mui/material";
+
+
 const useStyle = makeStyles({
   root: {
     marginTop: "1rem",
@@ -36,13 +40,38 @@ const BookieHomepage = () => {
     setBookieTabsValue(newValue);
   };
 
+  //Tempoerarily putting these here
+  const [textFieldInput, setTextFieldInput] = useState("")
+
   return (
     <>
       <Head>
         <title>Bookie | OpenEdge</title>
       </Head>
       <h1 className={styles.bookieHeader}>The Bookies Dashboard</h1>
-      <BookieGrid />
+      <BookieGrid /> 
+
+      {/*Tempoerarily putting these here*/}
+      <Box sx={{display:'flex',width:'100%'}}>
+      <TextField
+          sx={{
+            marginX:'auto'
+          }}
+          value={textFieldInput}
+          id="outlined-number"
+          label="Deposit Amount"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e)=>setTextFieldInput(e.target.value)}
+        />
+      </Box>
+
+      <Box sx={{display:'flex',width:'100%',marginTop:'10px'}}>
+        <Button variant="contained" sx={{marginLeft:'auto',marginRight:'10px'}} onClick={()=>console.log(`deposit button clicked, value is ${textFieldInput}`)}>Deposit Liquidity</Button>
+        <Button variant="contained"sx={{marginRight:'auto',marginLeft:'10px'}} onClick={()=>console.log('withdrawl button clicked')}>Withdrawl Liquidity</Button>
+      </Box>   	
     </>
   );
 };

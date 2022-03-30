@@ -4,11 +4,11 @@ export const HeroBanner = () => {
 
     return(
         <Box style={{"backgroundColor":"#2c87ef","padding":"3.5rem","borderRadius":"10px","position":"relative",marginTop:'50px',width:'95%',marginLeft:'auto',marginRight:'auto',paddingLeft:'3%'}}>
-        <Box style={{"width":"50%","maxWidth":"350px","position":"absolute","overflow":"hidden","height":"calc(110%)","top":"-10%","right":"3rem","display":"block",marginRight:'7%'}}>
+        <Box style={{"width":"50%","maxWidth":"350px","position":"absolute","overflow":"hidden","height":"calc(110%)","top":"-10%","right":"3rem","display":"block"}}>
             <img style={{"width":"100%","height":"auto"}} alt="" src="https://www.futwiz.com/assets/img/fifa21/faces/117598535.png"/>
         </Box>
         <Typography style={{"display":"flex","justifyContent":"space-between","alignItems":"center","fontSize":"2rem",color:'white'}}>
-        Bet less and win more by becoming a bookie
+        Bet less and win more
         </Typography>
          <Typography style={{"color":"rgba(255, 255, 255, 0.8)","fontWeight":"300","lineHeight":"1.7","marginTop":"0","maxWidth":"58%",marginBottom:'10px',marginTop:'20px',fontSize:"20px"}}>
          Pay less fees when betting and gain more with other bets by becoming a bookie yourself. 
