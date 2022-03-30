@@ -24,13 +24,13 @@ import { TechnicalSupportButton } from "@components/Dashboard/TechnicalSupportBu
 const bettingZoneitems = [
   {
     href: "/featured",
-    icon: <FaStar />,
-    title: "Featured",
+    icon: <FaFire/>,
+    title: "Featured Games",
   },
   {
-    href: "/trending",
-    icon: <FaFire/>,
-    title: "Trending Games",
+    href: "/favorited",
+    icon: <FaStar />,
+    title: "Favroited Games",
   },
   {
     href: "/trending",

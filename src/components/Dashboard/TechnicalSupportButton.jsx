@@ -3,7 +3,7 @@ import {Box,Typography,Button} from "@mui/material"
 export const TechnicalSupportButton = () => {
 
     return (
-        <Box sx={{"padding":"2rem 1.5rem",position:'fixed',right:'40px',bottom:'40px'}}>
+        <Box sx={{"padding":"2rem 1.5rem",position:'fixed',right:'1vw',bottom:'1vh'}}>
             <Button 
             sx={{backgroundColor:"white","width":"100%","display":"flex","alignItems":"center","justifyContent":"space-around","fontWeight":"normal","fontSize":"1.15rem","borderRadius":"2.5rem","paddingTop":"1rem","paddingBottom":"1rem","boxShadow":"1px 2px 2px rgb(65 24 219 / 10%)","padding":"0.6rem 0.8rem","transition":"transform 0.3s, box-shadow 0.3s",
             '&:hover': {
