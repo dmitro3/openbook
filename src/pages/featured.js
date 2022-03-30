@@ -6,6 +6,7 @@ import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer"
 import { useState,useEffect} from "react"
 import { FeaturedSportPage } from "@components/Dashboard/FeaturedSportPage";
 import {CustomSwiper} from "@components/Dashboard/CustomSwiper" 
+import { HeroBanner } from "@components/Dashboard/HeroBanner";
 
 // Redux Dependencies
 import {connect} from "react-redux"
@@ -23,6 +24,7 @@ const Dashboard = (props) =>
     </Head>
         <Box
             component="main"
+            sx={{px:'10px'}}
         >
         <Box
             sx={{
@@ -33,7 +35,14 @@ const Dashboard = (props) =>
         <CustomSwiper/>
         <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />    
         </Box>
-
+        <Box
+            sx={{
+            display: 'flex'
+            }}
+        >
+        <HeroBanner />
+        <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />    
+        </Box>
         <Box
             sx={{
             py: 3,

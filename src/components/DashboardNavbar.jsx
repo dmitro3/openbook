@@ -78,6 +78,8 @@ const DashboardNavbar = (props) => {
           return
         if(props.settings.disconnected)
           return
+        if(!window.ethereum.isConnected())
+          return
 
         connectMetaMask();
       })

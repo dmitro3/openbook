@@ -6,7 +6,7 @@ export const BetslipSideDrawerEmptyModal = (props) => {
         <Box sx={
         props.isSlipOpened ?
         { 
-            marginLeft: '350px',
+            marginLeft: '365px',
             transition: '0.5s'
         }
         :

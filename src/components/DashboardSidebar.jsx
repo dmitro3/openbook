@@ -20,6 +20,7 @@ import {IoTicketOutline} from 'react-icons/io5'
 import {AiOutlineMergeCells} from 'react-icons/ai'
 import { NavItemWithSubItems } from "@components/NavItemWithSubItems";
 import {store} from "store"
+import { TechnicalSupportButton } from "@components/Dashboard/TechnicalSupportButton";
 const bettingZoneitems = [
   {
     href: "/featured",
@@ -173,7 +174,9 @@ export const DashboardSidebar = (props) => {
             />
           ))}
         </Box>
+      <TechnicalSupportButton/>
       </Box>
+
     </>
   );
 
@@ -184,9 +187,9 @@ export const DashboardSidebar = (props) => {
         open
         PaperProps={{
           sx: {
-            backgroundColor: "neutral.900",
             color: "#FFFFFF",
             width: 280,
+            backgroundImage: "linear-gradient(to bottom, #000428, #004e92)"
           },
         }}
         variant="permanent"
@@ -203,7 +206,6 @@ export const DashboardSidebar = (props) => {
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: "neutral.900",
           color: "#FFFFFF",
           width: 280,
         },
@@ -213,6 +215,7 @@ export const DashboardSidebar = (props) => {
     >
       {content}
     </Drawer>
+
   );
 };
 
