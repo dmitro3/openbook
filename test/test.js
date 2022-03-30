@@ -2,10 +2,16 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
 it("Basic", async function () {
-    const OpenBook = await ethers.getContractFactory("OpenBook");
-    const obook = await OpenBook.deploy();
-    await obook.deployed();
+    const [owner] = await ethers.getSigners();
+    const Liquidity = await ethers.getContractFactory("Liquidity");
+    const liq = await Liquidity.deploy();
+    await liq.deployed();
 
-    const odds = await obook.getOdds();
-    console.log(odds);
+    const balance = await liq.balanceOf(owner.address,2)
+    console.log(balance);
+
+
+
+    
+
 })
