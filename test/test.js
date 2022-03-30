@@ -7,7 +7,7 @@ let daiContract = new ethers.Contract(DAI_ADDY,erc20ABI);
 
 
 it("Token Transfer", async function () {
-    const FUND_AMOUNT = (BigInt(2)*BigInt(10**16)).toString()
+    const FUND_AMOUNT = (BigInt(200000)*BigInt(10**18)).toString()
 
     const [owner, addr1, addr2, addr3] = await ethers.getSigners();
 
@@ -21,15 +21,28 @@ it("Token Transfer", async function () {
     const whale_signer = await ethers.provider.getSigner(WHALE_ADDY);
 
     let DAI = await ethers.getContractAt(erc20ABI, DAI_ADDY, whale_signer);
-    let balance = await DAI.balanceOf(WHALE_ADDY)  / 1e18;
 
-    await DAI.transfer(liq.address, FUND_AMOUNT, {
+
+
+    await DAI.transfer("0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9", FUND_AMOUNT, {
             from: WHALE_ADDY,
-          });
+        });
 
-    console.log("Whale Balance: " + balance)
-    // await DAI.mint(owner, ethers.utils.parseEther('10000'))
 
-    // await
+    await DAI.transfer(owner.address, FUND_AMOUNT, {
+        from: WHALE_ADDY,
+        });
+
+    await whale_signer.sendTransaction({
+            to: "0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9",
+            value: ethers.utils.parseEther("1.0")
+        });
+    
+    await whale_signer.sendTransaction({
+        to: owner.address,
+        value: ethers.utils.parseEther("1.0")
+    });
+
+    expect(await liq.getAddress()).to.equal(owner.address);
 
 })
