@@ -2,7 +2,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-
+import "hardhat/console.sol";
 
 contract Liquidity is ERC1155{
 
@@ -20,7 +20,8 @@ contract Liquidity is ERC1155{
        DAI = _DAI;
     }
 
-    function addLiquidity(uint32 _amount) external{
+    function addLiquidity(uint32 _amount)  public {
+        console.log("Caller is %s", msg.sender);
         IDAI.transferFrom(msg.sender, address(this), _amount);
         IDAI.approve(address(this), MAX_UINT);
 
@@ -28,6 +29,11 @@ contract Liquidity is ERC1155{
         _mint(msg.sender, AMOUNT, _amount, "");
         _mint(msg.sender, POOL_SIZE, IDAI.balanceOf(address(this)), "");
 
+        
+    }
+
+    function getAddress() public view returns (address){
+        return msg.sender;
     }
 
 }
