@@ -49,6 +49,7 @@ export const addLiquidity = async (amount) => {
     let contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDY);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
 
+    amount = parseInt(amount)
     let amt = BigInt(10 ** 18) * BigInt(amount)
 
     web3.eth.getAccounts()

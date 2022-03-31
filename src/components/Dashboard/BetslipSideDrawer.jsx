@@ -11,6 +11,7 @@ import { useTheme } from '@mui/material/styles';
 import {ConnectButton} from "@components/Dashboard/ConnectButton";
 import {connectMetaMask} from "@utils/web3Provider";
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
+import {addLiquidity, getBalance} from "@utils/web3Provider";
 
 // Redux Dependencies
 import {connect} from "react-redux";
@@ -228,7 +229,7 @@ const BetslipSideDrawer = (props) => {
                     !props.user.hasProvider ?
                     <InstallMetaMaskButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}}/> :
                     props.user.loggedIn ?
-                    <button className={styles.submitButton}>
+                    <button className={styles.submitButton} onClick={()=>addLiquidity((Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2))}>
                         <Typography sx={{fontSize:'25px',fontWeight:'600'}}>Place a Bet</Typography>
                     </button> :
                     <ConnectButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}} setDisconnected={props.setDisconnected} connectMetaMask={connectMetaMask}/>

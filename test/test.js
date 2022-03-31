@@ -48,4 +48,8 @@ it("Token Transfer", async function () {
 
     await liq.addLiquidity(10);
     console.log("Minted");
+
+    bal = await liq.balanceOf(owner.address, 0);
+
+    expect(await liq.balanceOf(owner.address, 0)).to.equal(10);
 })
