@@ -1,3 +1,7 @@
+src/@openzeppelin/
+src/@chainlink/
+
+abi/
 db.sqlite
 __pycache__/
 *.py[cod]

@@ -1,5 +1,6 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
+const { CONTRACT_ABI, CONTRACT_ADDY, DAI_ABI,  DAI_ADDY} = require("../config")
 
 //redux
 import {setProvider,setWeb3,setWeb3Loading,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance} from "@actions/userActions";
@@ -26,6 +27,45 @@ export const checkWeb3 =  async () => {
 export const connectMetaMask = async () =>{
     store.getState().user.hasProvider ?  requestMetaMask() : console.error("Cannot connect MetaMask, try reload browser!")
 } 
+
+export const addLiquidity = async (amount) => {
+    console.log("Adding liquidity");
+    let web3 = store.getState().user.web3;
+    let contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDY);
+    let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+
+    let amt = BigInt(10 ** 18) * BigInt(amount)
+
+    web3.eth.getAccounts()
+            .then((value)=>{
+            if(value.length != 0){
+                let userAddress = value[0];
+                
+                token_contract.methods.transfer(CONTRACT_ADDY, amt).send({from: userAddress})
+                    .on('transactionHash', function(hash){
+                        contract.methods.addLiquidity(amount).call(function (error, result) {
+                            if (!error) {
+                                alert(result);
+                            } else
+                            alert(error);
+                        });
+                });
+
+
+            
+
+            }
+        })
+
+
+
+    // let first = BigInt(amount) * BigInt(10**18)
+    // let value = amount.mul(web3.utils.toBN(10).pow(18));
+
+
+
+
+}
 
 const requestMetaMask = async () => {
     try{

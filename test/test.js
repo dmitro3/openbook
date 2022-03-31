@@ -45,4 +45,6 @@ it("Token Transfer", async function () {
 
     expect(await liq.getAddress()).to.equal(owner.address);
 
+
+    await liq.addLiquidity(10)
 })

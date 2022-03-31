@@ -8,9 +8,8 @@ contract Liquidity is ERC1155{
 
     //This is the ID for the the NFT
     uint32 public constant AMOUNT = 0;
-    uint32 public constant POOL_SIZE = 0;
-
-
+    uint32 public constant POOL_SIZE = 1;
+    
     address public DAI;
     IERC20 public IDAI = IERC20(DAI);
 
@@ -21,15 +20,12 @@ contract Liquidity is ERC1155{
     }
 
     function addLiquidity(uint32 _amount)  public {
-        console.log("Caller is %s", msg.sender);
-        IDAI.transferFrom(msg.sender, address(this), _amount);
-        IDAI.approve(address(this), MAX_UINT);
-
+        // IDAI.transferFrom(msg.sender, address(this), _amount);
+        // IDAI.approve(address(this), MAX_UINT);
 
         _mint(msg.sender, AMOUNT, _amount, "");
-        _mint(msg.sender, POOL_SIZE, IDAI.balanceOf(address(this)), "");
+        // _mint(msg.sender, POOL_SIZE, IDAI.balanceOf(address(this)), "");
 
-        
     }
 
     function getAddress() public view returns (address){
