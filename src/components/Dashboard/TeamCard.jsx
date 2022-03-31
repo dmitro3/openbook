@@ -26,16 +26,15 @@ export const TeamCard = (props) => {
                 height:"45px",
                 margin:"auto"
                 }}>
-                    {/* <Image
+                    <Image
                     src={imagePath}
                     alt="logo"
                     width="50"
                     height="50"
                     layout="responsive"
                     className="logoStyle"
-                    loading="lazy"
                     onError={e=>handleError(e)}
-                    /> */}
+                    />
                 </div>
         
                 </Avatar>
