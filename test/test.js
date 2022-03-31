@@ -17,11 +17,9 @@ it("Token Transfer", async function () {
     
     console.log("Contract Deployerd at " + liq.address);
 
-    // await liq.addLiquidity("");
     const whale_signer = await ethers.provider.getSigner(WHALE_ADDY);
 
     let DAI = await ethers.getContractAt(erc20ABI, DAI_ADDY, whale_signer);
-
 
 
     await DAI.transfer("0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9", FUND_AMOUNT, {
