@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {TeamCard } from '@components/Dashboard/TeamCard';
 import {BetButton} from '@components/Dashboard/BetButton';
 import {FavoriteButton} from '@components/Dashboard/FavoriteButton';
-const static_english_soccer_icons_path = "/static/images/english_soccer_team_icons/";
+const static_english_soccer_icons_path = "/static/images/team_and_player_icons/";
 
 // Redux Dependencies
 import {connect} from "react-redux";

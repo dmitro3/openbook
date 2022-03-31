@@ -167,7 +167,7 @@ const DashboardNavbar = (props) => {
             >
                 <WrapTab value={1} href="/featured" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
                 <WrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px'}}/>
-                <WrapTab value={3} href="/testing" label="My Bets"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+                <WrapTab value={3} href="/mybets" label="My Bets"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px'}}/>
                 <WrapTab value={4} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
             </Tabs>
           </Box>

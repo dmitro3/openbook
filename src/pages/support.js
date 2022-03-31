@@ -30,34 +30,34 @@ const Dashboard = (props) =>
         </div>
     </section>
 
-    <section class="faqs-section faqs-page">
-        <div class="overlay pt-120">
-            <div class="container">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-lg-7">
-                        <div class="section-header text-center">
-                            <h5 class="sub-title">Frequently Asked Questions</h5>
-                            <h2 class="title">If you have questions we have answer</h2>
+    <section className={`${styles.faqsSection} ${styles.faqsPage}`}>
+        <div className={`${styles.overlay} ${styles.pt120}`}>
+            <div className={styles.container}>
+                <div className="row d-flex justify-content-center">
+                    <div className="col-lg-7">
+                        <div className="section-header text-center">
+                            <h5 className="sub-title">Frequently Asked Questions</h5>
+                            <h2 className="title">If you have questions we have answer</h2>
                             <p>Answers for our most popular questions about sportsbetting, crypto, and bitbetio</p>
                         </div>
                     </div>
                 </div>
-                <div class="tab-content">
-                    <div class="tab-pane fade" id="affiliate" role="tabpanel" aria-labelledby="affiliate-tab">
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-xl-10">
-                                <div class="faq-box">
-                                    <div class="accordion" id="accordionFaqsAffiliate">
-                                        <div class="accordion-item">
-                                            <h5 class="accordion-header" id="headingAffiliateOne">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAffiliateOne" aria-expanded="false" aria-controls="collapseAffiliateOne">
+                <div className="tab-content">
+                    <div className="tab-pane fade" id="affiliate" role="tabpanel" aria-labelledby="affiliate-tab">
+                        <div className="row d-flex justify-content-center">
+                            <div className="col-xl-10">
+                                <div className="faq-box">
+                                    <div className="accordion" id="accordionFaqsAffiliate">
+                                        <div className="accordion-item">
+                                            <h5 className="accordion-header" id="headingAffiliateOne">
+                                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAffiliateOne" aria-expanded="false" aria-controls="collapseAffiliateOne">
                                                     I want2 to play at Bitbetio, What do i need to do?
                                                 </button>
                                             </h5>
-                                            <div id="collapseAffiliateOne" class="accordion-collapse collapse" aria-labelledby="headingAffiliateOne" data-bs-parent="#accordionFaqsAffiliate">
-                                                <div class="accordion-body">
+                                            <div id="collapseAffiliateOne" className="accordion-collapse collapse" aria-labelledby="headingAffiliateOne" data-bs-parent="#accordionFaqsAffiliate">
+                                                <div className="accordion-body">
                                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                        industry. Lorem Ipsum has been the industry's standard dummy
+                                                        industry. Lorem Ipsum has been the industrys standard dummy
                                                         text ever
                                                         since the 1500s, when an unknown printer took a galley of type
                                                         and

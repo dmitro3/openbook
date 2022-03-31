@@ -13,20 +13,20 @@ export const TeamCard = (props) => (
         }}
         >
         <div style={{
-        width:"40px",
-        height:"40px",
+        width:"45px",
+        height:"45px",
         margin:"auto"
         }}>
 
-        {/* <Image
+        <Image
             src={props.teamIconPath}
             alt="logo"
-            width="100"
-            height="100"
+            width="50"
+            height="50"
             layout="responsive"
             className="logoStyle"
             loading="lazy"
-        /> */}
+        />
         </div>
 
         </Avatar>
