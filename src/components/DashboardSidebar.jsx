@@ -191,6 +191,9 @@ export const DashboardSidebar = (props) => {
             width: 280,
             backgroundImage: "linear-gradient(to bottom, #000428, #004e92)"
           },
+          style:{
+            backgroundImage:"linear-gradient(to bottom, #000428, #004e92)"
+          }
         }}
         variant="permanent"
       >
@@ -208,6 +211,7 @@ export const DashboardSidebar = (props) => {
         sx: {
           color: "#FFFFFF",
           width: 280,
+          backgroundImage: "linear-gradient(to bottom, #000428, #004e92)"
         },
       }}
       sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
