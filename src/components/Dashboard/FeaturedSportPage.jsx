@@ -48,7 +48,7 @@ return (
         width: calc(100% - 350px);
     }
     .featured-sport-page-full{
-        width:97%;
+        width:95%;
     }
     `}</style>
     </Box>
