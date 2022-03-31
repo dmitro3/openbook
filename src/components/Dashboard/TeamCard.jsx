@@ -1,39 +1,50 @@
 import { Avatar,  Typography} from '@mui/material';
 import PropTypes from "prop-types";
 import Image from "next/image";
+import {useState} from 'react';
 
-export const TeamCard = (props) => (
-<>
-    <Avatar
-        sx={{
-            backgroundColor: '#f5f5f5',
-            height: 56,
-            width: 56,
-            margin: 'auto'
-        }}
-        >
-        <div style={{
-        width:"45px",
-        height:"45px",
-        margin:"auto"
-        }}>
+export const TeamCard = (props) => {
+    const [imagePath,setImagePath] = useState(props.teamIconPath);
+    let empty = "/static/images/team_and_player_icons/empty.png"
 
-        <Image
-            src={props.teamIconPath}
-            alt="logo"
-            width="50"
-            height="50"
-            layout="responsive"
-            className="logoStyle"
-            loading="lazy"
-        />
-        </div>
+    const handleError = (e) =>{
+        setImagePath(empty);
+    }
 
-        </Avatar>
+    return(
+        <>
+            <Avatar
+                sx={{
+                    backgroundColor: '#f5f5f5',
+                    height: 56,
+                    width: 56,
+                    margin: 'auto'
+                }}
+                >
+                <div style={{
+                width:"45px",
+                height:"45px",
+                margin:"auto"
+                }}>
+                    {/* <Image
+                    src={imagePath}
+                    alt="logo"
+                    width="50"
+                    height="50"
+                    layout="responsive"
+                    className="logoStyle"
+                    loading="lazy"
+                    onError={e=>handleError(e)}
+                    /> */}
+                </div>
+        
+                </Avatar>
+        
+            <Typography sx={{marginLeft:'auto',marginRight:'auto',marginTop:'10px',textAlign:'center'}}>{props.teamName}</Typography>
+        </>
+        );
+}
 
-    <Typography sx={{marginLeft:'auto',marginRight:'auto',marginTop:'10px',textAlign:'center'}}>{props.teamName}</Typography>
-</>
-);
 
 TeamCard.propTypes = {
     teamName:PropTypes.string,

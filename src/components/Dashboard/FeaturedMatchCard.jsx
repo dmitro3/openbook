@@ -4,73 +4,97 @@ import {TeamCard } from '@components/Dashboard/TeamCard';
 import {BetButton} from '@components/Dashboard/BetButton';
 import {FavoriteButton} from '@components/Dashboard/FavoriteButton';
 const static_english_soccer_icons_path = "/static/images/team_and_player_icons/";
+import {useState, useEffect} from "react"
 
 // Redux Dependencies
 import {connect} from "react-redux";
 import {addFavoriteMatch,removeFavoriteMatch} from "@actions/favoriteMatchActions";
 import {addBetSlipOutcome,removeBetSlipOutcome} from '@actions/betSlipActions';
 
-const FeaturedMatchCard = (props) => (
-  <Card
-    sx={{ height: '270px' }}
-  >
-    <CardContent style={{height:"100%",position:'relative',paddingBottom:'100px', marginTop:'0px'}}>
-      <Grid
-        container
-        spacing={3}
-        style={{ justifyContent: 'space-between', width:"100%",marginLeft:'0px',marginRight:'0px',marginTop:'0px'}}
-      >
-        <Grid item style={{paddingLeft:'0px',width:'30%'}}>
-          <TeamCard teamName={props.match1} teamIconPath={static_english_soccer_icons_path + props.match1 + ".png"}/>
-        </Grid>
+const FeaturedMatchCard = (props) => {
+  const [betButtonOddsState,setBetButtonOddsState] = useState(['normal','normal']);
 
-        <Grid item 
-        style={{marginLeft:'auto',marginRight:'auto',marginTop:'30px',textAlign:'center',paddingLeft:'0px'}}>
-              <Typography>{props.dateString}</Typography>
-              <Typography>{props.timeString}</Typography>
-        </Grid>       
-        
-        <Grid item style={{paddingLeft:'0px',width:'30%'}}>
-          <TeamCard teamName={props.match2} teamIconPath={static_english_soccer_icons_path + props.match2 + ".png"}/>
-        </Grid>
-      
-      <Box sx={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'10%',right:'10%'}}>
-      {
-        Object.keys(props.outcomes).map( item => {
-          let outcomeKey = item.toString();
-          let outcomeValue = ""
-          switch(props.settings.oddsFormat){
-            case "decimal":
-              outcomeValue = Number(props.outcomes[item]).toFixed(2).toString();
-              break;
-            case "american":
-              outcomeValue = Number(props.outcomesInUS[item]).toFixed(0).toString();
-              break;
-            case "percentage":
-              outcomeValue = `${(Number(props.outcomesInProb[item])*100).toFixed(1).toString()}%`;
-              break;
-            default:
-              outcomeValue = props.outcomes[item].toString();
-          }
+  useEffect(()=>{
+      setInterval(() => {   
+        let chance = Math.random();
+        let chance1 = 0.03
+        let chance2 = chance1*2
+        if(chance > 0 && chance <= chance1){
+          // console.log("goup")
+          setBetButtonOddsState(["oddsUp","oddsDown"])
+        }
+        if(chance > chance1 && chance <= chance2){
+          // console.log("godwn")
+          setBetButtonOddsState(["oddsDown","oddsUp"])
+        }
+        if(chance > chance2){
+          setBetButtonOddsState(["normal","normal"])
+        }
+      }, 2000);
+    },[])
+  return(
+    <Card
+      sx={{ height: '270px' }}
+    >
+      <CardContent style={{height:"100%",position:'relative',paddingBottom:'100px', marginTop:'0px'}}>
+        <Grid
+          container
+          spacing={3}
+          style={{ justifyContent: 'space-between', width:"100%",marginLeft:'0px',marginRight:'0px',marginTop:'0px'}}
+        >
+          <Grid item style={{paddingLeft:'0px',width:'30%'}}>
+            <TeamCard teamName={props.match1} teamIconPath={static_english_soccer_icons_path + props.match1 + ".png"}/>
+          </Grid>
+
+          <Grid item 
+          style={{marginLeft:'auto',marginRight:'auto',marginTop:'30px',textAlign:'center',paddingLeft:'0px'}}>
+                <Typography>{props.dateString}</Typography>
+                <Typography>{props.timeString}</Typography>
+          </Grid>       
           
+          <Grid item style={{paddingLeft:'0px',width:'30%'}}>
+            <TeamCard teamName={props.match2} teamIconPath={static_english_soccer_icons_path + props.match2 + ".png"}/>
+          </Grid>
+        
+        <Box sx={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'10%',right:'10%'}}>
+        {
+          Object.keys(props.outcomes).map( (item,index) => {
+            let outcomeKey = item.toString();
+            let outcomeValue = ""
+            switch(props.settings.oddsFormat){
+              case "decimal":
+                outcomeValue = Number(props.outcomes[item]).toFixed(2).toString();
+                break;
+              case "american":
+                outcomeValue = Number(props.outcomesInUS[item]).toFixed(0).toString();
+                break;
+              case "percentage":
+                outcomeValue = `${(Number(props.outcomesInProb[item])*100).toFixed(1).toString()}%`;
+                break;
+              default:
+                outcomeValue = props.outcomes[item].toString();
+            }
+            
 
-          return(
-          <BetButton
-          key={outcomeKey}
-          number={outcomeKey} 
-          outcome={outcomeValue}
-          BetButtonId={props.matchId+"/"+outcomeKey}
-          addBetSlipMatch={props.addBetSlipMatch}
-          removeBetSlipOutcome={props.removeBetSlipOutcome}
-          inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+outcomeKey)}
-          />)
-      })}
-        <FavoriteButton FaviorteButtonId={props.matchId} addFavoriteMatch={props.addFavoriteMatch} removeFavoriteMatch={props.removeFavoriteMatch} favorited={props.favoriteMatch.favoritedMatchArray.includes(props.matchId)}/>
-      </Box>  
-      </Grid>
-    </CardContent>
-  </Card>
-);
+            return(
+            <BetButton
+            key={outcomeKey}
+            number={outcomeKey} 
+            outcome={outcomeValue}
+            BetButtonId={props.matchId+"/"+outcomeKey}
+            addBetSlipMatch={props.addBetSlipMatch}
+            removeBetSlipOutcome={props.removeBetSlipOutcome}
+            inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+outcomeKey)}
+            oddsChange={betButtonOddsState[index]}
+            />)
+        })}
+          <FavoriteButton FaviorteButtonId={props.matchId} addFavoriteMatch={props.addFavoriteMatch} removeFavoriteMatch={props.removeFavoriteMatch} favorited={props.favoriteMatch.favoritedMatchArray.includes(props.matchId)}/>
+        </Box>  
+        </Grid>
+      </CardContent>
+    </Card>
+  );
+    }
 
 const mapStateToProps = (state) => {
   return {

@@ -1,10 +1,12 @@
 import {Typography, Button, Box} from '@mui/material';
 import PropTypes from "prop-types";
 import {GoTriangleUp,GoTriangleDown} from 'react-icons/go'
-import {useState} from "react"
+import {useEffect, useState} from "react"
 
 export const BetButton = (props) => {
     const [oddsChange,setOddsChange] = useState("normal");
+
+
 
     const oddsGoUp =  () => {
         setOddsChange("oddsUp")
@@ -19,6 +21,20 @@ export const BetButton = (props) => {
             setOddsChange("normal")
         },2000)
     }
+
+    useEffect(()=>{
+        if(props.oddsChange == "normal"){
+        }
+        else if(props.oddsChange == "oddsUp"){
+            oddsGoUp()
+        }
+        else if(props.oddsChange == "oddsDown"){
+            oddsGoDown()
+        }
+    },[props.oddsChange])
+
+
+
 
     let oddsTextStyle = "odds-normal-text"
     let oddsIncreaseTriangleStyle = "odds-increase-triangle"
