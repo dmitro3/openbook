@@ -28,6 +28,21 @@ export const connectMetaMask = async () =>{
     store.getState().user.hasProvider ?  requestMetaMask() : console.error("Cannot connect MetaMask, try reload browser!")
 } 
 
+export const getBalance = async (amount) => {
+    let web3 = store.getState().user.web3;
+    let token_contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDY);
+
+    web3.eth.getAccounts()
+            .then((value)=>{
+            if(value.length != 0){
+                let userAddress = value[0];
+
+                (async () => alert(await token_contract.methods.balanceOf(userAddress, 0).call()))();
+
+    }
+});
+}
+        
 export const addLiquidity = async (amount) => {
     console.log("Adding liquidity");
     let web3 = store.getState().user.web3;
@@ -43,27 +58,15 @@ export const addLiquidity = async (amount) => {
                 
                 token_contract.methods.transfer(CONTRACT_ADDY, amt).send({from: userAddress})
                     .on('transactionHash', function(hash){
-                        contract.methods.addLiquidity(amount).call(function (error, result) {
+                        contract.methods.addLiquidity(parseInt(amount)).send({from: userAddress}, function (error, result) {
                             if (!error) {
                                 alert(result);
                             } else
                             alert(error);
                         });
                 });
-
-
-            
-
             }
         })
-
-
-
-    // let first = BigInt(amount) * BigInt(10**18)
-    // let value = amount.mul(web3.utils.toBN(10).pow(18));
-
-
-
 
 }
 

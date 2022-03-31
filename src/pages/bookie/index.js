@@ -5,7 +5,7 @@ import { makeStyles } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
 import { BookieLayout } from "@components/BookieLayout";
 import { BookieGrid } from "@components/BookieGrid";
-import {addLiquidity} from "@utils/web3Provider";
+import {addLiquidity, getBalance} from "@utils/web3Provider";
 
 
 /* Temporily put them here */
@@ -72,7 +72,7 @@ const BookieHomepage = () => {
 
       <Box sx={{display:'flex',width:'100%',marginTop:'10px'}}>
         <Button variant="contained" sx={{marginLeft:'auto',marginRight:'10px'}} onClick={()=>addLiquidity(textFieldInput)}>Deposit Liquidity</Button>
-        <Button variant="contained"sx={{marginRight:'auto',marginLeft:'10px'}} onClick={()=>console.log('withdrawl button clicked')}>Withdrawl Liquidity</Button>
+        <Button variant="contained"sx={{marginRight:'auto',marginLeft:'10px'}} onClick={()=>getBalance()}>Get Balance</Button>
       </Box>   	
     </>
   );

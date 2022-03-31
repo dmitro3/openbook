@@ -22,11 +22,12 @@ contract Liquidity is ERC1155{
     function addLiquidity(uint32 _amount)  public {
         // IDAI.transferFrom(msg.sender, address(this), _amount);
         // IDAI.approve(address(this), MAX_UINT);
-
-        _mint(msg.sender, AMOUNT, _amount, "");
+        // DAI = 0x2daa35962a6d43eb54c48367b33d0b379c930e5e;
+        _mint(msg.sender, AMOUNT, _amount, "https://www.larvalabs.com/public/images/cryptopunks/punk1000.png");
         // _mint(msg.sender, POOL_SIZE, IDAI.balanceOf(address(this)), "");
 
     }
+
 
     function getAddress() public view returns (address){
         return msg.sender;
