@@ -4,34 +4,34 @@ import {GoTriangleUp,GoTriangleDown} from 'react-icons/go'
 import {useEffect, useState} from "react"
 
 export const BetButton = (props) => {
-    const [oddsChange,setOddsChange] = useState("normal");
+    // const [oddsChange,setOddsChange] = useState("normal");
 
 
 
-    const oddsGoUp =  () => {
-        setOddsChange("oddsUp")
-        setTimeout(()=>{
-            setOddsChange("normal")
-        },2000)
-    }
+    // const oddsGoUp =  () => {
+    //     setOddsChange("oddsUp")
+    //     setTimeout(()=>{
+    //         setOddsChange("normal")
+    //     },2000)
+    // }
 
-    const oddsGoDown = () =>{
-        setOddsChange("oddsDown")
-        setTimeout(()=>{
-            setOddsChange("normal")
-        },2000)
-    }
+    // const oddsGoDown = () =>{
+    //     setOddsChange("oddsDown")
+    //     setTimeout(()=>{
+    //         setOddsChange("normal")
+    //     },2000)
+    // }
 
-    useEffect(()=>{
-        if(props.oddsChange == "normal"){
-        }
-        else if(props.oddsChange == "oddsUp"){
-            oddsGoUp()
-        }
-        else if(props.oddsChange == "oddsDown"){
-            oddsGoDown()
-        }
-    },[props.oddsChange])
+    // useEffect(()=>{
+    //     if(props.oddsChange == "normal"){
+    //     }
+    //     else if(props.oddsChange == "oddsUp"){
+    //         oddsGoUp()
+    //     }
+    //     else if(props.oddsChange == "oddsDown"){
+    //         oddsGoDown()
+    //     }
+    // },[props.oddsChange])
 
 
 
@@ -39,29 +39,29 @@ export const BetButton = (props) => {
     let oddsTextStyle = "odds-normal-text"
     let oddsIncreaseTriangleStyle = "odds-increase-triangle"
     let oddsDecreaseTriangleStyle = "odds-decrease-triangle"
-    switch(oddsChange){
-        case "normal":
-            oddsTextStyle = "odds-normal-text"
-            oddsIncreaseTriangleStyle = "odds-increase-triangle"
-            oddsDecreaseTriangleStyle = "odds-decrease-triangle"
-        break;
+    // switch(oddsChange){
+    //     case "normal":
+    //         oddsTextStyle = "odds-normal-text"
+    //         oddsIncreaseTriangleStyle = "odds-increase-triangle"
+    //         oddsDecreaseTriangleStyle = "odds-decrease-triangle"
+    //     break;
 
-        case "oddsUp":
-            oddsTextStyle = "odds-normal-text odds-go-up-text"
-            oddsIncreaseTriangleStyle = "odds-increase-triangle odds-change-tirangle-show-up"
-        break;
+    //     case "oddsUp":
+    //         oddsTextStyle = "odds-normal-text odds-go-up-text"
+    //         oddsIncreaseTriangleStyle = "odds-increase-triangle odds-change-tirangle-show-up"
+    //     break;
 
-        case "oddsDown":
-            oddsTextStyle = "odds-normal-text odds-go-down-text" 
-            oddsDecreaseTriangleStyle = "odds-decrease-triangle odds-change-tirangle-show-up"
-        break;
+    //     case "oddsDown":
+    //         oddsTextStyle = "odds-normal-text odds-go-down-text" 
+    //         oddsDecreaseTriangleStyle = "odds-decrease-triangle odds-change-tirangle-show-up"
+    //     break;
 
-        default:
-            oddsTextStyle = "odds-normal-text"
-            oddsIncreaseTriangleStyle = "odds-increase-triangle"
-            oddsDecreaseTriangleStyle = "odds-decrease-triangle"
-        break;
-    }
+    //     default:
+    //         oddsTextStyle = "odds-normal-text"
+    //         oddsIncreaseTriangleStyle = "odds-increase-triangle"
+    //         oddsDecreaseTriangleStyle = "odds-decrease-triangle"
+    //     break;
+    // }
     
 
     return(

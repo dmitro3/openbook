@@ -12,26 +12,26 @@ import {addFavoriteMatch,removeFavoriteMatch} from "@actions/favoriteMatchAction
 import {addBetSlipOutcome,removeBetSlipOutcome} from '@actions/betSlipActions';
 
 const FeaturedMatchCard = (props) => {
-  const [betButtonOddsState,setBetButtonOddsState] = useState(['normal','normal']);
+  // const [betButtonOddsState,setBetButtonOddsState] = useState(['normal','normal']);
 
-  useEffect(()=>{
-      setInterval(() => {   
-        let chance = Math.random();
-        let chance1 = 0.03
-        let chance2 = chance1*2
-        if(chance > 0 && chance <= chance1){
-          // console.log("goup")
-          setBetButtonOddsState(["oddsUp","oddsDown"])
-        }
-        if(chance > chance1 && chance <= chance2){
-          // console.log("godwn")
-          setBetButtonOddsState(["oddsDown","oddsUp"])
-        }
-        if(chance > chance2){
-          setBetButtonOddsState(["normal","normal"])
-        }
-      }, 2000);
-    },[])
+  // useEffect(()=>{
+  //     setInterval(() => {   
+  //       let chance = Math.random();
+  //       let chance1 = 0.03
+  //       let chance2 = chance1*2
+  //       if(chance > 0 && chance <= chance1){
+  //         // console.log("goup")
+  //         setBetButtonOddsState(["oddsUp","oddsDown"])
+  //       }
+  //       if(chance > chance1 && chance <= chance2){
+  //         // console.log("godwn")
+  //         setBetButtonOddsState(["oddsDown","oddsUp"])
+  //       }
+  //       if(chance > chance2){
+  //         setBetButtonOddsState(["normal","normal"])
+  //       }
+  //     }, 2000);
+  //   },[])
   return(
     <Card
       sx={{ height: '270px' }}
@@ -85,7 +85,7 @@ const FeaturedMatchCard = (props) => {
             addBetSlipMatch={props.addBetSlipMatch}
             removeBetSlipOutcome={props.removeBetSlipOutcome}
             inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+outcomeKey)}
-            oddsChange={betButtonOddsState[index]}
+            // oddsChange={betButtonOddsState[index]}
             />)
         })}
           <FavoriteButton FaviorteButtonId={props.matchId} addFavoriteMatch={props.addFavoriteMatch} removeFavoriteMatch={props.removeFavoriteMatch} favorited={props.favoriteMatch.favoritedMatchArray.includes(props.matchId)}/>

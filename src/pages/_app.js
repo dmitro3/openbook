@@ -8,6 +8,7 @@ import "@styles/globals.css";
 import { Loader } from "@components/Dashboard/Loader";
 import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
+import Script from "next/script"
 
 // New redux dependencies
 import { Provider } from "react-redux";
@@ -33,7 +34,16 @@ const App = (props) => {
       <Head>
         <title>Decentralized Sportsbook</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+        crossOrigin="anonymous" 
+        />
       </Head>
+      <Script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"/>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Provider store={store}>

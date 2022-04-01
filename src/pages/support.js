@@ -2,80 +2,117 @@ import Head from "next/head";
 import { Box } from "@mui/material";
 import { DashboardLayout } from "@components/DashboardLayout";
 import styles from '@styles/support.module.css';
+import { FAQ } from "@components/Dashboard/FAQ";
 
 const Dashboard = (props) => 
 {  
+    const types = {
+        open_book: 'OpenBook',
+        crypto: 'crypto',
+        betting: 'betting',
+        bookies: 'bookies'
+    }
+
+    const question_answer_type_dict = [
+        {
+            question: "How fast do I get paid once I win a bet?",
+            answer: "Instantly",
+            type: types.open_book,
+        },
+        {
+            question: "I want to bet on OpenBook, what do I need to do?",
+            answer: "Step 1 ... step 2 ... step 3 ...",
+            type: types.open_book,
+        },
+        {
+            question: "What commision do I have to pay for betting?",
+            answer: "5% each bet",
+            type: types.open_book,
+        },
+        {
+            question: "What kind of escrow you provide?",
+            answer: "smart contract bluh bluh bluh",
+            type: types.open_book,
+        },
+        {
+            question: "What commision do I have to pay for betting?",
+            answer: "5% each bet",
+            type: types.open_book,
+        },
+        {
+            question: "What make us unique?",
+            answer: "We just are",
+            type: types.open_book,
+        },
+        {
+            question: "How do I deposit and withdrawl as a bettor?",
+            answer: "MetaMask",
+            type: types.open_book,
+        },
+        {
+            question: "How do I deposit and withdrawl as a bookie?",
+            answer: "MetaMask",
+            type: types.open_book,
+        },
+        {
+            question: "How many bet strategies we offer?",
+            answer: "One and one only",
+            type: types.betting,
+        },
+        {
+            question: "What is American odds?",
+            answer: "It's an odds with decimal point",
+            type: types.betting,
+        },
+        {
+            question: "What is American odds?",
+            answer: "It's an odds that invented by weridos",
+            type: types.betting,
+        },       
+        {
+            question: "What is DAI?",
+            answer: "Dai is a currency that ~= 1 dollar",
+            type: types.crypto,
+        },
+        {
+            question: "What is wallet?",
+            answer: "wallet is wallet",
+            type: types.crypto,
+        },
+        {
+            question: "What is MetaMask?",
+            answer: "MetaMask is MetaMask",
+            type: types.crypto,
+        },
+    ]
+        
+
     return (
     <>
     <Head>
         <title>Support | OpenEdge</title>
     </Head>
         <Box>
-        <section className={`${styles.bannerSection} ${styles.innerBanner} ${styles.contact}`}>
-        <div className={`${styles.overlay}`}>
-            <div className={`${styles.shadedArea}`}>
-                <img src="https://pixner.net/bitbetio/main/assets/images/contact-illus.png" className={`${styles.backgroundImg}`} alt="image"/>
-            </div>
-            <div className={styles.bannerContent}>
-                <div className={styles.container}>
-                    <div className={styles.row}>
-                        <div className="col-lg-9 col-md-10">
-                            <div className={styles.mainContent}>
-                                <h1 className={styles.mainContentText}>Contact Us</h1>
-                            </div>
-                        </div>
-                    </div>
+            <section className={`${styles.bannerSection} ${styles.innerBanner} ${styles.contact}`}>
+            <div className={`${styles.overlay}`}>
+                <div className={`${styles.shadedArea}`}>
+                    <img src="https://pixner.net/bitbetio/main/assets/images/contact-illus.png" className={`${styles.backgroundImg}`} alt="image"/>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section className={`${styles.faqsSection} ${styles.faqsPage}`}>
-        <div className={`${styles.overlay} ${styles.pt120}`}>
-            <div className={styles.container}>
-                <div className="row d-flex justify-content-center">
-                    <div className="col-lg-7">
-                        <div className="section-header text-center">
-                            <h5 className="sub-title">Frequently Asked Questions</h5>
-                            <h2 className="title">If you have questions we have answer</h2>
-                            <p>Answers for our most popular questions about sportsbetting, crypto, and bitbetio</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="tab-content">
-                    <div className="tab-pane fade" id="affiliate" role="tabpanel" aria-labelledby="affiliate-tab">
-                        <div className="row d-flex justify-content-center">
-                            <div className="col-xl-10">
-                                <div className="faq-box">
-                                    <div className="accordion" id="accordionFaqsAffiliate">
-                                        <div className="accordion-item">
-                                            <h5 className="accordion-header" id="headingAffiliateOne">
-                                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAffiliateOne" aria-expanded="false" aria-controls="collapseAffiliateOne">
-                                                    I want2 to play at Bitbetio, What do i need to do?
-                                                </button>
-                                            </h5>
-                                            <div id="collapseAffiliateOne" className="accordion-collapse collapse" aria-labelledby="headingAffiliateOne" data-bs-parent="#accordionFaqsAffiliate">
-                                                <div className="accordion-body">
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                        industry. Lorem Ipsum has been the industrys standard dummy
-                                                        text ever
-                                                        since the 1500s, when an unknown printer took a galley of type
-                                                        and
-                                                        scrambled it to make a type specimen book.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                <div className={styles.bannerContent}>
+                    <div className={styles.container}>
+                        <div className={styles.row}>
+                            <div className="col-lg-9 col-md-10">
+                                <div className={styles.mainContent}>
+                                    <h1 className={styles.mainContentText}>Contact Us</h1>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-            
-        </Box>
+        </section>    
+        <FAQ question_answer_type_dict={question_answer_type_dict} support_styles={styles}/>
+    </Box>
     </>
 )};
 
