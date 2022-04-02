@@ -47,6 +47,7 @@
     position: relative;
     background-size: auto;
     background-image: unset;
+    minimum-height: 1000px;
 }
 
 .backgroundImg{
@@ -63,6 +64,12 @@
     position: absolute;
     right: 0;
     bottom: 0;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
 }
 
 .bannerContent{
@@ -92,6 +99,8 @@
     margin-top: calc(var(--bs-gutter-y) * -1);
     margin-right: calc(var(--bs-gutter-x) * -.5);
     margin-left: calc(var(--bs-gutter-x) * -.5);
+    justify-content: center;
+    padding-top: 10px;
 }
 
 .container {
@@ -170,9 +179,15 @@
 
 .navBorder{
     --border-color: #8790ae;
-    border: 1px solid var(--border-color);
     border-radius: 50px;
     padding: 10px 5px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    margin-top: 20px;
     margin-bottom: 40px;
 }
 
@@ -180,6 +195,7 @@
     --head-color: #41cd7d;
     color: var(--head-color);
     margin-bottom: 25px;
+    font-size:30px;
 }
 
 .title{
@@ -200,8 +216,57 @@
 }
 
 .pt120{
-    padding-top:120px
+    padding-top:50px
 }
+
+.faq_hidden{
+    display:none !important;
+}
+
+.bannerSction{
+    margin-top: 90px;
+}
+
+.contactFormMain{
+    border-radius: 30px;
+    padding: 60px 60px;
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color:black;
+    background-color:--var(--body-bg);
+    border:1px solid black;
+    text-align: center;
+}
+
+.titleSection{
+    margin-bottom: 50px;
+}
+
+.contactFormTitle{
+    color: black ;
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.contactFormSubTitle{
+    color: black ;
+    font-size: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.textAreaBox{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+
+
 
 
 

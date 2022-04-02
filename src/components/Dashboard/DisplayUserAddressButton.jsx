@@ -56,7 +56,9 @@ export const DisplayUserAddressButton = (props) => {
             sx={{width:'fit-content',px:'0px',py:'0px',marginLeft:'0px'}}
           >
 
-            <Button sx={{fontSize: '15px', color: 'black',whiteSpace: 'nowrap',px:'20px',py:'10px',minWidth:'157px'}}>
+            <Button sx={{fontSize: '15px', color: 'black',whiteSpace: 'nowrap',px:'20px',py:'10px',minWidth:'157px','&:focus':{
+              outline:'none'
+            }}}>
               <Avatar sx={{marginLeft:'10px',width:'50px',height:'50px'}}>
                 <CustomAvatar style={{width:'46px'}} seed={userAddress} avatarStyle={props.preferAvatarStyle}/>
               </Avatar>

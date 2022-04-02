@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import { DashboardLayout } from "@components/DashboardLayout";
 import styles from '@styles/support.module.css';
 import { FAQ } from "@components/Dashboard/FAQ";
+import {ContactForm} from "@components/Dashboard/ContactForm"
 
 const Dashboard = (props) => 
 {  
@@ -60,7 +61,7 @@ const Dashboard = (props) =>
             type: types.betting,
         },
         {
-            question: "What is American odds?",
+            question: "What is Decimal odds?",
             answer: "It's an odds with decimal point",
             type: types.betting,
         },
@@ -75,7 +76,7 @@ const Dashboard = (props) =>
             type: types.crypto,
         },
         {
-            question: "What is wallet?",
+            question: "What is a wallet?",
             answer: "wallet is wallet",
             type: types.crypto,
         },
@@ -93,24 +94,20 @@ const Dashboard = (props) =>
         <title>Support | OpenEdge</title>
     </Head>
         <Box>
-            <section className={`${styles.bannerSection} ${styles.innerBanner} ${styles.contact}`}>
+            <section className={`${styles.bannerSction}`}>
             <div className={`${styles.overlay}`}>
-                <div className={`${styles.shadedArea}`}>
-                    <img src="https://pixner.net/bitbetio/main/assets/images/contact-illus.png" className={`${styles.backgroundImg}`} alt="image"/>
-                </div>
+                <img src="https://pixner.net/bitbetio/main/assets/images/contact-illus.png" className={`${styles.backgroundImg}`} alt="image"/>
                 <div className={styles.bannerContent}>
                     <div className={styles.container}>
                         <div className={styles.row}>
-                            <div className="col-lg-9 col-md-10">
                                 <div className={styles.mainContent}>
-                                    <h1 className={styles.mainContentText}>Contact Us</h1>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>    
+        <ContactForm support_styles={styles}/>
         <FAQ question_answer_type_dict={question_answer_type_dict} support_styles={styles}/>
     </Box>
     </>

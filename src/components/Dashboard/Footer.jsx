@@ -48,15 +48,28 @@ export const Footer = () => {
           <FooterCustomDivider/>
           <Box sx={{  
                   display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  justifyContent: 'left',
+                  alignItems: 'left',
                   flexWrap: 'wrap',
                   marginTop: '16px',
                   marginBottom: '16px'}}>
-            <FooterLink><span style={{marginRight:'10px',fontSize:'18px',fontWeight:'500'}}>BET WITH</span><DaiIcon/><span style={{marginLeft:'10px',fontSize:'18px',fontWeight:'500', color:'#f3ad38'}}>DAI</span></FooterLink>
-            <FooterLink><span style={{marginRight:'10px',fontSize:'18px',fontWeight:'500'}}>CONNECT WITH</span><MetaMaskIcon/><span style={{marginLeft:'10px',fontSize:'18px',fontWeight:'500', color:'#de7111'}}>MetaMask</span></FooterLink>
-            <FooterLink><span style={{marginRight:'10px',fontSize:'18px',fontWeight:'500'}}>DEPOSIT WITH</span><CoinBaseIcon/><span style={{marginLeft:'10px',fontSize:'18px',fontWeight:'500',color:'#1652f0'}}>Coinbase</span></FooterLink>
-            <FooterLink><span style={{marginRight:'10px',fontSize:'18px',fontWeight:'500'}}>POWERED BY</span><PolygonIcon/><span style={{marginLeft:'10px',fontSize:'18px',fontWeight:'500',color:'#854ee7'}}>Polygon</span></FooterLink>
+            <Container>
+              <Grid container spacing={3} sx={{backgroundColor:"var(--bg-color)",marginLeft:'30px'}}>
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                  <FooterLink><span style={{marginRight:'10px',fontSize:'18px',fontWeight:'500'}}>BET WITH</span><DaiIcon/><span style={{marginLeft:'10px',fontSize:'18px',fontWeight:'500', color:'#f3ad38'}}>DAI</span></FooterLink>
+                </Grid>
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                <FooterLink><span style={{marginRight:'10px',fontSize:'18px',fontWeight:'500'}}>DEPOSIT WITH</span><CoinBaseIcon/><span style={{marginLeft:'10px',fontSize:'18px',fontWeight:'500',color:'#1652f0'}}>Coinbase</span></FooterLink>
+                </Grid>
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                 
+                 <FooterLink><span style={{marginRight:'10px',fontSize:'18px',fontWeight:'500'}}>CONNECT BY</span><MetaMaskIcon/><span style={{marginLeft:'10px',fontSize:'18px',fontWeight:'500', color:'#de7111'}}>MetaMask</span></FooterLink>
+                </Grid>
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                  <FooterLink><span style={{marginRight:'10px',fontSize:'18px',fontWeight:'500'}}>POWERED BY</span><PolygonIcon/><span style={{marginLeft:'10px',fontSize:'18px',fontWeight:'500',color:'#854ee7'}}>Polygon</span></FooterLink>
+                </Grid> 
+              </Grid>
+            </Container>
 
           </Box>
           <FooterCustomDivider style={{marginBottom:'0px'}}/>
