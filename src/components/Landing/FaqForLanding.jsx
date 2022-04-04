@@ -4,7 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Box from "@mui/material/Box"
+import Box from "@mui/material/Box";
 const types = {
     open_book: 'OpenBook',
     crypto: 'crypto',
@@ -85,13 +85,13 @@ const question_answer_type_dict = [
     },
 ]
 
-export const FAQ = (props) =>{
+export const FaqForLanding = (props) =>{
     let [tabState,setTabState] = useState("OpenBook");
 
     const handleTabButtonClick = (e) => {
         setTabState(e.target.value);
     }
-    let styles = props.support_styles;
+    let styles = props.landing_sytles;
     return (
         <section>
         <div className={`${styles.overlay}  ${styles.pt120}`}>
@@ -124,7 +124,7 @@ export const FAQ = (props) =>{
                     return (
                         <Box key={index} className={`${styles.row} ${qat.type != tabState ? styles.faq_hidden : void(10)}`} type={qat.type}>
                             <Box sx={{"flex":"0 0 auto","width":"83.3333333333%"}}>
-                                <Accordion>
+                                <Accordion sx={{backgroundColor:'#3a2fa4',color:'white'}}>
                                         <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         >
@@ -141,6 +141,7 @@ export const FAQ = (props) =>{
                         </Box>
                     )
                 })}
+
 
             </div>
         </div>
