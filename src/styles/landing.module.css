@@ -119,19 +119,18 @@
 }
 
 .subTitle{
-    --head-color: #41cd7d;
-    color: var(--head-color);
-    margin-bottom: 25px;
-    font-size:30px;
+    color: #41cd7d !important;
+    margin-bottom: 25px !important;
+    font-size:30px !important;
 }
 
 .title{
-    font-weight: 700;
-    margin-bottom: 14px;
-    font-size: 57px;
+    font-weight: 700 !important;
+    margin-bottom: 14px !important;
+    font-size: 57px !important;
     line-height: 74.1px;
     margin-top: -16px;
-    color:white
+    color:white !important;
 }
 
 .navBorder{
@@ -191,4 +190,40 @@
 
 .faq_hidden{
     display:none !important;
+}
+
+.stepCountRight{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    background: #7924c7;
+    border: 7px solid #070044;
+    top: 50%;
+    right: -40px;
+    transform: translate(0%, -50%);
+    color:white;
+    font-weight: 600;
+    font-size: 43px;
+}
+
+.stepCountLeft{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    background: #7924c7;
+    border: 7px solid #070044;
+    top: 50%;
+    left: -40px;
+    transform: translate(0%, -50%);
+    color:white;
+    font-weight: 600;
+    font-size: 43px;
 }

@@ -120,6 +120,7 @@ export const FaqForLanding = (props) =>{
                         </li>
                     </ul>
                 </Box>
+                <Box sx={{backgroundImage: 'linear-gradient(0deg, #070044 0%, #2d237b 99%)', paddingTop:'30px',paddingBottom:'70px',borderRadius:'25px'}}>
                 {question_answer_type_dict.map((qat,index)=>{
                     return (
                         <Box key={index} className={`${styles.row} ${qat.type != tabState ? styles.faq_hidden : void(10)}`} type={qat.type}>
@@ -141,6 +142,8 @@ export const FaqForLanding = (props) =>{
                         </Box>
                     )
                 })}
+                </Box>
+
 
 
             </div>
