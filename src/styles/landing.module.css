@@ -141,6 +141,12 @@
     color:white !important;
 }
 
+.detailDescriptions{
+    color: white !important;
+    font-size:18px !important;
+    margin-bottom: 50px !important;
+}
+
 .navBorder{
     --border-color: #8790ae;
     border-radius: 50px;
@@ -245,30 +251,182 @@
     background-image: url(/static/images/landing/wave_transition.svg);
 }
 
+.blobBox{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 50%;
+    position: relative;
+    min-height: 500px;
+    max-width: 800px;
+}
+
+.blob{
+    aspect-ratio: 100/100;
+    height: 120%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position:absolute;
+    z-index:0;
+    top:-25px;
+}
+
+.blob_text{
+    height: fit-content !important;
+    color: white !important;
+    width: 60% !important;
+    font-size: 24px !important;
+    margin-top: auto !important;
+    font-weight: 500 !important;
+    margin-bottom: auto !important;
+    z-index:1 !important;
+
+}
+
+
 .ballon{
     position: absolute;
     right: 4%;
-    top: 30%;
-    animation: rippleAni 5s linear infinite;
+    top: 20%;
+    animation: rippleAni 4s linear infinite;
+}
+
+.ballon2{
+    position: absolute;
+    left: 4%;
+    bottom: 20%;
+    animation: rippleAni 4s linear infinite;  
 }
 
 .coin{
-    animation: spin 30s linear infinite;
+    animation: spin 15s linear infinite;
     position:absolute;
     left: 5%;
-    top: 50%;
+    top: 20%;
     filter: drop-shadow(2px 4px 6px black);
 }
+
+.coin2{
+    animation: spin 15s linear infinite;
+    position:absolute;
+    right: 5%;
+    bottom: 20%;
+    filter: drop-shadow(2px 4px 6px black);  
+}
+
+
+
+.feature_box{
+    text-align: center;
+    background-color: #0d102f;
+    padding: 20px;
+    border-radius: 30%;
+    cursor:pointer;
+}
+
+.feature_active{
+    background-color: #11153e !important;
+}
+
+.feature_inactive{
+    background-color: #0d102f !important;
+}
+
+.blob2{
+    visibility: hidden !important;
+}
+
+.subscribeBox{
+    background-image:url(https://pixner.net/bitbetio/main/assets/images/newsletter-bg.png);
+    width: 80%;
+    background-color: #3a2fa4;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    background-size: 100%;
+    display:flex;
+    justify-content:center;
+    flex-direction: column;
+    padding: 0px 260px;
+    padding-top: 30px;
+    padding-bottom: 80px;
+}
+
+.subscribeSection{
+    background-color: #070044;
+    width:100%;
+    height: 500px;
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+
+.subscribeBoxTypoBox{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+
+.subscribeInputBox{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    background-color: #1d1566;
+    border: 1px solid #51478e;
+    border-radius: 30px;
+    padding: 10px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.subscribeInput{
+    background-color: #1d1566;
+    border: none;
+    border-radius: 30px;
+    padding: 0 30px;
+    color: white;
+    height: min-content;
+    width:100%;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.subscribeInput:focus{
+    outline:none;
+}
+
+.subscribeInput textArea{
+    width: 100%;
+    background: #f5faff;
+}
+
+
+.subscribeButton{
+    border-radius: 50%;
+    background-color: #7924c7;
+    min-width: 40px;
+    min-height: 40px;
+    border: none;
+    margin-left:auto;
+    cursor:pointer;
+}
+
+
 
 @keyframes rippleAni{
     0% {
         transform: translate(0px, 0px);
     }
     33% {
-        transform: translate(5px, -5px);
+        transform: translate(10px, -10px);
     }
     66% {
-        transform: translate(-5px, 5px);
+        transform: translate(-10px, 10px);
     }
     100% {
         transform: translate(0px, 0px);

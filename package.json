@@ -42,6 +42,7 @@
     "formik": "^2.1.5",
     "hardhat-abi-exporter": "^2.8.0",
     "history": "^5.0.0",
+    "kute.js": "^2.2.2",
     "next": "^12.0.3-canary.7",
     "nextjs-progressbar": "^0.0.14",
     "prop-types": "^15.7.2",
