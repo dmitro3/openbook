@@ -15,11 +15,13 @@ it("Token Transfer", async function () {
     const liq = await Liquidity.deploy(DAI_ADDY);
     await liq.deployed();  
     
-    console.log("Contract Deployerd at " + liq.address);
+    console.log("Contract Deployed at " + liq.address);
 
     const whale_signer = await ethers.provider.getSigner(WHALE_ADDY);
 
+
     let DAI = await ethers.getContractAt(erc20ABI, DAI_ADDY, whale_signer);
+    let USER_DAI = await ethers.getContractAt(erc20ABI, DAI_ADDY, owner);
 
 
     await DAI.transfer("0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9", FUND_AMOUNT, {
@@ -44,10 +46,12 @@ it("Token Transfer", async function () {
     expect(await liq.getAddress()).to.equal(owner.address);
 
 
-    await liq.addLiquidity(10);
-    console.log("Minted");
+    amt = 10
+    await USER_DAI.approve(liq.address, amt);
+    await liq.addLiquidity(amt);
 
     bal = await liq.balanceOf(owner.address, 0);
 
-    expect(await liq.balanceOf(owner.address, 0)).to.equal(10);
+    expect(await liq.balanceOf(owner.address, 0)).to.equal(amt);
+    expect(await DAI.balanceOf(liq.address)).to.equal(amt);
 })

@@ -1,7 +1,7 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
 const { CONTRACT_ABI, CONTRACT_ADDY, DAI_ABI,  DAI_ADDY} = require("../config")
-
+const {MaxUint256} = require("@ethersproject/constants");
 //redux
 import {setProvider,setWeb3,setWeb3Loading,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance} from "@actions/userActions";
 import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
@@ -57,15 +57,21 @@ export const addLiquidity = async (amount) => {
             if(value.length != 0){
                 let userAddress = value[0];
                 
-                token_contract.methods.transfer(CONTRACT_ADDY, amt).send({from: userAddress})
-                    .on('transactionHash', function(hash){
-                        contract.methods.addLiquidity(parseInt(amount)).send({from: userAddress}, function (error, result) {
-                            if (!error) {
-                                alert(result);
-                            } else
-                            alert(error);
-                        });
-                });
+                (async () => {
+                
+                    let x = await token_contract.methods.allowance(userAddress, CONTRACT_ADDY).call()
+                    
+                    if (x < amt)
+                    {
+                        await token_contract.methods.approve(CONTRACT_ADDY, MaxUint256).send({from: userAddress})
+                    }
+
+                    await contract.methods.addLiquidity(parseInt(amount)).send({from: userAddress})
+
+                })();
+
+
+
             }
         })
 
