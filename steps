@@ -6,9 +6,10 @@ npm run start
 Make sure metamask is connected to local network
 Open test/test.js and src/config.js in VSCode.
 
-http://localhost:3000/ Zoom out a lil
+Open http://localhost:3000/ on firefox zoom out a lil
+Open http://localhost:3000/ on chrome
 Open https://docs.google.com/presentation/d/1a7pBdSUCrlLfcXNwkE0VVG3d-2h1XxJE/edit#slide=id.p19 in browser
-
+Remember ctrl + shift + m for mobile mode
 
 Solidity Demo:
 Close npm run start
