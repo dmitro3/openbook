@@ -352,6 +352,7 @@
     padding: 0px 260px;
     padding-top: 30px;
     padding-bottom: 80px;
+    max-width: 1200px;
 }
 
 .subscribeSection{
@@ -382,6 +383,7 @@
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+
 }
 
 .subscribeInput{
@@ -416,6 +418,100 @@
     cursor:pointer;
 }
 
+.fiveStepsToggleBox{
+    background-color:#070044;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    color:white;
+    z-index:0;
+    padding-top: 50px;
+}
+
+
+.tabber {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    z-index:1;
+}
+
+.tabber_label{
+    user-select: none;
+    padding: 3rem;
+    cursor: pointer;
+    will-change: transform;
+    transform: translateZ(0px);
+    transition:
+    transform 125ms ease-in-out,
+    filter 125ms ease-in-out;
+    font-family: "Concert One", cursive;
+    font-size: 30px;
+}
+
+.tabber_label:hover {
+    transform: scale(1.15);
+    }
+
+
+
+.blob {
+    z-index:1;
+    background: #153285;
+    animation-name: stretchyRev;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    border-radius: 4rem;
+    animation-duration: .5s;
+    animation-direction: forwards;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    transition:
+      transform 150ms ease,
+      background 150ms ease;
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"><defs><filter id=\"goo\"><feGaussianBlur in=\"SourceGraphic\" stdDeviation=\"10\" result=\"blur\" /><feColorMatrix in=\"blur\" mode=\"matrix\" values=\"1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9\" result=\"goo\" /><feComposite in=\"SourceGraphic\" in2=\"goo\" operator=\"atop\"/></filter></defs></svg>#goo");
+}
+
+.blob:before, .blob:after{
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    background-color: inherit;
+    height: 100%;
+    width: 50%;
+    border-radius: 100%;
+    transform: scale(1.15);
+    transition: transform 150ms ease;
+    animation-name: pulse;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.blob:before{
+    left: 0;
+    animation-delay: .15s;
+}
+
+.blob:after{
+    right: 0;
+}
+
+.blob_bettor{
+    transform-origin:  center;
+    animation-name: stretchyRev;
+}
+
+.blob_bookie{
+    transform-origin: left center;
+    animation-name: stretchy;
+}
 
 
 @keyframes rippleAni{
@@ -441,3 +537,36 @@
         transform: rotate(360deg);
     }
 }
+
+@keyframes stretchy {
+    0% {
+      transform: translateX(0) scaleX(1);
+    }
+    50% {
+      transform: translateX(0) scaleX(2);
+    }
+    100% {
+      transform: translateX(100%) scaleX(1);
+    }
+  }
+  
+  @keyframes stretchyRev {
+    0% {
+      transform: translateX(100%) scaleX(1);
+    }
+    50% {
+      transform: translateX(0) scaleX(2);
+    }
+    100% {
+      transform: translateX(0) scaleX(1);
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 50% {
+      transform: scaleX(1);
+    }
+    25%, 75% {
+      transform: scaleX(1.5);
+    }
+  }
