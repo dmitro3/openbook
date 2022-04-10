@@ -67,13 +67,15 @@
 .banner{
     background-color: #2f007f;
     /* background-image: url(https://pixner.net/bitips/main/assets/images/banner-overlay.png), url(https://pixner.net/bitips/main/assets/images/index-bg.png); */
-    background-image: url(/static/images/landing/landing_banner_curve.png), url(https://pixner.net/bitips/main/assets/images/index-bg.png);
+    background-image: url(/static/images/landing/wave_transition_2.svg),linear-gradient(to right, #2d1a9a,#a20ae1);
     /* background-image: url(https://pixner.net/bitips/main/assets/images/banner-overlay.png), url("/static/images/landing/index-bg.png"); */
     background-repeat: no-repeat;
     background-position: right bottom -1px, top;
     position: relative;
     background-size: 100%;
 }
+
+
 
 .secondPageText{
     font-size:24px !important;
@@ -96,7 +98,7 @@
     background-image: unset;
     minimum-height: 1500px;
     background-color: #070044;
-    padding-bottom: 200px;
+    padding-bottom: 100px;
     background-image: url(https://pixner.net/bitips/main/assets/images/top-tipsters-section-bg.png);
     /* background-size: 150%; */
     background-blend-mode: hard-light;
@@ -271,7 +273,7 @@
     background-size: cover;
     position:absolute;
     z-index:0;
-    top:-25px;
+    top:-40px;
 }
 
 .blob_text{
@@ -439,15 +441,14 @@
 
 .tabber_label{
     user-select: none;
-    padding: 3rem;
+    padding: 2rem;
     cursor: pointer;
     will-change: transform;
     transform: translateZ(0px);
     transition:
     transform 125ms ease-in-out,
     filter 125ms ease-in-out;
-    font-family: "Concert One", cursive;
-    font-size: 30px;
+    font-size: 35px;
 }
 
 .tabber_label:hover {
@@ -456,9 +457,9 @@
 
 
 
-.blob {
+.fiveStepBlob {
     z-index:1;
-    background: #153285;
+    background: #1f3d91;
     animation-name: stretchyRev;
     top: 0;
     left: 0;
@@ -477,7 +478,7 @@
     filter: url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"><defs><filter id=\"goo\"><feGaussianBlur in=\"SourceGraphic\" stdDeviation=\"10\" result=\"blur\" /><feColorMatrix in=\"blur\" mode=\"matrix\" values=\"1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9\" result=\"goo\" /><feComposite in=\"SourceGraphic\" in2=\"goo\" operator=\"atop\"/></filter></defs></svg>#goo");
 }
 
-.blob:before, .blob:after{
+.fiveStepBlob:before, .fiveStepBlob:after{
     display: block;
     content: "";
     position: absolute;
@@ -494,24 +495,51 @@
     animation-direction: alternate;
 }
 
-.blob:before{
+.fiveStepBlob:before{
     left: 0;
     animation-delay: .15s;
 }
 
-.blob:after{
+.fiveStepBlob:after{
     right: 0;
 }
 
-.blob_bettor{
-    transform-origin:  center;
+.fiveStepBlob_bettor{
+    transform-origin: left center;
     animation-name: stretchyRev;
 }
 
-.blob_bookie{
+.fiveStepBlob_bookie{
     transform-origin: left center;
     animation-name: stretchy;
 }
+
+.uniqueBox{
+    background-color:#070044;
+    padding-bottom:500px;
+    width:100%;
+    background-image:url(/static/images/landing/unique_background.png);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.detailDescriptions2{
+    margin: 0 !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: #e2e1ff !important;
+    margin-bottom: 30px !important;
+    font-size: 24px !important;
+}
+
+
 
 
 @keyframes rippleAni{

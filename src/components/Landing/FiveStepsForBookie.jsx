@@ -4,7 +4,7 @@ import Image from 'next/image';
 export const FiveStepsForBookie = (props) => {
     let styles = props.styles;
     return(
-        <Box sx={{ backgroundColor: '#070044', textAlign: 'center', paddingTop: '50px', paddingBottom:'100px', px: '10%' }}>
+        <Box sx={{ backgroundColor: '#070044', textAlign: 'center', paddingTop: '50px', paddingBottom:'200px', px: '10%' }}>
 
             <Box sx={{ mx: 'auto', textAlign: 'center' }}>
                 <Typography sx={{ color: '#00ff66', marginBottom: '30px', fontSize: '32px' }}>

@@ -20,7 +20,7 @@ export const Features = (props) => {
             '#blob1',
             {path: '#blob1'},
             {path: '#blob2'},
-            {repeat: 9999,duration: 3000,yoyo: true}
+            {repeat: 9999,duration: 2000,yoyo: true}
         )
     
         blobMorph.start();
