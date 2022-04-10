@@ -6,6 +6,7 @@ contract Liquidity is ERC1155{
 
     //This is the ID for the the NFT
     uint32 public constant LIQUIDITY = 0;
+    address public DAI;
 
    constructor(address _DAI) public ERC1155(""){
        DAI = _DAI;
