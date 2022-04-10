@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract Liquidity is ERC1155{
 
     //This is the ID for the the NFT
-    uint32 public constant AMOUNT = 0;
+    uint32 public constant LIQUIDITY = 0;
     uint32 public constant POOL_SIZE = 1;
     
     address public DAI;
@@ -20,12 +20,12 @@ contract Liquidity is ERC1155{
        DAI = _DAI;
     }
 
-    function addLiquidity(uint32 _amount)  public {
+    function addLiquidity(uint256 _amount)  public {
 
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, _amount));
 
         if (success)
-            _mint(msg.sender, AMOUNT, _amount, "https://www.larvalabs.com/public/images/cryptopunks/punk1000.png");
+            _mint(msg.sender, LIQUIDITY, _amount, "https://www.larvalabs.com/public/images/cryptopunks/punk1000.png");
     }
 
 

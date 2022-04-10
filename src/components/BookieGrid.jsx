@@ -25,16 +25,16 @@ export const BookieGrid = (props) => {
 		zeroMinWidth
 		>
 				<BookieGridItem 
-				id="totalLiqDisplay"
-				title="Total Liquidity"
+				id="depositedLiquidity"
+				title="Liquidity Deposited"
 				size="4" 
 				data={temp.total}
 				/>
 				<BookieGridItem 
 				id="estNextPayout"
-				title="Estimated Next Payout"
+				title="Total Liquidity"
 				size="4" 
-				data={temp.nextPayout}
+				data={temp.total}
 				/>
 				<BookieGridItem 
 				id="stakingYields"
