@@ -53,5 +53,6 @@ it("Token Transfer", async function () {
     bal = await liq.balanceOf(owner.address, 0);
 
     expect(await liq.balanceOf(owner.address, 0)).to.equal(amt);
+
     expect(await DAI.balanceOf(liq.address)).to.equal(amt);
 })

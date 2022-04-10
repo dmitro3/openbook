@@ -1,4 +1,4 @@
-const CONTRACT_ADDY = "0xF42fBc71a3De850ab5522396961F3F80E878c843";
+const CONTRACT_ADDY = "0x3259fA16b6E7C786F0b5b2aCc600F7F9ea793bcE";
 let CONTRACT_ABI = [
     {
       "inputs": [
@@ -184,9 +184,9 @@ let CONTRACT_ABI = [
     {
       "inputs": [
         {
-          "internalType": "uint32",
+          "internalType": "uint256",
           "name": "_amount",
-          "type": "uint32"
+          "type": "uint256"
         }
       ],
       "name": "addLiquidity",

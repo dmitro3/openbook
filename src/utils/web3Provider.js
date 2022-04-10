@@ -31,17 +31,22 @@ export const connectMetaMask = async () =>{
 export const getBalance = async (amount) => {
     let web3 = store.getState().user.web3;
     let token_contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDY);
-
+    let balance = 0;
     web3.eth.getAccounts()
             .then((value)=>{
             if(value.length != 0){
                 let userAddress = value[0];
-
+                
                 (async () => alert(await token_contract.methods.balanceOf(userAddress, 0).call()))();
 
     }
 });
+
+
+
 }
+
+
         
 export const addLiquidity = async (amount) => {
     console.log("Adding liquidity");
@@ -66,6 +71,7 @@ export const addLiquidity = async (amount) => {
                         await token_contract.methods.approve(CONTRACT_ADDY, MaxUint256).send({from: userAddress})
                     }
 
+                    
                     await contract.methods.addLiquidity(parseInt(amount)).send({from: userAddress})
 
                 })();
