@@ -72,6 +72,8 @@ const BookieHomepage = () => {
 
       <Box sx={{display:'flex',width:'100%',marginTop:'10px'}}>
         <Button variant="contained" sx={{marginLeft:'auto',marginRight:'10px'}} onClick={()=>addLiquidity(textFieldInput)}>Deposit Liquidity</Button>
+        <Button variant="contained"sx={{marginRight:'auto',marginLeft:'10px'}} onClick={()=>withdrawLiquidity()}>Withdraw Liquidity</Button>
+
         <Button variant="contained"sx={{marginRight:'auto',marginLeft:'10px'}} onClick={()=>getBalance()}>Get Balance</Button>
       </Box>   	
     </>
