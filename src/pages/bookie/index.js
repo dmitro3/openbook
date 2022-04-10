@@ -1,37 +1,38 @@
 import Head from "next/head";
 import { useState } from "react";
-import { Tabs } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
 import { BookieLayout } from "@components/BookieLayout";
 import { BookieGrid } from "@components/BookieGrid";
-import {addLiquidity, getBalance} from "@utils/web3Provider";
-
-
-/* Temporily put them here */
-import {Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle, Box, TextField} from "@mui/material";
-
+import { addLiquidity, getBalance } from "@utils/web3Provider";
+import {
+  Tabs,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Box,
+  TextField,
+} from "@mui/material";
 
 const useStyle = makeStyles({
   root: {
     marginTop: "1rem",
   },
-  indicator: {
-    display: "flex",
-    justifyContent: "center",
-    height: "4px",
-    borderRadius: "2rem",
-    /*backgroundColor: "transparent",*/
-  },
-  indicatorSpan: {
-    maxWidth: "40px",
-    width: "100%",
-    backgroundColor: "#156fd6",
-  },
   bookieHeader: {
-    margin: "1rem",
+    marginTop: "1rem",
     textAlign: "center",
     fontSize: "48px",
+    color: "#1a009e",
+  },
+  subtitle: {
+    marginBottom: "1rem",
+    textAlign: "center",
+    fontSize: "32px",
+    fontWeight: "400",
+    color: "#4300ed",
   },
 });
 
@@ -42,40 +43,52 @@ const BookieHomepage = () => {
     setBookieTabsValue(newValue);
   };
 
-  //Tempoerarily putting these here
-  const [textFieldInput, setTextFieldInput] = useState("")
+  const [depositAmountInput, setDepositAmountInput] = useState("");
 
   return (
     <>
       <Head>
         <title>Bookie | OpenEdge</title>
       </Head>
-      <h1 className={styles.bookieHeader}>The Bookies Dashboard</h1>
-      <BookieGrid /> 
+      <h1 className={styles.bookieHeader}>Become the Bookie:</h1>
+      <h2 className={styles.subtitle}>
+        Provide liquidity for bettors and earn over time
+      </h2>
 
-      {/*Tempoerarily putting these here*/}
-      <Box sx={{display:'flex',width:'100%'}}>
-      <TextField
+      {/* Deposit Amount input box */}
+      <Box sx={{ display: "flex", width: "100%" }}>
+        <TextField
           sx={{
-            marginX:'auto'
+            marginX: "auto",
           }}
-          value={textFieldInput}
+          value={depositAmountInput}
           id="outlined-number"
           label="Deposit Amount"
           type="number"
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={(e)=>setTextFieldInput(e.target.value)}
+          onChange={(e) => setDepositAmountInput(e.target.value)}
         />
       </Box>
 
-      <Box sx={{display:'flex',width:'100%',marginTop:'10px'}}>
-        <Button variant="contained" sx={{marginLeft:'auto',marginRight:'10px'}} onClick={()=>addLiquidity(textFieldInput)}>Deposit Liquidity</Button>
-        <Button variant="contained"sx={{marginRight:'auto',marginLeft:'10px'}} onClick={()=>withdrawLiquidity()}>Withdraw Liquidity</Button>
+      <Box sx={{ display: "flex", width: "100%", marginTop: "1rem" }}>
+        <Button
+          variant="contained"
+          sx={{ marginLeft: "auto", marginRight: "10px" }}
+          onClick={() => addLiquidity(depositAmountInput)}
+        >
+          Stake DAI
+        </Button>
 
-        <Button variant="contained"sx={{marginRight:'auto',marginLeft:'10px'}} onClick={()=>getBalance()}>Get Balance</Button>
-      </Box>   	
+        <Button
+          variant="contained"
+          sx={{ marginRight: "auto", marginLeft: "10px" }}
+          onClick={() => getBalance()}
+        >
+          Get Balance
+        </Button>
+      </Box>
     </>
   );
 };

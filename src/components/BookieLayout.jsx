@@ -18,7 +18,7 @@ const useStyle = makeStyles({
 	indicatorSpan: {
 	  maxWidth: "40px",
 	  width: "100%",
-	  backgroundColor: "#156fd6",
+	  backgroundColor: "#1a009e",
 	},
 	bookieHeader: {
 	  margin: "1rem",
@@ -54,17 +54,17 @@ export const BookieLayout = (props) => {
 				children: <span className="MuiTabs-indicatorSpan" />,
 			}}
 			>
-			<WrapTab 
-			value={1} 
-			href="/bookie" 
-			label="Overview" 
-			sx={{ py: "0px" }} 
-			/>
 			<WrapTab
-			value={2}
-			href="/bookie/bet-mining"
+			value={1}
+			href="/bookie/"
 			label="Bet Mining"
 			sx={{ py: "0px" }}
+			/>
+			<WrapTab 
+			value={2} 
+			href="/bookie/overview" 
+			label="Overview" 
+			sx={{ py: "0px" }} 
 			/>
 			<WrapTab
 			value={3}
