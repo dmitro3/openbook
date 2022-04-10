@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Tabs } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
-import { BookieLayout } from "@components/BookieLayout";
-import { BookieGrid } from "@components/BookieGrid";
+import { BookieLayout } from "@components/Bookie/BookieLayout";
+import { BookieGrid } from "@components/Bookie/BookieGrid";
 
 const useStyle = makeStyles({
   root: {

@@ -1,7 +1,7 @@
 import { Box, Paper, Grid, Card, CardContent, Typography } from '@mui/material';
 import { makeStyles } from "@mui/styles";
-import { BookieGridCard } from '@components/BookieGridCard';
-import { BookieGridItem } from '@components/BookieGridItem';
+import { BookieGridCard } from '@components/Bookie/BookieGridCard';
+import { BookieGridItem } from '@components/Bookie/BookieGridItem';
 import {getBalance} from "@utils/web3Provider";
 
 const temp = {
