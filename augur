@@ -1,0 +1,25 @@
+So regarding the bets, the most difficult problem arises when user makes two bets in the same match. To solve this Augur uses a very very roundabout solution:
+
+If we go that way it will look like this for us: 
+
+Have a unique struct for each game:
+
+struct Market {
+        address settlementAddress;
+        BetERC1155[] betTokens;
+        uint256 winnerIndex;
+        uint256 settlementFee;
+        uint256 protocolFee;
+        uint256 stakerFee;
+        uint256 creationTimestamp;
+        uint256 resolutionTimestamp; // when winner is declared
+        uint256[] initialOdds;
+        bool active; // false if not ready to use or if resolved
+    }
+
+If there are 3 outcomes in a game, there will 3 betTokens for that game. For eg if there is Man City VS Liverpool game, the game will have 3 NFT contracts. One is Man City contract, One is draw and another is Liverpool contract
+
+The number of ERC1155 token they own for contract is their expected winning. 
+
+
+I would rather not use this approach because if we do this we can't show how much they bet, when they bet etc.

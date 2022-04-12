@@ -30,7 +30,7 @@ const bettingZoneitems = [
   {
     href: "/favorited",
     icon: <FaStar />,
-    title: "Favroited Games",
+    title: "Favorited Games",
   },
   {
     href: "/trending",

@@ -1,10 +1,11 @@
 import { Box, Paper, Grid, Card, CardContent, Typography } from '@mui/material';
 import { makeStyles } from "@mui/styles";
-import { BookieGridCard } from '@components/BookieGridCard';
-import { BookieGridItem } from '@components/BookieGridItem';
+import { BookieGridCard } from '@components/Bookie/BookieGridCard';
+import { BookieGridItem } from '@components/Bookie/BookieGridItem';
+import {getBalance} from "@utils/web3Provider";
 
 const temp = {
-	total: "$1,765,843.29",
+	total: "aaa",
 	nextPayout: "$1287.55",
 	yields: ["3.321%", "1.246%"],
 	performance: "<performance graphic goes here>",

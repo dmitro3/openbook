@@ -1,5 +1,5 @@
 import { Box, Paper, Grid, Card, CardContent, Typography } from '@mui/material';
-import { BookieGridCard } from '@components/BookieGridCard';
+import { BookieGridCard } from '@components/Bookie/BookieGridCard';
 
 export const BookieGridItem = (props) => {
 	return(

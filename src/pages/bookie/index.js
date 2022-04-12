@@ -1,37 +1,70 @@
 import Head from "next/head";
 import { useState } from "react";
-import { Tabs } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { makeStyles, styled } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
-import { BookieLayout } from "@components/BookieLayout";
-import { BookieGrid } from "@components/BookieGrid";
-import {addLiquidity, getBalance} from "@utils/web3Provider";
-
-
-/* Temporily put them here */
-import {Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle, Box, TextField} from "@mui/material";
-
+import { BookieLayout } from "@components/Bookie/BookieLayout";
+import { StakingDataCard } from "@components/Bookie/StakingDataCard";
+import { addLiquidity, getBalance } from "@utils/web3Provider";
+import { DaiIcon } from "@components/Dashboard/DaiIcon";
+import {
+  Tabs,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Box,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 const useStyle = makeStyles({
   root: {
     marginTop: "1rem",
   },
-  indicator: {
-    display: "flex",
-    justifyContent: "center",
-    height: "4px",
-    borderRadius: "2rem",
-    /*backgroundColor: "transparent",*/
-  },
-  indicatorSpan: {
-    maxWidth: "40px",
-    width: "100%",
-    backgroundColor: "#156fd6",
-  },
   bookieHeader: {
-    margin: "1rem",
+    marginTop: "1rem",
     textAlign: "center",
     fontSize: "48px",
+    color: "midnightblue",
+  },
+  subtitle: {
+    marginBottom: "1rem",
+    textAlign: "center",
+    fontSize: "32px",
+    fontWeight: "400",
+    color: "#5048e5",
+  },
+  stakingHeader: {
+    textAlign: "center",
+    fontSize: "36px",
+    color: "midnightblue",
+  },
+  stakingText: {
+    marginBottom: "1rem",
+    textAlign: "center",
+  },
+});
+
+const StyledTextField = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "#004e92",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#004e92",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "#5048e5",
+      borderWidth: "2px",
+    },
+    "&:hover fieldset": {
+      borderColor: "royalblue",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#004e92",
+    },
   },
 });
 
@@ -42,38 +75,128 @@ const BookieHomepage = () => {
     setBookieTabsValue(newValue);
   };
 
-  //Tempoerarily putting these here
-  const [textFieldInput, setTextFieldInput] = useState("")
+  const [depositAmountInput, setDepositAmountInput] = useState("");
 
   return (
     <>
       <Head>
         <title>Bookie | OpenEdge</title>
       </Head>
-      <h1 className={styles.bookieHeader}>The Bookies Dashboard</h1>
-      <BookieGrid /> 
+      <h1 className={styles.bookieHeader}>Become the Bookie:</h1>
+      <h2 className={styles.subtitle}>
+        Provide liquidity for bettors and earn over time
+      </h2>
 
-      {/*Tempoerarily putting these here*/}
-      <Box sx={{display:'flex',width:'100%'}}>
-      <TextField
+      {/* Two column layout */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          width: "100%",
+          borderStyle: "groove",
+          borderWidth: "4px",
+          borderColor: "#5048e5",
+          borderRadius: "2rem",
+          padding: "1rem",
+          marginTop: "1rem",
+          overflow: "hidden",
+          gap: "1rem",
+          backgroundColor: "#f3f5f9",
+        }}
+      >
+        {/* Left Column */}
+        <Box
           sx={{
-            marginX:'auto'
+            display: "flex",
+            flexDirection: "column",
+            flexBasis: "40%",
+            borderRight: "2px solid #5048e5",
+            paddingRight: "1rem",
           }}
-          value={textFieldInput}
-          id="outlined-number"
-          label="Deposit Amount"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={(e)=>setTextFieldInput(e.target.value)}
-        />
-      </Box>
+        >
+          <h3 className={styles.stakingHeader}>Staking Menu</h3>
+          <Typography className={styles.stakingText}>
+            Input the amount of DAI you want to stake in the OpenBook Liquidity
+            Pool
+          </Typography>
 
-      <Box sx={{display:'flex',width:'100%',marginTop:'10px'}}>
-        <Button variant="contained" sx={{marginLeft:'auto',marginRight:'10px'}} onClick={()=>addLiquidity(textFieldInput)}>Deposit Liquidity</Button>
-        <Button variant="contained"sx={{marginRight:'auto',marginLeft:'10px'}} onClick={()=>getBalance()}>Get Balance</Button>
-      </Box>   	
+          {/* Deposit Amount input box */}
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              marginTop: "auto",
+            }}
+          >
+            <StyledTextField
+              sx={{
+                marginX: "auto",
+              }}
+              value={depositAmountInput}
+              id="deposit-input"
+              variant="outlined"
+              label="Deposit Amount"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(e) => setDepositAmountInput(e.target.value)}
+              InputProps={{
+                endAdornment: <DaiIcon />,
+              }}
+            />
+          </Box>
+
+          {/* Buttons box */}
+          <Box sx={{ display: "flex", width: "100%", marginTop: "1rem" }}>
+            <Button
+              variant="contained"
+              sx={{ marginLeft: "auto", marginRight: "10px" }}
+              onClick={() => addLiquidity(depositAmountInput)}
+            >
+              Stake DAI
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ marginRight: "auto", marginLeft: "10px" }}
+              onClick={() => getBalance()}
+            >
+              Update Balance
+            </Button>
+          </Box>
+        </Box>
+        {/* Right Column */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            flexBasis: "60%",
+            gap: "0.5rem",
+          }}
+        >
+          <StakingDataCard
+            key="totalBookiePool"
+            title="Total Bookie Liquidity"
+            data="DAI $$$, $$$, $$$.$$"
+          />
+          <StakingDataCard
+            key="test1"
+            title="The Title here"
+            data="Some data here too"
+          />
+          <StakingDataCard
+            key="test2"
+            title="The Title here"
+            data="Some data here too"
+          />
+          <StakingDataCard
+            key="test3"
+            title="The Title here"
+            data="Some data here too"
+          />
+        </Box>
+      </Box>
     </>
   );
 };

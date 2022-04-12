@@ -32,18 +32,11 @@ export const getBalance = async (amount) => {
     let web3 = store.getState().user.web3;
     let token_contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDY);
     let balance = 0;
-    web3.eth.getAccounts()
-            .then((value)=>{
-            if(value.length != 0){
-                let userAddress = value[0];
-                
-                (async () => alert(await token_contract.methods.balanceOf(userAddress, 0).call()))();
 
-    }
-});
+    let account = await web3.eth.getAccounts()
 
-
-
+    let res = await token_contract.methods.balanceOf(account[0], 0).call()
+    return res;
 }
 
 

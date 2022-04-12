@@ -13,7 +13,7 @@ export const FaqForLanding = (props) =>{
     const handleTabButtonClick = (e) => {
         setTabState(e.target.value);
     }
-    let styles = props.landing_sytles;
+    let styles = props.landingStyles;
     return (
         <section>
         <div className={`${styles.overlay}  ${styles.pt120}`}>
