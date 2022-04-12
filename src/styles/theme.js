@@ -170,8 +170,8 @@ export const theme = createTheme({
     },
     success: {
       main: "#14B8A6",
-      light: "#43C6B7",
-      dark: "#0E8074",
+      light: "#8fffac",
+      dark: "#027641",
       contrastText: "#FFFFFF",
     },
     info: {

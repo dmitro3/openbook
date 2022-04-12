@@ -68,7 +68,7 @@ export const DisplayUserAddressButton = (props) => {
                 </Typography>
                 <Box sx={{"display":"flex","alignItems":"baseline"}}>
                 <Typography sx={{"fontSize":"1.15rem","fontWeight":"500","margin":"0 0 0 0"}}>
-                  {props.balance}$
+                ${props.balance}
                   {/* {5384.31} */}
                 </Typography>
                 {/* <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" style={{marginTop: "auto",marginBottom: "auto"}}>
