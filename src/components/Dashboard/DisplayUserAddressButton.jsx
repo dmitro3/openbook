@@ -29,6 +29,7 @@ export const DisplayUserAddressButton = (props) => {
         if(index==2){
           props.disconnectMetaMask();
           props.setDisconnected(true);
+          router.push('/featured');
         }
         else if(index == 0){
           props.openSettingsModal();

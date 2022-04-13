@@ -24,10 +24,14 @@ export default function CustomSwiperForFeatureRows(props) {
       setSlideCount(getSwiperSlideCountByScreenWidth())
     }
 
+    //componentDidMount
     useEffect(()=>{
       setSlideCount(getSwiperSlideCountByScreenWidth())
       window.addEventListener("resize", handleResize);
     },[])
+
+    //componentDidUnmount
+    useEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
 
     if(my_swiper.on){
       my_swiper.on('slideChange', function (e) {

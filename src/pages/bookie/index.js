@@ -5,7 +5,7 @@ import { DashboardLayout } from "@components/DashboardLayout";
 import { BookieLayout } from "@components/Bookie/BookieLayout";
 import { StakingDataCard } from "@components/Bookie/StakingDataCard";
 import { addLiquidity, getBalance } from "@utils/web3Provider";
-import { DaiIcon } from "@components/Dashboard/DaiIcon";
+import { DaiIcon } from "@components/Icons/DaiIcon";
 import {
   Tabs,
   Button,

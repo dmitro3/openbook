@@ -21,14 +21,14 @@ import {LoadingMetaMaskButton} from "@components/Dashboard/LoadingMetaMaskButton
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 import { InstallMetaMaskSnackBar } from "@components/Dashboard/InstallMetaMaskSnackBar";
 import { WrapTab } from "@components/WrapTab";
-import { BetIcon } from "@components/Dashboard/BetIcon"; 
-import { TrophyIcon } from "@components/Dashboard/TrophyIcon";
-import { TicketIcon } from "@components/Dashboard/TicketIcon"
+import { BetIcon } from "@components/Icons/BetIcon"; 
+import { TrophyIcon } from "@components/Icons/TrophyIcon";
+import { TicketIcon } from "@components/Icons/TicketIcon"
 import { LedgerIcon } from "@components/Dashboard/LedgerIcon";
-import { SupportIcon } from "./Dashboard/SupportIcon";
+import { SupportIcon } from "./Icons/SupportIcon";
 import {SettingsModal} from "@components/Settings/SettingsModal"
 import {useState,useEffect, useMemo} from "react"
-import { DaiIcon } from "@components/Dashboard/DaiIcon";
+import { DaiIcon } from "@components/Icons/DaiIcon";
 import {Notification} from "@utils/icons/notification";
 import {useRouter} from "next/router"
 
@@ -75,7 +75,7 @@ const DashboardNavbar = (props) => {
   useMemo(()=>{
     if(asPath.search("bookie") != -1)
       setNavigationTabsValue(2)
-    else if(asPath.search("account") != -1)
+    else if(asPath.search("account") != -1 && props.user.loggedIn)
       setNavigationTabsValue(3)
     else if(asPath.search("leaderboard") != -1)
       setNavigationTabsValue(4)
@@ -190,7 +190,7 @@ const DashboardNavbar = (props) => {
             >
                 <WrapTab value={1} href="/featured" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
                 <WrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px'}}/>
-                <WrapTab value={3} href="/account" label="Account"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+                <WrapTab value={3} href="/account" label="Account"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px', visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
                 <WrapTab value={4} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
             </Tabs>
           </Box>

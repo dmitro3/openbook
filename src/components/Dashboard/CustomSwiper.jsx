@@ -27,6 +27,8 @@ export const CustomSwiper = () => {
     setSlideCount(getSwiperSlideCountByScreenWidth())
     window.addEventListener("resize", handleResize);
   },[])
+
+  useEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
   return (
     <>
       <Swiper

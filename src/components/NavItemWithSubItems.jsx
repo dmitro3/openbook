@@ -79,7 +79,7 @@ export const NavItemWithSubItems = (props) => {
         let empty = leagues_length_arr[leagueIndex] == 0;
         let href = `/Matches/${sport}/${league}`;
         let active = false;
-        if(router.asPath.search(league) != -1){
+        if(router.asPath.replaceAll("%20"," ").search(league) != -1){
           active = true
         }
         return(
