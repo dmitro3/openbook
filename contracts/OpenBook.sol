@@ -1,15 +1,11 @@
 pragma solidity ^0.8.0;
 
-
-interface IBet {
-   function getResult() external view returns(uint);
-}
-
 contract OpenBook{
-    event MarketCreated(uint256 id, string[] names, uint256[] initialOdds);
-
     uint256 public protocolFee;
     uint256 public LPFee;
+
+    event MarketCreated(uint256 id, string[] names, uint256[] initialOdds);
+
 
     struct Market {
         string[] names;
@@ -24,17 +20,13 @@ contract OpenBook{
 
     Market[] internal markets;
 
-
-   constructor(uint256 protocolFee, uint256 LPFee) public{
-       protocolFee = protocolFee;
-       LPFee = LPFee;
+    constructor(uint256 protocolFee, uint256 _LPFee) public{
+        protocolFee = protocolFee;
+        LPFee = _LPFee;
     }
 
-    function getMyBets() public{
 
-    }
-
-    //Creates new markets. Resolve current markets
+     //Creates new markets. Resolve current markets
     function updateMarkets() public{
         
     }
@@ -66,7 +58,4 @@ contract OpenBook{
 
         emit MarketCreated(_marketId, _names, _initialOdds);
     }
-
-
-    //Call the interface 
 }

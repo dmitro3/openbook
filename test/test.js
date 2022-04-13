@@ -63,6 +63,7 @@ describe('Contract tests', () => {
 
     it("Make bet", async function () {
         
+
     })
 
 })

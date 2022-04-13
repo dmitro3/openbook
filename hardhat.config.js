@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require('hardhat-abi-exporter');
+require("hardhat-interface-generator");
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -20,5 +21,4 @@ module.exports = {
       }
     }
   }
-
 };

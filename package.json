@@ -43,6 +43,7 @@
     "flatted": "^3.2.5",
     "formik": "^2.1.5",
     "hardhat-abi-exporter": "^2.8.0",
+    "hardhat-interface-generator": "^0.0.6",
     "history": "^5.0.0",
     "kute.js": "^2.2.2",
     "mui-datatables": "^4.2.2",

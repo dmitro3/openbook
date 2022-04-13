@@ -22,8 +22,10 @@ contract Bet is ERC1155{
 
     address public DAI;
 
+
     constructor(address _DAI) public ERC1155(""){
        DAI = _DAI;
+
     }
 
     function createBet(uint80 gameId, int8 betIndex, uint128 bet_amount) public {
@@ -49,6 +51,7 @@ contract Bet is ERC1155{
             _nextId++;
         }
     }
+
 
     // function getBets(address addy) public {
         
