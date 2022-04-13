@@ -515,18 +515,18 @@
 }
 
 .uniqueBox{
-    background-color:#070044;
-    padding-bottom:500px;
+    background-color:#2d0572;
     width:100%;
-    background-image:url(/static/images/landing/unique_background.png);
+    background-image:url(https://pixner.net/bitips/main/assets/images/why-bitips-better-bg.png);
     display:flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     background-repeat: no-repeat;
     text-align: center;
     padding-left: 10%;
     padding-right: 10%;
+    background-repeat: no-repeat;
+    background-position: right 10% bottom 0px;
 }
 
 .detailDescriptions2{
@@ -537,6 +537,15 @@
     color: #e2e1ff !important;
     margin-bottom: 30px !important;
     font-size: 24px !important;
+}
+
+.waveTransition3{
+    aspect-ratio:300/50;
+    width:100%; 
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
+    background-image: url(/static/images/landing/wave_transition3.svg); 
 }
 
 
@@ -592,9 +601,9 @@
   
   @keyframes pulse {
     0%, 50% {
-      transform: scaleX(1);
+      transform: scaleX(0);
     }
     25%, 75% {
-      transform: scaleX(1.5);
+      transform: scaleX(1);
     }
   }
