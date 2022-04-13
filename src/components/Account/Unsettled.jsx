@@ -92,10 +92,10 @@ const data = [
     { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>  },
     { result: "😰",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Sacramento Kings vs Milwaukee Bucks",bet:"Sacramento Kings",stake:"100",odds:"3.96",return:"pending" },
     { result: "😞",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Golden State Warriors vs Boston Celtics",bet:"Golden State Warriors",stake:"500",odds:"1.74",return:"0" },
-    { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:"✔️ Reward Claimed" },
+    { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>},
     { result: "😞",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Golden State Warriors vs Boston Celtics",bet:"Golden State Warriors",stake:"500",odds:"1.74",return:"0" },
     { result: "😞",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Golden State Warriors vs Boston Celtics",bet:"Golden State Warriors",stake:"500",odds:"1.74",return:"0" },
-    { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:"✔️ Reward Claimed" },
+    { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>},
     { result: "😰",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Sacramento Kings vs Milwaukee Bucks",bet:"Sacramento Kings",stake:"100",odds:"3.96",return:"pending" },
 ];
 
@@ -131,7 +131,7 @@ export const Unsettled = (props) =>{
         components: {
             MuiTableRow: {
             styleOverrides:{
-              root: { '&:hover': { backgroundColor: '#dbdfe570 !important' }, '&>td:first-child': {fontSize:'24px'} }
+              root: { '&:hover': { backgroundColor: '#78afff36 !important' }, '&>td:first-of-type': {fontSize:'24px'} }
             }
           }
         },

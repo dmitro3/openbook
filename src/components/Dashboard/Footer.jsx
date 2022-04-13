@@ -1,9 +1,9 @@
 import { FooterCustomDivider } from '@components/Dashboard/FooterCustomDivider';
-import { DaiIcon } from '@components/Dashboard/DaiIcon';
+import { DaiIcon } from '@components/Icons/DaiIcon';
 import { FooterLink } from '@components/Dashboard/FooterLink';
-import { PolygonIcon } from '@components/Dashboard/PolygonIcon';
-import { MetaMaskIcon } from '@components/Dashboard/MetaMaskIcon';
-import { CoinBaseIcon } from '@components/Dashboard/CoinBaseIcon';
+import { PolygonIcon } from '@components/Icons/PolygonIcon';
+import { MetaMaskIcon } from '@components/Icons/MetaMaskIcon';
+import { CoinBaseIcon } from '@components/Icons/CoinBaseIcon';
 import { Box,Container, Grid, Typography, Link } from '@mui/material';
 export const Footer = () => {
     return(

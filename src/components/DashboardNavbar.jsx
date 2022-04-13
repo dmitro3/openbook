@@ -21,20 +21,22 @@ import {LoadingMetaMaskButton} from "@components/Dashboard/LoadingMetaMaskButton
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 import { InstallMetaMaskSnackBar } from "@components/Dashboard/InstallMetaMaskSnackBar";
 import { WrapTab } from "@components/WrapTab";
-import { BetIcon } from "@components/Dashboard/BetIcon"; 
-import { TrophyIcon } from "@components/Dashboard/TrophyIcon";
-import { TicketIcon } from "@components/Dashboard/TicketIcon"
+import { BetIcon } from "@components/Icons/BetIcon"; 
+import { TrophyIcon } from "@components/Icons/TrophyIcon";
+import { TicketIcon } from "@components/Icons/TicketIcon"
 import { LedgerIcon } from "@components/Dashboard/LedgerIcon";
+import { SupportIcon } from "./Icons/SupportIcon";
 import {SettingsModal} from "@components/Settings/SettingsModal"
-import {useState,useEffect} from "react"
-import { DaiIcon } from "@components/Dashboard/DaiIcon";
+import {useState,useEffect, useMemo} from "react"
+import { DaiIcon } from "@components/Icons/DaiIcon";
 import {Notification} from "@utils/icons/notification";
-
+import {useRouter} from "next/router"
 
 
 // Redux
 import {connect} from "react-redux";
 import {setOddsFormat,setPreferUsername,setPreferAvatarStyle,setDisconnected} from "@actions/settingsActions";
+
 
 
 /* Function that sets the navigation theme from template */
@@ -63,12 +65,29 @@ const DashboardNavbar = (props) => {
 
   /* Top navigation bar tabs variables */
   const [navigationTabsValue, setNavigationTabsValue] = useState(1);
-  /* End top navigation bar tabs variables */
 
-    /* Top navigation bar tabs variables */
-    const handleNavigationTabsChange = (event, newValue) => {
-      setNavigationTabsValue(newValue);
-    };
+  const handleNavigationTabsChange = (event, newValue) => {
+    setNavigationTabsValue(newValue);
+  };
+
+  const { asPath } = useRouter()
+
+  useMemo(()=>{
+    if(asPath.search("bookie") != -1)
+      setNavigationTabsValue(2)
+    else if(asPath.search("account") != -1 && props.user.loggedIn)
+      setNavigationTabsValue(3)
+    else if(asPath.search("leaderboard") != -1)
+      setNavigationTabsValue(4)
+    else if(asPath.search("featured") != -1 || asPath.search("favorite") != -1 || asPath.search("Match") != -1)
+      setNavigationTabsValue(1)
+    else
+      setNavigationTabsValue(false)
+  },[asPath])
+  
+
+
+
     /* End top navigation bar tabs variables */
 
   useEffect(function autoLogin() {
@@ -86,7 +105,7 @@ const DashboardNavbar = (props) => {
       .catch((error)=>{
         console.error(error);
       });
-  }, []); // Or [] if effect doesn't need props or state
+  }, []);
 
   useEffect(() => {
     async function listenMMAccount() {
@@ -115,6 +134,10 @@ const DashboardNavbar = (props) => {
     props.setOddsFormat(settings.oddsFormat);
     props.setPreferAvatarStyle(props.user.userAddress,settings.preferAvatarStyle);
   }
+
+
+
+
 
 
   return (
@@ -167,7 +190,7 @@ const DashboardNavbar = (props) => {
             >
                 <WrapTab value={1} href="/featured" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
                 <WrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px'}}/>
-                <WrapTab value={3} href="/account" label="Account"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+                <WrapTab value={3} href="/account" label="Account"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px', visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
                 <WrapTab value={4} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
             </Tabs>
           </Box>

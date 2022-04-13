@@ -1,7 +1,8 @@
-import ApexCharts from 'apexcharts';
-import Chart from 'react-apexcharts';
+// import ApexCharts from 'apexcharts';
+// import Chart from 'react-apexcharts';
 import { useEffect } from 'react';
 import { Box, Button, Tab, Tabs, Typography, Grid, Card } from "@mui/material";
+import dynamic from 'next/dynamic';
 
 
 const chartData = {
@@ -43,15 +44,19 @@ const chartData = {
     ]
 };
 export const AccountOverviewChart = (props) => {
-    useEffect(() => {
-        const newSupportChart = {
-            ...chartData.options,
-            tooltip: {
-                theme: 'light'
-            }
-        };
-        ApexCharts.exec(`support-chart`, 'updateOptions', newSupportChart);
-    }, []);
+    // const ApexCharts = dynamic(() => import("apexcharts"));
+    const Chart = dynamic(() => import("react-apexcharts"));
+    // useEffect(() => {
+    //     const newSupportChart = {
+    //         ...chartData.options,
+    //         tooltip: {
+    //             theme: 'light'
+    //         }
+    //     };
+    //     if(typeof window !== 'undefined') 
+    //         console.log(ApexCharts)
+    //         // ApexCharts.exec(`support-chart`, 'updateOptions', newSupportChart);
+    // }, []);
 
     return (
         <Card sx={{ bgcolor: 'white',padding:'20px' }}>

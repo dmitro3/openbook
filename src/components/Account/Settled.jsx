@@ -123,7 +123,7 @@ export const Settled = (props) =>{
         components: {
             MuiTableRow: {
             styleOverrides:{
-              root: { '&:hover': { backgroundColor: '#dbdfe570 !important' }, '&>td:first-child': {fontSize:'24px'} }
+              root: { '&:hover': { backgroundColor: '#78afff36 !important' }, '&>td:first-of-type': {fontSize:'24px'} }
             }
           }
         },

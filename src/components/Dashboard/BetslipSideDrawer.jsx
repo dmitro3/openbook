@@ -82,6 +82,16 @@ const BetslipSideDrawer = (props) => {
         return props.betSlip.betSlipOutcomeArray.length == 0
     }
 
+    //Helper function for setting max bet
+    const setMaxBet = () => {
+        let gamesInBetSlip = props.betSlip.betSlipOutcomeArray;
+        if(gamesInBetSlip.length == 0)
+            return;
+        let balance = props.user.balance;
+        let betEachGame = (Number(balance) / Number(gamesInBetSlip.length)).toFixed(2);
+        setBetInputQuery(betEachGame)
+    }
+
     let totalPossiblePayoutDict = {}
 
     const list = (anchor) => (
@@ -209,7 +219,7 @@ const BetslipSideDrawer = (props) => {
                     )
                 })}
 
-                        <Box className={styles.presetBetButton} /*onClick={()=>props.setBetAmount()}*/ disabled>Max</Box>
+                        <Box className={styles.presetBetButton} onClick={()=>setMaxBet()} disabled>Max</Box>
                 </Box>
 
                 <Box className={styles.boxBeforeBetSlipSelectedMatchBox}/>
