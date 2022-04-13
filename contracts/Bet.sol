@@ -6,7 +6,7 @@ contract Bet is ERC1155{
 
     struct singleBet {
         uint256 timestamp; //unix timestamp of when the bet was made
-        address operator;  // users address
+        address punter;  // users address
         uint80 gameId; // the ID of the game with which this token is connected
         int8 betIndex; //0,1,2,3. What outcome the user chose
         uint128 bet_amount;         // the amount gambled by the user
@@ -18,9 +18,9 @@ contract Bet is ERC1155{
     uint176 private _nextId = 1;
 
     mapping(uint256 => singleBet) private _bets;
+    uint256[] all_bets;
 
     address public DAI;
-
 
     constructor(address _DAI) public ERC1155(""){
        DAI = _DAI;
@@ -36,7 +36,7 @@ contract Bet is ERC1155{
 
             _bets[currId] = singleBet({
                 timestamp: block.timestamp,
-                operator: msg.sender,
+                punter: msg.sender,
                 gameId: gameId,
                 betIndex: betIndex,
                 bet_amount: bet_amount,
@@ -45,10 +45,20 @@ contract Bet is ERC1155{
              });
 
             _mint(msg.sender, currId, 1, "");
-
+            all_bets.push(currId);
             _nextId++;
         }
     }
+
+    // function getBets(address addy) public {
+        
+
+    //     for (uint i=0; i<all_bets.length; i++) {
+    //         if (_bets[all_bets[i]].punter == addy){
+    //             _bets[all_bets[i]];
+    //         }
+    //     }
+    // }
 
     function withdrawBet(uint176 tokenId) public {
         singleBet storage curr_bet = _bets[tokenId];
@@ -57,6 +67,7 @@ contract Bet is ERC1155{
         require(curr_bet.status == 1 && curr_bet.to_win > 0, 'Not cleared');
 
         delete _bets[tokenId]; 
+        delete all_bets[tokenId];
 
         _burn(msg.sender, tokenId, 1);
     }
