@@ -38,10 +38,11 @@ export const CustomSwiper = () => {
         slidesPerView={slideCount}
         spaceBetween={30}
         loop={true}
+        onClick={(s,e)=>{s.clickedSlide.click()}}
       >
       
         {swiperImageNames.map((item,index)=>{
-          return(<SwiperSlide key={index} style={{borderRadius:"30px",overflow:'auto',width:'770px',height:'350px',cursor:'pointer'}} onClick={()=>router.push(swiperImageUrls[index])}><Image src={`/static/images/featured_page_pictures/${item}`} layout='fill'/></SwiperSlide>)
+          return(<SwiperSlide key={index} style={{borderRadius:"30px",overflow:'auto',width:'770px',height:'350px',cursor:'pointer'}} onClick={()=>{router.push(swiperImageUrls[index])}}><Image src={`/static/images/featured_page_pictures/${item}`} layout='fill'/></SwiperSlide>)
         })}
         
 

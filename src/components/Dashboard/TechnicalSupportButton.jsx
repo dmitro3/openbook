@@ -1,10 +1,12 @@
 import {Box,Typography,Button} from "@mui/material"
+import {useRouter} from 'next/router'
 
 export const TechnicalSupportButton = () => {
-
+    const router = useRouter()
     return (
         <Box sx={{"padding":"2rem 1.5rem",position:'fixed',right:'1vw',bottom:'1vh'}}>
             <Button 
+            onClick={()=>{router.push('/support')}}
             sx={{backgroundColor:"white","width":"100%","display":"flex","alignItems":"center","justifyContent":"space-around","fontWeight":"normal","fontSize":"1.15rem","borderRadius":"2.5rem","paddingTop":"1rem","paddingBottom":"1rem","boxShadow":"1px 2px 2px rgb(65 24 219 / 10%)","padding":"0.6rem 0.8rem","transition":"transform 0.3s, box-shadow 0.3s",
             '&:hover': {
             transform: "translateY(-0.25em)",

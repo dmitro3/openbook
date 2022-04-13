@@ -59,7 +59,7 @@ export const AccountCard = (props) => {
                                 <Avatar
                                     variant="rounded"
                                     sx={{
-                                        "position":"relative","display":"flex","WebkitBoxAlign":"center","alignItems":"center","WebkitBoxPack":"center","justifyContent":"center","flexShrink":"0","fontFamily":"Inter, sans-serif","lineHeight":"1","overflow":"hidden","userSelect":"none","color":"rgb(30, 136, 229)","background":card_bg_color,"cursor":"pointer","borderRadius":"8px","width":"44px","height":"44px","fontSize":"1.5rem","marginTop":"8px"
+                                        "position":"relative","display":"flex","WebkitBoxAlign":"center","alignItems":"center","WebkitBoxPack":"center","justifyContent":"center","flexShrink":"0","fontFamily":"Inter, sans-serif","lineHeight":"1","overflow":"hidden","userSelect":"none","color":"rgb(30, 136, 229)","background":card_bg_color,"borderRadius":"8px","width":"44px","height":"44px","fontSize":"1.5rem","marginTop":"8px"
                                     }}
                                 >
                                     <img src={card_icon} alt="Notification" height='40px' width='40px' />
