@@ -8,6 +8,8 @@ describe('Contract tests', () => {
     const FUND_AMOUNT = (BigInt(200000)*BigInt(10**18)).toString()
     let owner;
     let liq;
+    let bet;
+
     let DAI;
     let USER_DAI;
 
@@ -19,7 +21,14 @@ describe('Contract tests', () => {
         const Liquidity = await ethers.getContractFactory("Liquidity");
         liq = await Liquidity.deploy(DAI_ADDY);
         await liq.deployed();  
+
+        const Bet = await ethers.getContractFactory("Bet");
+        bet = await Bet.deploy(DAI_ADDY);
+        await bet.deployed();  
+
+
         console.log("Liquidity Contract Deployed at " + liq.address);
+        console.log("Bet Contract Deployed at " + bet.address);
 
 
 
@@ -40,12 +49,12 @@ describe('Contract tests', () => {
 
         await whale_signer.sendTransaction({
                 to: "0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9",
-                value: ethers.utils.parseEther("1.0")
+                value: ethers.utils.parseEther("0.001")
             });
         
         await whale_signer.sendTransaction({
             to: owner.address,
-            value: ethers.utils.parseEther("1.0")
+            value: ethers.utils.parseEther("0.001")
         });
     })
     
@@ -55,15 +64,17 @@ describe('Contract tests', () => {
         await USER_DAI.approve(liq.address, amt);
         await liq.addLiquidity(amt);
 
-        bal = await liq.balanceOf(owner.address, 0);
-
         expect(await liq.balanceOf(owner.address, 0)).to.equal(amt);
         expect(await DAI.balanceOf(liq.address)).to.equal(amt);
     })
 
     it("Make bet", async function () {
-        
+        amt = 10
 
+        await USER_DAI.approve(bet.address, amt);
+        let bet_id = await bet.createBet(22, 1, amt);
+        expect(await bet.balanceOf(owner.address, 2)).to.equal(1);
+        expect(await DAI.balanceOf(bet.address)).to.equal(amt);
     })
 
 })
