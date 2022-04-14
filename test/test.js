@@ -30,8 +30,6 @@ describe('Contract tests', () => {
         console.log("Liquidity Contract Deployed at " + liq.address);
         console.log("Bet Contract Deployed at " + bet.address);
 
-
-
         //Transfer from a whale to our account to run tests
         const whale_signer = await ethers.provider.getSigner(WHALE_ADDY);
 
