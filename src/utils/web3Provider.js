@@ -1,6 +1,6 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
-const { CONTRACT_ABI, CONTRACT_ADDY, DAI_ABI,  DAI_ADDY} = require("../config")
+const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, DAI_ABI, DAI_ADDY} = require("../config")
 const {MaxUint256} = require("@ethersproject/constants");
 //redux
 import {setProvider,setWeb3,setWeb3Loading,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance} from "@actions/userActions";
@@ -30,7 +30,7 @@ export const connectMetaMask = async () =>{
 
 export const getBalance = async (amount) => {
     let web3 = store.getState().user.web3;
-    let token_contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDY);
+    let token_contract = new web3.eth.Contract(LIQUIDITY_ABI, LIQUIDITY_ADDY);
     let balance = 0;
 
     let account = await web3.eth.getAccounts()
@@ -44,7 +44,7 @@ export const getBalance = async (amount) => {
 export const addLiquidity = async (amount) => {
     console.log("Adding liquidity");
     let web3 = store.getState().user.web3;
-    let contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDY);
+    let contract = new web3.eth.Contract(LIQUIDITY_ABI, LIQUIDITY_ADDY);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
 
     amount = parseInt(amount)
@@ -57,11 +57,11 @@ export const addLiquidity = async (amount) => {
                 
                 (async () => {
                 
-                    let x = await token_contract.methods.allowance(userAddress, CONTRACT_ADDY).call()
+                    let x = await token_contract.methods.allowance(userAddress, LIQUIDITY_ADDY).call()
                     
                     if (x < amt)
                     {
-                        await token_contract.methods.approve(CONTRACT_ADDY, MaxUint256).send({from: userAddress})
+                        await token_contract.methods.approve(LIQUIDITY_ADDY, MaxUint256).send({from: userAddress})
                     }
 
                     
@@ -71,6 +71,38 @@ export const addLiquidity = async (amount) => {
 
 
 
+            }
+        })
+
+}
+
+export const makeBet = async (id, pick, amount) => {
+    console.log("Making Bet");
+    let web3 = store.getState().user.web3;
+    let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+    let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+
+    amount = parseInt(amount)
+    let amt = BigInt(10 ** 18) * BigInt(amount)
+
+    web3.eth.getAccounts()
+            .then((value)=>{
+            if(value.length != 0){
+                let userAddress = value[0];
+                
+                (async () => {
+                
+                    let x = await token_contract.methods.allowance(userAddress, BET_ADDY).call()
+                    
+                    if (x < amt)
+                    {
+                        await token_contract.methods.approve(BET_ADDY, MaxUint256).send({from: userAddress})
+                    }
+
+                    
+                    await contract.methods.createBet(id, pick, parseInt(amount)).send({from: userAddress})
+
+                })();
             }
         })
 
