@@ -72,8 +72,8 @@ export const addLiquidity = async (amount) => {
                         await token_contract.methods.approve(LIQUIDITY_ADDY, MaxUint256).send({from: userAddress})
                     }
 
-                    
-                    await contract.methods.addLiquidity(parseInt(amount)).send({from: userAddress})
+                    let exactAmt = web3.utils.toWei(String(amount), 'ether')
+                    await contract.methods.addLiquidity(exactAmt).send({from: userAddress})
 
                 })();
             }
@@ -106,8 +106,8 @@ export const makeBet = async (id, pick, amount) => {
                         await token_contract.methods.approve(BET_ADDY, MaxUint256).send({from: userAddress})
                     }
 
-                    
-                    await contract.methods.createBet(id, pick, parseInt(amount)).send({from: userAddress})
+                    let exactAmt = web3.utils.toWei(String(amount), 'ether')
+                    await contract.methods.createBet(id, pick, exactAmt).send({from: userAddress})
 
                 })();
             }
