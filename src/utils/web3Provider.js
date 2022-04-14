@@ -76,9 +76,6 @@ export const addLiquidity = async (amount) => {
                     await contract.methods.addLiquidity(parseInt(amount)).send({from: userAddress})
 
                 })();
-
-
-
             }
         })
 

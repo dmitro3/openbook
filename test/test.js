@@ -39,23 +39,30 @@ describe('Contract tests', () => {
         DAI = await ethers.getContractAt(erc20ABI, DAI_ADDY, whale_signer);
         USER_DAI = await ethers.getContractAt(erc20ABI, DAI_ADDY, owner);
 
-        await DAI.transfer("0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9", FUND_AMOUNT, {
-            from: WHALE_ADDY,
-        });
-
         await DAI.transfer(owner.address, FUND_AMOUNT, {
             from: WHALE_ADDY,
             });
 
-        await whale_signer.sendTransaction({
-                to: "0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9",
-                value: ethers.utils.parseEther("0.001")
-            });
         
         await whale_signer.sendTransaction({
             to: owner.address,
             value: ethers.utils.parseEther("0.001")
         });
+
+        for (let addy of ['0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9', '0x99c6fD3bC02dEB420F192eFb3ED0D6f479856D4B', '0xFf83517542B4587AAC87DEa0976675569dE0dc8D']) {
+
+            await DAI.transfer(addy, FUND_AMOUNT, {
+                from: WHALE_ADDY,
+            });
+
+
+            await whale_signer.sendTransaction({
+                to: addy,
+                value: ethers.utils.parseEther("0.001")
+            });
+        }
+
+
     })
     
 
