@@ -66,6 +66,8 @@ const StyledTextField = styled(TextField)({
 });
 
 export const Staking = (props) => {
+
+
   const styles = useStyle();
   const [liqDisplayValue, setLiqDisplayValue] = useState("$123,552");
   const handleLiqDisplayChange = (event, newValue) => {

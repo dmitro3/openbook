@@ -30,9 +30,9 @@ export const connectMetaMask = async () =>{
 } 
 
 export const getPoolLiquidity = async () => {
+    let web3 = store.getState().user.web3;
     let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
     let res = await dai_contract.methods.balanceOf(LIQUIDITY_ADDY).call()
-    console.log(res)
     return res;
 }
 
@@ -46,7 +46,6 @@ export const getUserLiquidity = async () => {
 
     let res = await token_contract.methods.balanceOf(account[0], 0).call()
 
-    console.log(res)
     return res;
 }
         
