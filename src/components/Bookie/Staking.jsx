@@ -1,23 +1,20 @@
 import Head from "next/head";
 import { useState } from "react";
+import {
+  Tab,
+  Tabs,
+  Button,
+  Box,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
 import { BookieLayout } from "@components/Bookie/BookieLayout";
 import { StakingDataCard } from "@components/Bookie/StakingDataCard";
 import { addLiquidity, getBalance } from "@utils/web3Provider";
 import { DaiIcon } from "@components/Icons/DaiIcon";
-import {
-  Tabs,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Box,
-  TextField,
-  Typography,
-} from "@mui/material";
 
 const useStyle = makeStyles({
   root: {
@@ -68,7 +65,7 @@ const StyledTextField = styled(TextField)({
   },
 });
 
-const BookieHomepage = () => {
+export const Staking = (props) => {
   const styles = useStyle();
   const [bookieTabsValue, setBookieTabsValue] = useState(1);
   const handleBookieTabsChange = (event, newValue) => {
@@ -99,7 +96,6 @@ const BookieHomepage = () => {
           borderColor: "#5048e5",
           borderRadius: "2rem",
           padding: "1rem",
-          marginTop: "1rem",
           overflow: "hidden",
           gap: "1rem",
           backgroundColor: "#f3f5f9",
@@ -201,12 +197,10 @@ const BookieHomepage = () => {
   );
 };
 
-BookieHomepage.getLayout = (page) => {
+Staking.getLayout = (page) => {
   return (
     <DashboardLayout>
       <BookieLayout>{page}</BookieLayout>
     </DashboardLayout>
   );
 };
-
-export default BookieHomepage;
