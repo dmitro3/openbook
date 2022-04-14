@@ -29,7 +29,7 @@ const useStyle = makeStyles({
   },
 });
 
-const BookieHomepage = () => {
+export const MyStake = () => {
   const styles = useStyle();
   const [bookieTabsValue, setBookieTabsValue] = useState(1);
   const handleBookieTabsChange = (event, newValue) => {
@@ -47,12 +47,10 @@ const BookieHomepage = () => {
   );
 };
 
-BookieHomepage.getLayout = (page) => {
+MyStake.getLayout = (page) => {
   return (
     <DashboardLayout>
       <BookieLayout>{page}</BookieLayout>
     </DashboardLayout>
   );
 };
-
-export default BookieHomepage;

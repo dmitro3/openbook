@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import { Box} from '@mui/material';
+import { Box, Button, Tab, Tabs, Typography, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Tabs } from "@mui/material";
 import { WrapTab } from "@components/WrapTab";
+
+import { BookieOverview } from "@components/Bookie/BookieOverview";
+import { Staking } from "@components/Bookie/Staking";
+import { MyStake } from "@components/Bookie/MyStake";
 
 const useStyle = makeStyles({
 	root: {
@@ -13,7 +16,6 @@ const useStyle = makeStyles({
 	  justifyContent: "center",
 	  height: "4px",
 	  borderRadius: "2rem",
-	  /*backgroundColor: "transparent",*/
 	},
 	indicatorSpan: {
 	  maxWidth: "40px",
@@ -29,51 +31,27 @@ const useStyle = makeStyles({
 
 
 export const BookieLayout = (props) => {
-  const { children } = props;
   const styles = useStyle();
-  const [bookieTabsValue, setBookieTabsValue] = useState(1);
+
+  const [bookieTabsValue, setBookieTabsValue] = useState("staking");
   const handleBookieTabsChange = (event, newValue) => {
     setBookieTabsValue(newValue);
   };
 
   return (
     <>
-		<Box sx={{ width: '100%', borderColor: 'divider'}}>
-			<Tabs
-			value={bookieTabsValue}
-			onChange={handleBookieTabsChange}
-			variant="fullWidth"
-			centered
-			aria-label="bookie page sub tabs"
-			classes={{
-				root: styles.root,
-				indicator: styles.indicator,
-				indicatorSpan: styles.indicatorSpan,
-			}}
-			TabIndicatorProps={{
-				children: <span className="MuiTabs-indicatorSpan" />,
-			}}
-			>
-			<WrapTab
-			value={1}
-			href="/bookie/"
-			label="Bet Mining"
-			sx={{ py: "0px" }}
-			/>
-			<WrapTab 
-			value={2} 
-			href="/bookie/overview" 
-			label="Overview" 
-			sx={{ py: "0px" }} 
-			/>
-			<WrapTab
-			value={3}
-			href="/bookie/my-stake"
-			label="My Stake"
-			sx={{ py: "0px" }}
-			/>
-			</Tabs>
-			{children}
+		<Box sx={{py:'25px',px:'50px',width:'95%',minHeight:'1000px'}}>
+			<Box sx={{ width: '100%', backgroundColor: 'var(--background-default)', py:"20px"}}>
+                    <Tabs value={bookieTabsValue} onChange={(event,newValue)=>handleBookieTabsChange(event,newValue)} centered variant="fullWidth">
+                    <Tab value="overview" label="Overview" />
+                    <Tab value="staking" label="Staking" />
+                    <Tab value="my-stake" label="My Stake" />
+                    </Tabs>
+                </Box>
+
+                {bookieTabsValue == "overview" ? <BookieOverview/>  : void(0)}
+                {bookieTabsValue == "staking" ? <Staking/> : void(0)}
+                {bookieTabsValue == "my-stake" ? <MyStake/> : void(0)}
 		</Box>
     </>
   );
