@@ -28,7 +28,7 @@ contract Bet is ERC1155{
 
     }
 
-    function createBet(uint80 gameId, int8 betIndex, uint128 bet_amount) public {
+    function createBet(uint80 gameId, int8 betIndex, uint128 bet_amount) public returns (uint176){
 
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, bet_amount));
 
@@ -49,19 +49,19 @@ contract Bet is ERC1155{
             _mint(msg.sender, currId, 1, "");
             all_bets.push(currId);
             _nextId++;
+            return currId;
         }
+
+        return 0;
     }
 
+    function getAllBets() public returns (uint256 [] memory){
+        return all_bets;
+    }
 
-    // function getBets(address addy) public {
-        
-
-    //     for (uint i=0; i<all_bets.length; i++) {
-    //         if (_bets[all_bets[i]].punter == addy){
-    //             _bets[all_bets[i]];
-    //         }
-    //     }
-    // }
+    function betDetailsByID(uint256 id) public returns (uint256, address, uint80, int8, uint128, uint128, uint8){
+        return (_bets[id].timestamp, _bets[id].punter, _bets[id].gameId, _bets[id].betIndex, _bets[id].bet_amount, _bets[id].to_win, _bets[id].status);
+    }
 
     function withdrawBet(uint176 tokenId) public {
         singleBet storage curr_bet = _bets[tokenId];
