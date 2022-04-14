@@ -4,7 +4,7 @@ import { Tabs } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
 import { BookieLayout } from "@components/Bookie/BookieLayout";
-import { BookieGrid } from "@components/Bookie/BookieGrid";
+import { BookieOverviewGrid } from "@components/Bookie/BookieOverviewGrid";
 
 const useStyle = makeStyles({
   root: {
@@ -42,7 +42,7 @@ export const BookieOverview = () => {
         <title>Bookie | OpenEdge</title>
       </Head>
       <h1 className={styles.bookieHeader}>The Bookies Dashboard</h1>
-      <BookieGrid />
+      <BookieOverviewGrid />
     </>
   );
 };

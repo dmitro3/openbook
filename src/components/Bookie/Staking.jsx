@@ -13,7 +13,7 @@ import { makeStyles, styled } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
 import { BookieLayout } from "@components/Bookie/BookieLayout";
 import { StakingDataCard } from "@components/Bookie/StakingDataCard";
-import { addLiquidity, getBalance } from "@utils/web3Provider";
+import { addLiquidity, getPoolLiquidity, getUserLiquidity } from "@utils/web3Provider";
 import { DaiIcon } from "@components/Icons/DaiIcon";
 
 const useStyle = makeStyles({
@@ -67,12 +67,16 @@ const StyledTextField = styled(TextField)({
 
 export const Staking = (props) => {
   const styles = useStyle();
-  const [bookieTabsValue, setBookieTabsValue] = useState(1);
-  const handleBookieTabsChange = (event, newValue) => {
-    setBookieTabsValue(newValue);
+  const [liqDisplayValue, setLiqDisplayValue] = useState("$123,552");
+  const handleLiqDisplayChange = (event, newValue) => {
+    setLiqDisplayValue(getPoolLiquidity());
+  };
+  const [userStakeValue, setUserStakeValue] = useState("$0");
+  const handleUserStakeChange = (event, newValue) => {
+    setUserStakeValue(getUserLiquidity());
   };
 
-  const [depositAmountInput, setDepositAmountInput] = useState("");
+  const [depositAmountInput, setDepositAmountInput] = useState("0");
 
   return (
     <>
@@ -156,7 +160,10 @@ export const Staking = (props) => {
             <Button
               variant="contained"
               sx={{ marginRight: "auto", marginLeft: "10px" }}
-              onClick={() => getBalance()}
+              onClick={() => {
+                handleUserStakeChange();
+                handleLiqDisplayChange();
+              }}
             >
               Update Balance
             </Button>
@@ -174,22 +181,22 @@ export const Staking = (props) => {
           <StakingDataCard
             key="totalBookiePool"
             title="Total Bookie Liquidity"
-            data="DAI $$$, $$$, $$$.$$"
+            data={liqDisplayValue}
           />
           <StakingDataCard
-            key="test1"
-            title="The Title here"
-            data="Some data here too"
+            key="userStake"
+            title="My Current Stake"
+            data={userStakeValue}
           />
           <StakingDataCard
-            key="test2"
-            title="The Title here"
-            data="Some data here too"
+            key="amtToStake"
+            title="Amount to be Staked"
+            data={"$" + depositAmountInput}
           />
           <StakingDataCard
-            key="test3"
-            title="The Title here"
-            data="Some data here too"
+            key="userNewTotalStake"
+            title="My New Total Stake"
+            data={"$" + depositAmountInput}
           />
         </Box>
       </Box>

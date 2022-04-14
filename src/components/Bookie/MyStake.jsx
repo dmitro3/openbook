@@ -31,18 +31,13 @@ const useStyle = makeStyles({
 
 export const MyStake = () => {
   const styles = useStyle();
-  const [bookieTabsValue, setBookieTabsValue] = useState(1);
-  const handleBookieTabsChange = (event, newValue) => {
-    setBookieTabsValue(newValue);
-  };
 
   return (
     <>
       <Head>
         <title>Bookie | OpenEdge</title>
       </Head>
-      <h1 className={styles.bookieHeader}>The Bookies Dashboard</h1>
-      <BookieGrid />
+      <h1 className={styles.bookieHeader}>PAGE IN PROGRESS</h1>
     </>
   );
 };
