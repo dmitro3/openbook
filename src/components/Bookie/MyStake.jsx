@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Tabs } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
-import { BookieLayout } from "@components/Bookie/BookieLayout";
 import { BookieGrid } from "@components/Bookie/BookieGrid";
 
 const useStyle = makeStyles({
@@ -37,7 +36,7 @@ export const MyStake = () => {
       <Head>
         <title>Bookie | OpenEdge</title>
       </Head>
-      <h1 className={styles.bookieHeader}>PAGE IN PROGRESS</h1>
+      <h1 className={styles.bookieHeader}>WITHDRAWL PAGE COMING SOON</h1>
     </>
   );
 };
@@ -45,7 +44,7 @@ export const MyStake = () => {
 MyStake.getLayout = (page) => {
   return (
     <DashboardLayout>
-      <BookieLayout>{page}</BookieLayout>
+      {page}
     </DashboardLayout>
   );
 };

@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
-import { BookieLayout } from "@components/Bookie/BookieLayout";
 import { StakingDataCard } from "@components/Bookie/StakingDataCard";
 import { addLiquidity, getPoolLiquidity, getUserLiquidity } from "@utils/web3Provider";
 import { DaiIcon } from "@components/Icons/DaiIcon";
@@ -73,7 +72,7 @@ const StyledTextField = styled(TextField)({
 
 export const Staking = (props) => {
   const styles = useStyle();
-  const [liqDisplayValue, setLiqDisplayValue] = useState("$123,654");
+  const [liqDisplayValue, setLiqDisplayValue] = useState("$379,273");
   const handleLiqDisplayChange = async (event, newValue) => {
     const res = await getPoolLiquidity();
     setLiqDisplayValue(res);
@@ -88,9 +87,6 @@ export const Staking = (props) => {
 
   return (
     <>
-      <Head>
-        <title>Bookie | OpenEdge</title>
-      </Head>
       <h1 className={styles.bookieHeader}>Become the Bookie:</h1>
       <h2 className={styles.subtitle}>
         Provide liquidity for bettors and earn over time
@@ -215,7 +211,7 @@ export const Staking = (props) => {
 Staking.getLayout = (page) => {
   return (
     <DashboardLayout>
-      <BookieLayout>{page}</BookieLayout>
+      {page}
     </DashboardLayout>
   );
 };

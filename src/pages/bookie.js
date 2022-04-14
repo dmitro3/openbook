@@ -11,198 +11,55 @@ import {
 } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
-import { BookieLayout } from "@components/Bookie/BookieLayout";
-import { StakingDataCard } from "@components/Bookie/StakingDataCard";
 import { addLiquidity, getBalance } from "@utils/web3Provider";
-import { DaiIcon } from "@components/Icons/DaiIcon";
 
-const useStyle = makeStyles({
-  root: {
-    marginTop: "1rem",
-  },
-  bookieHeader: {
-    marginTop: "1rem",
-    textAlign: "center",
-    fontSize: "48px",
-    color: "midnightblue",
-  },
-  subtitle: {
-    marginBottom: "1rem",
-    textAlign: "center",
-    fontSize: "32px",
-    fontWeight: "400",
-    color: "#5048e5",
-  },
-  stakingHeader: {
-    textAlign: "center",
-    fontSize: "36px",
-    color: "midnightblue",
-  },
-  stakingText: {
-    marginBottom: "1rem",
-    textAlign: "center",
-  },
-});
-
-const StyledTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "#004e92",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "#004e92",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "#5048e5",
-      borderWidth: "2px",
-    },
-    "&:hover fieldset": {
-      borderColor: "royalblue",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#004e92",
-    },
-  },
-});
+import { BookieOverview } from "@components/Bookie/BookieOverview";
+import { Staking } from "@components/Bookie/Staking";
+import { MyStake } from "@components/Bookie/MyStake";
 
 const BookieHomepage = (props) => {
-  const styles = useStyle();
   const [bookieTabsValue, setBookieTabsValue] = useState(1);
   const handleBookieTabsChange = (event, newValue) => {
     setBookieTabsValue(newValue);
   };
-
-  const [depositAmountInput, setDepositAmountInput] = useState("");
 
   return (
     <>
       <Head>
         <title>Bookie | OpenEdge</title>
       </Head>
-      <h1 className={styles.bookieHeader}>Become the Bookie:</h1>
-      <h2 className={styles.subtitle}>
-        Provide liquidity for bettors and earn over time
-      </h2>
-
-      {/* Two column layout */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          width: "100%",
-          borderStyle: "groove",
-          borderWidth: "4px",
-          borderColor: "#5048e5",
-          borderRadius: "2rem",
-          padding: "1rem",
-          overflow: "hidden",
-          gap: "1rem",
-          backgroundColor: "#f3f5f9",
-        }}
-      >
-        {/* Left Column */}
+      <Box sx={{ py: "25px", px: "50px", width: "95%", minHeight: "1000px" }}>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            flexBasis: "40%",
-            borderRight: "2px solid #5048e5",
-            paddingRight: "1rem",
+            width: "100%",
+            backgroundColor: "var(--background-default)",
+            py: "20px",
           }}
         >
-          <h3 className={styles.stakingHeader}>Staking Menu</h3>
-          <Typography className={styles.stakingText}>
-            Input the amount of DAI you want to stake in the OpenBook Liquidity
-            Pool
-          </Typography>
-
-          {/* Deposit Amount input box */}
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              marginTop: "auto",
-            }}
+          <Tabs
+            value={bookieTabsValue}
+            onChange={(event, newValue) =>
+              handleBookieTabsChange(event, newValue)
+            }
+            centered
+            variant="fullWidth"
           >
-            <StyledTextField
-              sx={{
-                marginX: "auto",
-              }}
-              value={depositAmountInput}
-              id="deposit-input"
-              variant="outlined"
-              label="Deposit Amount"
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={(e) => setDepositAmountInput(e.target.value)}
-              InputProps={{
-                endAdornment: <DaiIcon />,
-              }}
-            />
-          </Box>
+            <Tab value="overview" label="Overview" />
+            <Tab value="staking" label="Staking" />
+            <Tab value="my-stake" label="My Stake" />
+          </Tabs>
+        </Box>
 
-          {/* Buttons box */}
-          <Box sx={{ display: "flex", width: "100%", marginTop: "1rem" }}>
-            <Button
-              variant="contained"
-              sx={{ marginLeft: "auto", marginRight: "10px" }}
-              onClick={() => addLiquidity(depositAmountInput)}
-            >
-              Stake DAI
-            </Button>
-            <Button
-              variant="contained"
-              sx={{ marginRight: "auto", marginLeft: "10px" }}
-              onClick={() => getBalance()}
-            >
-              Update Balance
-            </Button>
-          </Box>
-        </Box>
-        {/* Right Column */}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            flexBasis: "60%",
-            gap: "0.5rem",
-          }}
-        >
-          <StakingDataCard
-            key="totalBookiePool"
-            title="Total Bookie Liquidity"
-            data="DAI $$$, $$$, $$$.$$"
-          />
-          <StakingDataCard
-            key="test1"
-            title="The Title here"
-            data="Some data here too"
-          />
-          <StakingDataCard
-            key="test2"
-            title="The Title here"
-            data="Some data here too"
-          />
-          <StakingDataCard
-            key="test3"
-            title="The Title here"
-            data="Some data here too"
-          />
-        </Box>
+        {bookieTabsValue == "overview" ? <BookieOverview /> : void 0}
+        {bookieTabsValue == "staking" ? <Staking /> : void 0}
+        {bookieTabsValue == "my-stake" ? <MyStake /> : void 0}
       </Box>
     </>
   );
 };
 
 BookieHomepage.getLayout = (page) => {
-  return (
-    <DashboardLayout>
-      <BookieLayout>{page}</BookieLayout>
-    </DashboardLayout>
-  );
+  return <DashboardLayout>{page}</DashboardLayout>;
 };
 
 export default BookieHomepage;

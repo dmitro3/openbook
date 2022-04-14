@@ -10,7 +10,7 @@ const chartData = {
     height: 445,
     options: {
         chart: {
-            id: 'support-chart',
+            id: 'yields-chart',
             sparkline: {
                 enabled: true
             }
@@ -43,14 +43,14 @@ const chartData = {
     },
     series: [
         {
-            data: [270076, 281473, 254897, 346232, 218114, 270810, 326491, 77068, 328287, 443076, 406936, 403724, 202945, 191287, 379273]
+            data: [22, 97, 113, 23, 74, 59, 141, 32, 98, 38, 47, 84, 149, 126, 68, 25, 8, 37, 55, 24, 15]
         }
     ],
     xaxis: {
         type: 'numeric'
     }
 };
-export const BookieOverviewChart = (props) => {
+export const BookieYieldsChart = (props) => {
     // const ApexCharts = dynamic(() => import("apexcharts"));
     const Chart = dynamic(() => import("react-apexcharts"));
     // useEffect(() => {
@@ -67,24 +67,24 @@ export const BookieOverviewChart = (props) => {
 
     return (
         <Card sx={{ bgcolor: 'white',padding:'20px' }}>
-            <Grid container sx={{ p: 2, pb: 0, color: '#fff' }}>
+            <Grid container sx={{ p: 2, pb: 0, color: '#c4c4c4' }}>
                 <Grid item xs={12}>
                     <Grid container alignItems="center" justifyContent="space-between">
                         <Grid item>
                             <Typography variant="subtitle1" sx={{ color: "deepskyblue" }}>
-                                Total Liquidity
+                                Yields (by Month)
                             </Typography>
                         </Grid>
                         <Grid item>
                             <Typography variant="h4" sx={{ color:"deepskyblue" }}>
-                                $379,273
+                                Current: %15
                             </Typography>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
                     <Typography variant="subtitle2" sx={{ color: "deepskyblue" }}>
-                        (DAI)
+                        (in %)
                     </Typography>
                 </Grid>
             </Grid>
