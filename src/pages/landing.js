@@ -28,27 +28,60 @@ const Dashboard = (props) => {
             Why is OpenBook better?
           </Typography>
           <Typography className={styles.title}>
-            5 reasons why we are better
+            This is What You Get
           </Typography>
           <Typography className={styles.detailDescriptions2}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text
-            ever since the 1500s,
+            industry. 
           </Typography>
         </Box>
-        <Box>
+
+        <Box sx={{py:'50px', display: 'flex',flexDirection: 'column',alignItems: 'flex-start'}}>
           <Box>
-            <Box>
-              <img />
-              <Box>
-                <Typography></Typography>
-                <Typography></Typography>
+            <Box sx={{display:'flex'}}>
+              <Image src="/static/images/landing/why_we_unique_1.png" height={80} width={80}/>
+              <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
+                <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>Single Liquidity Pool</Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Lorem Ipsum is simply dummy text of the printing and typesettingindustry. </Typography>
+              </Box>
+            </Box>
+            <LandingFooterDivider />
+          </Box>
+          <Box>
+            <Box sx={{display:'flex'}}>
+              <Image src="/static/images/landing/why_we_unique_2.png" height={80} width={80}/>
+              <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
+                <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>No deposit required</Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Lorem Ipsum is simply dummy text of the printing and typesettingindustry. </Typography>
+              </Box>
+            </Box>
+            <LandingFooterDivider />
+          </Box>
+          <Box>
+            <Box sx={{display:'flex'}}>
+              <Image src="/static/images/landing/why_we_unique_3.png" height={80} width={80}/>
+              <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
+                <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>Polygon based</Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Lorem Ipsum is simply dummy text of the printing and typesettingindustry. </Typography>
+              </Box>
+            </Box>
+            <LandingFooterDivider />
+          </Box>
+          <Box>
+            <Box sx={{display:'flex'}}>
+              <Image src="/static/images/landing/why_we_unique_4.png" height={80} width={80}/>
+              <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
+                <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>Be the bookie</Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Lorem Ipsum is simply dummy text of the printing and typesettingindustry. </Typography>
               </Box>
             </Box>
             <LandingFooterDivider />
           </Box>
         </Box>
       </Box>
+
+      <Box className={styles.waveTransition3}/>
+
       <FiveStepsToggle
         styles={styles}
         fiveStepsTabState={fiveStepsTabState}

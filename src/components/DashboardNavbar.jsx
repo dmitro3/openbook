@@ -75,7 +75,7 @@ const DashboardNavbar = (props) => {
   useMemo(()=>{
     if(asPath.search("bookie") != -1)
       setNavigationTabsValue(2)
-    else if(asPath.search("account") != -1 && props.user.loggedIn)
+    else if(asPath.search("account") != -1)
       setNavigationTabsValue(3)
     else if(asPath.search("leaderboard") != -1)
       setNavigationTabsValue(4)

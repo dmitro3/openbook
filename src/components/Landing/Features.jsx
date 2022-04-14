@@ -114,8 +114,7 @@ export const Features = (props) => {
                 <img className={styles.coin2} src="https://pixner.net/bitbetio/main/assets/images/coin-1.png"/>
             </Box>
 
-            <Box className={styles.waveTransition}>
-            </Box>
+            <Box className={styles.waveTransition}/>
         </>    
     )
 }
