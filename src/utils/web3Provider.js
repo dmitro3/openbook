@@ -28,7 +28,7 @@ export const connectMetaMask = async () =>{
     store.getState().user.hasProvider ?  requestMetaMask() : console.error("Cannot connect MetaMask, try reload browser!")
 } 
 
-export const getBalance = async (amount) => {
+export const getBalance = async () => {
     let web3 = store.getState().user.web3;
     let token_contract = new web3.eth.Contract(LIQUIDITY_ABI, LIQUIDITY_ADDY);
     let balance = 0;
@@ -74,6 +74,11 @@ export const addLiquidity = async (amount) => {
             }
         })
 
+}
+
+export const getCurrentLiquidity = async () => {
+    let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+    
 }
 
 export const makeBet = async (id, pick, amount) => {
