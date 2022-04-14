@@ -65,17 +65,23 @@ const StyledTextField = styled(TextField)({
   },
 });
 
+// const initLiqVals = async () => {
+//   const total = await getPoolLiquidity();
+//   const user = await getUserLiquidity();
+//   return [total, user];
+// }
+
 export const Staking = (props) => {
-
-
   const styles = useStyle();
-  const [liqDisplayValue, setLiqDisplayValue] = useState("$123,552");
-  const handleLiqDisplayChange = (event, newValue) => {
-    setLiqDisplayValue(getPoolLiquidity());
+  const [liqDisplayValue, setLiqDisplayValue] = useState("$123,654");
+  const handleLiqDisplayChange = async (event, newValue) => {
+    const res = await getPoolLiquidity();
+    setLiqDisplayValue(res);
   };
   const [userStakeValue, setUserStakeValue] = useState("$0");
-  const handleUserStakeChange = (event, newValue) => {
-    setUserStakeValue(getUserLiquidity());
+  const handleUserStakeChange = async (event, newValue) => {
+    const res = await getUserLiquidity();
+    setUserStakeValue(res);
   };
 
   const [depositAmountInput, setDepositAmountInput] = useState("0");
@@ -163,8 +169,8 @@ export const Staking = (props) => {
               variant="contained"
               sx={{ marginRight: "auto", marginLeft: "10px" }}
               onClick={() => {
-                handleUserStakeChange();
                 handleLiqDisplayChange();
+                handleUserStakeChange();
               }}
             >
               Update Balance
