@@ -2,6 +2,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
 const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, DAI_ABI, DAI_ADDY} = require("../config")
 const {MaxUint256} = require("@ethersproject/constants");
+
 //redux
 import {setProvider,setWeb3,setWeb3Loading,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance} from "@actions/userActions";
 import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
@@ -29,13 +30,11 @@ export const connectMetaMask = async () =>{
 } 
 
 export const getPoolLiquidity = async () => {
-    let web3 = store.getState().user.web3;
     let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
     let res = await dai_contract.methods.balanceOf(LIQUIDITY_ADDY).call()
     console.log(res)
     return res;
 }
-
 
 
 export const getUserLiquidity = async () => {
@@ -131,10 +130,9 @@ const requestMetaMask = async () => {
                 return
             }
             await provider.request({method:"eth_requestAccounts"})
-            web3.eth.getAccounts()
-            .then((value)=>{
-            if(value.length != 0){
-                let userAddress = value[0];
+            let accounts = await web3.eth.getAccounts()
+            if(accounts.length != 0){
+                let userAddress = accounts[0];
                 let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
                 let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
                 store.dispatch(logIn(userAddress));
@@ -143,19 +141,12 @@ const requestMetaMask = async () => {
                     store.dispatch(setPreferUsernameFlag(userAddress));
                     store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
                 }
-                web3.eth.getBalance(userAddress)
-                .then(balance=>{
-                    let balanceInEther = web3.utils.fromWei(balance,'ether')
-                    balanceInEther = Number(balanceInEther).toFixed(2)
-                    store.dispatch(setBalance(balanceInEther))
-                })
-                .catch(error=>console.error(error))
-            }
-
-            })
-            .catch((error)=>{
-                console.error(error);
-            });
+                let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+                let balanceInWei = await dai_contract.methods.balanceOf(userAddress).call()
+                let balanceInEther = web3.utils.fromWei(balanceInWei,'ether')
+                balanceInEther = Number(balanceInEther).toFixed(2)
+                store.dispatch(setBalance(balanceInEther))
+            }   
     }catch{
         console.error("Can not retrieve account")
     }
@@ -165,37 +156,29 @@ export const disconnectMetaMask  = () => {
     store.dispatch(logOut());
 }
 
-export const switchAccount = (accounts) => {
+export const switchAccount = async () => {
     let web3 = store.getState().user.web3
-    web3.eth.getAccounts()
-    .then((accounts)=>{
-        if(accounts.length == 0){
+    let accounts = await web3.eth.getAccounts()
+    if(accounts.length == 0){
             disconnectMetaMask();
             return
-        }
-        else{
-            let userAddress = accounts[0]
-            let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
-            store.dispatch(logIn(userAddress));
-            if(!preferUsernameFlag){
-                let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
-                store.dispatch(setPreferUsername(userAddress,preferUserName));
-                store.dispatch(setPreferUsernameFlag(userAddress));
-                store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
-            }
-            web3.eth.getBalance(userAddress)
-            .then(balance=>{
-                let balanceInEther = web3.utils.fromWei(balance,'ether')
-                balanceInEther = Number(balanceInEther).toFixed(2)
-                store.dispatch(setBalance(balanceInEther))
-            })
-            .catch(error=>console.error(error))
-        }
-    })
-    .catch(error=>{
-        console.error(error)
-    })
-
+    }
+    else{
+        let userAddress = accounts[0]
+        let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
+        store.dispatch(logIn(userAddress));
+        if(!preferUsernameFlag){
+            let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
+            store.dispatch(setPreferUsername(userAddress,preferUserName));
+            store.dispatch(setPreferUsernameFlag(userAddress));
+            store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
+        }     
+        let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+        let balanceInWei = await dai_contract.methods.balanceOf(userAddress).call()
+        let balanceInEther = web3.utils.fromWei(balanceInWei,'ether')
+        balanceInEther = Number(balanceInEther).toFixed(2)
+        store.dispatch(setBalance(balanceInEther))
+    }
 }
 
 
