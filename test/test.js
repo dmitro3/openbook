@@ -5,7 +5,7 @@ const { DAI_ADDY, WHALE_ADDY, erc20ABI } = require("./config")
 let daiContract = new ethers.Contract(DAI_ADDY,erc20ABI);
 
 describe('Contract tests', () => {
-    const FUND_AMOUNT = (BigInt(200000)*BigInt(10**18)).toString()
+    const FUND_AMOUNT = (BigInt(10000)*BigInt(10**18)).toString()
     let owner;
     let liq;
     let bet;
@@ -46,7 +46,7 @@ describe('Contract tests', () => {
         
         await whale_signer.sendTransaction({
             to: owner.address,
-            value: ethers.utils.parseEther("0.001")
+            value: ethers.utils.parseEther("1")
         });
 
         for (let addy of ['0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9', '0x99c6fD3bC02dEB420F192eFb3ED0D6f479856D4B', '0xFf83517542B4587AAC87DEa0976675569dE0dc8D']) {
@@ -58,7 +58,7 @@ describe('Contract tests', () => {
 
             await whale_signer.sendTransaction({
                 to: addy,
-                value: ethers.utils.parseEther("0.001")
+                value: ethers.utils.parseEther("1")
             });
         }
 
