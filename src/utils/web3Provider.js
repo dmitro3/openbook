@@ -58,27 +58,22 @@ export const addLiquidity = async (amount) => {
 
     amount = parseInt(amount)
     let amt = BigInt(10 ** 18) * BigInt(amount)
+    
 
-    web3.eth.getAccounts()
-            .then((value)=>{
-            if(value.length != 0){
-                let userAddress = value[0];
-                
-                (async () => {
-                
-                    let x = await token_contract.methods.allowance(userAddress, LIQUIDITY_ADDY).call()
-                    
-                    if (x < amt)
-                    {
-                        await token_contract.methods.approve(LIQUIDITY_ADDY, MaxUint256).send({from: userAddress})
-                    }
+    let account = await web3.eth.getAccounts()
+    let userAddress = account[0];
+    
+    let x = await token_contract.methods.allowance(userAddress, LIQUIDITY_ADDY).call()
+    
+    if (x < amt)
+    {
+        await token_contract.methods.approve(LIQUIDITY_ADDY, MaxUint256).send({from: userAddress})
+    }
 
-                    let exactAmt = web3.utils.toWei(String(amount), 'ether')
-                    await contract.methods.addLiquidity(exactAmt).send({from: userAddress})
+    let exactAmt = web3.utils.toWei(String(amount), 'ether')
+    await contract.methods.addLiquidity(exactAmt).send({from: userAddress})
 
-                })();
-            }
-        })
+
 
 }
 
@@ -93,33 +88,21 @@ export const makeBet = async (id, pick, amount) => {
     amount = parseInt(amount)
     let amt = BigInt(10 ** 18) * BigInt(amount)
 
-    web3.eth.getAccounts()
-            .then((value)=>{
-            if(value.length != 0){
-                let userAddress = value[0];
-                
-                (async () => {
-                
-                    let x = await token_contract.methods.allowance(userAddress, BET_ADDY).call()
-                    
-                    if (x < amt)
-                    {
-                        await token_contract.methods.approve(BET_ADDY, MaxUint256).send({from: userAddress})
-                    }
-                    
-                    let exactAmt = web3.utils.toWei(String(amount), 'ether')
-                    
-                    await contract.methods.createBet(id, pick, exactAmt).send({from: userAddress})
-                    console.log("I was here")
-                    return true
-                })();
-            }
-        })
-        .catch(error=>{
-            return false;
-        })
-    return false;
+    let account = await web3.eth.getAccounts()
+    let userAddress = account[0];
 
+    let x = await token_contract.methods.allowance(userAddress, BET_ADDY).call()
+    
+    if (x < amt)
+    {
+        await token_contract.methods.approve(BET_ADDY, MaxUint256).send({from: userAddress})
+    }
+    
+    let exactAmt = web3.utils.toWei(String(amount), 'ether')
+    
+    await contract.methods.createBet(id, pick, exactAmt).send({from: userAddress})
+    console.log('here')
+    return true
 }
 
 const requestMetaMask = async () => {
