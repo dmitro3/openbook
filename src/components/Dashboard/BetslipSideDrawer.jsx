@@ -12,6 +12,7 @@ import {ConnectButton} from "@components/Dashboard/ConnectButton";
 import {connectMetaMask} from "@utils/web3Provider";
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 import {makeBet} from "@utils/web3Provider";
+import {BetConfirmPopup} from "@components/Dashboard/BetConfirmPopup";
 
 // Redux Dependencies
 import {connect} from "react-redux";
@@ -32,6 +33,17 @@ const BetslipSideDrawer = (props) => {
       const handleClose = () => {
         setdelteAllModalOpen(false);
       };  
+
+    // Confirm bets modal properties
+    const [confirmBetModalOpen, setConfirmBetModalOpen] = useState(true);
+    
+    const handleconfirmBetModalOpen = () => {
+        setConfirmBetModalOpen(true);
+      };
+
+    const handleconfirmBetModalClose = () => {
+        setConfirmBetModalOpen(false);
+    };     
 
 
 
@@ -90,6 +102,12 @@ const BetslipSideDrawer = (props) => {
         let balance = props.user.balance;
         let betEachGame = (Number(balance) / Number(gamesInBetSlip.length)).toFixed(2);
         setBetInputQuery(betEachGame)
+    }
+
+    const placeBet = async () =>{
+        let betResult = await makeBet(3, 1, (Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2));    
+        console.log("bet placed, result ", betResult)
+        setConfirmBetModalOpen(betResult);
     }
 
     let totalPossiblePayoutDict = {}
@@ -239,11 +257,13 @@ const BetslipSideDrawer = (props) => {
                     !props.user.hasProvider ?
                     <InstallMetaMaskButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}}/> :
                     props.user.loggedIn ?
-                    <button className={styles.submitButton} onClick={()=>makeBet(3, 1, (Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2))}>
+                    <button className={styles.submitButton} onClick={()=>placeBet()}>
                         <Typography sx={{fontSize:'25px',fontWeight:'600'}}>Place a Bet</Typography>
                     </button> :
                     <ConnectButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}} setDisconnected={props.setDisconnected} connectMetaMask={connectMetaMask}/>
                 }
+
+                <BetConfirmPopup fullScreen={fullScreen} open={confirmBetModalOpen} handleClose={handleconfirmBetModalClose}/>
                 
 
             </Box>}

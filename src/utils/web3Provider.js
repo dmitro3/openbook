@@ -106,13 +106,19 @@ export const makeBet = async (id, pick, amount) => {
                     {
                         await token_contract.methods.approve(BET_ADDY, MaxUint256).send({from: userAddress})
                     }
-
+                    
                     let exactAmt = web3.utils.toWei(String(amount), 'ether')
+                    
                     await contract.methods.createBet(id, pick, exactAmt).send({from: userAddress})
-
+                    console.log("I was here")
+                    return true
                 })();
             }
         })
+        .catch(error=>{
+            return false;
+        })
+    return false;
 
 }
 
