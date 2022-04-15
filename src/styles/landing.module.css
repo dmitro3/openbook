@@ -549,8 +549,6 @@
 }
 
 
-
-
 @keyframes rippleAni{
     0% {
         transform: translate(0px, 0px);
