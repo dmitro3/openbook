@@ -70,7 +70,7 @@ export const AccountOverviewChart = (props) => {
                         </Grid>
                         <Grid item>
                             <Typography variant="h4" sx={{ color:"deepskyblue" }}>
-                                $1800.00
+                                1800.00 DAI
                             </Typography>
                         </Grid>
                     </Grid>

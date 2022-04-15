@@ -69,7 +69,7 @@ export const DisplayUserAddressButton = (props) => {
                 </Typography>
                 <Box sx={{"display":"flex","alignItems":"baseline"}}>
                 <Typography sx={{"fontSize":"1.15rem","fontWeight":"500","margin":"0 0 0 0"}}>
-                ${props.balance}
+                {`${props.balance} DAI`}
                   {/* {5384.31} */}
                 </Typography>
                 {/* <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" style={{marginTop: "auto",marginBottom: "auto"}}>
@@ -80,7 +80,7 @@ export const DisplayUserAddressButton = (props) => {
                 <line stroke="#000" id="svg_13" y2="12.57495" x2="18.13092" y1="12.40517" x1="3.02163" fill="none"/>
                 </g>
                 </svg> */}
-                <Typography sx={{"fontSize":"0.875rem","color":"#a3a9b0","margin":"0"}}>                
+                <Typography sx={{"fontSize":"0.875rem","color":"#a3a9b0","margin":"0",ml:'5px'}}>                
                   +1800
                 </Typography>
                 </Box>

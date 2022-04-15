@@ -53,7 +53,7 @@ const columns = [
      },
      {
         name: "stake",
-        label: "Stake($)",
+        label: "Stake(DAI)",
         options: {
             filter: true,
             sort: true,
@@ -69,7 +69,7 @@ const columns = [
      },
      {
         name: "return",
-        label: "Return($)",
+        label: "Return(DAI)",
         options: {
             filter: false,
             sort: true,

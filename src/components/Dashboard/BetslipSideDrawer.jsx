@@ -21,6 +21,15 @@ import {setDisconnected} from "@actions/settingsActions"
 
 
 const BetslipSideDrawer = (props) => {
+    let totalPossiblePayoutDict = {};
+    let orderReceiptArr = [];
+    let totalBet = 0;
+    let totalPossiblePayout = 0;
+
+    // 
+    const [betTime,setBetTime] = useState(new Date().toISOString())
+
+
     /* Delete all matches in slip confirm modal properties */
     const [delteAllModalOpen, setdelteAllModalOpen] = useState(false);
     const theme = useTheme();
@@ -35,7 +44,7 @@ const BetslipSideDrawer = (props) => {
       };  
 
     // Confirm bets modal properties
-    const [confirmBetModalOpen, setConfirmBetModalOpen] = useState(true);
+    const [confirmBetModalOpen, setConfirmBetModalOpen] = useState(false);
     
     const handleconfirmBetModalOpen = () => {
         setConfirmBetModalOpen(true);
@@ -106,11 +115,16 @@ const BetslipSideDrawer = (props) => {
 
     const placeBet = async () =>{
         let betResult = await makeBet(3, 1, (Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2));    
-        console.log("bet placed, result ", betResult)
-        setConfirmBetModalOpen(betResult);
+        console.log("bet placed, result ", betResult);
+        if(betResult)
+        {
+            setBetTime(new Date().toISOString());
+            setConfirmBetModalOpen(true);
+        }
     }
 
-    let totalPossiblePayoutDict = {}
+
+
 
     const list = (anchor) => (
         <Box
@@ -151,9 +165,6 @@ const BetslipSideDrawer = (props) => {
                         let matchId = text.split('/')[0];
                         let outcomeId = text.split('/')[1];
                         let winningOdds = props.odds.oddsDict[matchId]['outcomes'][outcomeId];
-                        //console.log(props.odds.oddsDict[matchId]['outcomes']);
-                        //console.log(outcomeId);
-                        //console.log(props.odds.oddsDict);
                         let displayOutcome = "";
                         switch (outcomeId){
                             case '1':
@@ -168,7 +179,21 @@ const BetslipSideDrawer = (props) => {
                         }
 
                         let possiblePayOut = (Number(winningOdds) * Number(props.betSlip.betAmount)).toFixed(2);
-                        totalPossiblePayoutDict = {...totalPossiblePayoutDict,[matchId]:possiblePayOut};
+                        totalPossiblePayoutDict = {...totalPossiblePayoutDict,[matchId]:possiblePayOut}
+                        orderReceiptArr.push(
+                            {
+                                game_time : props.odds.oddsDict[matchId]['timestamp'],
+                                game : `${props.odds.oddsDict[matchId]['match'][0]} vs. ${props.odds.oddsDict[matchId]['match'][1]}`,
+                                bet : displayOutcome,
+                                stake : Number(betInputQuery),
+                                odds : winningOdds,
+                                possible_return : possiblePayOut
+                            }
+                        )
+                        totalBet = (Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2);
+                        totalPossiblePayout = Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)
+
+
                         return (
                         <Box key={index} 
                             sx={{height:'auto',width:'100%',backgroundColor:'white',borderBottom:'1px solid #d9d9d9',paddingTop:'5px',paddingBottom:'5px'}}>
@@ -244,12 +269,12 @@ const BetslipSideDrawer = (props) => {
                 <Box sx={{display:'flex'}}>
                     <Box sx={{"paddingRight":"0.8rem","borderRight":"1px solid #efefef","display":"block","marginLeft":"7%","paddingTop":"10px","marginBottom":"10px","textAlign":"left"}}>
                         <Typography sx={{whiteSpace: 'pre-wrap'}}>Bet Total</Typography>
-                        <Typography sx={{"color":"#e57714","margin":"0","fontSize":"1.35rem"}}>{(Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2)} DAI</Typography>
+                        <Typography sx={{"color":"#e57714","margin":"0","fontSize":"1.35rem"}}>{totalBet} DAI</Typography>
                     </Box>
 
                     <Box sx={{"display":"block","paddingTop":"10px","paddingLeft":"1rem","textAlign":"left"}}>
                         <Typography sx={{whiteSpace: 'pre-wrap'}}>Possible Winnings</Typography>
-                        <Typography sx={{"color":"#52b49c","margin":"0","fontSize":"1.35rem"}}>{Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)} DAI</Typography>
+                        <Typography sx={{"color":"#52b49c","margin":"0","fontSize":"1.35rem"}}>{totalPossiblePayout} DAI</Typography>
                     </Box>
                 </Box>
 
@@ -263,9 +288,8 @@ const BetslipSideDrawer = (props) => {
                     <ConnectButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}} setDisconnected={props.setDisconnected} connectMetaMask={connectMetaMask}/>
                 }
 
-                <BetConfirmPopup fullScreen={fullScreen} open={confirmBetModalOpen} handleClose={handleconfirmBetModalClose}/>
+                <BetConfirmPopup fullScreen={fullScreen} open={confirmBetModalOpen} handleClose={handleconfirmBetModalClose} orderReceiptArr={orderReceiptArr} totalBet={totalBet} totalPossiblePayout={totalPossiblePayout} betTime={betTime}/>
                 
-
             </Box>}
         </Box>  
     );

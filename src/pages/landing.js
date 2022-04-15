@@ -6,13 +6,13 @@ import { LandingFooterDivider } from "@components/Landing/LandingFooterDivider";
 
 //Landing Structures
 import { NavBar } from "@components/Landing/NavBar";
-import { HeroBanner } from "@components/landing/HeroBanner";
-import { Features } from "@components/landing/Features";
-import { FiveStepsToggle } from "@components/landing/FiveStepsToggle";
+import { HeroBanner } from "@components/Landing/HeroBanner";
+import { Features } from "@components/Landing/Features";
+import { FiveStepsToggle } from "@components/Landing/FiveStepsToggle";
 import { FiveStepsForBettor } from "@components/Landing/FiveStepsForBettor";
 import { FiveStepsForBookie } from "@components/Landing/FiveStepsForBookie";
 import { FaqForLanding } from "@components/Landing/FaqForLanding";
-import { Subscribe } from "@components/landing/Subscribe";
+import { Subscribe } from "@components/Landing/Subscribe";
 import { LandingFooter } from "@components/Landing/LandingFooter";
 
 const Dashboard = (props) => {

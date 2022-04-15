@@ -1,5 +1,6 @@
 import {Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle, Typography,Box} from "@mui/material";
 import MUIDataTable from "mui-datatables";
+import { useMemo, useState,useEffect } from "react";
 
 const columns = [
     {
@@ -36,7 +37,7 @@ const columns = [
      },
      {
         name: "stake",
-        label: "Stake($)",
+        label: "Stake (DAI)",
         options: {
             filter: true,
             sort: true,
@@ -52,19 +53,13 @@ const columns = [
      },
      {
         name: "possible_return",
-        label: "Possible Return($)",
+        label: "Possible Return (DAI)",
         options: {
             filter: false,
             sort: true,
         },
      },
 
-];
-
-const data = [
-    {bet_time: "Mar 15, 2022", game_time: "Mar 15, 2022", game: "Orlando Magic vs Brooklyn Nets",bet:"Orlando Magic",stake:"100",odds:"1.25",possible_return:"125"},
-    {bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",possible_return:"650"},
-    {bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", game: "Golden State Warriors vs Boston Celtics",bet:"Golden State Warriors",stake:"500",odds:"1.74",possible_return:"870"},
 ];
 
 const options = {
@@ -78,24 +73,18 @@ const options = {
     filter: false
 };
 
-const getTotalBet = () =>{
-    let sum = 0
-    data.map((item,index)=>{
-        return sum+= Number(item.stake);
-    })
-    return sum.toFixed(2);
-}
-
-const getTotalPossibleReturn = () =>{
-    let sum = 0
-    data.map((item,index)=>{
-        return sum+= Number(item.possible_return);
-    })
-    return sum.toFixed(2);
-}
-
 export const BetConfirmPopup = (props) => {
-    return (
+    let data = props.orderReceiptArr;
+    let totalBet = props.totalBet;
+    let totalPossiblePayout = props.totalPossiblePayout;
+    let betTime = props.betTime;
+    data.map((item)=>{
+        item.bet_time = new Date(betTime).toLocaleString();
+        item.game_time = new Date(item.game_time).toLocaleString();
+        
+    })
+
+    let renderComponent = (
         <Dialog
             fullScreen={props.fullScreen}
             open={props.open}
@@ -113,11 +102,11 @@ export const BetConfirmPopup = (props) => {
                     />  
                     <Box sx={{display:'flex',mt:'20px',justifyContent: 'center'}}>
                         <Box sx={{display:'flex',mr:'20px'}}>
-                            <Typography sx={{fontSize:'25px',fontWeight:'400',mr:'15px'}}>Total Bet: </Typography><Typography  sx={{fontSize:'25px',fontWeight:'500'}}>{`$${getTotalBet()}`}</Typography>
+                            <Typography sx={{fontSize:'25px',fontWeight:'400',mr:'15px'}}>Total Bet: </Typography><Typography  sx={{fontSize:'25px',fontWeight:'500'}}>{`${totalBet} DAI`}</Typography>
                         </Box>  
 
                         <Box sx={{display:'flex',ml:'20px'}}>
-                            <Typography sx={{fontSize:'25px',fontWeight:'400',mr:'15px'}}>Total Possible Return: </Typography><Typography  sx={{fontSize:'25px',fontWeight:'500'}}>{`$${getTotalPossibleReturn()}`}</Typography>
+                            <Typography sx={{fontSize:'25px',fontWeight:'400',mr:'15px'}}>Total Possible Return: </Typography><Typography  sx={{fontSize:'25px',fontWeight:'500'}}>{`${totalPossiblePayout} DAI`}</Typography>
                         </Box>  
                         
                     </Box>  
@@ -129,5 +118,7 @@ export const BetConfirmPopup = (props) => {
                 </DialogActions>
         </Dialog>
     )
+
+    return renderComponent;
 }
 
