@@ -44,7 +44,7 @@ const Dashboard = (props) => {
               <Image src="/static/images/landing/why_we_unique_1.png" height={80} width={80}/>
               <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
                 <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>Single Liquidity Pool</Typography>
-                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Lorem Ipsum is simply dummy text of the printing and typesettingindustry. </Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Our model contains only one liquidity pool, which allows much higher betting limit. </Typography>
               </Box>
             </Box>
             <LandingFooterDivider />
@@ -54,7 +54,7 @@ const Dashboard = (props) => {
               <Image src="/static/images/landing/why_we_unique_2.png" height={80} width={80}/>
               <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
                 <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>No deposit required</Typography>
-                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Lorem Ipsum is simply dummy text of the printing and typesettingindustry. </Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Unlike other betting platform, OpenBook reuiqres no initial deposit. Bet on any game using DAI from you wallet. </Typography>
               </Box>
             </Box>
             <LandingFooterDivider />
@@ -64,7 +64,7 @@ const Dashboard = (props) => {
               <Image src="/static/images/landing/why_we_unique_3.png" height={80} width={80}/>
               <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
                 <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>Polygon based</Typography>
-                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Lorem Ipsum is simply dummy text of the printing and typesettingindustry. </Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Polygon blockchain is one of the fastest growing blockchains; it offers fast block mining speed, low gas cost and secure transactions.</Typography>
               </Box>
             </Box>
             <LandingFooterDivider />
@@ -74,7 +74,7 @@ const Dashboard = (props) => {
               <Image src="/static/images/landing/why_we_unique_4.png" height={80} width={80}/>
               <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
                 <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>Be the bookie</Typography>
-                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Lorem Ipsum is simply dummy text of the printing and typesettingindustry. </Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Not only you can be the bettor on OpenBook, you can also be the bookie and enjoy a discount when betting on any sports game. </Typography>
               </Box>
             </Box>
             <LandingFooterDivider />
