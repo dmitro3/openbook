@@ -662,6 +662,35 @@ let BET_ABI = [
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint80[]",
+        "name": "gameIds",
+        "type": "uint80[]"
+      },
+      {
+        "internalType": "int8[]",
+        "name": "betIndexes",
+        "type": "int8[]"
+      },
+      {
+        "internalType": "uint128[]",
+        "name": "bet_amounts",
+        "type": "uint128[]"
+      }
+    ],
+    "name": "createBets",
+    "outputs": [
+      {
+        "internalType": "uint176[]",
+        "name": "",
+        "type": "uint176[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "getAllBets",
     "outputs": [
@@ -829,7 +858,32 @@ let BET_ABI = [
       }
     ],
     "name": "withdrawBet",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint176[]",
+        "name": "tokenIds",
+        "type": "uint176[]"
+      }
+    ],
+    "name": "withdrawBets",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   }
