@@ -31,29 +31,66 @@ contract Bet is ERC1155{
     function createBet(uint80 gameId, int8 betIndex, uint128 bet_amount) public returns (uint176){
 
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, bet_amount));
+        require(success, "Cannot transfer DAI");
 
-        if (success){
+        uint176 currId = _nextId+1;
 
-            uint176 currId = _nextId+1;
+        _bets[currId] = singleBet({
+            timestamp: block.timestamp,
+            punter: msg.sender,
+            gameId: gameId,
+            betIndex: betIndex,
+            bet_amount: bet_amount,
+            to_win: bet_amount, //get this from odds
+            status: 0
+            });
+
+        _mint(msg.sender, currId, 1, "");
+        all_bets.push(currId);
+        _nextId++;
+        return currId;
+
+    }
+
+    function createBets(uint80[] calldata gameIds, int8[] calldata betIndexes, uint128[] calldata bet_amounts) public returns (uint176[] memory){
+        
+        uint128 total = 0;
+
+        for (uint i=0; i<bet_amounts.length; i++) {
+            total = total + bet_amounts[i];
+        }
+
+        (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, total));
+        require(success, "Cannot transfer DAI");
+
+        uint176[] memory curr_bets = new uint176[](bet_amounts.length);
+
+        for (uint i=0; i<bet_amounts.length; i++) {
+
+            uint176  currId = _nextId+1;
+
+            curr_bets[i] = currId;
 
             _bets[currId] = singleBet({
                 timestamp: block.timestamp,
                 punter: msg.sender,
-                gameId: gameId,
-                betIndex: betIndex,
-                bet_amount: bet_amount,
-                to_win: bet_amount, //get this from odds
+                gameId: gameIds[i],
+                betIndex: betIndexes[i],
+                bet_amount: bet_amounts[i],
+                to_win: bet_amounts[i], //get this from odds
                 status: 0
-             });
+            });
 
             _mint(msg.sender, currId, 1, "");
             all_bets.push(currId);
             _nextId++;
-            return currId;
         }
+        
+        return curr_bets;
 
-        return 0;
     }
+
+
 
     function getAllBets() public returns (uint256 [] memory){
         return all_bets;
