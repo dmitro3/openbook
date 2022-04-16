@@ -4,7 +4,7 @@ const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, DAI_ABI, DAI_ADDY} = re
 const {MaxUint256} = require("@ethersproject/constants");
 
 //redux
-import {setProvider,setWeb3,setWeb3Loading,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance} from "@actions/userActions";
+import {setProvider,setWeb3,setWeb3Loading,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity} from "@actions/userActions";
 import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
 import {store} from "../store"
 
@@ -33,7 +33,13 @@ export const getPoolLiquidity = async () => {
     let web3 = store.getState().user.web3;
     let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
     let res = await dai_contract.methods.balanceOf(LIQUIDITY_ADDY).call()
-    return res;
+
+    let exactAmt = parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
+
+    store.dispatch(setPoolLiquidity(exactAmt))
+
+
+    return exactAmt;
 }
 
 
@@ -45,8 +51,11 @@ export const getUserLiquidity = async () => {
     let account = await web3.eth.getAccounts()
 
     let res = await token_contract.methods.balanceOf(account[0], 0).call()
+    let exactAmt =  parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
 
-    return res;
+    store.dispatch(setUserLiquidity(exactAmt))
+
+    return exactAmt;
 }
         
 export const addLiquidity = async (amount) => {

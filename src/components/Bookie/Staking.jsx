@@ -73,15 +73,18 @@ const StyledTextField = styled(TextField)({
 export const Staking = (props) => {
   const styles = useStyle();
   const [liqDisplayValue, setLiqDisplayValue] = useState("$379,273");
-  const handleLiqDisplayChange = async (event, newValue) => {
+
+  const handleLiqChange = async (event, newValue) => {
     const res = await getPoolLiquidity();
-    setLiqDisplayValue(res);
-  };
+    setLiqDisplayValue(res + " DAI");
+
+    const res2 = await getUserLiquidity();
+    setUserStakeValue(res2 + " DAI");
+  }
+
+
   const [userStakeValue, setUserStakeValue] = useState("$0");
-  const handleUserStakeChange = async (event, newValue) => {
-    const res = await getUserLiquidity();
-    setUserStakeValue(res);
-  };
+
 
   const [depositAmountInput, setDepositAmountInput] = useState("0");
 
@@ -165,8 +168,7 @@ export const Staking = (props) => {
               variant="contained"
               sx={{ marginRight: "auto", marginLeft: "10px" }}
               onClick={() => {
-                handleLiqDisplayChange();
-                handleUserStakeChange();
+                handleLiqChange();
               }}
             >
               Update Balance

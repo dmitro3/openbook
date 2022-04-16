@@ -55,5 +55,19 @@ export function setBalance(balance){
 }
 
 
+export function setPoolLiquidity(liquidity){
+    return {
+        type: "SET_POOL_LIQUIDITY",
+        payload: liquidity
+    }
+}
+
+export function setUserLiquidity(u_liquidity){
+    return {
+        type: "SET_USER_LIQUIDITY",
+        payload: u_liquidity
+    }
+}
+
 
 
