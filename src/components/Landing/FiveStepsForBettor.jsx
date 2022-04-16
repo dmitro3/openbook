@@ -1,4 +1,4 @@
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, Button, Card, CardContent, Skeleton } from '@mui/material';
 import Image from 'next/image';
 
 export const FiveStepsForBettor = (props) => {
@@ -38,7 +38,12 @@ export const FiveStepsForBettor = (props) => {
                             Login to MetaMask
                         </Typography>
                         <Typography sx={{ fontWeight: '400', marginBottom: '16px', color: 'white', fontSize: '18px', width: '80%' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            OpenBook is fully integrated with MetaMask, connected your MetaMask account to our app simply by clicking the 
+                            <Button 
+                                sx={{whiteSpace: 'nowrap',mx:'10px', fontSize:'16px', color:'white', backgroundColor:'#e57714','&:hover': {backgroundColor: '#ef882b',color:'white'}}} variant="contained">
+                                Connect Wallet
+                            </Button>
+                         on the top right corner of the app. 
                         </Typography>
                     </Grid>
                 </Grid>
@@ -53,7 +58,7 @@ export const FiveStepsForBettor = (props) => {
                             Find your favorite match
                         </Typography>
                         <Typography sx={{ fontWeight: '400', marginBottom: '16px', color: 'white', fontSize: '18px', width: '80%' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            Finding you favorite match either by selecting a sport on the side navigation bar, or on our featured page. 
                         </Typography>
                     </Grid>
 
@@ -84,7 +89,7 @@ export const FiveStepsForBettor = (props) => {
                             Choose the winning team
                         </Typography>
                         <Typography sx={{ fontWeight: '400', marginBottom: '16px', color: 'white', fontSize: '18px', width: '80%' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            Choose your winner by clicking on the odds button.
                         </Typography>
                     </Grid>
                 </Grid>
@@ -99,7 +104,7 @@ export const FiveStepsForBettor = (props) => {
                             Place your bet
                         </Typography>
                         <Typography sx={{ fontWeight: '400', marginBottom: '16px', color: 'white', fontSize: '18px', width: '80%' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            Confirm all your selected bets in the betslip, then click on the place a bet button to start transaction.
                         </Typography>
                     </Grid>
 
@@ -129,7 +134,7 @@ export const FiveStepsForBettor = (props) => {
                             Collect your winning
                         </Typography>
                         <Typography sx={{ fontWeight: '400', marginBottom: '16px', color: 'white', fontSize: '18px', width: '80%' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            Collect your winnings by going to the account page, and select the unsetteled tab. Click on the cliam reward button to collect your
                         </Typography>
                     </Grid>
                 </Grid>

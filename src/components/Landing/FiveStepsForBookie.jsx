@@ -1,4 +1,4 @@
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, Button } from '@mui/material';
 import Image from 'next/image';
 
 export const FiveStepsForBookie = (props) => {
@@ -38,7 +38,12 @@ export const FiveStepsForBookie = (props) => {
                             Login to MetaMask
                         </Typography>
                         <Typography sx={{ fontWeight: '400', marginBottom: '16px', color: 'white', fontSize: '18px', width: '80%' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            OpenBook is fully integrated with MetaMask, connected your MetaMask account to our app simply by clicking the 
+                            <Button 
+                                sx={{whiteSpace: 'nowrap',mx:'10px', fontSize:'16px', color:'white', backgroundColor:'#e57714','&:hover': {backgroundColor: '#ef882b',color:'white'}}} variant="contained">
+                                Connect Wallet
+                            </Button>
+                         on the top right corner of the app. 
                         </Typography>
                     </Grid>
                 </Grid>
@@ -53,7 +58,7 @@ export const FiveStepsForBookie = (props) => {
                             Go to the bookie page
                         </Typography>
                         <Typography sx={{ fontWeight: '400', marginBottom: '16px', color: 'white', fontSize: '18px', width: '80%' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            Select the bookie tab on the top navigation bar.
                         </Typography>
                     </Grid>
 
@@ -84,7 +89,7 @@ export const FiveStepsForBookie = (props) => {
                             Deposit funds to our liquidity pool
                         </Typography>
                         <Typography sx={{ fontWeight: '400', marginBottom: '16px', color: 'white', fontSize: '18px', width: '80%' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            Enter the amount of funds you wish to deposit, then click on the deposit fund button.
                         </Typography>
                     </Grid>
                 </Grid>
@@ -99,7 +104,7 @@ export const FiveStepsForBookie = (props) => {
                             Watch your money grow
                         </Typography>
                         <Typography sx={{ fontWeight: '400', marginBottom: '16px', color: 'white', fontSize: '18px', width: '80%' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            The bookie page is fully integrated with charts and figures; use them to understand your investments.
                         </Typography>
                     </Grid>
 
@@ -129,7 +134,7 @@ export const FiveStepsForBookie = (props) => {
                             Withdrawl anytime you want
                         </Typography>
                         <Typography sx={{ fontWeight: '400', marginBottom: '16px', color: 'white', fontSize: '18px', width: '80%' }}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            Withdrawl your money anytime you want by click on the withdrawl button in the bookie page.
                         </Typography>
                     </Grid>
                 </Grid>

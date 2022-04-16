@@ -75,7 +75,7 @@ const BetslipSideDrawer = (props) => {
     };
 
     // Bet/match input properties, the input is captured every 0.2 second
-    const [betInputQuery, setBetInputQuery] = useState("30.00");
+    const [betInputQuery, setBetInputQuery] = useState({});
 
     const validateInputOnKeyPress = (event) => {
         var charCode = (event.which) ? event.which : event.keyCode;
@@ -84,19 +84,20 @@ const BetslipSideDrawer = (props) => {
            event.preventDefault();
     }
 
-    const validateInputOnChange = (event) => {
+    const validateInputOnChange = (event,matchId) => {
         var t = event.target.value;
         event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
         if(Number.isNaN(Number(event.target.value))){
             event.target.value = "";
         }
-        setBetInputQuery(event.target.value);
+        let newBetInputQuery = {...betInputQuery,[matchId]:event.target.value}
+        setBetInputQuery(newBetInputQuery);
     }
 
-    useEffect(() => {
-        const timeOutId = setTimeout(() => props.setBetAmount(betInputQuery), 200);
-        return () => clearTimeout(timeOutId);
-      }, [betInputQuery]);
+    // useEffect(() => {
+    //     const timeOutId = setTimeout(() => props.setBetAmount(betInputQuery), 200);
+    //     return () => clearTimeout(timeOutId);
+    //   }, [betInputQuery]);
 
     // Helper function for checking betSlipOutcomeArray is empty or not
     const isBetSlipEmpty = () =>{
@@ -113,6 +114,27 @@ const BetslipSideDrawer = (props) => {
         setBetInputQuery(betEachGame)
     }
 
+    const setBet = (value) =>{
+        let newBetInputQuery = {}
+        Object.keys(betInputQuery).map((item,index)=>{
+            newBetInputQuery[item] = value;
+        })
+        setBetInputQuery(newBetInputQuery);
+        
+    }
+
+    const clearAllBets = () => {
+        setBetInputQuery({});
+    }
+
+    const setBetToZero = (matchId) =>{
+        setBetInputQuery({
+            ...betInputQuery,
+            [matchId]: null
+        })
+        console.log("newBetQuery is : ",betInputQuery)
+    }
+
     const placeBet = async () =>{
         let betResult = await makeBet(3, 1, (Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2));    
         console.log("bet placed, result ", betResult);
@@ -122,6 +144,8 @@ const BetslipSideDrawer = (props) => {
             setConfirmBetModalOpen(true);
         }
     }
+
+
 
 
 
@@ -145,7 +169,7 @@ const BetslipSideDrawer = (props) => {
                 <Box className={styles.slipTabsOutterBox}>
                     <Box className={styles.slipTabsTrashBinBox}>
                         <IoTrashBinSharp  className={styles.trashBin} onClick={handleClickOpen}/>
-                        <DeleteAllMatchesInBetSlipModal fullScreen={fullScreen} open={delteAllModalOpen} handleClose={handleClose} removeAllBetSlipOutcomes={props.removeAllBetSlipOutcomes}/>
+                        <DeleteAllMatchesInBetSlipModal fullScreen={fullScreen} open={delteAllModalOpen} handleClose={handleClose} removeAllBetSlipOutcomes={props.removeAllBetSlipOutcomes} clearAllBets={clearAllBets}/>
                     </Box>
                     <Tabs
                         value={tabsValue}
@@ -178,19 +202,26 @@ const BetslipSideDrawer = (props) => {
                             break;
                         }
 
-                        let possiblePayOut = (Number(winningOdds) * Number(props.betSlip.betAmount)).toFixed(2);
+                        if ( typeof(betInputQuery[matchId]) === "undefined" || betInputQuery[matchId] === null ) {
+                            setBetInputQuery({
+                                ...betInputQuery,
+                                [matchId]:30.00
+                            })
+                        }
+                        let possiblePayOut = (Number(winningOdds) * Number(betInputQuery[matchId])).toFixed(2);
                         totalPossiblePayoutDict = {...totalPossiblePayoutDict,[matchId]:possiblePayOut}
                         orderReceiptArr.push(
                             {
                                 game_time : props.odds.oddsDict[matchId]['timestamp'],
                                 game : `${props.odds.oddsDict[matchId]['match'][0]} vs. ${props.odds.oddsDict[matchId]['match'][1]}`,
                                 bet : displayOutcome,
-                                stake : Number(betInputQuery),
+                                stake : Number(betInputQuery[matchId]),
                                 odds : winningOdds,
                                 possible_return : possiblePayOut
                             }
                         )
-                        totalBet = (Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2);
+                        totalBet = Object.values(betInputQuery).reduce((accmulator,item)=>{return Number(accmulator) +  Number(item)},0).toFixed(2)
+                        
                         totalPossiblePayout = Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)
 
 
@@ -199,7 +230,7 @@ const BetslipSideDrawer = (props) => {
                             sx={{height:'auto',width:'100%',backgroundColor:'white',borderBottom:'1px solid #d9d9d9',paddingTop:'5px',paddingBottom:'5px'}}>
                             <Box sx={{height:'fit-content',backgroundColor:'white',paddingBottom:'10px',paddingTop:'10px',display:'flex',textAlign:'center'}}>
                                 <Box sx={{width:'50px',height:'100%'}}>
-                                    <FaRegTimesCircle  className={styles.singleTicketDelete} onClick={()=>props.removeBetSlipOutcome(props.betSlip.betSlipOutcomeArray[index])} />
+                                    <FaRegTimesCircle  className={styles.singleTicketDelete} onClick={()=>{setBetToZero(matchId);props.removeBetSlipOutcome(props.betSlip.betSlipOutcomeArray[index])}} />
                                 </Box>
                                 <Box sx={{width:'270px',display:'flex'}}>
                                     <Box sx={{backgroundColor:'white',width:'202px',height:'100%'}}>
@@ -218,11 +249,24 @@ const BetslipSideDrawer = (props) => {
                                 </Box>
 
                             </Box>
+                            <Box sx={{width:'fit-content',height:'44px',textAlign:'center',borderRadius:'5px',marginLeft:'auto',marginRight:'auto',backgroundColor:'#f1f1f1',display:'flex',justifyContent: 'flex-start',alignContent:'center',alignItems:'center',px:'20px',ml:'45px',my:"7px"}}>
+                                <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'500'}}>Bet:</Typography>
+                                <Box sx={{width:'120px',height:'100%',mx:'15px'}}>
+                                <Input id="totalBetInput" 
+                                aria-describedby="my-helper-text" 
+                                value={betInputQuery[matchId]} placeholder="30.00"  
+                                onChange={event => validateInputOnChange(event,matchId)} 
+                                inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} 
+                                onKeyPress={(event) => validateInputOnKeyPress(event)}
+                                />
+                                </Box>
+                                <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'700'}}>DAI</Typography>
+                            </Box>
                             <Box sx={{height:'fit-content', backgroundColor:'white',display:'flex',textAlign:'center',paddingTop:'3px',paddingBottom:'3px'}}>
                                 <Box sx={{width:'50px',height:'100%'}}>
                                         <IoCashOutline  style={{height:'100%',width:'25px',display:'block',margin:'auto'}}/>
                                 </Box>
-                                <Box sx={{display:'flex',marginTop:'1px'}}>
+                                <Box sx={{display:'flex',marginTop:'1px',marginBottom:'7px'}}>
                                 <Typography sx={{color:'black',textAlign:'left',fontSize:'12px',fontWeight:'400',marginRight:'5px'}}>Possible payout:</Typography>
                                     <Box sx={{width:'54px',marginLeft:'7px',marginRight:'7px',height:'100%',textAlign: 'center',display:'flex'}}>
                                         <Typography sx={{color:'black',textAlign:'left',fontSize:'15px',fontWeight:'700',textAlign:'center',marginTop:'-2px',marginRight:'5px'}}>{possiblePayOut}</Typography>
@@ -236,33 +280,17 @@ const BetslipSideDrawer = (props) => {
                     </List>
                 </Box>
 
-                <Box sx={{width:'304px',height:'44px',textAlign:'center',borderRadius:'5px',marginLeft:'auto',marginRight:'auto',marginBottom:'10px',backgroundColor:'#f1f1f1',display:'flex',justifyContent: 'center', marginTop: '25px', marginBottom: '20px'}}>
-                    <Box sx={{width:'70px',height:'100%',marginRight:'7px',marginLeft:'7px'}}>
-                        <Typography sx={{color:'black',textAlign:'left',fontSize:'13px',fontWeight:'500',marginRight:'5px',marginTop:'8px'}}>Bet/Match:</Typography>
-                    </Box>
-                    <Box sx={{width:'120px',height:'100%',marginRight:'15px'}}>
-                    <Input id="totalBetInput" 
-                    aria-describedby="my-helper-text" 
-                    value={betInputQuery} placeholder="30.00"  
-                    onChange={event => validateInputOnChange(event)} 
-                    inputProps={{min: 0, style: { textAlign: 'center', fontSize:'16px',fontWeight:'700' }}} 
-                    onKeyPress={(event) => validateInputOnKeyPress(event)}
-                    />
-                    </Box>
-                    <Box sx={{width:'35px',height:'100%',marginRight:'7px'}}>
-                        <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'700',marginRight:'5px',marginTop:'2px'}}>DAI</Typography>
-                    </Box>
-                </Box>
+
 
                 <Box className={styles.betSlipButtonsBox}>
 
                 {[100,200,300].map((value,index)=>{
                     return(
-                        <Box className={styles.presetBetButton} key={index} onClick={()=>{props.setBetAmount(value);setBetInputQuery(value)}}>{value}</Box>
+                        <Box className={styles.presetBetButton} key={index} onClick={()=>{setBet(value)}}>{value}</Box>
                     )
                 })}
 
-                        <Box className={styles.presetBetButton} onClick={()=>setMaxBet()} disabled>Max</Box>
+                        <Box className={styles.presetBetButton} onClick={()=>setMaxBet()}>Max</Box>
                 </Box>
 
                 <Box className={styles.boxBeforeBetSlipSelectedMatchBox}/>
