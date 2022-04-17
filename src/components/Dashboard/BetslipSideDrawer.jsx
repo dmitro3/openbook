@@ -13,6 +13,7 @@ import {connectMetaMask} from "@utils/web3Provider";
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 import {makeBet} from "@utils/web3Provider";
 import {BetConfirmPopup} from "@components/Dashboard/BetConfirmPopup";
+import { getUserDaiBalance } from "@utils/web3Provider";
 
 // Redux Dependencies
 import {connect} from "react-redux";
@@ -106,12 +107,12 @@ const BetslipSideDrawer = (props) => {
 
     //Helper function for setting max bet
     const setMaxBet = () => {
-        let gamesInBetSlip = props.betSlip.betSlipOutcomeArray;
-        if(gamesInBetSlip.length == 0)
-            return;
-        let balance = props.user.balance;
-        let betEachGame = (Number(balance) / Number(gamesInBetSlip.length)).toFixed(2);
-        setBetInputQuery(betEachGame)
+        // let gamesInBetSlip = props.betSlip.betSlipOutcomeArray;
+        // if(gamesInBetSlip.length == 0)
+        //     return;
+        // let balance = props.user.balance;
+        // let betEachGame = (Number(balance) / Number(gamesInBetSlip.length)).toFixed(2);
+        // setBetInputQuery(betEachGame)
     }
 
     const setBet = (value) =>{
@@ -142,7 +143,11 @@ const BetslipSideDrawer = (props) => {
         {
             setBetTime(new Date().toISOString());
             setConfirmBetModalOpen(true);
+
         }
+        if(props.user.hasProvider && props.user.web3){
+            getUserDaiBalance(props.user.web3,props.user.userAddress);
+          }
     }
 
 
@@ -205,13 +210,14 @@ const BetslipSideDrawer = (props) => {
                         if ( typeof(betInputQuery[matchId]) === "undefined" || betInputQuery[matchId] === null ) {
                             setBetInputQuery({
                                 ...betInputQuery,
-                                [matchId]:30.00
+                                [matchId]:Number(30).toFixed(2)
                             })
                         }
                         let possiblePayOut = (Number(winningOdds) * Number(betInputQuery[matchId])).toFixed(2);
                         totalPossiblePayoutDict = {...totalPossiblePayoutDict,[matchId]:possiblePayOut}
                         orderReceiptArr.push(
                             {
+                                match_id: matchId,
                                 game_time : props.odds.oddsDict[matchId]['timestamp'],
                                 game : `${props.odds.oddsDict[matchId]['match'][0]} vs. ${props.odds.oddsDict[matchId]['match'][1]}`,
                                 bet : displayOutcome,

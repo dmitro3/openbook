@@ -113,6 +113,20 @@ export const makeBet = async (id, pick, amount) => {
     return true
 }
 
+export const getUserDaiBalance = async (web3,userAddress) =>{
+    try{
+        let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+        let balanceInWei = await dai_contract.methods.balanceOf(userAddress).call()
+        let balanceInEther = web3.utils.fromWei(balanceInWei,'ether')
+        balanceInEther = Number(balanceInEther).toFixed(2)
+        store.dispatch(setBalance(balanceInEther))
+    }
+    catch(e){
+        console.error("Can not get balance")
+        console.error(e)
+    }
+}
+
 const requestMetaMask = async () => {
     try{
             const provider = await detectEthereumProvider();
@@ -126,7 +140,6 @@ const requestMetaMask = async () => {
                 alert("MetaMask not detected")
                 return
             }
-            await provider.request({method:"eth_requestAccounts"})
             let accounts = await web3.eth.getAccounts()
             if(accounts.length != 0){
                 let userAddress = accounts[0];
@@ -138,16 +151,15 @@ const requestMetaMask = async () => {
                     store.dispatch(setPreferUsernameFlag(userAddress));
                     store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
                 }
-                let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
-                let balanceInWei = await dai_contract.methods.balanceOf(userAddress).call()
-                let balanceInEther = web3.utils.fromWei(balanceInWei,'ether')
-                balanceInEther = Number(balanceInEther).toFixed(2)
-                store.dispatch(setBalance(balanceInEther))
+                getUserDaiBalance(web3,userAddress);
             }   
-    }catch{
+    }catch(e){
         console.error("Can not retrieve account")
+        console.error(e)
     }
 }
+
+
 
 export const disconnectMetaMask  = () => {
     store.dispatch(logOut());
@@ -170,11 +182,7 @@ export const switchAccount = async () => {
             store.dispatch(setPreferUsernameFlag(userAddress));
             store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
         }     
-        let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
-        let balanceInWei = await dai_contract.methods.balanceOf(userAddress).call()
-        let balanceInEther = web3.utils.fromWei(balanceInWei,'ether')
-        balanceInEther = Number(balanceInEther).toFixed(2)
-        store.dispatch(setBalance(balanceInEther))
+        getUserDaiBalance(web3,userAddress);
     }
 }
 
