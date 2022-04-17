@@ -11,7 +11,7 @@ contract Bet is ERC1155{
         int8 betIndex; //0,1,2,3. What outcome the user chose
         uint128 bet_amount;         // the amount gambled by the user
         uint128 to_win; //the amount user can win
-        uint8 status; //0 means pending, 1 means canceled, 2 means won, 3 means lost
+        uint8 status; //0 means pending, 1 means settled, 2 means canceled
     }
 
     /// The ID of the next token that will be minted. Skips 0
