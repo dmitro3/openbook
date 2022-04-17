@@ -125,7 +125,6 @@ export const makeBet = async (ids, picks, amounts) => {
     let sum = 0
     let newAmts = []
 
-    alert(amounts)
 
     for (let i = 0; i < amounts.length; i++) 
     {

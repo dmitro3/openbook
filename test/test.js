@@ -14,6 +14,7 @@ describe('Contract tests', () => {
     let owner;
     let liq;
     let bet;
+    let market;
 
     let DAI;
     let USER_DAI;
@@ -31,14 +32,15 @@ describe('Contract tests', () => {
         bet = await Bet.deploy(DAI_ADDY);
         await bet.deployed();  
 
-        const OpenBook = await ethers.getContractFactory("OpenBook");
-        obook = await OpenBook.deploy(1, 2);
-        await obook.deployed();  
+        const Market = await ethers.getContractFactory("Market");
+        market = await Market.deploy(1, 2);
+        await market.deployed();  
 
 
         console.log("Liquidity Contract Deployed at " + liq.address);
         console.log("Bet Contract Deployed at " + bet.address);
-        console.log("OpenBook Contract Deployed at " + obook.address);
+        console.log("Market Contract Deployed at " + market.address);
+
 
         //Transfer from a whale to our account to run tests
         const whale_signer = await ethers.provider.getSigner(WHALE_ADDY);
@@ -111,7 +113,7 @@ describe('Contract tests', () => {
             }
         }
 
-        await obook.startMarkets(matchTimestamp, names, match_details, bets, odds)
+        await market.startMarkets(matchTimestamp, names, match_details, bets, odds)
 
         //10^-9 * 4493659 * 55 * 2 = 0.5$ for polygon
 
