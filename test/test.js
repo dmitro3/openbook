@@ -32,7 +32,7 @@ describe('Contract tests', () => {
         bet = await Bet.deploy(DAI_ADDY);
         await bet.deployed();  
 
-        const Market = await ethers.getContractFactory("Market");
+        const Market = await ethers.getContractFactory("Markets");
         market = await Market.deploy(1, 2);
         await market.deployed();  
 
