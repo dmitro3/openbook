@@ -5,6 +5,10 @@ import {connect} from "react-redux";
 import {useState,useEffect} from 'react';
 import {useRouter} from 'next/router';
 import MatchCard from "@components/Dashboard/MatchCard";
+import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal";
+import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
+
+import { setBetSlipOpen } from "@actions/settingsActions";
 
 const Favorite = (props) => 
 {  
@@ -59,6 +63,8 @@ const Favorite = (props) =>
                 }
                 </Grid>     
             </Container>
+            <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />
+            <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
         </Box>
     </>
     )
@@ -67,13 +73,16 @@ const Favorite = (props) =>
 const mapStateToProps = (state) => {
     return {
         favoriteMatch: state.favoriteMatch,
-        odds: state.odds
+        odds: state.odds,
+        settings: state.settings
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        setBetSlipOpen: (isBetSlipOpen) => {
+            dispatch(setBetSlipOpen(isBetSlipOpen));
+          },
     };
 };
 

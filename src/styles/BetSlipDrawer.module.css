@@ -92,7 +92,7 @@
     background-color:white;
     position:fixed;
     height:auto;
-    max-height: 1000px;
+    max-height: 1300px;
     border-radius: 4px;
     //overflow:hidden;
     top: 128px;
@@ -178,7 +178,7 @@
 }
 
 .betSlipSelectedMatchBox{
-    max-height:400px;
+    max-height:600px;
     overflow:overlay;
 }
 
