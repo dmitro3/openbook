@@ -85,17 +85,35 @@ describe('Contract tests', () => {
 
     it("Create Matches", async function () {
         let data = require('../odds.json');
+        var matchTimestamp = []
+        var names = []
+        var match_details = []
+        var bets = []
+        var odds = []
+
         for (sport in data){
-            for (sport in data){
-                for (league in data[sport])
-                {
-                    for (var match of data[sport][league])
-                    {
-                        console.log(toTimestamp(match['timestamp']), match['match'], sport, league, Object.keys(match['outcomes']), Object.values(match['outcomes']), match['id'])
-                    }
+            for (league in data[sport]){
+                for (var match of data[sport][league]){
+                    matchTimestamp.push(toTimestamp(match['timestamp']))
+                    names.push(match['match'])
+                    match_details.push([sport, league])
+                    bets.push(Object.keys(match['outcomes']))
+                    
+                    curr_odds = Object.values(match['outcomes'])
+
+                    let new_odds = []
+
+                    for (var odd of curr_odds)
+                        new_odds.push(parseInt(odd * 1000))
+                    
+                    odds.push(new_odds)
                 }
             }
         }
+
+        await obook.startMarkets(matchTimestamp, names, match_details, bets, odds)
+
+        //10^-9 * 4493659 * 55 * 2 = 0.5$ for polygon
 
     })
 

@@ -44,6 +44,7 @@
     "flatted": "^3.2.5",
     "formik": "^2.1.5",
     "hardhat-abi-exporter": "^2.8.0",
+    "hardhat-gas-reporter": "^1.0.8",
     "hardhat-interface-generator": "^0.0.6",
     "history": "^5.0.0",
     "kute.js": "^2.2.2",

@@ -4,14 +4,10 @@ contract OpenBook{
     uint256 public protocolFee;
     uint256 public LPFee;
 
-    event MarketCreated(uint256 id, string[] names, uint256[] initialOdds);
-
-
     struct Market {
         uint256 matchTimestamp;
         string[] names;
-        string sport;
-        string league;
+        string[] match_details;
         int8 winnerIndex;
         uint256 protocolFee;
         uint256 LPFee;
@@ -43,29 +39,23 @@ contract OpenBook{
         return msg.sender;
     }
 
-    //startMarket needs to be an array
-
-    function startMarket(uint256 _matchTimestamp, string[] memory _names, string memory sport, string memory league, string[] memory _bets, uint256[] memory _odds) internal returns (uint256 _marketId) {
-        _marketId = markets.length;
-
-        markets.push(
-            Market(
-                _matchTimestamp,
-                _names,
-                sport,
-                league,
-                -1,
-                protocolFee,
-                LPFee,
-                block.timestamp,
-                _bets,
-                _odds,
-                true
-            )
-        );
-
-        emit MarketCreated(_marketId, _names, _odds);
-
-        return _marketId;
+    function startMarkets(uint256[] calldata _matchTimestamps, string[][] calldata _names, string[][] calldata _match_details, string[][] calldata _bets, uint256[][] calldata _odds) public {
+        
+        for (uint i = 0; i< _matchTimestamps.length; i++){
+            markets.push(
+                Market(
+                    _matchTimestamps[i],
+                    _names[i],
+                    _match_details[i],
+                    -1,
+                    protocolFee,
+                    LPFee,
+                    block.timestamp,
+                    _bets[i],
+                    _odds[i],
+                    true
+                )
+            );
+        }
     }
 }

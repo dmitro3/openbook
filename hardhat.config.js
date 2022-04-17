@@ -1,6 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 require('hardhat-abi-exporter');
 require("hardhat-interface-generator");
+require("hardhat-gas-reporter");
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -20,5 +21,21 @@ module.exports = {
         url: "https://eth-mainnet.alchemyapi.io/v2/zzdikT2BoUCO8gxk57lf8_NqFQ0MnUG7"
       }
     }
+  },
+  settings: {
+    optimizer: {
+      enabled: true,
+      runs: 200,
+      details: {
+        yul: false
+      }
+    }
+  },
+  mocha: {
+    timeout: 90000
+  },
+  gasReporter: {
+    currency: 'USD',
+    gasPrice: 21
   }
 };
