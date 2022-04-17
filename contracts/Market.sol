@@ -1,6 +1,6 @@
 pragma solidity ^0.8.0;
 
-contract OpenBook{
+contract Market{
     uint256 public protocolFee;
     uint256 public LPFee;
 
