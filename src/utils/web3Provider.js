@@ -93,8 +93,8 @@ export const makeBet = async (ids, picks, amounts) => {
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
     
-    sum = 0
-    newAmts = []
+    let sum = 0
+    let newAmts = []
 
     for (var amount in amounts)
     {
