@@ -47,6 +47,11 @@ const decimal_to_prob_obj = (outcomeObject) => {
 
 
 export const getOdds = () =>{
+
+    
+
+    
+
     let data = require('@root/odds.json');
     store.dispatch(setUnFormattedOdds(data));
 

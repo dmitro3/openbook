@@ -35,7 +35,7 @@ contract Markets{
 
         for (uint i=0; i<marketIds.length; i++)
         {
-            delete markets[marketIds[i]];
+            delete market_ids[marketIds[i]];
         }
 
     }

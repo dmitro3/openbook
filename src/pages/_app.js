@@ -9,6 +9,7 @@ import { Loader } from "@components/Dashboard/Loader";
 import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
 import Script from "next/script"
+import {getMatches} from "@utils/web3Provider";
 
 // New redux dependencies
 import { Provider } from "react-redux";
@@ -25,6 +26,42 @@ const App = (props) => {
 
   const getLayout = Component.getLayout ?? ((page) => page);
   
+
+  async function fetchData() {
+      let odds = {}
+      let [matches, ids] = await getMatches()
+      let i = 0;
+      for (const match of matches)
+      {
+        if (!(match[2][0] in odds))
+          odds[match[2][0]] = {}
+
+        if (!(match[2][1] in odds[match[2][0]]))
+          odds[match[2][0]][match[2][1]] = {}
+
+          odds[match[2][0]][match[2][1]]['timestamp'] = new Date(match[0]* 1000)
+          odds[match[2][0]][match[2][1]]['id'] = ids[i]
+          odds[match[2][0]][match[2][1]]['match'] = match[1]
+
+          //7 and 8
+          let outcome = {}
+
+          for (var j =0; j< match.length; j++)
+          {
+            outcome[match[7][j]] = parseInt(match[8][j])/1000
+
+          }
+
+          odds[match[2][0]][match[2][1]]['outcomes'] = outcome
+          i = i + 1
+      }
+
+      console.log(odds)
+  }
+
+  fetchData();
+
+
   useEffect(()=>{
     getOdds();
   },[])

@@ -1,6 +1,6 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
-const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, DAI_ABI, DAI_ADDY} = require("../config")
+const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, MARKET_ABI, MARKET_ADDY, DAI_ABI, DAI_ADDY} = require("../config")
 const {MaxUint256} = require("@ethersproject/constants");
 
 //redux
@@ -85,7 +85,6 @@ export const addLiquidity = async (amount) => {
 }
 
 export const getMyBets = async() => {
-    console.log("Getting Bets");
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let account = await web3.eth.getAccounts()
@@ -113,7 +112,23 @@ export const getMyBets = async() => {
 
     
     return new_bets
+}
 
+export const getMatches = async () => {
+    let web3 = store.getState().user.web3;
+    let contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
+    let account = await web3.eth.getAccounts()
+    let userAddress = account[0];
+
+    let matches = await contract.methods.getAllMarkets().call()
+    let all_matches = []
+
+    for (const match of matches) {
+        let match_detail = await contract.methods.marketDetailsById(match).call()
+        all_matches.push(match_detail)
+    }
+
+    return [all_matches, matches]
 }
 
 export const makeBet = async (ids, picks, amounts) => {
