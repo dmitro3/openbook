@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Tab,
   Tabs,
@@ -81,6 +81,10 @@ export const Staking = (props) => {
     const res2 = await getUserLiquidity();
     setUserStakeValue(res2 + " DAI");
   }
+
+  useEffect(() => {
+    console.log("use effect ran")
+  });
 
 
   const [userStakeValue, setUserStakeValue] = useState("$0");

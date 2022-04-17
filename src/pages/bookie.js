@@ -18,7 +18,7 @@ import { Staking } from "@components/Bookie/Staking";
 import { MyStake } from "@components/Bookie/MyStake";
 
 const BookieHomepage = (props) => {
-  const [bookieTabsValue, setBookieTabsValue] = useState(1);
+  const [bookieTabsValue, setBookieTabsValue] = useState("staking");
   const handleBookieTabsChange = (event, newValue) => {
     setBookieTabsValue(newValue);
   };
@@ -44,9 +44,8 @@ const BookieHomepage = (props) => {
             centered
             variant="fullWidth"
           >
-            <Tab value="overview" label="Overview" />
             <Tab value="staking" label="Staking" />
-            <Tab value="my-stake" label="My Stake" />
+            <Tab value="overview" label="Overview" />
           </Tabs>
         </Box>
 

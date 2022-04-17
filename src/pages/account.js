@@ -12,7 +12,7 @@ import {connect} from "react-redux";
 
 const Account = (props) => 
 {  
-    const [tabState, setTabState] = useState("overview");
+    const [tabState, setTabState] = useState("unsettled");
 
     const handleChange = (event, newValue) => {
         setTabState(newValue);
@@ -25,9 +25,9 @@ const Account = (props) =>
             <Box sx={{py:'25px',px:'50px',width:'95%',minHeight:'1000px'}}>
                 <Box sx={{ width: '100%', backgroundColor: 'var(--background-default)',py:"20px"  }}>
                     <Tabs value={tabState} onChange={(event,newValue)=>handleChange(event,newValue)} centered variant="fullWidth">
+                    <Tab value="unsettled" label="My Bets" />
                     <Tab value="overview" label="Overview" />
-                    <Tab value="unsettled" label="Unsettled Bets" />
-                    <Tab value="settled" label="Settled Bets" />
+                    {/* <Tab value="settled" label="Settled Bets" /> */}
                     </Tabs>
                 </Box>
 

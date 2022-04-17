@@ -1,6 +1,7 @@
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import MUIDataTable from "mui-datatables";
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
+import { getMyBets } from "@utils/web3Provider";
 
 const columns = [
     {
@@ -86,6 +87,8 @@ const columns = [
      
 
 ];
+
+
 
 const data = [
     { result: "😊",bet_time: "Mar 15, 2022", game_time: "Mar 15, 2022", league: "NBA", game: "Orlando Magic vs Brooklyn Nets",bet:"Orlando Magic",stake:"100",odds:"1.25",return:"125",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>},
