@@ -33,7 +33,7 @@ const bettingZoneitems = [
     title: "Favorite Games",
   },
   {
-    href: "/trending",
+    href: "/parlays",
     icon: <AiOutlineMergeCells/>,
     title: "Parlays",
   }

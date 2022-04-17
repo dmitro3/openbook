@@ -34,7 +34,7 @@ export const MyStake = () => {
   return (
     <>
       <Head>
-        <title>Bookie | OpenEdge</title>
+        <title>Bookie | OpenBook</title>
       </Head>
       <h1 className={styles.bookieHeader}>WITHDRAWL PAGE COMING SOON</h1>
     </>

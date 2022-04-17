@@ -10,7 +10,7 @@ const Dashboard = (props) =>
     return (
     <>
     <Head>
-        <title>Support | OpenEdge</title>
+        <title>Support | OpenBook</title>
     </Head>
         <Box>
             <section className={`${styles.bannerSction}`}>

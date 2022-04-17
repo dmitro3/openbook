@@ -17,7 +17,7 @@ const Dashboard = (props) =>
     return (
     <>
     <Head>
-        <title>Home | OpenEdge</title>
+        <title>Home | OpenBook</title>
     </Head>
         <Box
             component="main"

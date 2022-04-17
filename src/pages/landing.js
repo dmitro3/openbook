@@ -3,6 +3,7 @@ import { Box, Typography, Button } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { LandingFooterDivider } from "@components/Landing/LandingFooterDivider";
+import Head from "next/head";
 
 //Landing Structures
 import { NavBar } from "@components/Landing/NavBar";
@@ -21,6 +22,9 @@ const Dashboard = (props) => {
   const [fiveStepsTabState, setFiveStepsTabState] = useState("bettor");
   return (
     <>
+      <Head>
+          <title>OpenBook | Decentralized Betting Platform</title>
+      </Head>
       <NavBar landingStyles={styles} />
       <HeroBanner styles={styles} />
       <Features styles={styles} />
