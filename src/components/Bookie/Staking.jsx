@@ -92,8 +92,6 @@ export const Staking = (props) => {
 
 
   const [userStakeValue, setUserStakeValue] = useState("0 DAI");
-
-
   const [depositAmountInput, setDepositAmountInput] = useState("0");
 
   return (

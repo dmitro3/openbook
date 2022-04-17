@@ -2,6 +2,8 @@ import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import MUIDataTable from "mui-datatables";
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { getMyBets } from "@utils/web3Provider";
+import { useEffect, useState } from "react";
+
 
 const columns = [
     {
@@ -145,6 +147,19 @@ export const Unsettled = (props) =>{
         }
 
       })
+
+
+      const getBets = async (event, newValue) => {
+        const res = await getMyBets();
+        console.log(res)
+      }
+
+      useEffect(async () => {
+          await getBets("", "")
+      },[]);
+
+
+      
 
     return (
         <ThemeProvider theme={getMuiTheme()}>

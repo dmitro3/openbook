@@ -22,7 +22,6 @@ export const checkWeb3 =  async () => {
         console.error("Please install MetaMask")
         return false;
     }
-    
 }
 
 export const connectMetaMask = async () =>{
@@ -88,6 +87,32 @@ export const addLiquidity = async (amount) => {
 export const getMyBets = async() => {
     console.log("Getting Bets");
     let web3 = store.getState().user.web3;
+    let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+    let account = await web3.eth.getAccounts()
+    let userAddress = account[0];
+
+    let bets = await contract.methods.getAllBets().call()
+    let new_bets = []
+
+    for (const bet of bets) {
+        let bet_detail = await contract.methods.betDetailsByID(bet).call()
+        
+        if (bet_detail[1] == userAddress)
+        {
+            let res = {}
+            res['bet_time'] = bet_detail[0]
+            res['game'] = bet_detail[2]
+            res['bet'] = bet_detail[3]
+            res['stake'] = web3.utils.fromWei(String(bet_detail[4]), 'ether')
+            res['return'] = web3.utils.fromWei(String(bet_detail[5]), 'ether')
+            res['odds'] = res['stake']/res['return']
+            res['result'] = bet[6]
+            new_bets.push(res)
+        }
+    }
+
+    
+    return new_bets
 
 }
 
