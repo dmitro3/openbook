@@ -6,7 +6,7 @@ const betSlipReducer = (state = {
             case "ADD_BET_SLIP_OUTCOME":
                 let matchID = action.payload.split('/')[0];
                 let re = new RegExp(matchID);
-                let sameMatchExist = state.betSlipOutcomeArray.some(e => re.test(e));
+                let sameMatchExist = state.betSlipOutcomeArray.some(e => re.test(e.split('/')[0]));
                 if(!state.betSlipOutcomeArray.includes(action.payload) && !sameMatchExist){
                     state = {
                         ...state,

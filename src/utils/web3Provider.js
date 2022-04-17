@@ -101,10 +101,6 @@ export const makeBet = async (ids, picks, amounts) => {
         sum = sum + amount;
         newAmts.push(web3.utils.toWei(String(amount), 'ether'))
     }
-    
-    alert(ids)
-    alert(picks)
-    alert(amounts)
 
     let exactAmt = web3.utils.toWei(String(sum), 'ether')
 

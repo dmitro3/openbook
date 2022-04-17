@@ -31,6 +31,6 @@ export const FavoriteButton = (props) => {
 };
 
 FavoriteButton.propTypes = {
-    FaviorteButtonId: PropTypes.string,
+    FaviorteButtonId: PropTypes.any,
     favorited: PropTypes.bool
 };

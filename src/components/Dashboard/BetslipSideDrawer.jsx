@@ -148,14 +148,15 @@ const BetslipSideDrawer = (props) => {
             stakes.push(item.stake)
         })
 
+        console.log(`match ids: ${matchIds}\noutcomes: ${outcomes}\nstakes: ${stakes}`)
         let betResult = await makeBet(matchIds, outcomes, stakes);    
         console.log("bet placed, result ", betResult);
         if(betResult)
         {
             setBetTime(new Date().toISOString());
             setConfirmBetModalOpen(true);
-
         }
+
         // if(props.user.hasProvider && props.user.web3){
         //     getUserDaiBalance(props.user.web3,props.user.userAddress);
         //   }
