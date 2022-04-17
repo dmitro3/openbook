@@ -39,7 +39,7 @@ const Dashboard = (props) =>
     return (
     <>
     <Head>
-        <title>{sport} | {league} | Betting | OpenEdge</title>
+        <title>{sport} | {league} | Betting | OpenBook</title>
     </Head>
         {routerReady ? 
         <Box

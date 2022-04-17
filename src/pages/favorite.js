@@ -19,11 +19,10 @@ const Favorite = (props) =>
 
     const odds =  props.odds.oddsDict;
     const favoriteGames = props.favoriteMatch.favoritedMatchArray;
-    console.log(favoriteGames)
     return (
         <>
         <Head>
-            <title>Favorite Games | OpenEdge</title>
+            <title>Favorite Games | OpenBook</title>
         </Head>
         <Box
             component="main"

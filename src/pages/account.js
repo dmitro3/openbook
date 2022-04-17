@@ -22,7 +22,7 @@ const Account = (props) =>
     return (
         <>  
             <Head>
-                <title>Account | OpenEdge</title>
+                <title>Account | OpenBook</title>
             </Head>
             {props.user.loggedIn?            
             <Box sx={{py:'25px',px:'50px',width:'95%',minHeight:'1000px'}}>

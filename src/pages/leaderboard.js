@@ -14,7 +14,7 @@ const Dashboard = (props) =>
     return (
     <>
     <Head>
-        <title>Leaderboard | OpenEdge</title>
+        <title>Leaderboard | OpenBook</title>
         <style ></style>
     </Head>
     <Box sx={{textAlign:'center',alignItems:'center',alignContent:'center',justifyContent:'center',paddingTop:'50px'}}>
