@@ -1,7 +1,6 @@
 import {Button} from '@mui/material';
 
 export const ConnectButton = (props) => {
-    console.log(props)
     return(
         
     <Button 

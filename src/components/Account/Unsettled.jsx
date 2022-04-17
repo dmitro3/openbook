@@ -92,17 +92,17 @@ const columns = [
 
 
 
-const data = [
-    { result: "😊",bet_time: "Mar 15, 2022", game_time: "Mar 15, 2022", league: "NBA", game: "Orlando Magic vs Brooklyn Nets",bet:"Orlando Magic",stake:"100",odds:"1.25",return:"125",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>},
-    { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>  },
-    { result: "😰",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Sacramento Kings vs Milwaukee Bucks",bet:"Sacramento Kings",stake:"100",odds:"3.96",return:"pending" },
-    { result: "😞",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Golden State Warriors vs Boston Celtics",bet:"Golden State Warriors",stake:"500",odds:"1.74",return:"0" },
-    { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>},
-    { result: "😞",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Golden State Warriors vs Boston Celtics",bet:"Golden State Warriors",stake:"500",odds:"1.74",return:"0" },
-    { result: "😞",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Golden State Warriors vs Boston Celtics",bet:"Golden State Warriors",stake:"500",odds:"1.74",return:"0" },
-    { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>},
-    { result: "😰",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Sacramento Kings vs Milwaukee Bucks",bet:"Sacramento Kings",stake:"100",odds:"3.96",return:"pending" },
-];
+// const data = [
+//     { result: "😊",bet_time: "Mar 15, 2022", game_time: "Mar 15, 2022", league: "NBA", game: "Orlando Magic vs Brooklyn Nets",bet:"Orlando Magic",stake:"100",odds:"1.25",return:"125",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>},
+//     { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>  },
+    // { result: "😰",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Sacramento Kings vs Milwaukee Bucks",bet:"Sacramento Kings",stake:"100",odds:"3.96",return:"pending" },
+    // { result: "😞",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Golden State Warriors vs Boston Celtics",bet:"Golden State Warriors",stake:"500",odds:"1.74",return:"0" },
+    // { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>},
+    // { result: "😞",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Golden State Warriors vs Boston Celtics",bet:"Golden State Warriors",stake:"500",odds:"1.74",return:"0" },
+    // { result: "😞",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Golden State Warriors vs Boston Celtics",bet:"Golden State Warriors",stake:"500",odds:"1.74",return:"0" },
+    // { result: "😊",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Utah Jazz vs Chicago Bulls",bet:"Utah Jazz",stake:"200",odds:"3.25",return:"650",claim_reward:<Button  variant="contained">🏆 Claim Reward</Button>},
+    // { result: "😰",bet_time: "Mar 17, 2022", game_time: "Mar 17, 2022", league: "NBA", game: "Sacramento Kings vs Milwaukee Bucks",bet:"Sacramento Kings",stake:"100",odds:"3.96",return:"pending" },
+// ];
 
 const options = {
     filterType: 'checkbox',
@@ -131,6 +131,7 @@ const options = {
 };
 
 export const Unsettled = (props) =>{
+    const [data,setData] = useState([]);
     
     const getMuiTheme = () => createTheme({
         components: {
@@ -151,12 +152,19 @@ export const Unsettled = (props) =>{
 
       const getBets = async (event, newValue) => {
         const res = await getMyBets();
-        console.log(res)
+        return res;
       }
 
-      useEffect(async () => {
-          await getBets("", "")
-      },[]);
+      useEffect(() => {
+        async function fetchData() {
+          const res = await getBets("", "");
+          res.map((item)=>{
+            return item.bet_time = new Date(item.bet_time*1000).toLocaleString();
+          })
+          setData(res);
+        }
+        fetchData();
+      }, []); // Or [] if effect doesn't need props or state
 
 
       

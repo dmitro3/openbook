@@ -3,14 +3,14 @@ import MUIDataTable from "mui-datatables";
 import { useMemo, useState,useEffect } from "react";
 
 const columns = [
-    {
-     name: "bet_time",
-     label: "Bet Time",
-     options: {
-      filter: false,
-      sort: true,
-     }
-    },
+    // {
+    //  name: "bet_time",
+    //  label: "Bet Time",
+    //  options: {
+    //   filter: false,
+    //   sort: true,
+    //  }
+    // },
     {
      name: "game_time",
      label: "Game Time",
