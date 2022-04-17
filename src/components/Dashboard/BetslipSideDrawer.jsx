@@ -137,7 +137,18 @@ const BetslipSideDrawer = (props) => {
     }
 
     const placeBet = async () =>{
-        let betResult = await makeBet(3, 1, (Object.keys(props.betSlip.betSlipOutcomeArray).length * Number(betInputQuery)).toFixed(2));    
+
+        let matchIds = [];
+        let outcomes = [];
+        let stakes = [];
+
+        orderReceiptArr.map((item)=>{
+            matchIds.push(item.match_id)
+            item.outcome_id == 'X' ? outcomes.push(0) : outcomes.push(Number(item.outcome_id))
+            stakes.push(item.stake)
+        })
+
+        let betResult = await makeBet(matchIds, outcomes, stakes);    
         console.log("bet placed, result ", betResult);
         if(betResult)
         {
@@ -145,9 +156,9 @@ const BetslipSideDrawer = (props) => {
             setConfirmBetModalOpen(true);
 
         }
-        if(props.user.hasProvider && props.user.web3){
-            getUserDaiBalance(props.user.web3,props.user.userAddress);
-          }
+        // if(props.user.hasProvider && props.user.web3){
+        //     getUserDaiBalance(props.user.web3,props.user.userAddress);
+        //   }
     }
 
 
@@ -220,6 +231,7 @@ const BetslipSideDrawer = (props) => {
                                 match_id: matchId,
                                 game_time : props.odds.oddsDict[matchId]['timestamp'],
                                 game : `${props.odds.oddsDict[matchId]['match'][0]} vs. ${props.odds.oddsDict[matchId]['match'][1]}`,
+                                outcome_id: outcomeId,
                                 bet : displayOutcome,
                                 stake : Number(betInputQuery[matchId]),
                                 odds : winningOdds,
