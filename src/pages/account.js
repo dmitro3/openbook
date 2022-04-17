@@ -6,18 +6,22 @@ import {useState} from "react"
 import {Overview} from "@components/Account/Overview";
 import {Unsettled} from "@components/Account/Unsettled";
 import {Settled} from "@components/Account/Settled";
+import {PleaseLogIn} from "@components/Account/PleaseLogIn";
+
+import {connect} from "react-redux";
 
 const Account = (props) => 
 {  
     const [tabState, setTabState] = useState("overview");
 
-
-
     const handleChange = (event, newValue) => {
         setTabState(newValue);
       };
 
+
     return (
+        <>
+            {props.user.loggedIn?            
             <Box sx={{py:'25px',px:'50px',width:'95%',minHeight:'1000px'}}>
                 <Box sx={{ width: '100%', backgroundColor: 'var(--background-default)',py:"20px"  }}>
                     <Tabs value={tabState} onChange={(event,newValue)=>handleChange(event,newValue)} centered variant="fullWidth">
@@ -31,8 +35,23 @@ const Account = (props) =>
                 {tabState == "unsettled" ? <Unsettled/> : void(0)}
                 {tabState == "settled" ? <Settled/> : void(0)}
             </Box>
+            : <PleaseLogIn/>}
+        </>
+
     )
 }
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+    };
+};
 
 Account.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
-export default Account;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Account);
