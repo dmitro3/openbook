@@ -15,7 +15,7 @@ const ParlayPage = () =>{
 
         <Box sx={{display:'flex',justifyContent: "center",marginTop: "200px",marginBottom:'-60px'}}>
             <Typography sx={{fontSize:'40px',fontWeight:'500',textAlign:'center'}}>
-                Paylays coming soon <br/>
+                Parlays coming soon <br/>
                 We are coding as fast as we can
             </Typography>
         </Box>
