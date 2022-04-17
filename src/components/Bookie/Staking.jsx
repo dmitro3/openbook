@@ -72,7 +72,7 @@ const StyledTextField = styled(TextField)({
 
 export const Staking = (props) => {
   const styles = useStyle();
-  const [liqDisplayValue, setLiqDisplayValue] = useState("$379,273");
+  const [liqDisplayValue, setLiqDisplayValue] = useState(['0 DAI']);
 
   const handleLiqChange = async (event, newValue) => {
     const res = await getPoolLiquidity();
@@ -82,12 +82,16 @@ export const Staking = (props) => {
     setUserStakeValue(res2 + " DAI");
   }
 
-  useEffect(() => {
-    console.log("use effect ran")
-  });
 
 
-  const [userStakeValue, setUserStakeValue] = useState("$0");
+  useEffect(async () => {
+    setInterval(async () => {   
+      await handleLiqChange("", "")
+    }, 1000);
+  },[]);
+
+
+  const [userStakeValue, setUserStakeValue] = useState("0 DAI");
 
 
   const [depositAmountInput, setDepositAmountInput] = useState("0");
@@ -163,20 +167,12 @@ export const Staking = (props) => {
           <Box sx={{ display: "flex", width: "100%", marginTop: "1rem" }}>
             <Button
               variant="contained"
-              sx={{ marginLeft: "auto", marginRight: "10px" }}
+              sx={{ marginLeft: "auto", marginRight: "250px" }}
               onClick={() => addLiquidity(depositAmountInput)}
             >
               Stake DAI
             </Button>
-            <Button
-              variant="contained"
-              sx={{ marginRight: "auto", marginLeft: "10px" }}
-              onClick={() => {
-                handleLiqChange();
-              }}
-            >
-              Update Balance
-            </Button>
+
           </Box>
         </Box>
         {/* Right Column */}
