@@ -20,7 +20,10 @@ const Account = (props) =>
 
 
     return (
-        <>
+        <>  
+            <Head>
+                <title>Account | OpenEdge</title>
+            </Head>
             {props.user.loggedIn?            
             <Box sx={{py:'25px',px:'50px',width:'95%',minHeight:'1000px'}}>
                 <Box sx={{ width: '100%', backgroundColor: 'var(--background-default)',py:"20px"  }}>
