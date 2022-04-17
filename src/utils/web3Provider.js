@@ -87,29 +87,36 @@ export const addLiquidity = async (amount) => {
 
 
 
-export const makeBet = async (id, pick, amount) => {
+export const makeBet = async (ids, picks, amounts) => {
     console.log("Making Bet");
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+    
+    sum = 0
+    newAmts = []
 
-    amount = parseInt(amount)
-    let amt = BigInt(10 ** 18) * BigInt(amount)
+    for (var amount in amounts)
+    {
+        sum = sum + amount;
+        newAmts.push(web3.utils.toWei(String(amount), 'ether'))
+    }
+    
+
+    let exactAmt = web3.utils.toWei(String(sum), 'ether')
 
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
 
     let x = await token_contract.methods.allowance(userAddress, BET_ADDY).call()
     
-    if (x < amt)
+    if (x < exactAmt)
     {
         await token_contract.methods.approve(BET_ADDY, MaxUint256).send({from: userAddress})
     }
     
-    let exactAmt = web3.utils.toWei(String(amount), 'ether')
     
-    await contract.methods.createBet(id, pick, exactAmt).send({from: userAddress})
-    console.log('here')
+    await contract.methods.createBets(ids, picks, newAmts).send({from: userAddress})
     return true
 }
 
