@@ -48,7 +48,9 @@ const App = (props) => {
 
           for (var j =0; j< match.length; j++)
           {
-            outcome[match[7][j]] = parseInt(match[8][j])/1000
+
+            if (match[7][j] != null)
+              outcome[match[7][j]] = parseInt(match[8][j])/1000
 
           }
 
