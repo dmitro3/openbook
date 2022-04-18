@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0xCA8Faf128036F26ECEb5c7a8aD50B1079f439599";
-const BET_ADDY = "0x1e98108f86b13f2108466De06F6B6dCe2ab22038";
-const MARKET_ADDY = "0x4e512e8FF1e1A7E19Ad714907F1f53fEA3527695"
+const LIQUIDITY_ADDY = "0xA1D25301D27023ae3A629caCA42Bd1779AdeA409";
+const BET_ADDY = "0xF38E2baF4810042cc9b10A7074f54eAd790e320F";
+const MARKET_ADDY = "0x493E673165564078C58E733Bfc2694DA16A9452c"
 
 let LIQUIDITY_ABI = [
   {
@@ -890,7 +890,7 @@ let BET_ABI = [
   }
 ]
 
-const MARKET_ABI = [
+const MARKET_ABI =[
   {
     "inputs": [
       {
@@ -915,19 +915,6 @@ const MARKET_ABI = [
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -1051,6 +1038,39 @@ const MARKET_ABI = [
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "matchTimestamp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_names",
+        "type": "string[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_match_details",
+        "type": "string[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_bets",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_odds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "startMarket",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256[]",
         "name": "_matchTimestamps",
         "type": "uint256[]"
@@ -1089,6 +1109,7 @@ const MARKET_ABI = [
     "type": "function"
   }
 ]
+
 
 
 
