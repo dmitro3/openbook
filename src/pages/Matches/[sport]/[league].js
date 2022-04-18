@@ -15,7 +15,7 @@ import { setBetSlipOpen } from "@actions/settingsActions";
 const Dashboard = (props) => 
 {
     const [routerReady,setRouterReady] = useState(false);
-    const [league_data,setLeagueData] = useState({});
+    const [league_data,setLeagueData] = useState(null);
 
     const router = useRouter()
 
@@ -40,7 +40,7 @@ const Dashboard = (props) =>
             return
         setLeagueData(props.odds.unformattedOddsDict[sport][league])
         // console.log(props.odds.unformattedOddsDict[sport][league])
-    },[props.odds.isOddsLoading])
+    },[props.odds.isOddsLoading,router.asPath])
 
 
 
@@ -58,7 +58,7 @@ const Dashboard = (props) =>
             display: 'flex'
             }}
         > 
-            {(routerReady && !props.odds.isOddsLoading) ? 
+            {(routerReady && !props.odds.isOddsLoading && league_data) ? 
             <>
                 <SportsBookPage EPL_data={league_data}/>
                 <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />
