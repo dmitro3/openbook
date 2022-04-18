@@ -59,7 +59,7 @@ const App = (props) => {
           game =
           {
             ...game,
-            outcome: outcome
+            outcomes: outcome
           } 
 
           odds[match[2][0]][match[2][1]].push(game)

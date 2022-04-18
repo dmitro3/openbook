@@ -60,7 +60,7 @@ const Dashboard = (props) =>
         > 
             {(routerReady && !props.odds.isOddsLoading) ? 
             <>
-                {/* <SportsBookPage EPL_data={league_data}/> */}
+                <SportsBookPage EPL_data={league_data}/>
                 <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />
                 <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
             </>

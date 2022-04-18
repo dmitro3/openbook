@@ -53,6 +53,7 @@ export const getOdds = (data) =>{
     let all_league_data_array = []
     Object.values(data).map((item,index)=>{
         return Object.values(item).map((item2,index2)=>{
+            // console.log(item2)
             item2.forEach((match)=>{
                 match.outcomesInUS = decimal_to_us_obj(match.outcomes);
                 match.outcomesInProb = decimal_to_prob_obj(match.outcomes);
