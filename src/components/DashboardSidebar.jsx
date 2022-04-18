@@ -19,8 +19,10 @@ import {CustomDivider} from '@components/Dashboard/CustomDivider'
 import {IoTicketOutline} from 'react-icons/io5'
 import {AiOutlineMergeCells} from 'react-icons/ai'
 import { NavItemWithSubItems } from "@components/NavItemWithSubItems";
-import {store} from "store"
 import { TechnicalSupportButton } from "@components/Dashboard/TechnicalSupportButton";
+import { DashBoardSideBarSkeleton } from "./DashBoardSideBarSkeleton";
+import {connect} from "react-redux"
+
 const bettingZoneitems = [
   {
     href: "/featured",
@@ -70,7 +72,7 @@ const mapSportToIcon = (sport) => {
     }
 }
 
-export const DashboardSidebar = (props) => {
+const DashboardSidebar = (props) => {
   const { open, onClose } = props;
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
@@ -78,7 +80,7 @@ export const DashboardSidebar = (props) => {
     noSsr: false,
   });
 
-  let data_entries = Object.entries(store.getState().odds.unformattedOddsDict);
+  let data_entries = Object.entries(props.odds.unformattedOddsDict);
   let sports_arr = []
   let leagues_arr = []
   data_entries.map((item,index)=>{
@@ -162,8 +164,18 @@ export const DashboardSidebar = (props) => {
           ))}
         </Box>
         <CustomDivider/>
-        <Box sx={{ flexGrow: 1 }}>
-          {sportsItems.map((item,index) => (
+        <Box sx={{ flexGrow: 1 }}>{
+            props.odds.isOddsLoading 
+            ? 
+            <>
+            <DashBoardSideBarSkeleton/>
+            <DashBoardSideBarSkeleton/>
+            <DashBoardSideBarSkeleton/>
+            <DashBoardSideBarSkeleton/>
+            <DashBoardSideBarSkeleton/>
+            </>
+            :
+            sportsItems.map((item,index) => (
             <NavItemWithSubItems
               key={index}
               icon={item.icon}
@@ -172,7 +184,10 @@ export const DashboardSidebar = (props) => {
               leagues={item.leagues}
               leagues_length_arr = {item.leagues_length_arr}
             />
-          ))}
+          ))
+          }
+
+
         </Box>
       <TechnicalSupportButton/>
       </Box>
@@ -223,7 +238,20 @@ export const DashboardSidebar = (props) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return{
+      odds: state.odds
+  }
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+  };
+};
+
+
 DashboardSidebar.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool,
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardSidebar);

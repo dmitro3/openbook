@@ -11,3 +11,10 @@ export function setUnFormattedOdds(unformattedOdds){
         payload: unformattedOdds
     }
 }
+
+export function setIsOddsLoadingFalse(){
+    return {
+        type: "SET_IS_ODDS_LOADING_False",
+        payload: ""
+    }
+}

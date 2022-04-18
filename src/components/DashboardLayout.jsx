@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import  DashboardNavbar  from '@components/DashboardNavbar';
-import { DashboardSidebar } from '@components/DashboardSidebar';
+import DashboardSidebar from '@components/DashboardSidebar';
 import { Footer } from './Dashboard/Footer';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({

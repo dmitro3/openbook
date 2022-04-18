@@ -1,5 +1,5 @@
 import {store} from '../store';
-import {setOdds,setUnFormattedOdds} from "@actions/oddsActions";
+import {setOdds,setUnFormattedOdds,setIsOddsLoadingFalse} from "@actions/oddsActions";
 
 const flatten = (curr) => {
     var dict = {};
@@ -62,5 +62,7 @@ export const getOdds = (data) =>{
 
     // console.log(all_league_data_obj)
     store.dispatch(setOdds(all_league_data_obj));
+    console.log("odds done loading")
+    store.dispatch(setIsOddsLoadingFalse());
 }
 

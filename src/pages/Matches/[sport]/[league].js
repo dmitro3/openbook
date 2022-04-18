@@ -41,7 +41,7 @@ const Dashboard = (props) =>
     <Head>
         <title>{sport} | {league} | Betting | OpenBook</title>
     </Head>
-        {routerReady ? 
+        
         <Box
             component="main"
             sx={{
@@ -50,11 +50,15 @@ const Dashboard = (props) =>
             display: 'flex'
             }}
         > 
-            <SportsBookPage EPL_data={league_data}/>
-            <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />
-            <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
+            {(routerReady && !props.odds.isOddsLoading) ? 
+            <>
+                <SportsBookPage EPL_data={league_data}/>
+                <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />
+                <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
+            </>
+            :<SportsBookPageSkeleton/>}
             
-        </Box>:<SportsBookPageSkeleton/>}
+        </Box>
     </>
 )};
 

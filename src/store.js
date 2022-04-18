@@ -60,7 +60,7 @@ export const makeStore = () => {
     const persistedReducer = persistReducer(persistConfig, rootReducer)
     const store = createStore(
         persistedReducer,
-        bindMiddleware([/*logger,*/thunk,promise])
+        bindMiddleware([logger,thunk,promise])
     );
     let persistor = persistStore(store)
     return {persistor,store};

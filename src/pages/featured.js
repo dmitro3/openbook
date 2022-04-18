@@ -7,6 +7,7 @@ import { useState,useEffect} from "react"
 import { FeaturedSportPage } from "@components/Dashboard/FeaturedSportPage";
 import {CustomSwiper} from "@components/Dashboard/CustomSwiper" 
 import { HeroBanner } from "@components/Dashboard/HeroBanner";
+import { SportsBookPageSkeleton } from "@components/Dashboard/SportsBookPageSkeleton";
 
 // Redux Dependencies
 import {connect} from "react-redux"
@@ -22,6 +23,7 @@ const Dashboard = (props) =>
     <Head>
         <title>Home | OpenBook</title>
     </Head>
+        
         <Box
             component="main"
             sx={{px:'10px'}}
@@ -43,18 +45,27 @@ const Dashboard = (props) =>
         <HeroBanner />
         <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />    
         </Box>
-        <Box
-            sx={{
-            py: 3,
-            display: 'flex'
-            }}>
 
-            <FeaturedSportPage isSlipOpened={props.settings.isBetSlipOpen} data={data}/>
-            <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />  
-        </Box>
+            <Box
+                sx={{
+                py: 3,
+                display: 'flex'
+                }}>
+                {
+                    props.odds.isOddsLoading ? 
+                    <SportsBookPageSkeleton/> : 
+                    <>
+                        <FeaturedSportPage isSlipOpened={props.settings.isBetSlipOpen} data={data}/>
+                        <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />  
+                    </>
+                }
+            </Box>    
+
+
         
             <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
-        </Box>
+        </Box> 
+        
     </>
 )};
 
