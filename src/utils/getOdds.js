@@ -46,28 +46,20 @@ const decimal_to_prob_obj = (outcomeObject) => {
 }
 
 
-export const getOdds = () =>{
-
-    
-
-    
-
-    let data = require('@root/odds.json');
+export const getOdds = (data) =>{
+    console.log(data)
     store.dispatch(setUnFormattedOdds(data));
 
     let all_league_data_array = []
     Object.values(data).map((item,index)=>{
         return Object.values(item).map((item2,index2)=>{
-            item2.forEach((match)=>{
-                match.outcomesInUS = decimal_to_us_obj(match.outcomes);
-                match.outcomesInProb = decimal_to_prob_obj(match.outcomes);
-            })
-
-            all_league_data_array.push(flatten(item2))
+            item2.outcomesInUS = decimal_to_us_obj(item2.outcomes);
+            item2.outcomesInProb = decimal_to_prob_obj(item2.outcomes);
+            all_league_data_array.push({[item2.id]:item2})
         })
     })
-    
     let all_league_data_obj = Object.assign({},...all_league_data_array);
+
     // console.log(all_league_data_obj)
     store.dispatch(setOdds(all_league_data_obj));
 }

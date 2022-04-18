@@ -116,14 +116,15 @@ export const getMyBets = async() => {
 
 export const getMatches = async () => {
 
-    let web3  = store.getState().user.web3;
-    if (web3 == null)
-        web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
+    // let web3  = store.getState().user.web3;
+    // if (web3 == null)
+    web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
+
     
     let contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
-
+    
     let matches = await contract.methods.getAllMarkets().call()
     let all_matches = []
 
@@ -131,6 +132,7 @@ export const getMatches = async () => {
         let match_detail = await contract.methods.marketDetailsById(match).call()
         all_matches.push(match_detail)
     }
+
 
     return [all_matches, matches]
 }

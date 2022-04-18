@@ -55,16 +55,17 @@ const App = (props) => {
           odds[match[2][0]][match[2][1]]['outcomes'] = outcome
           i = i + 1
       }
-
-      console.log(odds)
+      return odds;
   }
 
-  fetchData();
 
-
-  useEffect(()=>{
-    getOdds();
-  },[])
+  useEffect(() => {
+    async function asyncUseEffectFunction() {
+      let data = await fetchData();
+      getOdds(data);
+    }
+    asyncUseEffectFunction();
+  }, []);
 
   return (
     <CacheProvider value={emotionCache}>

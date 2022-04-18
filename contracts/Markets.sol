@@ -69,6 +69,7 @@ contract Markets{
                 false
             );
 
+        market_ids.push(currId);
         _nextId++;
 
     }
