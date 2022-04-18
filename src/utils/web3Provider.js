@@ -87,6 +87,9 @@ export const addLiquidity = async (amount) => {
 export const getMyBets = async() => {
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+    let match_contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
+
+
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
 
@@ -98,6 +101,9 @@ export const getMyBets = async() => {
         
         if (bet_detail[1] == userAddress)
         {
+            console.log(bet[2])
+            // let match_details = await match_contract.methods.marketDetailsById(bet[2]).call()
+            // console.log(match_details)
             let res = {}
             res['bet_time'] = bet_detail[0]
             res['game'] = bet_detail[2]
@@ -132,7 +138,6 @@ export const getMatches = async () => {
         let match_detail = await contract.methods.marketDetailsById(match).call()
         all_matches.push(match_detail)
     }
-
 
     return [all_matches, matches]
 }
