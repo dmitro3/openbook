@@ -85,6 +85,25 @@ describe('Contract tests', () => {
         expect(await DAI.balanceOf(liq.address)).to.equal(amt);
     })
 
+    // it("Create Match at a time", async function () {
+    //     let data = require('../odds.json');
+
+    //     for (sport in data){
+    //         for (league in data[sport]){
+    //             for (var match of data[sport][league]){
+    //                 curr_odds = Object.values(match['outcomes'])
+
+    //                 let new_odds = []
+
+    //                 for (var odd of curr_odds)
+    //                     new_odds.push(parseInt(odd * 1000))
+                    
+    //                 await market.startMarket(toTimestamp(match['timestamp']), match['match'], [sport, league], Object.keys(match['outcomes']), new_odds)
+    //             }
+    //         }
+    //     }
+    // })
+
     it("Create Matches", async function () {
         let data = require('../odds.json');
         var matchTimestamp = []
@@ -117,7 +136,7 @@ describe('Contract tests', () => {
 
         //10^-9 * 4493659 * 55 * 2 = 0.5$ for polygon
 
-    })
+    }).timeout(10000);
 
     // it("Make bet", async function () {
     //     amt = 10

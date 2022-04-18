@@ -53,9 +53,27 @@ contract Markets{
         markets[1].odds = [1,2,3];
     }
 
-    function getAddress() public view returns (address){
-        return msg.sender;
+    function startMarket(uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds) public {
+        uint176  currId = _nextId+1;
+
+        markets[currId] = Market(
+                matchTimestamp,
+                _names,
+                _match_details,
+                -1,
+                protocolFee,
+                LPFee,
+                block.timestamp,
+                _bets,
+                _odds,
+                false
+            );
+
+        _nextId++;
+
     }
+    
+
 
     function startMarkets(uint256[] calldata _matchTimestamps, string[][] calldata _names, string[][] calldata _match_details, string[][] calldata _bets, uint256[][] calldata _odds) public {
         
