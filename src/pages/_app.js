@@ -31,17 +31,20 @@ const App = (props) => {
       let odds = {}
       let [matches, ids] = await getMatches()
       let i = 0;
+      // console.log(matches,ids)
       for (const match of matches)
       {
         if (!(match[2][0] in odds))
           odds[match[2][0]] = {}
 
         if (!(match[2][1] in odds[match[2][0]]))
-          odds[match[2][0]][match[2][1]] = {}
+          odds[match[2][0]][match[2][1]] = []
 
-          odds[match[2][0]][match[2][1]]['timestamp'] = new Date(match[0]* 1000)
-          odds[match[2][0]][match[2][1]]['id'] = ids[i]
-          odds[match[2][0]][match[2][1]]['match'] = match[1]
+          let game = {
+            timestamp : new Date(match[0]* 1000),
+            id: ids[i],
+            match: match[1]
+          }
 
           //7 and 8
           let outcome = {}
@@ -51,12 +54,18 @@ const App = (props) => {
 
             if (match[7][j] != null)
               outcome[match[7][j]] = parseInt(match[8][j])/1000
-
           }
 
-          odds[match[2][0]][match[2][1]]['outcomes'] = outcome
+          game =
+          {
+            ...game,
+            outcome: outcome
+          } 
+
+          odds[match[2][0]][match[2][1]].push(game)
           i = i + 1
       }
+      // console.log(odds)
       return odds;
   }
 

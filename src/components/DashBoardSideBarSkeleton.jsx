@@ -23,6 +23,9 @@ export const DashBoardSideBarSkeleton = () => {
             }
           }}>
             <Skeleton variant="text" sx={{  width: "60%", marginLeft: "0px", backgroundColor:'#a9a9a9ad'}} />
+            <Skeleton variant="circular"sx={{  backgroundColor:'#a9a9a9ad',width: "20px",height: "20px",marginLeft:'auto',marginRight:"5px"}}>
+            </Skeleton>
+            
           </Button>
 
     )

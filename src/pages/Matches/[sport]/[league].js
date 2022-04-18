@@ -15,9 +15,9 @@ import { setBetSlipOpen } from "@actions/settingsActions";
 const Dashboard = (props) => 
 {
     const [routerReady,setRouterReady] = useState(false);
+    const [league_data,setLeagueData] = useState({});
 
     const router = useRouter()
-    let data = props.odds.unformattedOddsDict;
 
 
     useEffect(()=>{
@@ -25,16 +25,24 @@ const Dashboard = (props) =>
 
         setRouterReady(true)
     }, [router.isReady]);
-    
-    let league_data = {};
+
+        
+    // let league_data = {};
+    // league_data = data[sport][league]
     let league = null;
     let sport = null;
+    sport = router.query.sport;
+    league = router.query.league;
+;
 
-    if(routerReady){
-        sport = router.query.sport;
-        league = router.query.league;
-        league_data = data[sport][league];
-    }
+    useEffect(()=>{
+        if(props.odds.isOddsLoading)
+            return
+        setLeagueData(props.odds.unformattedOddsDict[sport][league])
+        // console.log(props.odds.unformattedOddsDict[sport][league])
+    },[props.odds.isOddsLoading])
+
+
 
     return (
     <>
@@ -52,7 +60,7 @@ const Dashboard = (props) =>
         > 
             {(routerReady && !props.odds.isOddsLoading) ? 
             <>
-                <SportsBookPage EPL_data={league_data}/>
+                {/* <SportsBookPage EPL_data={league_data}/> */}
                 <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />
                 <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
             </>
