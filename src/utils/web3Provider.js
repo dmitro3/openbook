@@ -32,11 +32,9 @@ export const getPoolLiquidity = async () => {
     let web3 = store.getState().user.web3;
     let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
     let res = await dai_contract.methods.balanceOf(LIQUIDITY_ADDY).call()
-
     let exactAmt = parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
-
+    
     store.dispatch(setPoolLiquidity(exactAmt))
-
 
     return exactAmt;
 }
@@ -79,9 +77,6 @@ export const addLiquidity = async (amount) => {
 
     let exactAmt = web3.utils.toWei(String(amount), 'ether')
     await contract.methods.addLiquidity(exactAmt).send({from: userAddress})
-
-
-
 }
 
 export const getMyBets = async() => {
@@ -102,8 +97,8 @@ export const getMyBets = async() => {
         if (bet_detail[1] == userAddress)
         {
             console.log(bet[2])
-            // let match_details = await match_contract.methods.marketDetailsById(bet[2]).call()
-            // console.log(match_details)
+            let match_details = await match_contract.methods.marketDetailsById(bet[2]).call()
+            console.log(match_details)
             let res = {}
             res['bet_time'] = bet_detail[0]
             res['game'] = bet_detail[2]

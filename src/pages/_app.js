@@ -31,7 +31,6 @@ const App = (props) => {
       let odds = {}
       let [matches, ids] = await getMatches()
       let i = 0;
-      // console.log(matches,ids)
       for (const match of matches)
       {
         if (!(match[2][0] in odds))
@@ -65,7 +64,6 @@ const App = (props) => {
           odds[match[2][0]][match[2][1]].push(game)
           i = i + 1
       }
-      // console.log(odds)
       return odds;
   }
 

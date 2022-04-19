@@ -86,7 +86,7 @@ export const Staking = (props) => {
 
   useEffect(async () => {
     setInterval(async () => {   
-      await handleLiqChange("", "")
+      // await handleLiqChange("", "")
     }, 1000);
   },[]);
 

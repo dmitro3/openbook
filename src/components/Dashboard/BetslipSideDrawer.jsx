@@ -203,7 +203,6 @@ const BetslipSideDrawer = (props) => {
                 <Box className={styles.betSlipSelectedMatchBox}>
                     <List sx={{paddingBottom:'0px'}}>
                     {props.betSlip.betSlipOutcomeArray.map((text, index) => {
-
                         
                         let matchId = text.split('/')[0];
                         let outcomeId = text.split('/')[1];
