@@ -155,17 +155,9 @@ const BetslipSideDrawer = (props) => {
         {
             setBetTime(new Date().toISOString());
             setConfirmBetModalOpen(true);
+            clearAllBets();
         }
-
-        // if(props.user.hasProvider && props.user.web3){
-        //     getUserDaiBalance(props.user.web3,props.user.userAddress);
-        //   }
     }
-
-
-
-
-
 
     const list = (anchor) => (
         <Box
@@ -341,11 +333,13 @@ const BetslipSideDrawer = (props) => {
                 
             </Box>}
         </Box>  
+
+
     );
 
     return (
         <Fragment key={anchor}>
-                {list(anchor)}
+                {props.odds.isOddsLoading ? void(0) : list(anchor)}
         </Fragment>
     );
 }
