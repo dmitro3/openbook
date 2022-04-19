@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0xC62bFaC4Af6b2757f1950152036eB469C22AFeec";
-const BET_ADDY = "0xC5d893F6B35BB604FA4A73635A1b51E2CAee7585";
-const MARKET_ADDY = "0x68e7cCe336Fd63E7551c5B21B5fFA16238261D68"
+const LIQUIDITY_ADDY = "0x6d01c6189b4842c20149faA26a88d19062207713";
+const BET_ADDY = "0xca5Bb2BB47172dEc30D67b416aFdDFd5c79d6070";
+const MARKET_ADDY = "0x6406a3283d44Ccac10C53D3334dE2704367C6BdA"
 
 let LIQUIDITY_ABI = [
   {
@@ -393,12 +393,256 @@ let LIQUIDITY_ABI = [
   }
 ]
 
+let MARKET_ABI = [
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "protocolFee",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_LPFee",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "LPFee",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllMarkets",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getOddsById",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "marketDetailsById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "matchTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string[]",
+            "name": "names",
+            "type": "string[]"
+          },
+          {
+            "internalType": "string[]",
+            "name": "match_details",
+            "type": "string[]"
+          },
+          {
+            "internalType": "int8",
+            "name": "winnerIndex",
+            "type": "int8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "protocolFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "LPFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "creationTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string[]",
+            "name": "bets",
+            "type": "string[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "odds",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "bool",
+            "name": "active",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Markets.Market",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "protocolFee",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "marketIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "winnerIndex",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "settleMarkets",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "matchTimestamp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_names",
+        "type": "string[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_match_details",
+        "type": "string[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_bets",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_odds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "startMarket",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_matchTimestamps",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "string[][]",
+        "name": "_names",
+        "type": "string[][]"
+      },
+      {
+        "internalType": "string[][]",
+        "name": "_match_details",
+        "type": "string[][]"
+      },
+      {
+        "internalType": "string[][]",
+        "name": "_bets",
+        "type": "string[][]"
+      },
+      {
+        "internalType": "uint256[][]",
+        "name": "_odds",
+        "type": "uint256[][]"
+      }
+    ],
+    "name": "startMarkets",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "updateOdds",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
+
 let BET_ABI = [
   {
     "inputs": [
       {
         "internalType": "address",
         "name": "_DAI",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_MARKET_CONTRACT",
         "type": "address"
       }
     ],
@@ -537,6 +781,19 @@ let BET_ABI = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "MARKET_CONTRACT",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -610,9 +867,9 @@ let BET_ABI = [
         "type": "uint80"
       },
       {
-        "internalType": "int8",
+        "internalType": "uint8",
         "name": "",
-        "type": "int8"
+        "type": "uint8"
       },
       {
         "internalType": "uint128",
@@ -620,9 +877,9 @@ let BET_ABI = [
         "type": "uint128"
       },
       {
-        "internalType": "uint128",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint128"
+        "type": "uint256"
       },
       {
         "internalType": "uint8",
@@ -641,9 +898,9 @@ let BET_ABI = [
         "type": "uint80"
       },
       {
-        "internalType": "int8",
+        "internalType": "uint8",
         "name": "betIndex",
-        "type": "int8"
+        "type": "uint8"
       },
       {
         "internalType": "uint128",
@@ -670,9 +927,9 @@ let BET_ABI = [
         "type": "uint80[]"
       },
       {
-        "internalType": "int8[]",
+        "internalType": "uint8[]",
         "name": "betIndexes",
-        "type": "int8[]"
+        "type": "uint8[]"
       },
       {
         "internalType": "uint128[]",
@@ -890,231 +1147,7 @@ let BET_ABI = [
   }
 ]
 
-const MARKET_ABI =[
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "protocolFee",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_LPFee",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "inputs": [],
-    "name": "LPFee",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getAllMarkets",
-    "outputs": [
-      {
-        "internalType": "uint256[]",
-        "name": "",
-        "type": "uint256[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      }
-    ],
-    "name": "marketDetailsById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "matchTimestamp",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string[]",
-            "name": "names",
-            "type": "string[]"
-          },
-          {
-            "internalType": "string[]",
-            "name": "match_details",
-            "type": "string[]"
-          },
-          {
-            "internalType": "int8",
-            "name": "winnerIndex",
-            "type": "int8"
-          },
-          {
-            "internalType": "uint256",
-            "name": "protocolFee",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "LPFee",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "creationTimestamp",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string[]",
-            "name": "bets",
-            "type": "string[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "odds",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "bool",
-            "name": "active",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct Markets.Market",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "protocolFee",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256[]",
-        "name": "marketIds",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "winnerIndex",
-        "type": "uint256[]"
-      }
-    ],
-    "name": "settleMarkets",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "matchTimestamp",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string[]",
-        "name": "_names",
-        "type": "string[]"
-      },
-      {
-        "internalType": "string[]",
-        "name": "_match_details",
-        "type": "string[]"
-      },
-      {
-        "internalType": "string[]",
-        "name": "_bets",
-        "type": "string[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "_odds",
-        "type": "uint256[]"
-      }
-    ],
-    "name": "startMarket",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256[]",
-        "name": "_matchTimestamps",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "string[][]",
-        "name": "_names",
-        "type": "string[][]"
-      },
-      {
-        "internalType": "string[][]",
-        "name": "_match_details",
-        "type": "string[][]"
-      },
-      {
-        "internalType": "string[][]",
-        "name": "_bets",
-        "type": "string[][]"
-      },
-      {
-        "internalType": "uint256[][]",
-        "name": "_odds",
-        "type": "uint256[][]"
-      }
-    ],
-    "name": "startMarkets",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "updateOdds",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
-]
-
-
-
-
 const DAI_ABI = [{ "constant": true, "inputs": [], "name": "name", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "guy", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "src", "type": "address" }, { "name": "dst", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "wad", "type": "uint256" }], "name": "withdraw", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "dst", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "deposit", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "allowance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "payable": true, "stateMutability": "payable", "type": "fallback" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": true, "name": "guy", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": true, "name": "dst", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "dst", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Deposit", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Withdrawal", "type": "event" }];
 const DAI_ADDY = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
-
 
 module.exports = {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, MARKET_ABI, MARKET_ADDY, DAI_ABI, DAI_ADDY}
