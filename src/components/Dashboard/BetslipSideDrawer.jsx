@@ -21,14 +21,16 @@ import {addBetSlipOutcome,removeBetSlipOutcome, removeAllBetSlipOutcomes, setBet
 import {setDisconnected} from "@actions/settingsActions"
 
 
+let globalOrderReceiptArr = [];
+let globalTotalBet = 0;
+let globalTotalPossiblePayout = 0;
+
 const BetslipSideDrawer = (props) => {
     let totalPossiblePayoutDict = {};
     let orderReceiptArr = [];
     let totalBet = 0;
     let totalPossiblePayout = 0;
 
-    // 
-    const [betTime,setBetTime] = useState(new Date().toISOString())
 
 
     /* Delete all matches in slip confirm modal properties */
@@ -46,6 +48,7 @@ const BetslipSideDrawer = (props) => {
 
     // Confirm bets modal properties
     const [confirmBetModalOpen, setConfirmBetModalOpen] = useState(false);
+    const [confirmModalResult,setConfirmModalResult] = useState("LOADING")
     
     const handleconfirmBetModalOpen = () => {
         setConfirmBetModalOpen(true);
@@ -149,13 +152,21 @@ const BetslipSideDrawer = (props) => {
         })
 
         console.log(`match ids: ${matchIds}\noutcomes: ${outcomes}\nstakes: ${stakes}`)
-        let betResult = await makeBet(matchIds, outcomes, stakes);    
+        
+        let betResult = await makeBet(matchIds, outcomes, stakes);  
+        setConfirmBetModalOpen(true);  
         console.log("bet placed, result ", betResult);
         if(betResult)
         {
-            setBetTime(new Date().toISOString());
-            setConfirmBetModalOpen(true);
+            globalOrderReceiptArr = orderReceiptArr;
+            globalTotalPossiblePayout = totalPossiblePayout;
+            globalTotalBet = totalBet;
             clearAllBets();
+            props.removeAllBetSlipOutcomes();
+            setConfirmModalResult("SUCCESS")
+        }
+        else{
+            setConfirmModalResult("FAIL")
         }
     }
 
@@ -329,9 +340,10 @@ const BetslipSideDrawer = (props) => {
                     <ConnectButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}} setDisconnected={props.setDisconnected} connectMetaMask={connectMetaMask}/>
                 }
 
-                <BetConfirmPopup fullScreen={fullScreen} open={confirmBetModalOpen} handleClose={handleconfirmBetModalClose} orderReceiptArr={orderReceiptArr} totalBet={totalBet} totalPossiblePayout={totalPossiblePayout} betTime={betTime}/>
+                
                 
             </Box>}
+            <BetConfirmPopup result={confirmModalResult} fullScreen={fullScreen} open={confirmBetModalOpen} handleClose={handleconfirmBetModalClose} orderReceiptArr={globalOrderReceiptArr} totalBet={globalTotalBet} totalPossiblePayout={globalTotalPossiblePayout}/>
         </Box>  
 
 

@@ -3,6 +3,7 @@ import MUIDataTable from "mui-datatables";
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { getMyBets } from "@utils/web3Provider";
 import { useEffect, useState } from "react";
+import { LoaderSpin } from '@components/Dashboard/LoaderSpin';
 
 
 const columns = [
@@ -132,6 +133,7 @@ const options = {
 
 export const Unsettled = (props) =>{
     const [data,setData] = useState([]);
+    const [loadingData, setLoadingData] = useState(true);
     
     const getMuiTheme = () => createTheme({
         components: {
@@ -159,9 +161,11 @@ export const Unsettled = (props) =>{
         async function fetchData() {
           const res = await getBets("", "");
           res.map((item)=>{
-            return item.bet_time = new Date(item.bet_time*1000).toLocaleString();
+                item.bet_time = new Date(item.bet_time*1000).toLocaleString();
+                item.game_time = new Date(item.game_time*1000).toLocaleString();
           })
           setData(res);
+          setLoadingData(false);
         }
         fetchData();
       }, []); // Or [] if effect doesn't need props or state
@@ -170,13 +174,23 @@ export const Unsettled = (props) =>{
       
 
     return (
-        <ThemeProvider theme={getMuiTheme()}>
-            <MUIDataTable
-                title={"Unsettled Bets"}
-                data={data}
-                columns={columns}
-                options={options}                      
-            />    
-        </ThemeProvider>
+        <>
+        {
+            loadingData 
+            ? 
+            <LoaderSpin/>
+            :
+            <ThemeProvider theme={getMuiTheme()}>
+                <MUIDataTable
+                    title={"Unsettled Bets"}
+                    data={data}
+                    columns={columns}
+                    options={options}                      
+                />    
+            </ThemeProvider>
+        }
+
+        </>
+
     )
 } 
