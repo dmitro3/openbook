@@ -96,17 +96,29 @@ export const getMyBets = async() => {
         
         if (bet_detail[1] == userAddress)
         {
-            console.log(bet[2])
-            let match_details = await match_contract.methods.marketDetailsById(bet[2]).call()
-            console.log(match_details)
+            let match_details = await match_contract.methods.marketDetailsById(bet_detail[2]).call()
+            
+            
+
             let res = {}
             res['bet_time'] = bet_detail[0]
-            res['game'] = bet_detail[2]
-            res['bet'] = bet_detail[3]
+            res['game_time'] = match_details[0]
+            res['league'] = match_details[2][1]
+            res['game'] = match_details[1].join(' vs ')
+            res['bet'] = match_details[1][bet_detail[3]]
             res['stake'] = web3.utils.fromWei(String(bet_detail[4]), 'ether')
             res['return'] = web3.utils.fromWei(String(bet_detail[5]), 'ether')
-            res['odds'] = res['stake']/res['return']
+            res['odds'] = parseFloat(res['return']/res['stake']).toFixed(2);
             res['result'] = bet[6]
+
+            if (match_details[9] == false)
+            {
+                res['result'] = "😰"
+            }
+            else{
+                if (match_details[3] == bet_detail[3])
+                    res['claim_reward'] = '<Button  variant="contained">🏆 Claim Reward</Button>'
+            }
             new_bets.push(res)
         }
     }
