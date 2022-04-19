@@ -9,12 +9,11 @@ import { setBetSlipOpen } from "@actions/settingsActions";
 
 const Dashboard = (props) => 
 {
-    let data = props.odds.unformattedOddsDict.Basketball.NBA;
     
     return (
     <>
     <Head>
-        <title>Leaderboard | OpenBook</title>
+        <title>Leaderboard | OpenEdge</title>
         <style ></style>
     </Head>
     <Box sx={{textAlign:'center',alignItems:'center',alignContent:'center',justifyContent:'center',paddingTop:'50px'}}>
