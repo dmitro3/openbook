@@ -1,5 +1,6 @@
 :root {
 	--background-default: #f3f5f9;
+	--mobile-width: 900px;
   }
 
 .logoStyle {

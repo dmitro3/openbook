@@ -99,7 +99,14 @@
     transition: 0.5s;
     text-align: center;
     padding-bottom:10px;
+    z-index: 999;
 }
+
+/* @media (max-width:900px) {
+    .slip {
+        display: none;
+    }
+  } */
 
 .slip:after{
     content: "";

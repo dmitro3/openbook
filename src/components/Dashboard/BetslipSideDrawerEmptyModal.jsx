@@ -7,14 +7,20 @@ export const BetslipSideDrawerEmptyModal = (props) => {
         props.isSlipOpened ?
         { 
             marginLeft: '365px',
-            transition: '0.5s'
+            transition: '0.5s',
+            ['@media (max-width:900px)']: { // eslint-disable-line no-useless-computed-key
+                display: 'none'
+            }
         }
         :
         {
             marginLeft: '30px',
-            transition: '0.5s'
+            transition: '0.5s',
+            ['@media (max-width:900px)']: { // eslint-disable-line no-useless-computed-key
+                display: 'none'
+            }
         }
-
+        
         }></Box>
     )
 }

@@ -68,10 +68,11 @@ const BetslipSideDrawer = (props) => {
       };
 
     // Opening Slip Properties
-    const anchor = 'right';
+    const anchor = 'bottom';
 
     const [slipState, setSlipState] = useState({
         right: false,
+        bottom: false
       });
     
     const toggleDrawer = (anchor, open) => (event) => {
