@@ -7,12 +7,15 @@ import {useRouter} from 'next/router';
 import MatchCard from "@components/Dashboard/MatchCard";
 import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal";
 import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
+import BottomBetSlipDrawer from "@components/Dashboard/BottomBetSlipDrawer";
+import useWindowDimensions from '@hooks/useWindowDimension';
 
 import { setBetSlipOpen } from "@actions/settingsActions";
 
 const Favorite = (props) => 
 {  
     const [routerReady,setRouterReady] = useState(false);
+    const { height, width } = useWindowDimensions();
     const router = useRouter()
 
     useEffect(()=>{
@@ -64,7 +67,7 @@ const Favorite = (props) =>
                 </Grid>     
             </Container>
             <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />
-            <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
+            { width > 900 ?  <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/> : <BottomBetSlipDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>}
         </Box>
     </>
     )

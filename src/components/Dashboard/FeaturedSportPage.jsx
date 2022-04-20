@@ -1,9 +1,10 @@
 import {Box,Typography} from "@mui/material"
 import CustomSwiperForFeatureRows from "./CustomSwiperForFeatureRows"
-
+import useWindowDimensions from '@hooks/useWindowDimension';
 
 export const FeaturedSportPage = (props) => {
     let data = props.data
+    const { height, width } = useWindowDimensions();
 
     let data_entries = Object.entries(data);
     let sports_arr = []
@@ -20,7 +21,7 @@ export const FeaturedSportPage = (props) => {
     })
 
 return (
-    <Box className={`featured-sport-page ${props.isSlipOpened ? "featured-sport-page-narrow" : "featured-sport-page-full"}`}>
+    <Box className={`featured-sport-page ${(props.isSlipOpened && width>900) ? "featured-sport-page-narrow" : "featured-sport-page-full"}`}>
     
      {Object.entries(featured_data).map((sport_league_entries,index)=>{
         if(sport_league_entries[1].length == 0){

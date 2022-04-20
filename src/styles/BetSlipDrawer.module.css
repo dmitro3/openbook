@@ -102,11 +102,11 @@
     z-index: 999;
 }
 
-/* @media (max-width:900px) {
+@media (max-width:900px) {
     .slip {
         display: none;
     }
-  } */
+  }
 
 .slip:after{
     content: "";

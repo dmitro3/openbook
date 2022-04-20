@@ -180,7 +180,7 @@ const DashboardNavbar = (props) => {
 
 
           <Box sx={{ width: '100%', borderColor: 'divider',
-                  ['@media (max-width:900px)']: { // eslint-disable-line no-useless-computed-key
+                  ['@media (max-width:900px)']: { 
                   width: '60%'
                 }}}>
 
@@ -190,7 +190,7 @@ const DashboardNavbar = (props) => {
               onChange={handleNavigationTabsChange}
               TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
               sx={{
-                ['@media (max-width:900px)']: { // eslint-disable-line no-useless-computed-key
+                ['@media (max-width:900px)']: { 
                   display: 'none'
                 }
               } }
@@ -209,7 +209,7 @@ const DashboardNavbar = (props) => {
               scrollButtons={true}
               TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
               sx={{
-                ['@media (min-width:900px)']: { // eslint-disable-line no-useless-computed-key
+                ['@media (min-width:900px)']: { 
                   display: 'none'
                 }
               } }

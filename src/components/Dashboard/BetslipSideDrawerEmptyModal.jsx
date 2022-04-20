@@ -6,9 +6,9 @@ export const BetslipSideDrawerEmptyModal = (props) => {
         <Box sx={
         props.isSlipOpened ?
         { 
-            marginLeft: '365px',
+            marginLeft: '350px',
             transition: '0.5s',
-            ['@media (max-width:900px)']: { // eslint-disable-line no-useless-computed-key
+            ['@media (max-width:900px)']: { 
                 display: 'none'
             }
         }
@@ -16,7 +16,7 @@ export const BetslipSideDrawerEmptyModal = (props) => {
         {
             marginLeft: '30px',
             transition: '0.5s',
-            ['@media (max-width:900px)']: { // eslint-disable-line no-useless-computed-key
+            ['@media (max-width:900px)']: { 
                 display: 'none'
             }
         }

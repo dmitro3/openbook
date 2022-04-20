@@ -3,10 +3,12 @@ import { Box } from "@mui/material";
 import { DashboardLayout } from "@components/DashboardLayout";
 import { SportsBookPage } from "@components/Dashboard/SportsBookPage";
 import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal";
+import BottomBetSlipDrawer from "@components/Dashboard/BottomBetSlipDrawer";
 import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
-import { useState, useEffect} from "react";
+import { useState, useEffect, useMemo} from "react";
 import {useRouter} from 'next/router';
 import { SportsBookPageSkeleton } from "@components/Dashboard/SportsBookPageSkeleton";
+import useWindowDimensions from '@hooks/useWindowDimension';
 
 // Redux Dependencies
 import {connect} from "react-redux"
@@ -16,6 +18,7 @@ const Dashboard = (props) =>
 {
     const [routerReady,setRouterReady] = useState(false);
     const [league_data,setLeagueData] = useState(null);
+    const { height, width } = useWindowDimensions();
 
     const router = useRouter()
 
@@ -42,8 +45,6 @@ const Dashboard = (props) =>
         // console.log(props.odds.unformattedOddsDict[sport][league])
     },[props.odds.isOddsLoading,router.asPath])
 
-
-
     return (
     <>
     <Head>
@@ -62,7 +63,7 @@ const Dashboard = (props) =>
             <>
                 <SportsBookPage EPL_data={league_data}/>
                 <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />
-                <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
+                { width > 900 ?  <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/> : <BottomBetSlipDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>}
             </>
             :<SportsBookPageSkeleton/>}
             

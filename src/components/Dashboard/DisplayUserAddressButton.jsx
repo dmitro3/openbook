@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 const options = [
     'Settings',
     'Support',
-    'Disconnect Wallet'
+    'Log Out'
   ];
   
 export const DisplayUserAddressButton = (props) => {
@@ -57,13 +57,14 @@ export const DisplayUserAddressButton = (props) => {
             sx={{width:'fit-content',px:'0px',py:'0px',marginLeft:'0px'}}
           >
 
-            <Button sx={{width:"fit-content",fontSize: '15px', color: 'black',whiteSpace: 'nowrap',px:'20px',py:'10px',minWidth:'157px','&:focus':{
-              outline:'none'
-            }}}>
+            <Button sx={{width:"fit-content",fontSize: '15px', color: 'black',whiteSpace: 'nowrap',px:'20px',py:'10px','&:focus':{
+              outline:'none'}}}>
               <Avatar sx={{marginLeft:'10px',width:'50px',height:'50px'}}>
                 <CustomAvatar style={{width:'46px'}} seed={userAddress} avatarStyle={props.preferAvatarStyle}/>
               </Avatar>
-              <Box sx={{marginLeft:'0.8rem'}}>
+              <Box sx={{marginLeft:'0.8rem',['@media (max-width:900px)']: { 
+                  display:'none'
+                }}}>
                 <Typography sx={{fontFamily: "Roboto, sans-serif",fontSize: "1rem",fontWeight: "500",color:'#626972',textAlign:'left'}}>
                   {preferUsername}
                 </Typography>
@@ -71,14 +72,6 @@ export const DisplayUserAddressButton = (props) => {
                 <Typography sx={{"fontSize":"1.15rem","fontWeight":"500","margin":"0 0 0 0"}}>
                 {`${props.balance} DAI`}
                 </Typography>
-                {/* <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" style={{marginTop: "auto",marginBottom: "auto"}}>
-                <g>
-                <title>Layer 1</title>
-                <text strokeWidth="0" fontStyle="normal" fontWeight="normal" xmlSpace="preserve" textAnchor="start" fontFamily="Noto Sans JP" fontSize="20" id="svg_10" y="17.13073" x="3.03905" stroke="#000" fill="#000000">D</text>
-                <line stroke="#000" id="svg_11" y2="8.94542" x2="18.13092" y1="8.77564" x1="2.77132" fill="none"/>
-                <line stroke="#000" id="svg_13" y2="12.57495" x2="18.13092" y1="12.40517" x1="3.02163" fill="none"/>
-                </g>
-                </svg> */}
                 <Typography sx={{"fontSize":"0.875rem","color":"#a3a9b0","margin":"0",ml:'5px'}}>                
                   +1800
                 </Typography>

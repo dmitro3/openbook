@@ -8,6 +8,8 @@ import { FeaturedSportPage } from "@components/Dashboard/FeaturedSportPage";
 import {CustomSwiper} from "@components/Dashboard/CustomSwiper" 
 import { HeroBanner } from "@components/Dashboard/HeroBanner";
 import { SportsBookPageSkeleton } from "@components/Dashboard/SportsBookPageSkeleton";
+import BottomBetSlipDrawer from "@components/Dashboard/BottomBetSlipDrawer";
+import useWindowDimensions from '@hooks/useWindowDimension';
 
 // Redux Dependencies
 import {connect} from "react-redux"
@@ -15,7 +17,8 @@ import { setBetSlipOpen } from "@actions/settingsActions";
 
 const Dashboard = (props) => 
 {
-    const [isSlipOpened, setSlipOpen] = useState(false);
+    const { height, width } = useWindowDimensions();
+
     let data = props.odds.unformattedOddsDict;
 
     return (
@@ -63,7 +66,7 @@ const Dashboard = (props) =>
 
 
         
-            <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>
+            { width > 900 ?  <BetslipSideDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/> : <BottomBetSlipDrawer setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}/>}
         </Box> 
         
     </>
