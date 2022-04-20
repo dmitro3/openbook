@@ -23,3 +23,31 @@ body{
 .feature-page-pictures-swiper{
 	top: 10px !important
 }
+
+::-webkit-scrollbar {
+	width: 20px;
+  }
+
+::-webkit-scrollbar-track {
+background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+background-color: #a0aba9;
+}
+
+::-webkit-scrollbar-thumb {
+background-color: #a0aba9;
+border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+background-color: #a0aba9;
+border-radius: 20px;
+border: 6px solid transparent;
+background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+background-color: #7b8381;
+}

@@ -3,10 +3,10 @@ import {Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle}
 export const DeleteAllMatchesInBetSlipModal = (props) => {
     return (
         <Dialog
-            fullScreen={props.fullScreen}
             open={props.open}
             onClose={props.handleClose}
             aria-labelledby="responsive-dialog-title"
+            maxWidth={"sm"}
             >
                 <DialogTitle id="responsive-dialog-title">
                     {"Clear your betslip?"}
