@@ -111,9 +111,13 @@ contract Bet is ERC1155{
         uint totalWithdraw = 0;
 
         singleBet storage curr_bet = _bets[tokenId];
+        (uint8 winnerIndex, bool active) = IMarkets(MARKET_CONTRACT).getOutcomeByID(tokenId);
+
+
 
         //also check that the market has been resolved
         require(curr_bet.status == 1 && curr_bet.to_win > 0, 'Not cleared');
+        require(curr_bet.betIndex == winnerIndex, "");
 
         delete _bets[tokenId]; 
         delete all_bets[tokenId];

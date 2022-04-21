@@ -11,7 +11,7 @@ contract Markets{
         uint256 matchTimestamp;
         string[] names;
         string[] match_details;
-        int8 winnerIndex;
+        uint8 winnerIndex;
         uint256 protocolFee;
         uint256 LPFee;
         uint256 creationTimestamp;
@@ -52,6 +52,12 @@ contract Markets{
         return markets[id].odds;
     }
 
+    function getOutcomeByID(uint256 id) public view returns (uint8, bool) {
+        return (markets[id].winnerIndex, markets[id].active);
+    }
+
+    
+
     //Update odds
     function updateOdds() public{
         markets[1].odds = [1,2,3];
@@ -64,7 +70,7 @@ contract Markets{
                 matchTimestamp,
                 _names,
                 _match_details,
-                -1,
+                99,
                 protocolFee,
                 LPFee,
                 block.timestamp,
@@ -90,7 +96,7 @@ contract Markets{
                     _matchTimestamps[i],
                     _names[i],
                     _match_details[i],
-                    -1,
+                    99,
                     protocolFee,
                     LPFee,
                     block.timestamp,
