@@ -114,6 +114,7 @@ export const getMyBets = async() => {
             if (match_details[9] == false)
             {
                 res['result'] = "😰"
+                res['claim_reward'] = '⌛ Match Pending'
             }
             else{
                 if (match_details[3] == bet_detail[3])

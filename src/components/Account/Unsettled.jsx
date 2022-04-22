@@ -4,6 +4,7 @@ import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { getMyBets } from "@utils/web3Provider";
 import { useEffect, useState } from "react";
 import { LoaderSpin } from '@components/Dashboard/LoaderSpin';
+import {TresureChest} from "@components/Icons/TresureChest"
 
 
 const columns = [
@@ -180,14 +181,21 @@ export const Unsettled = (props) =>{
             ? 
             <LoaderSpin/>
             :
-            <ThemeProvider theme={getMuiTheme()}>
-                <MUIDataTable
-                    title={"Unsettled Bets"}
-                    data={data}
-                    columns={columns}
-                    options={options}                      
-                />    
-            </ThemeProvider>
+            <Box sx={{display:'flex', alignItems: "center",alignContent: "center",flexDirection:'column'}}>
+            <Box  sx={{display:'flex', width:'fit-content',flexDirection:'column'}}>
+                <ThemeProvider theme={getMuiTheme()}>
+                    <MUIDataTable
+                        title={"Unsettled Bets"}
+                        data={data}
+                        columns={columns}
+                        options={options}                      
+                    />    
+                            </ThemeProvider>
+                    <Button variant="contained" startIcon={<TresureChest />} sx={{marginTop:'10px',width:'fit-content', alignSelf: 'flex-end'}} onClick={()=>console.log("Cliam All Button Clicked")}>
+                        Claim All Rewards
+                    </Button>
+            </Box>
+            </Box>
         }
 
         </>
