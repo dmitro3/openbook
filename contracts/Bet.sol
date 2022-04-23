@@ -2,6 +2,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "./interfaces/IMarkets.sol";
+import "hardhat/console.sol";
 
 contract Bet is ERC1155{
 
@@ -61,6 +62,8 @@ contract Bet is ERC1155{
 
     function createBets(uint80[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts) public returns (uint176[] memory){
         
+        console.log("At top");
+
         uint128 total = 0;
 
         for (uint i=0; i<bet_amounts.length; i++) {
@@ -70,12 +73,19 @@ contract Bet is ERC1155{
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, total));
         require(success, "Cannot transfer DAI");
 
+        console.log("Transferred DAI");
+
+
         uint176[] memory curr_bets = new uint176[](bet_amounts.length);
 
         for (uint i=0; i<bet_amounts.length; i++) {
+           console.log("Getting logs");
+
 
             uint176  currId = _nextId+1;
             uint256[] memory odds = IMarkets(MARKET_CONTRACT).getOddsById(gameIds[i]);
+            console.log("Got market");
+
 
             curr_bets[i] = currId;
 

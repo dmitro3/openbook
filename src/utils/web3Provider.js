@@ -2,9 +2,10 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
 const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, MARKET_ABI, MARKET_ADDY, DAI_ABI, DAI_ADDY} = require("../config")
 const {MaxUint256} = require("@ethersproject/constants");
+var ethers_m = require('ethers');  
 
 //redux
-import {setProvider,setWeb3,setWeb3Loading,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity} from "@actions/userActions";
+import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity} from "@actions/userActions";
 import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
 import {store} from "../store"
 
@@ -26,6 +27,7 @@ export const checkWeb3 =  async () => {
 
 export const connectMetaMask = async () =>{
     store.getState().user.hasProvider ?  requestMetaMask() : console.error("Cannot connect MetaMask, try reload browser!")
+
 } 
 
 export const getPoolLiquidity = async () => {
@@ -200,15 +202,23 @@ const requestMetaMask = async () => {
     try{
             const provider = await detectEthereumProvider();
             const web3 = {}
+            const ethers = {}
+
             if(provider){
                 web3 = new Web3(provider);
                 store.dispatch(setProvider(provider));
                 store.dispatch(setWeb3(web3));
+
+                ethers = new ethers_m.providers.Web3Provider(provider)
+                // store.dispatch(setEthers(ethers));
+
             }
             else{
                 alert("MetaMask not detected")
                 return
             }
+            await ethers.send("eth_requestAccounts", []);
+
             let accounts = await web3.eth.getAccounts()
             if(accounts.length != 0){
                 let userAddress = accounts[0];

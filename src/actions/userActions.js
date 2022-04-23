@@ -19,6 +19,13 @@ export function setWeb3(web3){
     }
 }
 
+export function setEthers(ethers){
+    return {
+        type: "SET_ETHERS",
+        payload: ethers
+    }
+}
+
 export function setProvider(provider){
     return {
         type: "SET_PROVIDER",
