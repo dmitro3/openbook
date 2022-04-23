@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0x3E81a60DFc246adf222B45EE041100411D723f79";
-const BET_ADDY = "0x45e0FBD3314fe2252eedC2d7f776D627918051dD";
-const MARKET_ADDY = "0x118617c5cc37e0eBfa53FC3dF32518A72C4E30E2"
+const LIQUIDITY_ADDY = "0x4d7dF6D839d0aF358f0bF40e2f5337A98eC9A9C7";
+const BET_ADDY = "0x271Bf93f4479b9C845b3234E4e187FcAc6c73712";
+const MARKET_ADDY = "0x80d2DC92cab5f8b8e38ECec5880d9Eea21328B7e"
 
 let LIQUIDITY_ABI = [
   {
@@ -392,6 +392,16 @@ let LIQUIDITY_ABI = [
     "type": "function"
   }
 ]
+
+
+
+
+
+
+
+
+
+
 
 let BET_ABI = [
   {
@@ -907,6 +917,14 @@ let BET_ABI = [
     "type": "function"
   }
 ]
+
+
+
+
+
+
+
+
 
 let MARKET_ABI = [
   {

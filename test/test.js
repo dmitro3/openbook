@@ -1,6 +1,7 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const { DAI_ADDY, WHALE_ADDY, erc20ABI } = require("./config")
+const hre = require("hardhat");
 
 let daiContract = new ethers.Contract(DAI_ADDY,erc20ABI);
 
@@ -20,6 +21,12 @@ describe('Contract tests', () => {
     let USER_DAI;
 
     before('Deploy Contract and Transfer Tokens', async () => {
+
+        await hre.network.provider.request({
+            method: "hardhat_impersonateAccount",
+            params: ["0x2faf487a4414fe77e2327f0bf4ae2a264a776ad2"],
+          });
+          
         //get signer
         [owner] = await ethers.getSigners();
 
@@ -73,6 +80,9 @@ describe('Contract tests', () => {
 
 
     })
+
+
+      
     
 
     it("Add Liquidity", async function () {
