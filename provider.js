@@ -36,7 +36,14 @@ async function perform(){
                     for (var odd of curr_odds)
                         new_odds.push(parseInt(odd * 1000))
                     
-                    await market.methods.startMarket(toTimestamp(match['timestamp']), match['match'], [sport, league], Object.keys(match['outcomes']), new_odds).send({from: account.address, gas: 500000})
+                    let outcome = Object.keys(match['outcomes'])
+                    
+                    let new_outcome = []
+
+                    for (var i=0; i < outcome.length; i++)
+                        new_outcome.push(i)
+
+                    await market.methods.startMarket(toTimestamp(match['timestamp']), match['match'], [sport, league], outcome, new_odds).send({from: account.address, gas: 500000})
                 }
             }
         }

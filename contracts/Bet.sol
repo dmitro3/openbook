@@ -10,7 +10,7 @@ contract Bet is ERC1155{
         uint256 timestamp; //unix timestamp of when the bet was made
         address punter;  // users address
         uint80 gameId; // the ID of the game with which this token is connected
-        uint8 betIndex; //0,1,2,3. What outcome the user chose
+        uint8 betIndex; //0,1,2. What outcome the user chose
         uint128 bet_amount;         // the amount gambled by the user
         uint256 to_win; //the amount user can win
         uint8 status; //0 means pending, 1 means settled, 2 means canceled
@@ -61,9 +61,6 @@ contract Bet is ERC1155{
     }
 
     function createBets(uint80[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts) public returns (uint176[] memory){
-        
-        console.log("At top");
-
         uint128 total = 0;
 
         for (uint i=0; i<bet_amounts.length; i++) {
@@ -73,18 +70,20 @@ contract Bet is ERC1155{
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, total));
         require(success, "Cannot transfer DAI");
 
-        console.log("Transferred DAI");
-
-
         uint176[] memory curr_bets = new uint176[](bet_amounts.length);
 
         for (uint i=0; i<bet_amounts.length; i++) {
-           console.log("Getting logs");
 
 
             uint176  currId = _nextId+1;
             uint256[] memory odds = IMarkets(MARKET_CONTRACT).getOddsById(gameIds[i]);
-            console.log("Got market");
+            // console.log(odds[0]);
+            // console.log(odds[1]);
+
+
+            // console.log(betIndexes[i]);
+            // console.log(odds[uint256(betIndexes[i])]);
+            // console.log(bet_amounts[i]);
 
 
             curr_bets[i] = currId;
@@ -99,11 +98,16 @@ contract Bet is ERC1155{
                 status: 0
             });
 
+
             _mint(msg.sender, currId, 1, "");
+            console.log("Mint");
+
             all_bets.push(currId);
+            console.log("Pushed");
+
             _nextId++;
         }
-        
+        console.log("Outside");
         return curr_bets;
     }
 

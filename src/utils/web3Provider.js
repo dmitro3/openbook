@@ -107,7 +107,12 @@ export const getMyBets = async() => {
             res['game_time'] = match_details[0]
             res['league'] = match_details[2][1]
             res['game'] = match_details[1].join(' vs ')
-            res['bet'] = match_details[1][bet_detail[3]]
+            
+            if (bet_detail[3] == '2')
+                res['bet'] = "Draw"
+            else
+                res['bet'] = match_details[1][bet_detail[3]]
+
             res['stake'] = web3.utils.fromWei(String(bet_detail[4]), 'ether')
             res['return'] = web3.utils.fromWei(String(bet_detail[5]), 'ether')
             res['odds'] = parseFloat(res['return']/res['stake']).toFixed(2);
@@ -149,6 +154,8 @@ export const getMatches = async () => {
         all_matches.push(match_detail)
     }
 
+    console.log(all_matches)
+
     return [all_matches, matches]
 }
 
@@ -180,8 +187,20 @@ export const makeBet = async (ids, picks, amounts) => {
         await token_contract.methods.approve(BET_ADDY, MaxUint256).send({from: userAddress})
     }
     
-    await contract.methods.createBets(ids, picks, newAmts).send({from: userAddress})
-    return true
+    let new_picks = []
+    
+    for (var i=0; i < picks.length; i++)
+    {
+        if (picks[i] == '1')
+            new_picks.push(0)
+        else if (picks[i] == '2')
+            new_picks.push(1)
+        else
+            new_picks.push(2)
+    }
+
+
+    await contract.methods.createBets(ids, new_picks, newAmts).send({from: userAddress})
 }
 
 export const getUserDaiBalance = async (web3,userAddress) =>{
@@ -210,7 +229,7 @@ const requestMetaMask = async () => {
                 store.dispatch(setWeb3(web3));
 
                 ethers = new ethers_m.providers.Web3Provider(provider)
-                // store.dispatch(setEthers(ethers));
+                store.dispatch(setEthers(ethers));
 
             }
             else{
