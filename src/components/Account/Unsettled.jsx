@@ -185,7 +185,7 @@ export const Unsettled = (props) =>{
             <Box  sx={{display:'flex', width:'fit-content',flexDirection:'column'}}>
                 <ThemeProvider theme={getMuiTheme()}>
                     <MUIDataTable
-                        title={"Unsettled Bets"}
+                        title={"Bets"}
                         data={data}
                         columns={columns}
                         options={options}                      

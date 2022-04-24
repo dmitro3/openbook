@@ -30,12 +30,12 @@ contract Markets{
     }
 
 
-     //Creates new markets. Resolve current markets
-    function settleMarkets(uint256[] calldata marketIds, uint256[] calldata winnerIndex) public{
+    function settleMarkets(uint256[] calldata marketIds, uint8[] calldata winnerIndex) public{
 
         for (uint i=0; i<marketIds.length; i++)
         {
-            delete market_ids[marketIds[i]];
+            markets[marketIds[i]].active = false;
+            markets[marketIds[i]].winnerIndex = winnerIndex[i];
         }
 
     }

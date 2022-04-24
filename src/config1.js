@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0x4d7dF6D839d0aF358f0bF40e2f5337A98eC9A9C7";
-const BET_ADDY = "0x271Bf93f4479b9C845b3234E4e187FcAc6c73712";
-const MARKET_ADDY = "0x80d2DC92cab5f8b8e38ECec5880d9Eea21328B7e"
+const LIQUIDITY_ADDY = "0xe039608E695D21aB11675EBBA00261A0e750526c";
+const BET_ADDY = "0xe70f935c32dA4dB13e7876795f1e175465e6458e";
+const MARKET_ADDY = "0x071586BA1b380B00B793Cc336fe01106B0BFbE6D"
 
 let LIQUIDITY_ABI = [
   {
@@ -926,6 +926,7 @@ let BET_ABI = [
 
 
 
+
 let MARKET_ABI = [
   {
     "inputs": [
@@ -1104,9 +1105,9 @@ let MARKET_ABI = [
         "type": "uint256[]"
       },
       {
-        "internalType": "uint256[]",
+        "internalType": "uint8[]",
         "name": "winnerIndex",
-        "type": "uint256[]"
+        "type": "uint8[]"
       }
     ],
     "name": "settleMarkets",

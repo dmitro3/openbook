@@ -201,6 +201,7 @@ export const makeBet = async (ids, picks, amounts) => {
 
 
     await contract.methods.createBets(ids, new_picks, newAmts).send({from: userAddress})
+    return true
 }
 
 export const getUserDaiBalance = async (web3,userAddress) =>{

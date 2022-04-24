@@ -156,7 +156,7 @@ contract Bet is ERC1155{
             delete all_bets[tokenIds[i]];
 
             _burn(msg.sender, tokenIds[i], 1);
-            // totalWithdraw = totalWithdraw + 1;
+            totalWithdraw = totalWithdraw + 1; //fix this
         }
 
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, msg.sender, totalWithdraw));
