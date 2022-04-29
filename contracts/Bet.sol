@@ -128,16 +128,31 @@ contract Bet is ERC1155{
         {
             singleBet storage curr_bet = _bets[tokenIds[i]];
 
-            require(curr_bet.status == 1 && curr_bet.to_win > 0, 'Not cleared');
+            uint8 winnerIndex = IMarkets(MARKET_CONTRACT).getOutcomeById(curr_bet.gameId);
+            
+            if (winnerIndex != 99)
+            {
+                require(curr_bet.punter == msg.sender, 'Not you');
 
-            delete _bets[tokenIds[i]]; 
-            delete all_bets[tokenIds[i]];
+                if (curr_bet.betIndex == winnerIndex)
+                {
+                    totalWithdraw = totalWithdraw + curr_bet.to_win;
 
-            _burn(msg.sender, tokenIds[i], 1);
-            totalWithdraw = totalWithdraw + 1; //fix this
+                }
+
+                delete _bets[tokenIds[i]]; 
+                delete all_bets[tokenIds[i]];
+
+                _burn(msg.sender, tokenIds[i], 1);
+            }            
         }
 
-        (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, msg.sender, totalWithdraw));
-        return success;
+        if (totalWithdraw > 0)
+        {
+            (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, msg.sender, totalWithdraw));
+            return success;
+        }
+        
+        return true;
     }
 }

@@ -2,7 +2,9 @@ interface IMarkets {
   function LPFee (  ) external view returns ( uint256 );
   function getAllMarkets (  ) external view returns ( uint256[] memory );
   function getOddsById ( uint256 id ) external view returns ( uint256[] memory );
-  function getOutcomeByID ( uint256 id ) external view returns ( uint8, bool );
+
+  function getOutcomeById ( uint256 ) external view returns ( uint8 );
+
   function protocolFee (  ) external view returns ( uint256 );
   function settleMarkets ( uint256[] calldata marketIds, uint8[] calldata winnerIndex ) external;
   function startMarket ( uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds ) external;

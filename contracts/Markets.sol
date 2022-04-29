@@ -52,8 +52,8 @@ contract Markets{
         return markets[id].odds;
     }
 
-    function getOutcomeByID(uint256 id) public view returns (uint8, bool) {
-        return (markets[id].winnerIndex, markets[id].active);
+    function getOutcomeById(uint256 id) public view returns (uint8) {
+        return markets[id].winnerIndex;
     }
 
     
@@ -76,7 +76,7 @@ contract Markets{
                 block.timestamp,
                 _bets,
                 _odds,
-                false
+                true
             );
 
         market_ids.push(currId);

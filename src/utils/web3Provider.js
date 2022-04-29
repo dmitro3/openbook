@@ -141,6 +141,24 @@ export const getMyBets = async() => {
 }
 
 export const claimBets = async () => {
+    let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+    let account = await web3.eth.getAccounts()
+    let userAddress = account[0];
+
+    let bets = await contract.methods.getAllBets().call()
+    let claims = []
+
+    for (const bet of bets) 
+    {
+        let bet_detail = await contract.methods.betDetailsByID(bet).call()
+            
+        if (bet_detail[1] == userAddress)
+        {
+            claims.push(bet)
+        }
+    }
+
+    console.log(bets)
     
 }
 
@@ -160,13 +178,11 @@ export const getMatches = async () => {
 
     for (const match of matches) {
         let match_detail = await contract.methods.marketDetailsById(match).call()
-
-        if (match_detail[8] == true)
+        if (match_detail[9] == true)
             all_matches.push(match_detail)
     }
 
     console.log(all_matches)
-
     return [all_matches, matches]
 }
 
