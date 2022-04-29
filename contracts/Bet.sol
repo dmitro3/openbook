@@ -2,6 +2,8 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "./interfaces/IMarkets.sol";
+import "./interfaces/ILiquidity.sol";
+
 import "hardhat/console.sol";
 
 contract Bet is ERC1155{
@@ -17,7 +19,7 @@ contract Bet is ERC1155{
     }
 
     address public MARKET_CONTRACT;
-
+    address public LIQUIDITY_CONTRACT;
 
     /// The ID of the next token that will be minted. Skips 0
     uint176 private _nextId = 1;
@@ -28,10 +30,10 @@ contract Bet is ERC1155{
     address public DAI;
 
 
-    constructor(address _DAI, address _MARKET_CONTRACT) public ERC1155(""){
+    constructor(address _DAI, address _MARKET_CONTRACT, address _LIQUIDITY_CONTRACT) public ERC1155(""){
        DAI = _DAI;
        MARKET_CONTRACT = _MARKET_CONTRACT;
-
+       LIQUIDITY_CONTRACT = _LIQUIDITY_CONTRACT;
     }
 
     function createBet(uint80 gameId, uint8 betIndex, uint128 bet_amount) public returns (uint176){
@@ -100,14 +102,11 @@ contract Bet is ERC1155{
 
 
             _mint(msg.sender, currId, 1, "");
-            console.log("Mint");
 
             all_bets.push(currId);
-            console.log("Pushed");
 
             _nextId++;
         }
-        console.log("Outside");
         return curr_bets;
     }
 
@@ -121,36 +120,38 @@ contract Bet is ERC1155{
         return (_bets[id].timestamp, _bets[id].punter, _bets[id].gameId, _bets[id].betIndex, _bets[id].bet_amount, _bets[id].to_win, _bets[id].status);
     }
 
-    function withdrawBets(uint176[] calldata tokenIds) public returns (bool) {
+    function withdrawBets(uint176[] calldata tokenIds, uint256[] calldata indexes) public returns (bool) {
         uint totalWithdraw = 0;
 
         for (uint i=0; i<tokenIds.length; i++)
         {
             singleBet storage curr_bet = _bets[tokenIds[i]];
-
             uint8 winnerIndex = IMarkets(MARKET_CONTRACT).getOutcomeById(curr_bet.gameId);
-            
+
             if (winnerIndex != 99)
             {
                 require(curr_bet.punter == msg.sender, 'Not you');
+                require(all_bets[indexes[i]] == tokenIds[i], "Data modified");
 
                 if (curr_bet.betIndex == winnerIndex)
                 {
                     totalWithdraw = totalWithdraw + curr_bet.to_win;
-
                 }
 
                 delete _bets[tokenIds[i]]; 
-                delete all_bets[tokenIds[i]];
-
+                delete all_bets[indexes[i]];
                 _burn(msg.sender, tokenIds[i], 1);
             }            
         }
 
+        console.log(totalWithdraw);
+
         if (totalWithdraw > 0)
         {
-            (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, msg.sender, totalWithdraw));
-            return success;
+            console.log(msg.sender);
+            bool succ = ILiquidity(LIQUIDITY_CONTRACT).sendWithdrawl(msg.sender, totalWithdraw);
+            require(succ, "Cannot transfer DAI");
+            return succ;
         }
         
         return true;

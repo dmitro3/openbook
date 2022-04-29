@@ -13,5 +13,5 @@ interface IBet {
   function supportsInterface ( bytes4 interfaceId ) external view returns ( bool );
   function uri ( uint256 ) external view returns ( string calldata );
   function withdrawBet ( uint176 tokenId ) external returns ( bool );
-  function withdrawBets ( uint176[] calldata tokenIds ) external returns ( bool );
+  function withdrawBets ( uint176[] calldata tokenIds, uint256[] calldata ) external returns ( bool );
 }

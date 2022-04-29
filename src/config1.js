@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0xe039608E695D21aB11675EBBA00261A0e750526c";
-const BET_ADDY = "0xe70f935c32dA4dB13e7876795f1e175465e6458e";
-const MARKET_ADDY = "0x071586BA1b380B00B793Cc336fe01106B0BFbE6D"
+const LIQUIDITY_ADDY = "0xcD0048A5628B37B8f743cC2FeA18817A29e97270";
+const BET_ADDY = "0x8bEe2037448F096900Fd9affc427d38aE6CC0350";
+const MARKET_ADDY = "0x976C214741b4657bd99DFD38a5c0E3ac5C99D903"
 
 let LIQUIDITY_ABI = [
   {
@@ -881,28 +881,14 @@ let BET_ABI = [
   {
     "inputs": [
       {
-        "internalType": "uint176",
-        "name": "tokenId",
-        "type": "uint176"
-      }
-    ],
-    "name": "withdrawBet",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint176[]",
         "name": "tokenIds",
         "type": "uint176[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "indexes",
+        "type": "uint256[]"
       }
     ],
     "name": "withdrawBets",

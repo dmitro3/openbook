@@ -4,6 +4,7 @@ interface ILiquidity {
   function DAI (  ) external view returns ( address );
   function LIQUIDITY (  ) external view returns ( uint32 );
   function addLiquidity ( uint256 _amount ) external;
+  function sendWithdrawl ( address _receipent, uint256 _amount ) external returns ( bool );
   function balanceOf ( address account, uint256 id ) external view returns ( uint256 );
   function balanceOfBatch(address[] calldata _owners, uint256[] calldata _ids) external view returns (uint256[] memory);
   function getAddress (  ) external view returns ( address );
