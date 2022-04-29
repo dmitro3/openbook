@@ -141,25 +141,40 @@ export const getMyBets = async() => {
 }
 
 export const claimBets = async () => {
+    let web3 = store.getState().user.web3;
+
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let account = await web3.eth.getAccounts()
+    console.log(account)
     let userAddress = account[0];
 
     let bets = await contract.methods.getAllBets().call()
     let claims = []
-
+    let indexes = []
+    let idx = 0
     for (const bet of bets) 
     {
+
         let bet_detail = await contract.methods.betDetailsByID(bet).call()
-            
+
         if (bet_detail[1] == userAddress)
         {
             claims.push(bet)
         }
+
+        indexes.push(idx)
+        idx = idx + 1
     }
 
-    console.log(bets)
+    console.log(claims)
+    console.log(indexes)
     
+    let res = await contract.methods.withdrawBets(claims, indexes).send({from: userAddress})
+    
+    if (res == true)
+    {
+
+    }
 }
 
 export const getMatches = async () => {
