@@ -80,14 +80,7 @@ const columns = [
             sort: true,
         },
      },
-     {
-        name: "claim_reward",
-        label: "claim reward",
-        options: {
-            filter: false,
-            sort: false,
-        }
-     },
+
      
 
 ];

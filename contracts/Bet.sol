@@ -121,28 +121,6 @@ contract Bet is ERC1155{
         return (_bets[id].timestamp, _bets[id].punter, _bets[id].gameId, _bets[id].betIndex, _bets[id].bet_amount, _bets[id].to_win, _bets[id].status);
     }
 
-    function withdrawBet(uint176 tokenId) public returns (bool) {
-        uint totalWithdraw = 0;
-
-        singleBet storage curr_bet = _bets[tokenId];
-        (uint8 winnerIndex, bool active) = IMarkets(MARKET_CONTRACT).getOutcomeByID(tokenId);
-
-
-
-        //also check that the market has been resolved
-        require(curr_bet.status == 1 && curr_bet.to_win > 0, 'Not cleared');
-        require(curr_bet.betIndex == winnerIndex, "");
-
-        delete _bets[tokenId]; 
-        delete all_bets[tokenId];
-
-
-        _burn(msg.sender, tokenId, 1);
-
-        (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, msg.sender, totalWithdraw));
-        return success;
-    }
-
     function withdrawBets(uint176[] calldata tokenIds) public returns (bool) {
         uint totalWithdraw = 0;
 

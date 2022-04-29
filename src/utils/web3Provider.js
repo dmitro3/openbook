@@ -118,14 +118,19 @@ export const getMyBets = async() => {
             res['odds'] = parseFloat(res['return']/res['stake']).toFixed(2);
             res['result'] = bet[6]
 
-            if (match_details[9] == false)
+            if (match_details[9] == true)
             {
                 res['result'] = "😰"
-                res['claim_reward'] = '⌛ Match Pending'
             }
             else{
                 if (match_details[3] == bet_detail[3])
-                    res['claim_reward'] = '<Button  variant="contained">🏆 Claim Reward</Button>'
+                {
+                    res['result'] = "😊"
+                }
+                else
+                {
+                    res['result'] = "😞"
+                }
             }
             new_bets.push(res)
         }
@@ -133,6 +138,10 @@ export const getMyBets = async() => {
 
     
     return new_bets
+}
+
+export const claimBets = async () => {
+    
 }
 
 export const getMatches = async () => {
@@ -151,7 +160,9 @@ export const getMatches = async () => {
 
     for (const match of matches) {
         let match_detail = await contract.methods.marketDetailsById(match).call()
-        all_matches.push(match_detail)
+
+        if (match_detail[8] == true)
+            all_matches.push(match_detail)
     }
 
     console.log(all_matches)
