@@ -13,7 +13,7 @@ import {connectMetaMask} from "@utils/web3Provider";
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 import {makeBet} from "@utils/web3Provider";
 import {BetConfirmPopup} from "@components/Dashboard/BetConfirmPopup";
-import { getUserDaiBalance } from "@utils/web3Provider";
+import { getUserDaiBalance,getBetLimit } from "@utils/web3Provider";
 
 // Redux Dependencies
 import {connect} from "react-redux";
@@ -32,6 +32,7 @@ const BetslipSideDrawer = (props) => {
     let totalPossiblePayout = 0;
 
 
+    const [errorInBetslip, setErrorInBetslip] = useState(false);
 
     /* Delete all matches in slip confirm modal properties */
     const [delteAllModalOpen, setdelteAllModalOpen] = useState(false);
@@ -246,6 +247,10 @@ const BetslipSideDrawer = (props) => {
                             }
                         )
                         totalBet = Object.values(betInputQuery).reduce((accmulator,item)=>{return Number(accmulator) +  Number(item)},0).toFixed(2)
+                        if(!errorInBetslip)
+                            totalBet > getBetLimit() ? setErrorInBetslip(true) : void(0);
+                        if(errorInBetslip)
+                            totalBet < getBetLimit() ? setErrorInBetslip(false) : void(0);
                         
                         totalPossiblePayout = Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)
 
@@ -322,20 +327,24 @@ const BetslipSideDrawer = (props) => {
                 <Box sx={{display:'flex'}}>
                     <Box sx={{"paddingRight":"0.8rem","borderRight":"1px solid #efefef","display":"block","marginLeft":"7%","paddingTop":"10px","marginBottom":"10px","textAlign":"left"}}>
                         <Typography sx={{whiteSpace: 'pre-wrap'}}>Bet Total</Typography>
-                        <Typography sx={{"color":"#e57714","margin":"0","fontSize":"1.35rem"}}>{totalBet} DAI</Typography>
+                        <Typography sx={{"color":"#e57714","margin":"0","fontSize":"1.35rem"}}>{totalBet.toLocaleString()} DAI</Typography>
                     </Box>
 
                     <Box sx={{"display":"block","paddingTop":"10px","paddingLeft":"1rem","textAlign":"left"}}>
                         <Typography sx={{whiteSpace: 'pre-wrap'}}>Possible Winnings</Typography>
-                        <Typography sx={{"color":"#52b49c","margin":"0","fontSize":"1.35rem"}}>{totalPossiblePayout} DAI</Typography>
+                        <Typography sx={{"color":"#52b49c","margin":"0","fontSize":"1.35rem"}}>{totalPossiblePayout.toLocaleString()} DAI</Typography>
                     </Box>
+                </Box>
+
+                <Box sx={{py:'10px', display:`${errorInBetslip ? 'block' : 'none'}`}}>
+                    <Typography sx={{color:"#D14343"}}>{`⚠️ The current bet limit is ${(getBetLimit()).toLocaleString()} DAI`}</Typography>
                 </Box>
 
                 {
                     !props.user.hasProvider ?
                     <InstallMetaMaskButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}}/> :
                     props.user.loggedIn ?
-                    <button className={styles.submitButton} onClick={()=>placeBet()}>
+                    <button className={`${styles.submitButton} ${errorInBetslip ? styles.disableButton : void(0) }`} onClick={()=>placeBet()}>
                         <Typography sx={{fontSize:'25px',fontWeight:'600'}}>Place a Bet</Typography>
                     </button> :
                     <ConnectButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}} setDisconnected={props.setDisconnected} connectMetaMask={connectMetaMask}/>

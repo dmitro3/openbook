@@ -312,6 +312,9 @@ export const switchAccount = async () => {
     }
 }
 
+export const getBetLimit = () => {
+    return 10000;
+}
 
 
 
