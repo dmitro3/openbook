@@ -12,7 +12,7 @@ import {
 import { makeStyles, styled } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
 import { StakingDataCard } from "@components/Bookie/StakingDataCard";
-import { addLiquidity, getPoolLiquidity, getUserLiquidity } from "@utils/web3Provider";
+import { addLiquidity, getPoolLiquidity, getUserLiquidity, getUserHold, removeLiquidity } from "@utils/web3Provider";
 import { DaiIcon } from "@components/Icons/DaiIcon";
 
 const useStyle = makeStyles({
@@ -72,7 +72,6 @@ const StyledTextField = styled(TextField)({
 
 export const Staking = (props) => {
   const styles = useStyle();
-  const [liqDisplayValue, setLiqDisplayValue] = useState(['0 DAI']);
 
   const handleLiqChange = async (event, newValue) => {
     const res = await getPoolLiquidity();
@@ -80,13 +79,21 @@ export const Staking = (props) => {
 
     const res2 = await getUserLiquidity();
     setUserStakeValue(res2 + " DAI");
+
+    const res3 = await getUserHold();
+    setbalanceHoldValue(res3 + " DAI");
+
+    setWithdrawableValue(res2 - res3 + " DAI");    
   }
 
+  const [liqDisplayValue, setLiqDisplayValue] = useState(['0 DAI']);
+  const [balanceHoldValue, setbalanceHoldValue] = useState(['0 DAI']);
+  const [withdrawableValue, setWithdrawableValue] = useState(['0 DAI']);
 
 
   useEffect(async () => {
     setInterval(async () => {   
-      // await handleLiqChange("", "")
+      await handleLiqChange("", "")
     }, 1000);
   },[]);
 
@@ -130,7 +137,7 @@ export const Staking = (props) => {
         >
           <h3 className={styles.stakingHeader}>Staking Menu</h3>
           <Typography className={styles.stakingText}>
-            Input the amount of DAI you want to stake in the OpenBook Liquidity
+            Input the amount of DAI you want to stake or from the OpenBook Liquidity
             Pool
           </Typography>
 
@@ -149,7 +156,7 @@ export const Staking = (props) => {
               value={depositAmountInput}
               id="deposit-input"
               variant="outlined"
-              label="Deposit Amount"
+              label=" Amount"
               type="number"
               InputLabelProps={{
                 shrink: true,
@@ -165,10 +172,18 @@ export const Staking = (props) => {
           <Box sx={{ display: "flex", width: "100%", marginTop: "1rem" }}>
             <Button
               variant="contained"
-              sx={{ marginLeft: "auto", marginRight: "250px" }}
+              sx={{ marginLeft: "auto", marginRight: "125px" }}
               onClick={() => addLiquidity(depositAmountInput)}
             >
               Stake DAI
+            </Button>
+
+            <Button
+              variant="contained"
+              sx={{ marginLeft: "auto", marginRight: "125px" }}
+              onClick={() => addLiquidity(depositAmountInput)}
+            >
+              Remove DAI
             </Button>
 
           </Box>
@@ -193,15 +208,16 @@ export const Staking = (props) => {
             data={userStakeValue}
           />
           <StakingDataCard
-            key="amtToStake"
-            title="Amount to be Staked"
-            data={"$" + depositAmountInput}
+            key="userBalanceHeld"
+            title="Balance on Hold"
+            data={balanceHoldValue}
           />
           <StakingDataCard
-            key="userNewTotalStake"
-            title="My New Total Stake"
-            data={"$" + depositAmountInput}
+            key="amtToStake"
+            title="Withdrawable"
+            data={withdrawableValue}
           />
+          
         </Box>
       </Box>
     </>

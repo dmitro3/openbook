@@ -45,7 +45,6 @@ const BookieHomepage = (props) => {
             variant="fullWidth"
           >
             <Tab value="staking" label="Staking" />
-            <Tab value="my-stake" label="Withdraw" />
             <Tab value="overview" label="Overview" />
           </Tabs>
         </Box>

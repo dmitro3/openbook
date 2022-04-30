@@ -32,7 +32,6 @@ const BetslipSideDrawer = (props) => {
     let totalPossiblePayout = 0;
     let betLimit = getBetLimit(props.betSlip.betSlipOutcomeArray);
 
-
     const [errorInBetslip, setErrorInBetslip] = useState(false);
 
     /* Delete all matches in slip confirm modal properties */

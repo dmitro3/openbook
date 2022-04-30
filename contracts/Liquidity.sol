@@ -32,7 +32,6 @@ contract Liquidity is ERC1155{
     }
 
     function addLiquidity(uint256 _amount)  public {
-
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, _amount));
 
         if (success)
@@ -40,6 +39,10 @@ contract Liquidity is ERC1155{
     }
 
     function removeLiquidity(uint256 _amount)  public {
+
+        //check balanceOf-balanceOnHold greater
+        uint256 balance = this.balanceOf(msg.sender, LIQUIDITY);
+
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, msg.sender, _amount));
 
         if (success)

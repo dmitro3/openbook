@@ -5,7 +5,7 @@ const {MaxUint256} = require("@ethersproject/constants");
 var ethers_m = require('ethers');  
 
 //redux
-import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity} from "@actions/userActions";
+import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity, setbalanceHoldValue} from "@actions/userActions";
 import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
 import {store} from "../store"
 
@@ -56,6 +56,19 @@ export const getUserLiquidity = async () => {
 
     return exactAmt;
 }
+
+export const getUserHold = async () =>{
+    let web3 = store.getState().user.web3;
+    let bet_contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+    let balance = 0;
+
+    let account = await web3.eth.getAccounts()
+
+    let res = await bet_contract.methods.lockedLiquidity().call()
+    let exactAmt =  parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
+
+    return exactAmt;
+}
         
 export const addLiquidity = async (amount) => {
     console.log("Adding liquidity");
@@ -79,6 +92,23 @@ export const addLiquidity = async (amount) => {
 
     let exactAmt = web3.utils.toWei(String(amount), 'ether')
     await contract.methods.addLiquidity(exactAmt).send({from: userAddress})
+}
+
+export const removeLiquidity = async (amount) => {
+    console.log("Removing liquidity");
+    let web3 = store.getState().user.web3;
+    let contract = new web3.eth.Contract(LIQUIDITY_ABI, LIQUIDITY_ADDY);
+    let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+
+    amount = parseInt(amount)
+    let amt = BigInt(10 ** 18) * BigInt(amount)
+    
+
+    let account = await web3.eth.getAccounts()
+    let userAddress = account[0];
+
+    let exactAmt = web3.utils.toWei(String(amount), 'ether')
+    await contract.methods.removeLiquidity(exactAmt).send({from: userAddress})
 }
 
 export const getMyBets = async() => {
@@ -342,7 +372,3 @@ export const getBetLimit = async (ids) => {
     console.log(exactLimit)
     return exactLimit;
 }
-
-
-
-
