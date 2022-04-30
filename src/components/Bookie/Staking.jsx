@@ -101,6 +101,30 @@ export const Staking = (props) => {
   const [userStakeValue, setUserStakeValue] = useState("0 DAI");
   const [depositAmountInput, setDepositAmountInput] = useState("0");
 
+  const [withdrawable,setWithdrawable] = useState(true);
+
+  const stringToNum = (txt) => {
+    if(txt.match){
+      let number = txt.match(/\d/g);
+      number = number.join("");
+      return Number(number)
+    }
+  }
+
+  let depositAmountInputNumber = Number(depositAmountInput);
+  let withdrawableValueNumber = stringToNum(withdrawableValue);
+
+  if(withdrawable){
+    if(depositAmountInputNumber > withdrawableValueNumber){
+      setWithdrawable(false);
+    }
+  }
+  else{
+    if(depositAmountInputNumber <= withdrawableValueNumber){
+      setWithdrawable(true);
+    }
+  }
+
   return (
     <>
       <h1 className={styles.bookieHeader}>Become the Bookie:</h1>
@@ -169,23 +193,39 @@ export const Staking = (props) => {
           </Box>
 
           {/* Buttons box */}
-          <Box sx={{ display: "flex", width: "100%", marginTop: "1rem" }}>
+          <Box sx={{ display: "flex", width: "100%", marginTop: "1rem",justifyContent:'center' }}>
             <Button
               variant="contained"
-              sx={{ marginLeft: "auto", marginRight: "125px" }}
+              sx={{ marginRight: "7px" }}
               onClick={() => addLiquidity(depositAmountInput)}
             >
               Stake DAI
             </Button>
 
+
+
+
             <Button
               variant="contained"
-              sx={{ marginLeft: "auto", marginRight: "125px" }}
+              sx={{ marginLeft: "7px" }}
+              className={withdrawable ? void(0) : "disbaleButton"}
               onClick={() => addLiquidity(depositAmountInput)}
             >
-              Remove DAI
+              Withdraw DAI
             </Button>
+            <style>
+              {`        
+                .disbaleButton{
+                  background-color: #8d8d8d;
+                  cursor: not-allowed;
+                  pointer-events: none;
+                }
+              `}
+            </style>
 
+          </Box>
+          <Box sx={{py:'10px', display:`${withdrawable ? 'none' : 'flex' }`,justifyContent:'center'}}>
+              <Typography sx={{color:"#D14343"}}>{`⚠️ Not enough liquidity for withdraw`}</Typography>
           </Box>
         </Box>
         {/* Right Column */}

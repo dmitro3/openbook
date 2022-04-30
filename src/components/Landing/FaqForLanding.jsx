@@ -29,16 +29,16 @@ export const FaqForLanding = (props) =>{
                 <Box style={{display:'flex',justifyContent:'center'}}>
                     <ul className={`${styles.navBorder}`}>
                         <li>
-                            <button className={`${styles.tabButton} ${tabState == "OpenBook" ? styles.active : void(10)}`} value="OpenBook" onClick={(e)=>handleTabButtonClick(e)}>OpenBook</button>
+                            <button className={`${styles.tabButton} ${tabState == "OpenBook" ? styles.active : void(0)}`} value="OpenBook" onClick={(e)=>handleTabButtonClick(e)}>OpenBook</button>
                         </li>
                         <li >
-                            <button className={`${styles.tabButton} ${tabState == "crypto" ? styles.active : void(10)}`} value="crypto" onClick={(e)=>handleTabButtonClick(e)}>Crypto</button>
+                            <button className={`${styles.tabButton} ${tabState == "crypto" ? styles.active : void(0)}`} value="crypto" onClick={(e)=>handleTabButtonClick(e)}>Crypto</button>
                         </li>
                         <li >
-                            <button className={`${styles.tabButton} ${tabState == "betting" ? styles.active : void(10)}`} value="betting" onClick={(e)=>handleTabButtonClick(e)}>Betting</button>
+                            <button className={`${styles.tabButton} ${tabState == "betting" ? styles.active : void(0)}`} value="betting" onClick={(e)=>handleTabButtonClick(e)}>Betting</button>
                         </li>
                         <li>
-                            <button className={`${styles.tabButton} ${tabState == "bookies" ? styles.active : void(10)}`} value="bookies" onClick={(e)=>handleTabButtonClick(e)}>Bookies</button>
+                            <button className={`${styles.tabButton} ${tabState == "bookies" ? styles.active : void(0)}`} value="bookies" onClick={(e)=>handleTabButtonClick(e)}>Bookies</button>
                         </li>
                     </ul>
                 </Box>
