@@ -30,7 +30,17 @@ const BetslipSideDrawer = (props) => {
     let orderReceiptArr = [];
     let totalBet = 0;
     let totalPossiblePayout = 0;
-    let betLimit = getBetLimit(props.betSlip.betSlipOutcomeArray);
+
+    const [betLimit,setBetLimit] = useState(1000);
+
+    useEffect(() => {
+        async function getBetLimitFromWeb3() {
+          let limit = await getBetLimit(props.betSlip.betSlipOutcomeArray);
+          setBetLimit(limit);
+        }
+        getBetLimitFromWeb3();
+      }, [props.betSlip.betSlipOutcomeArray]); 
+    
 
     const [errorInBetslip, setErrorInBetslip] = useState(false);
 
@@ -247,8 +257,9 @@ const BetslipSideDrawer = (props) => {
                             }
                         )
                         totalBet = Object.values(betInputQuery).reduce((accmulator,item)=>{return Number(accmulator) +  Number(item)},0).toFixed(2)
+                        
                         if(!errorInBetslip)
-                            totalBet > betLimit ? setErrorInBetslip(true) : void(0);
+                            totalBet >= betLimit ? setErrorInBetslip(true) : void(0);
                         if(errorInBetslip)
                             totalBet < betLimit ? setErrorInBetslip(false) : void(0);
                         
