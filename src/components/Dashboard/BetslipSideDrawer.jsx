@@ -30,6 +30,7 @@ const BetslipSideDrawer = (props) => {
     let orderReceiptArr = [];
     let totalBet = 0;
     let totalPossiblePayout = 0;
+    let betLimit = getBetLimit(props.betSlip.betSlipOutcomeArray);
 
 
     const [errorInBetslip, setErrorInBetslip] = useState(false);
@@ -248,9 +249,9 @@ const BetslipSideDrawer = (props) => {
                         )
                         totalBet = Object.values(betInputQuery).reduce((accmulator,item)=>{return Number(accmulator) +  Number(item)},0).toFixed(2)
                         if(!errorInBetslip)
-                            totalBet > getBetLimit() ? setErrorInBetslip(true) : void(0);
+                            totalBet > betLimit ? setErrorInBetslip(true) : void(0);
                         if(errorInBetslip)
-                            totalBet < getBetLimit() ? setErrorInBetslip(false) : void(0);
+                            totalBet < betLimit ? setErrorInBetslip(false) : void(0);
                         
                         totalPossiblePayout = Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)
 
@@ -337,7 +338,7 @@ const BetslipSideDrawer = (props) => {
                 </Box>
 
                 <Box sx={{py:'10px', display:`${errorInBetslip ? 'block' : 'none'}`}}>
-                    <Typography sx={{color:"#D14343"}}>{`⚠️ The current bet limit is ${(getBetLimit()).toLocaleString()} DAI`}</Typography>
+                    <Typography sx={{color:"#D14343"}}>{`⚠️ The current bet limit is ${(betLimit).toLocaleString()} DAI`}</Typography>
                 </Box>
 
                 {

@@ -327,7 +327,7 @@ export const switchAccount = async () => {
     }
 }
 
-export const getBetLimit = () => {
+export const getBetLimit = (ids) => {
     return 10000;
 }
 
