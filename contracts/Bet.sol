@@ -25,9 +25,17 @@ contract Bet is ERC1155{
     uint176 private _nextId = 1;
 
     mapping(uint256 => singleBet) private _bets;
+    uint256 public lockedLiquidity = 0;
+    mapping(uint80 => mapping(uint8 => uint256)) public gameWiseLiquidity;
+
     uint256[] all_bets;
 
     address public DAI;
+
+    modifier onlyMakets {
+        require (msg.sender == MARKET_CONTRACT);
+        _;
+    }
 
 
     constructor(address _DAI, address _MARKET_CONTRACT, address _LIQUIDITY_CONTRACT) public ERC1155(""){
@@ -36,31 +44,14 @@ contract Bet is ERC1155{
        LIQUIDITY_CONTRACT = _LIQUIDITY_CONTRACT;
     }
 
-    function createBet(uint80 gameId, uint8 betIndex, uint128 bet_amount) public returns (uint176){
-
-        (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, bet_amount));
-        require(success, "Cannot transfer DAI");
-
-        uint176 currId = _nextId+1;
-
-        uint256[] memory odds = IMarkets(MARKET_CONTRACT).getOddsById(gameId);
-
-        _bets[currId] = singleBet({
-            timestamp: block.timestamp,
-            punter: msg.sender,
-            gameId: gameId,
-            betIndex: betIndex,
-            bet_amount: bet_amount,
-            to_win: (bet_amount * odds[uint256(betIndex)]) / 1000,
-            status: 0
-            });
-
-        _mint(msg.sender, currId, 1, "");
-        all_bets.push(currId);
-        _nextId++;
-        return currId;
-
+    function unlockLiquidity(uint256 gameId, uint8 outcome_id) onlyMarkets{
+        for (uint i = 0; i<=2; i++){
+            if (i != outcome_id){
+                lockedLiquidity = lockedLiquidity - gameWiseLiquidity[outcome_id][gameId];
+            }
+        }
     }
+    
 
     function createBets(uint80[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts) public returns (uint176[] memory){
         uint128 total = 0;
@@ -79,16 +70,10 @@ contract Bet is ERC1155{
 
             uint176  currId = _nextId+1;
             uint256[] memory odds = IMarkets(MARKET_CONTRACT).getOddsById(gameIds[i]);
-            // console.log(odds[0]);
-            // console.log(odds[1]);
-
-
-            // console.log(betIndexes[i]);
-            // console.log(odds[uint256(betIndexes[i])]);
-            // console.log(bet_amounts[i]);
-
 
             curr_bets[i] = currId;
+
+            uint256 win_amt = (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000;
 
             _bets[currId] = singleBet({
                 timestamp: block.timestamp,
@@ -96,9 +81,13 @@ contract Bet is ERC1155{
                 gameId: gameIds[i],
                 betIndex: betIndexes[i],
                 bet_amount: bet_amounts[i],
-                to_win: (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000, //get this from odds
+                to_win: win_amt,
                 status: 0
             });
+
+            lockedLiquidity = lockedLiquidity + win_amt;
+            gameWiseLiquidity[currId][99] = gameWiseLiquidity[currId][99] + win_amt; //This tracks the total
+            gameWiseLiquidity[currId][gameIds[i]] = gameWiseLiquidity[currId][gameIds[i]] + win_amt;
 
 
             _mint(msg.sender, currId, 1, "");

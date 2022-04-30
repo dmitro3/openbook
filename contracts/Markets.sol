@@ -56,8 +56,6 @@ contract Markets{
         return markets[id].winnerIndex;
     }
 
-    
-
     //Update odds
     function updateOdds() public{
         markets[1].odds = [1,2,3];

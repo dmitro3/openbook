@@ -11,7 +11,7 @@ function toTimestamp(strDate){
  }
 
 describe('Contract tests', () => {
-    const FUND_AMOUNT = (BigInt(10000)*BigInt(10**18)).toString()
+    const FUND_AMOUNT = (BigInt(100000)*BigInt(10**18)).toString()
     let owner;
     let liq;
     let bet;
@@ -67,7 +67,7 @@ describe('Contract tests', () => {
             value: ethers.utils.parseEther("1")
         });
 
-        for (let addy of ['0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9', '0x99c6fD3bC02dEB420F192eFb3ED0D6f479856D4B', '0xFf83517542B4587AAC87DEa0976675569dE0dc8D', '0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd']) {
+        for (let addy of ['0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9', '0x99c6fD3bC02dEB420F192eFb3ED0D6f479856D4B', '0xFf83517542B4587AAC87DEa0976675569dE0dc8D', '0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd', '0x91b098c80f0FD05464915A41253AB816804Cd5E8', '0x4cdC8c8bf707748b617deB9e5bcBF8c00C7F289B']) {
 
             await DAI.transfer(addy, FUND_AMOUNT, {
                 from: WHALE_ADDY,
@@ -144,15 +144,6 @@ describe('Contract tests', () => {
 
         //10^-9 * 4493659 * 55 * 2 = 0.5$ for polygon
 
-    })
-
-    it("Make bet", async function () {
-        amt = 10
-
-        // await USER_DAI.approve(bet.address, amt);
-        // let bet_id = await bet.createBet(22, 1, amt);
-        // expect(await bet.balanceOf(owner.address, 2)).to.equal(1);
-        // expect(await DAI.balanceOf(bet.address)).to.equal(amt);
     })
 
     it("Make all bets", async function () {

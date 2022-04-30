@@ -10,6 +10,11 @@ contract Liquidity is ERC1155{
     address public DAI;
     address public BET_CONTRACT;
     uint32 public val_set = 0;
+    
+    modifier onlyBet{
+        require(msg.sender == BET_CONTRACT);
+        _;
+    }
 
    constructor(address _DAI) public ERC1155(""){
        DAI = _DAI;
@@ -21,8 +26,7 @@ contract Liquidity is ERC1155{
         val_set = 1;
     }
 
-    function sendWithdrawl(address _receipent, uint256 _amount) public returns (bool){
-        require(msg.sender == BET_CONTRACT);
+    function sendWithdrawl(address _receipent, uint256 _amount) public onlyBet returns (bool) {
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, _receipent, _amount));
         return success;
     }
@@ -35,14 +39,13 @@ contract Liquidity is ERC1155{
             _mint(msg.sender, LIQUIDITY, _amount, "");
     }
 
-     function removeLiquidity(uint256 _amount)  public {
+    function removeLiquidity(uint256 _amount)  public {
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, msg.sender, _amount));
 
         if (success)
             _burn(msg.sender, LIQUIDITY, _amount);
 
     }
-
 
     function getAddress() public view returns (address){
         return msg.sender;

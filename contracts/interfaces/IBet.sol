@@ -3,7 +3,6 @@ interface IBet {
   function balanceOf ( address account, uint256 id ) external view returns ( uint256 );
   function balanceOfBatch(address[] calldata _owners, uint256[] calldata _ids) external view returns (uint256[] memory);
   function betDetailsByID ( uint256 id ) external returns ( uint256, address, uint80, uint8, uint128, uint256, uint8 );
-  function createBet ( uint80 gameId, uint8 betIndex, uint128 bet_amount ) external returns ( uint176 );
   function createBets ( uint80[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts ) external returns ( uint176[] memory );
   function getAllBets (  ) external returns ( uint256[] memory );
   function isApprovedForAll ( address account, address operator ) external view returns ( bool );
