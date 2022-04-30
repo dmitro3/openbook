@@ -40,7 +40,7 @@ describe('Contract tests', () => {
         await market.deployed();  
 
         const Bet = await ethers.getContractFactory("Bet");
-        bet = await Bet.deploy(DAI_ADDY, market.address, liq.address, 1);
+        bet = await Bet.deploy(DAI_ADDY, market.address, liq.address, 10);
         await bet.deployed();  
 
         await liq.setBetContract(bet.address);

@@ -260,9 +260,9 @@ const BetslipSideDrawer = (props) => {
                             }
                         )
                         totalBet = Object.values(betInputQuery).reduce((accmulator,item)=>{return Number(accmulator) +  Number(item)},0).toFixed(2)
-                        
+                        console.log(totalBet, betLimit)
                         if(!errorInBetslip)
-                            totalBet >= betLimit ? setErrorInBetslip(true) : void(0);
+                            totalBet <= betLimit ? setErrorInBetslip(true) : void(0);
                         if(errorInBetslip)
                             totalBet < betLimit ? setErrorInBetslip(false) : void(0);
                         

@@ -24,7 +24,7 @@ contract Bet is ERC1155{
 
     /// The ID of the next token that will be minted. Skips 0
     uint256 private _nextId = 1;
-    uint256 public RISK_CAP = 0;
+    uint256 public RISK_CAP = 10;
 
     mapping(uint256 => singleBet) private _bets;
     uint256 public lockedLiquidity = 0;
@@ -56,14 +56,18 @@ contract Bet is ERC1155{
     }
 
     function getLiquidityLimit(uint256[] calldata gameIds) public returns (uint256){
-        uint256 totalLiq = IERC20(DAI).balanceOf(msg.sender);
+        uint256 totalLiq = IERC20(DAI).balanceOf(LIQUIDITY_CONTRACT);
+        console.log(totalLiq);
+        console.log(RISK_CAP);
         uint256 limit = totalLiq * RISK_CAP / 100;
-
+        console.log(limit);
         uint256 totalBet = 0;
 
         for (uint i=0; i < gameIds.length; i++){
             totalBet = totalBet + gameWiseLiquidity[gameIds[i]][99];
         }
+
+        console.log(totalBet);
 
          if (totalBet > limit){
              return 0;
