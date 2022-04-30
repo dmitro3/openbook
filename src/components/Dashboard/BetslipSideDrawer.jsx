@@ -4,7 +4,7 @@ import {FaRegTimesCircle} from 'react-icons/fa';
 import { CgArrowRightR } from "react-icons/cg";
 import styles from '@styles/BetSlipDrawer.module.css';
 import {BetSlipEmpty} from "@components/Dashboard/BetSlipEmpty";
-import {useState,useEffect, Fragment} from 'react';
+import {useState,useEffect,Fragment,useRef} from 'react';
 import {DeleteAllMatchesInBetSlipModal} from "@components/Dashboard/DeleteAllMatchesInBetSlipModal"
 import {Box,List,Tabs,Tab,Input,Typography,useMediaQuery, Button} from "@mui/material";
 import { useTheme } from '@mui/material/styles';
@@ -33,10 +33,12 @@ const BetslipSideDrawer = (props) => {
 
     /* ---------- Bet limit section ------------- */
     const [errorInBetslip, setErrorInBetslip] = useState(false);
-    let betLimit = 10000;
+    const ref = useRef({
+        betLimit: 0
+    });
     useEffect(() => {
         async function getBetLimitFromWeb3() {
-            betLimit = await getBetLimit(props.betSlip.betSlipOutcomeArray);
+            ref.current.betLimit = await getBetLimit(props.betSlip.betSlipOutcomeArray);
         }
         getBetLimitFromWeb3();
       }, [props.betSlip.betSlipOutcomeArray]); 
@@ -258,12 +260,12 @@ const BetslipSideDrawer = (props) => {
                             }
                         )
                         totalBet = Object.values(betInputQuery).reduce((accmulator,item)=>{return Number(accmulator) +  Number(item)},0).toFixed(2)
-                        console.log(totalBet, betLimit)
+                        let totalBetInNumber = Number(totalBet)
                         if(!errorInBetslip)
-                            totalBet > betLimit ? setErrorInBetslip(true) : void(0);
+                            totalBetInNumber > ref.current.betLimit  ? setErrorInBetslip(true) : void(0); 
                         if(errorInBetslip)
-                            totalBet < betLimit ? setErrorInBetslip(false) : void(0);
-                            
+                            totalBetInNumber < ref.current.betLimit  ? setErrorInBetslip(false) : void(0);
+
                         totalPossiblePayout = Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)
 
 
@@ -349,7 +351,7 @@ const BetslipSideDrawer = (props) => {
                 </Box>
 
                 <Box sx={{py:'10px', display:`${errorInBetslip ? 'block' : 'none'}`}}>
-                    <Typography sx={{color:"#D14343"}}>{`⚠️ The current bet limit is ${(betLimit).toLocaleString()} DAI`}</Typography>
+                    <Typography sx={{color:"#D14343"}}>{`⚠️ The current bet limit is ${(ref.current.betLimit ).toLocaleString()} DAI`}</Typography>
                 </Box>
 
                 {
