@@ -31,7 +31,9 @@ const BetslipSideDrawer = (props) => {
     let totalBet = 0;
     let totalPossiblePayout = 0;
 
-    const [betLimit,setBetLimit] = useState(1000);
+    /* ---------- Bet limit section ------------- */
+    const [betLimit,setBetLimit] = useState(10000);
+    const [errorInBetslip, setErrorInBetslip] = useState(false);
 
     useEffect(() => {
         async function getBetLimitFromWeb3() {
@@ -42,7 +44,8 @@ const BetslipSideDrawer = (props) => {
       }, [props.betSlip.betSlipOutcomeArray]); 
     
 
-    const [errorInBetslip, setErrorInBetslip] = useState(false);
+
+    /* ---------- Bet limit section ------------- */
 
     /* Delete all matches in slip confirm modal properties */
     const [delteAllModalOpen, setdelteAllModalOpen] = useState(false);
