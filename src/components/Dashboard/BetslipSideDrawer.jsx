@@ -37,6 +37,7 @@ const BetslipSideDrawer = (props) => {
     useEffect(() => {
         async function getBetLimitFromWeb3() {
             betLimit = await getBetLimit(props.betSlip.betSlipOutcomeArray);
+            console.log(betLimit)
         }
         getBetLimitFromWeb3();
       }, [props.betSlip.betSlipOutcomeArray]); 
