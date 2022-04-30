@@ -207,9 +207,8 @@ export const Staking = (props) => {
 
             <Button
               variant="contained"
-              sx={{ marginLeft: "7px" }}
-              className={withdrawable ? void(0) : "disbaleButton"}
-              onClick={() => addLiquidity(depositAmountInput)}
+              sx={{ marginLeft: "auto", marginRight: "125px" }}
+              onClick={() => removeLiquidity(depositAmountInput)}
             >
               Withdraw DAI
             </Button>

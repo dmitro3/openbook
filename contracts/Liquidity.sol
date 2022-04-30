@@ -2,6 +2,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "hardhat/console.sol";
+import "./interfaces/IBet.sol";
 
 contract Liquidity is ERC1155{
 
@@ -40,8 +41,10 @@ contract Liquidity is ERC1155{
 
     function removeLiquidity(uint256 _amount)  public {
 
-        //check balanceOf-balanceOnHold greater
         uint256 balance = this.balanceOf(msg.sender, LIQUIDITY);
+        uint256 lockedLiquidity = IBet(BET_CONTRACT).getLockedLiquidity();
+
+        require(balance - lockedLiquidity > _amount, "balance - lockedLiquidity must be greater than requested amt");
 
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, msg.sender, _amount));
 
