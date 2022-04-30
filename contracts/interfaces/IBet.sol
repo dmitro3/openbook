@@ -6,6 +6,8 @@ interface IBet {
   function unlockLiquidity ( uint256, uint8 ) external;
   function createBets ( uint256[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts ) external returns ( uint256[] memory );
   function getAllBets (  ) external returns ( uint256[] memory );
+  function getLockedLiquidity (  ) external returns ( uint256 );
+
   function isApprovedForAll ( address account, address operator ) external view returns ( bool );
   function safeBatchTransferFrom(address _from, address _to, uint256[] calldata _ids, uint256[] calldata _values, bytes calldata _data) external;
   function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes calldata _data) external;

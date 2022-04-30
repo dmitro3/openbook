@@ -47,6 +47,10 @@ contract Bet is ERC1155{
        RISK_CAP = RISK_CAP;
     }
 
+    function getLockedLiquidity() external returns (uint256){
+        return lockedLiquidity;
+    }
+
     function unlockLiquidity(uint256 gameId, uint8 outcome_id) onlyMarkets external{
         for (uint i = 0; i<=2; i++){
             if (i != outcome_id){

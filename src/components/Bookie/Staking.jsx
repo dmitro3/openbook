@@ -181,7 +181,7 @@ export const Staking = (props) => {
             <Button
               variant="contained"
               sx={{ marginLeft: "auto", marginRight: "125px" }}
-              onClick={() => addLiquidity(depositAmountInput)}
+              onClick={() => removeLiquidity(depositAmountInput)}
             >
               Remove DAI
             </Button>
