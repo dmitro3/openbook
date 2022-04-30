@@ -327,8 +327,20 @@ export const switchAccount = async () => {
     }
 }
 
-export const getBetLimit = (ids) => {
-    return 10000;
+export const getBetLimit = async (ids) => {
+    
+    let id_only = []
+    ids.map((text, index) => {
+        id_only.push(text.split('/')[0]);
+    })
+
+    let web3 = store.getState().user.web3;
+    let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+    let limit = await contract.methods.getLiquidityLimit(id_only).call()
+
+    let exactLimit = parseFloat(web3.utils.fromWei(String(limit), 'ether')).toFixed(2);
+    console.log(exactLimit)
+    return exactLimit;
 }
 
 
