@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0xcD0048A5628B37B8f743cC2FeA18817A29e97270";
-const BET_ADDY = "0x8bEe2037448F096900Fd9affc427d38aE6CC0350";
-const MARKET_ADDY = "0x976C214741b4657bd99DFD38a5c0E3ac5C99D903"
+const LIQUIDITY_ADDY = "0x193521C8934bCF3473453AF4321911E7A89E0E12";
+const BET_ADDY = "0x01E21d7B8c39dc4C764c19b308Bd8b14B1ba139E";
+const MARKET_ADDY = "0x9Fcca440F19c62CDF7f973eB6DDF218B15d4C71D"
 
 let LIQUIDITY_ABI = [
   {
@@ -131,6 +131,19 @@ let LIQUIDITY_ABI = [
     ],
     "name": "URI",
     "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "BET_CONTRACT",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "inputs": [],
@@ -339,6 +352,30 @@ let LIQUIDITY_ABI = [
     "inputs": [
       {
         "internalType": "address",
+        "name": "_receipent",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "sendWithdrawl",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "operator",
         "type": "address"
       },
@@ -349,6 +386,19 @@ let LIQUIDITY_ABI = [
       }
     ],
     "name": "setApprovalForAll",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_bet_contract",
+        "type": "address"
+      }
+    ],
+    "name": "setBetContract",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -390,10 +440,21 @@ let LIQUIDITY_ABI = [
     ],
     "stateMutability": "view",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "val_set",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   }
 ]
-
-
 
 
 
@@ -415,6 +476,16 @@ let BET_ABI = [
         "internalType": "address",
         "name": "_MARKET_CONTRACT",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_LIQUIDITY_CONTRACT",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_RISK_CAP",
+        "type": "uint256"
       }
     ],
     "stateMutability": "nonpayable",
@@ -553,12 +624,38 @@ let BET_ABI = [
   },
   {
     "inputs": [],
+    "name": "LIQUIDITY_CONTRACT",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "MARKET_CONTRACT",
     "outputs": [
       {
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "RISK_CAP",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -633,9 +730,9 @@ let BET_ABI = [
         "type": "address"
       },
       {
-        "internalType": "uint80",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint80"
+        "type": "uint256"
       },
       {
         "internalType": "uint8",
@@ -664,38 +761,9 @@ let BET_ABI = [
   {
     "inputs": [
       {
-        "internalType": "uint80",
-        "name": "gameId",
-        "type": "uint80"
-      },
-      {
-        "internalType": "uint8",
-        "name": "betIndex",
-        "type": "uint8"
-      },
-      {
-        "internalType": "uint128",
-        "name": "bet_amount",
-        "type": "uint128"
-      }
-    ],
-    "name": "createBet",
-    "outputs": [
-      {
-        "internalType": "uint176",
-        "name": "",
-        "type": "uint176"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint80[]",
+        "internalType": "uint256[]",
         "name": "gameIds",
-        "type": "uint80[]"
+        "type": "uint256[]"
       },
       {
         "internalType": "uint8[]",
@@ -711,12 +779,36 @@ let BET_ABI = [
     "name": "createBets",
     "outputs": [
       {
-        "internalType": "uint176[]",
+        "internalType": "uint256[]",
         "name": "",
-        "type": "uint176[]"
+        "type": "uint256[]"
       }
     ],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "gameWiseLiquidity",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -727,6 +819,25 @@ let BET_ABI = [
         "internalType": "uint256[]",
         "name": "",
         "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "gameIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "getLiquidityLimit",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "nonpayable",
@@ -751,6 +862,19 @@ let BET_ABI = [
         "internalType": "bool",
         "name": "",
         "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "lockedLiquidity",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -863,6 +987,24 @@ let BET_ABI = [
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "gameId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "outcome_id",
+        "type": "uint8"
+      }
+    ],
+    "name": "unlockLiquidity",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "",
         "type": "uint256"
       }
@@ -881,9 +1023,9 @@ let BET_ABI = [
   {
     "inputs": [
       {
-        "internalType": "uint176[]",
+        "internalType": "uint256[]",
         "name": "tokenIds",
-        "type": "uint176[]"
+        "type": "uint256[]"
       },
       {
         "internalType": "uint256[]",
@@ -913,6 +1055,7 @@ let BET_ABI = [
 
 
 
+
 let MARKET_ABI = [
   {
     "inputs": [
@@ -929,6 +1072,19 @@ let MARKET_ABI = [
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "BET_CONTRACT",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "inputs": [],
@@ -983,17 +1139,12 @@ let MARKET_ABI = [
         "type": "uint256"
       }
     ],
-    "name": "getOutcomeByID",
+    "name": "getOutcomeById",
     "outputs": [
       {
         "internalType": "uint8",
         "name": "",
         "type": "uint8"
-      },
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -1086,6 +1237,19 @@ let MARKET_ABI = [
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_bet_contract",
+        "type": "address"
+      }
+    ],
+    "name": "setBetContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256[]",
         "name": "marketIds",
         "type": "uint256[]"
@@ -1173,8 +1337,22 @@ let MARKET_ABI = [
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "val_set",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   }
 ]
+
 
 
 const DAI_ABI = [{ "constant": true, "inputs": [], "name": "name", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "guy", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "src", "type": "address" }, { "name": "dst", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "wad", "type": "uint256" }], "name": "withdraw", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "dst", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "deposit", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "allowance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "payable": true, "stateMutability": "payable", "type": "fallback" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": true, "name": "guy", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": true, "name": "dst", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "dst", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Deposit", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Withdrawal", "type": "event" }];

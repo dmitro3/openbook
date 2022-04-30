@@ -1,11 +1,15 @@
 pragma solidity ^0.8.0;
+import "./interfaces/IBet.sol";
+
 
 contract Markets{
     uint256 public protocolFee;
     uint256 public LPFee;
     uint256[] market_ids;
-    uint176 private _nextId = 1;
+    uint256 private _nextId = 1;
 
+    address public BET_CONTRACT;
+    uint32 public val_set = 0;
 
     struct Market {
         uint256 matchTimestamp;
@@ -29,6 +33,12 @@ contract Markets{
         LPFee = _LPFee;
     }
 
+    function setBetContract(address _bet_contract) public{
+        require(val_set == 0);
+        BET_CONTRACT = _bet_contract;
+        val_set = 1;
+    }
+
 
     function settleMarkets(uint256[] calldata marketIds, uint8[] calldata winnerIndex) public{
 
@@ -36,7 +46,10 @@ contract Markets{
         {
             markets[marketIds[i]].active = false;
             markets[marketIds[i]].winnerIndex = winnerIndex[i];
+            IBet(BET_CONTRACT).unlockLiquidity(marketIds[i], winnerIndex[i]);
+
         }
+
 
     }
 
@@ -62,7 +75,7 @@ contract Markets{
     }
 
     function startMarket(uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds) public {
-        uint176  currId = _nextId+1;
+        uint256  currId = _nextId+1;
 
         markets[currId] = Market(
                 matchTimestamp,
@@ -88,7 +101,7 @@ contract Markets{
         
         for (uint i = 0; i< _matchTimestamps.length; i++){
 
-            uint176  currId = _nextId+1;
+            uint256  currId = _nextId+1;
             
             markets[currId] = Market(
                     _matchTimestamps[i],

@@ -11,7 +11,7 @@ function toTimestamp(strDate){
  }
 
 describe('Contract tests', () => {
-    const FUND_AMOUNT = (BigInt(100000)*BigInt(10**18)).toString()
+    const FUND_AMOUNT = (BigInt(30000)*BigInt(10**18)).toString()
     let owner;
     let liq;
     let bet;
@@ -24,7 +24,7 @@ describe('Contract tests', () => {
 
         await hre.network.provider.request({
             method: "hardhat_impersonateAccount",
-            params: ["0x2faf487a4414fe77e2327f0bf4ae2a264a776ad2"],
+            params: [WHALE_ADDY],
           });
 
         //get signer
@@ -40,10 +40,12 @@ describe('Contract tests', () => {
         await market.deployed();  
 
         const Bet = await ethers.getContractFactory("Bet");
-        bet = await Bet.deploy(DAI_ADDY, market.address, liq.address);
+        bet = await Bet.deploy(DAI_ADDY, market.address, liq.address, 1);
         await bet.deployed();  
 
         await liq.setBetContract(bet.address);
+        await market.setBetContract(bet.address);
+
 
         console.log("Liquidity Contract Deployed at " + liq.address);
         console.log("Bet Contract Deployed at " + bet.address);
