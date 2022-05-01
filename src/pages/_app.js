@@ -10,6 +10,7 @@ import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
 import Script from "next/script"
 import {getMatches} from "@utils/web3Provider";
+import Web3 from 'web3';
 
 // New redux dependencies
 import { Provider } from "react-redux";
@@ -25,54 +26,21 @@ const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   const getLayout = Component.getLayout ?? ((page) => page);
-  
-
-  async function fetchData() {
-      let odds = {}
-      let [matches, ids] = await getMatches()
-      let i = 0;
-      for (const match of matches)
-      {
-        if (!(match[2][0] in odds))
-          odds[match[2][0]] = {}
-
-        if (!(match[2][1] in odds[match[2][0]]))
-          odds[match[2][0]][match[2][1]] = []
-
-          let game = {
-            timestamp : new Date(match[0]* 1000),
-            id: ids[i],
-            match: match[1]
-          }
-
-          //7 and 8
-          let outcome = {}
-
-          for (var j =0; j< match.length; j++)
-          {
-
-            if (match[7][j] != null)
-              outcome[match[7][j]] = parseInt(match[8][j])/1000
-          }
-
-          game =
-          {
-            ...game,
-            outcomes: outcome
-          } 
-
-          odds[match[2][0]][match[2][1]].push(game)
-          i = i + 1
-      }
-      return odds;
-  }
-
 
   useEffect(() => {
     async function asyncUseEffectFunction() {
-      let data = await fetchData();
-      console.log(data)
+      let data = await getMatches();
       getOdds(data);
+      new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545')).eth.subscribe("newBlockHeaders",async (err,result)=>{
+        if(err){
+            console.error(err)
+            return
+        }      
+        if(result){
+          let data = await getMatches();
+          getOdds(data);
+        }
+      })
     }
     asyncUseEffectFunction();
   }, []);

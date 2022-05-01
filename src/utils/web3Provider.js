@@ -255,7 +255,42 @@ export const getMatches = async () => {
     }
 
     console.log(all_matches)
-    return [all_matches, matches]
+    let odds = {}
+    let i = 0;
+    for (const match of all_matches)
+    {
+      if (!(match[2][0] in odds))
+        odds[match[2][0]] = {}
+
+      if (!(match[2][1] in odds[match[2][0]]))
+        odds[match[2][0]][match[2][1]] = []
+
+        let game = {
+          timestamp : new Date(match[0]* 1000),
+          id: matches[i],
+          match: match[1]
+        }
+
+        //7 and 8
+        let outcome = {}
+
+        for (var j =0; j< match.length; j++)
+        {
+
+          if (match[7][j] != null)
+            outcome[match[7][j]] = parseInt(match[8][j])/1000
+        }
+
+        game =
+        {
+          ...game,
+          outcomes: outcome
+        } 
+
+        odds[match[2][0]][match[2][1]].push(game)
+        i = i + 1
+    }
+    return odds;
 }
 
 export const makeBet = async (ids, picks, amounts) => {
@@ -413,6 +448,8 @@ export const switchAccount = async () => {
         }     
         getUserDaiBalance(web3,userAddress);
         subscribeNewBlock(web3,userAddress);
+        getMyBets();
+        getSettledBets();
 
     }
 }
