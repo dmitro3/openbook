@@ -9,6 +9,7 @@ import Head from "next/head";
 import { NavBar } from "@components/Landing/NavBar";
 import { HeroBanner } from "@components/Landing/HeroBanner";
 import { Features } from "@components/Landing/Features";
+import  ChangingDevice from '@components/Landing/ChangingDevice';
 import { FiveStepsToggle } from "@components/Landing/FiveStepsToggle";
 import { FiveStepsForBettor } from "@components/Landing/FiveStepsForBettor";
 import { FiveStepsForBookie } from "@components/Landing/FiveStepsForBookie";
@@ -87,6 +88,25 @@ const Dashboard = (props) => {
       </Box>
 
       <Box className={styles.waveTransition3}/>
+
+      <Box className={styles.responsiveBox}>
+      <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center',width:'100%',alignItems:'center'}}>
+          <Typography className={styles.subTitle}>
+            Fully Reponsive
+          </Typography>
+          <Typography className={styles.title}>
+            OpenBook is Designed For All Plaforms
+          </Typography>
+          <Typography className={styles.detailDescriptions2}>
+            Invest and bet on any plaform you like, phones, laptops, ipads, desktops.
+          </Typography>
+        </Box>
+        <Box sx={{pt:'100px',pb:'200px',display:'flex','alignItems':'center',justifyContent: 'center'}}>
+          <ChangingDevice/>
+        </Box>
+      </Box>
+
+      <Box className={styles.waveTransition4}/>
 
       <FiveStepsToggle
         styles={styles}

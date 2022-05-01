@@ -131,7 +131,7 @@
 .subTitle{
     color: #41cd7d !important;
     margin-bottom: 25px !important;
-    font-size:30px !important;
+    font-size:35px !important;
 }
 
 .title{
@@ -546,6 +546,19 @@
     background-position:center;
     background-size: cover;
     background-image: url(/static/images/landing/wave_transition3.svg); 
+}
+
+.responsiveBox{
+    background-color:#160159;
+}
+
+.waveTransition4{
+    aspect-ratio:300/80;
+    width:100%; 
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: cover;
+    background-image: url(/static/images/landing/wave_transition4.svg); 
 }
 
 
