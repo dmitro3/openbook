@@ -22,8 +22,8 @@ export const TeamCard = (props) => {
                 }}
                 >
                 <div style={{
-                width:"45px",
-                height:"45px",
+                width:"50px",
+                height:"50px",
                 margin:"auto"
                 }}>
                     <Image

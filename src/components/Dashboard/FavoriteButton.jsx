@@ -12,6 +12,7 @@ export const FavoriteButton = (props) => {
         backgroundColor: "#f5f5f5",
         fontSize: '1.2rem',
         cursor: 'pointer',
+        order: '99',
         '&:hover': {
             backgroundColor: '#d9d9d9'
         },

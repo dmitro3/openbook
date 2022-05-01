@@ -61,6 +61,13 @@ const FeaturedMatchCard = (props) => {
           Object.keys(props.outcomes).map( (item,index) => {
             let outcomeKey = item.toString();
             let outcomeValue = ""
+            let order = null;
+            if(outcomeKey == 'X'){
+              order = 1
+            }
+            else{
+              order = Number(outcomeKey);
+            }
             switch(props.settings.oddsFormat){
               case "decimal":
                 outcomeValue = Number(props.outcomes[item]).toFixed(2).toString();
@@ -85,6 +92,8 @@ const FeaturedMatchCard = (props) => {
             addBetSlipMatch={props.addBetSlipMatch}
             removeBetSlipOutcome={props.removeBetSlipOutcome}
             inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+outcomeKey)}
+            order={order ? order : index}
+            
             // oddsChange={betButtonOddsState[index]}
             />)
         })}
