@@ -31,6 +31,8 @@ contract Bet is ERC1155{
     mapping(uint256 => mapping(uint256 => uint256)) public gameWiseLiquidity;
 
     uint256[] all_bets;
+    uint256[] bet_history;
+
 
     address public DAI;
 
@@ -134,6 +136,10 @@ contract Bet is ERC1155{
         return all_bets;
     }
 
+    function getSettledBets() public returns (uint256 [] memory){
+        return bet_history;
+    }
+
     function betDetailsByID(uint256 id) public returns (uint256, address, uint256, uint8, uint128, uint256, uint8){
         return (_bets[id].timestamp, _bets[id].punter, _bets[id].gameId, _bets[id].betIndex, _bets[id].bet_amount, _bets[id].to_win, _bets[id].status);
     }
@@ -156,7 +162,7 @@ contract Bet is ERC1155{
                     totalWithdraw = totalWithdraw + curr_bet.to_win;
                 }
 
-                delete _bets[tokenIds[i]]; 
+                bet_history.push(tokenIds[i]);
                 delete all_bets[indexes[i]];
                 _burn(msg.sender, tokenIds[i], 1);
             }            

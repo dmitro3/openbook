@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0x193521C8934bCF3473453AF4321911E7A89E0E12";
-const BET_ADDY = "0x01E21d7B8c39dc4C764c19b308Bd8b14B1ba139E";
-const MARKET_ADDY = "0x9Fcca440F19c62CDF7f973eB6DDF218B15d4C71D"
+const LIQUIDITY_ADDY = "0xc1EeD9232A0A44c2463ACB83698c162966FBc78d";
+const BET_ADDY = "0xfaE849108F2A63Abe3BaB17E21Be077d07e7a9A2";
+const MARKET_ADDY = "0xC220Ed128102d888af857d137a54b9B7573A41b2"
 
 let LIQUIDITY_ABI = [
   {
@@ -844,6 +844,32 @@ let BET_ABI = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getLockedLiquidity",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getSettledBets",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -1045,6 +1071,7 @@ let BET_ABI = [
     "type": "function"
   }
 ]
+
 
 
 

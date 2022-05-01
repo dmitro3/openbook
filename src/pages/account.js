@@ -30,7 +30,7 @@ const Account = (props) =>
                     <Tabs value={tabState} onChange={(event,newValue)=>handleChange(event,newValue)} centered variant="fullWidth">
                     <Tab value="unsettled" label="My Bets" />
                     <Tab value="overview" label="Overview" />
-                    {/* <Tab value="settled" label="Settled Bets" /> */}
+                    <Tab value="settled" label="Settled Bets" />
                     </Tabs>
                 </Box>
 

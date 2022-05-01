@@ -119,16 +119,13 @@ export const removeLiquidity = async (amount) => {
     await contract.methods.removeLiquidity(exactAmt).send({from: userAddress})
 }
 
-export const getMyBets = async() => {
+async function process_bets(bets){
     let web3 = store.getState().user.web3;
-    let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let match_contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
-
-
+    let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
 
-    let bets = await contract.methods.getAllBets().call()
     let new_bets = []
 
     for (const bet of bets) {
@@ -173,6 +170,31 @@ export const getMyBets = async() => {
             new_bets.push(res)
         }
     }
+
+    return new_bets
+}
+
+export const getMyBets = async() => {
+    let web3 = store.getState().user.web3;
+    let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+
+    let bets = await contract.methods.getAllBets().call()
+    let new_bets = await process_bets(bets)
+
+    
+    return new_bets
+}
+
+export const getSettledBets = async() => {
+    let web3 = store.getState().user.web3;
+    let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+
+
+    let account = await web3.eth.getAccounts()
+    let userAddress = account[0];
+
+    let bets = await contract.methods.getSettledBets().call()
+    let new_bets = await process_bets(bets)
 
     
     return new_bets
