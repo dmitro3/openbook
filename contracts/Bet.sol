@@ -61,17 +61,14 @@ contract Bet is ERC1155{
 
     function getLiquidityLimit(uint256[] calldata gameIds) public returns (uint256){
         uint256 totalLiq = IERC20(DAI).balanceOf(LIQUIDITY_CONTRACT);
-        console.log(totalLiq);
-        console.log(RISK_CAP);
+
         uint256 limit = totalLiq * RISK_CAP / 100;
-        console.log(limit);
         uint256 totalBet = 0;
 
         for (uint i=0; i < gameIds.length; i++){
             totalBet = totalBet + gameWiseLiquidity[gameIds[i]][99];
         }
 
-        console.log(totalBet);
 
          if (totalBet > limit){
              return 0;
@@ -87,7 +84,7 @@ contract Bet is ERC1155{
             total = total + bet_amounts[i];
         }
 
-        require(total > getLiquidityLimit(gameIds), "Not enough liquidity");
+        require(total <= getLiquidityLimit(gameIds), "Not enough liquidity");
 
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, total));
         require(success, "Cannot transfer DAI");
@@ -165,11 +162,9 @@ contract Bet is ERC1155{
             }            
         }
 
-        console.log(totalWithdraw);
 
         if (totalWithdraw > 0)
         {
-            console.log(msg.sender);
             bool succ = ILiquidity(LIQUIDITY_CONTRACT).sendWithdrawl(msg.sender, totalWithdraw);
             require(succ, "Cannot transfer DAI");
             return succ;
