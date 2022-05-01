@@ -165,6 +165,7 @@ contract Bet is ERC1155{
 
         if (totalWithdraw > 0)
         {
+            lockedLiquidity = lockedLiquidity - totalWithdraw;
             bool succ = ILiquidity(LIQUIDITY_CONTRACT).sendWithdrawl(msg.sender, totalWithdraw);
             require(succ, "Cannot transfer DAI");
             return succ;
