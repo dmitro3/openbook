@@ -259,8 +259,6 @@ Staking.getLayout = (page) => {
 
 const mapStateToProps = (state) => {
   return {
-      betSlip: state.betSlip,
-      odds: state.odds,
       user: state.user,
       bookie: state.bookie
   };
@@ -268,21 +266,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addBetSlipMatch: (outcomeID) => {
-      dispatch(addBetSlipOutcome(outcomeID));
-    },
-    removeBetSlipOutcome: (outcomeID) => {
-      dispatch(removeBetSlipOutcome(outcomeID));
-    },
-    removeAllBetSlipOutcomes: () => {
-        dispatch(removeAllBetSlipOutcomes());
-    },
-    setBetAmount: (betAmount)=>{
-        dispatch(setBetAmount(betAmount))
-    },
-    setDisconnected: (disconnected) => {
-      dispatch(setDisconnected(disconnected))
-    }
+
   };
 };
 
