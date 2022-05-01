@@ -71,6 +71,7 @@ const App = (props) => {
   useEffect(() => {
     async function asyncUseEffectFunction() {
       let data = await fetchData();
+      console.log(data)
       getOdds(data);
     }
     asyncUseEffectFunction();

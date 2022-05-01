@@ -29,19 +29,20 @@ async function perform(){
         for (sport in data){
             for (league in data[sport]){
                 for (var match of data[sport][league]){
-                    curr_odds = Object.values(match['outcomes'])
+                    let new_outcome = new Map()
+                    let curr_odds = Object.values(match['outcomes'])
+                    let outcome = Object.keys(match['outcomes'])
+
+                    // if (match['outcomes']["X"] !== undefined){
+                    //     outcome = ['1', 'X', '2']
+                    //     curr_odds = [ match['outcomes']['1'], match['outcomes']['X'], match['outcomes']['2']]
+                    // }
 
                     let new_odds = []
 
                     for (var odd of curr_odds)
                         new_odds.push(parseInt(odd * 1000))
                     
-                    let outcome = Object.keys(match['outcomes'])
-                    
-                    let new_outcome = []
-
-                    for (var i=0; i < outcome.length; i++)
-                        new_outcome.push(i)
 
                     await market.methods.startMarket(toTimestamp(match['timestamp']), match['match'], [sport, league], outcome, new_odds).send({from: account.address, gas: 500000})
                 }
