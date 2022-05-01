@@ -86,7 +86,7 @@ contract Bet is ERC1155{
 
         require(total <= getLiquidityLimit(gameIds), "Not enough liquidity");
 
-        (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, total));
+        (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, LIQUIDITY_CONTRACT, total));
         require(success, "Cannot transfer DAI");
     }
 
