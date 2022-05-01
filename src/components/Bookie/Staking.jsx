@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useMemo } from "react";
 import {
   Tab,
   Tabs,
@@ -12,8 +12,12 @@ import {
 import { makeStyles, styled } from "@mui/styles";
 import { DashboardLayout } from "@components/DashboardLayout";
 import { StakingDataCard } from "@components/Bookie/StakingDataCard";
-import { addLiquidity, getPoolLiquidity, getUserLiquidity, getUserHold, removeLiquidity } from "@utils/web3Provider";
+import { addLiquidity, getPoolLiquidity, getUserLiquidity, getUserHold, removeLiquidity,handleLiqChange } from "@utils/web3Provider";
 import { DaiIcon } from "@components/Icons/DaiIcon";
+
+
+// Redux Dependencies
+import {connect} from "react-redux";
 
 const useStyle = makeStyles({
   root: {
@@ -70,38 +74,22 @@ const StyledTextField = styled(TextField)({
 //   return [total, user];
 // }
 
-export const Staking = (props) => {
+const Staking = (props) => {
   const styles = useStyle();
-
-  const handleLiqChange = async (event, newValue) => {
-    const res = await getPoolLiquidity();
-    setLiqDisplayValue(res + " DAI");
-
-    const res2 = await getUserLiquidity();
-    setUserStakeValue(res2 + " DAI");
-
-    const res3 = await getUserHold();
-    setbalanceHoldValue(res3 + " DAI");
-
-    setWithdrawableValue(res2 - res3 + " DAI");    
-  }
-
-  const [liqDisplayValue, setLiqDisplayValue] = useState(['0 DAI']);
-  const [balanceHoldValue, setbalanceHoldValue] = useState(['0 DAI']);
-  const [withdrawableValue, setWithdrawableValue] = useState(['0 DAI']);
-
-
-  useEffect(async () => {
-    setInterval(async () => {   
-      await handleLiqChange("", "")
-    }, 1000);
-  },[]);
-
-
-  const [userStakeValue, setUserStakeValue] = useState("0 DAI");
+  let liqDisplayValue = props.bookie.liqDisplayValue;
+  let balanceHoldValue = props.bookie.balanceHoldValue;
+  let withdrawableValue = props.bookie.withdrawableValue;
+  let userStakeValue = props.bookie.userStakeValue;
   const [depositAmountInput, setDepositAmountInput] = useState("0");
-
   const [withdrawable,setWithdrawable] = useState(true);
+
+  useEffect(()=>{
+    if(props.user.web3)
+      handleLiqChange();
+    else
+      return
+  },[props.user.web3])
+
 
   const stringToNum = (txt) => {
     if(txt.match){
@@ -113,7 +101,7 @@ export const Staking = (props) => {
 
   let depositAmountInputNumber = Number(depositAmountInput);
   let withdrawableValueNumber = stringToNum(withdrawableValue);
-
+  console.log(depositAmountInputNumber,withdrawableValueNumber,depositAmountInputNumber>withdrawableValueNumber)
   if(withdrawable){
     if(depositAmountInputNumber > withdrawableValueNumber){
       setWithdrawable(false);
@@ -197,7 +185,7 @@ export const Staking = (props) => {
             <Button
               variant="contained"
               sx={{ marginRight: "7px" }}
-              onClick={() => addLiquidity(depositAmountInput)}
+              onClick={() => {addLiquidity(depositAmountInput);setDepositAmountInput(0);}}
             >
               Stake DAI
             </Button>
@@ -209,7 +197,7 @@ export const Staking = (props) => {
               variant="contained"
               sx={{ marginLeft: "7px" }}
               className={withdrawable ? void(0) : "disbaleButton"}
-              onClick={() => removeLiquidity(depositAmountInput)}
+              onClick={() => {removeLiquidity(depositAmountInput);setDepositAmountInput(0);}}
             >
               Withdraw DAI
             </Button>
@@ -223,9 +211,6 @@ export const Staking = (props) => {
               `}
             </style>
 
-          </Box>
-          <Box sx={{py:'10px', display:`${withdrawable ? 'none' : 'flex' }`,justifyContent:'center'}}>
-              <Typography sx={{color:"#D14343"}}>{`⚠️ Not enough liquidity for withdraw`}</Typography>
           </Box>
         </Box>
         {/* Right Column */}
@@ -271,3 +256,18 @@ Staking.getLayout = (page) => {
     </DashboardLayout>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+      user: state.user,
+      bookie: state.bookie
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Staking);

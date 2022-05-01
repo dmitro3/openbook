@@ -13,7 +13,7 @@ import {connectMetaMask} from "@utils/web3Provider";
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 import {makeBet} from "@utils/web3Provider";
 import {BetConfirmPopup} from "@components/Dashboard/BetConfirmPopup";
-import { getUserDaiBalance,getBetLimit } from "@utils/web3Provider";
+import {getBetLimit } from "@utils/web3Provider";
 
 // Redux Dependencies
 import {connect} from "react-redux";
@@ -264,7 +264,7 @@ const BetslipSideDrawer = (props) => {
                         if(!errorInBetslip)
                             totalBetInNumber > ref.current.betLimit  ? setErrorInBetslip(true) : void(0); 
                         if(errorInBetslip)
-                            totalBetInNumber < ref.current.betLimit  ? setErrorInBetslip(false) : void(0);
+                            totalBetInNumber <= ref.current.betLimit  ? setErrorInBetslip(false) : void(0);
 
                         totalPossiblePayout = Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)
 
