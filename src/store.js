@@ -14,12 +14,13 @@ import oddsReducer from "@reducers/oddsReducer";
 import userReducer from "@reducers/userReducer";
 import settingsReducer from "@reducers/settingsReducer";
 import bookieReducer from "@reducers/bookieReducer";
+import accountReducer from "@reducers/accountReducer";
 
 // Redux-persist
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { createTransform } from 'redux-persist';
-import {parse, stringify} from 'flatted';
+
 // const store = createStore(
 //     combineReducers({math: mathReducer, user: userReducer, favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer}),
 //     {},
@@ -44,7 +45,7 @@ const persistConfig = {
   key: 'root',
   storage: storage,
   transforms: [transformCircular],
-  blacklist: ['user','odds','bookie']
+  blacklist: ['user','odds','bookie','account']
 }
 
 const bindMiddleware = (middleware) => {
@@ -57,7 +58,7 @@ const bindMiddleware = (middleware) => {
   };
   
 export const makeStore = () => {
-    const rootReducer = combineReducers({favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer,odds:oddsReducer,user:userReducer,settings:settingsReducer, bookie:bookieReducer});
+    const rootReducer = combineReducers({favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer,odds:oddsReducer,user:userReducer,settings:settingsReducer, bookie:bookieReducer,account:accountReducer});
     const persistedReducer = persistReducer(persistConfig, rootReducer)
     const store = createStore(
         persistedReducer,

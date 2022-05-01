@@ -125,7 +125,6 @@ const options = {
 };
 
 export const Unsettled = (props) =>{
-    const [data,setData] = useState([]);
     const [loadingData, setLoadingData] = useState(true);
     
     const getMuiTheme = () => createTheme({
@@ -142,30 +141,14 @@ export const Unsettled = (props) =>{
             }
         }
 
-      })
+    })
 
-
-      const getBets = async (event, newValue) => {
-        const res = await getMyBets();
-        return res;
-      }
-
-      useEffect(() => {
-        async function fetchData() {
-          const res = await getBets("", "");
-          res.map((item)=>{
-                item.bet_time = new Date(item.bet_time*1000).toLocaleString();
-                item.game_time = new Date(item.game_time*1000).toLocaleString();
-          })
-          setData(res);
-          setLoadingData(false);
+    useEffect(()=>{
+        if(props.unsettledBets){
+            setLoadingData(false);
         }
-        fetchData();
-      }, []); // Or [] if effect doesn't need props or state
-
-
+    },[])
       
-
     return (
         <>
         {
@@ -178,7 +161,7 @@ export const Unsettled = (props) =>{
                 <ThemeProvider theme={getMuiTheme()}>
                     <MUIDataTable
                         title={"Bets"}
-                        data={data}
+                        data={props.unsettledBets}
                         columns={columns}
                         options={options}                      
                     />    

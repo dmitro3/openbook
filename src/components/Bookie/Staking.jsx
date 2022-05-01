@@ -92,16 +92,17 @@ const Staking = (props) => {
 
 
   const stringToNum = (txt) => {
-    if(txt.match){
-      let number = txt.match(/\d/g);
-      number = number.join("");
+    if(txt.split){
+      let number = txt.split(" ")[0];
       return Number(number)
+    }
+    else{
+      return 0;
     }
   }
 
   let depositAmountInputNumber = Number(depositAmountInput);
   let withdrawableValueNumber = stringToNum(withdrawableValue);
-  console.log(depositAmountInputNumber,withdrawableValueNumber,depositAmountInputNumber>withdrawableValueNumber)
   if(withdrawable){
     if(depositAmountInputNumber > withdrawableValueNumber){
       setWithdrawable(false);

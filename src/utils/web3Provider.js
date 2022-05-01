@@ -8,6 +8,7 @@ var ethers_m = require('ethers');
 import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity} from "@actions/userActions";
 import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
 import {setLiqDisplayValue,setbalanceHoldValue,setWithdrawableValue,setUserStakeValue} from "@actions/bookieActions";
+import {setSettledBets,setUnsettledBets} from "@actions/accountActions";
 import {store} from "../store"
 
 export const checkWeb3 =  async () => {
@@ -180,9 +181,7 @@ export const getMyBets = async() => {
 
     let bets = await contract.methods.getAllBets().call()
     let new_bets = await process_bets(bets)
-
-    
-    return new_bets
+    store.dispatch(setUnsettledBets(new_bets))
 }
 
 export const getSettledBets = async() => {
@@ -195,9 +194,7 @@ export const getSettledBets = async() => {
 
     let bets = await contract.methods.getSettledBets().call()
     let new_bets = await process_bets(bets)
-
-    
-    return new_bets
+    store.dispatch(setSettledBets(new_bets))
 }
 
 export const claimBets = async () => {
@@ -320,8 +317,6 @@ const getUserDaiBalance = async (web3,userAddress) =>{
     }
 }
 
-
-
 export const handleLiqChange = async () => {
     const res = await getPoolLiquidity();
     store.dispatch(setLiqDisplayValue(res + " DAI"))
@@ -344,6 +339,8 @@ const subscribeNewBlock = async (web3,userAddress) =>{
         if(result){
             getUserDaiBalance(web3,userAddress);
             handleLiqChange();
+            getMyBets();
+            getSettledBets();
         }
     })
 }
@@ -382,7 +379,8 @@ const requestMetaMask = async () => {
                 }
                 getUserDaiBalance(web3,userAddress);
                 subscribeNewBlock(web3,userAddress);
-                
+                getMyBets();
+                getSettledBets();
             }   
     }catch(e){
         console.error("Can not retrieve account")

@@ -137,7 +137,6 @@ const BottomBetslipSideDrawer = (props) => {
             ...betInputQuery,
             [matchId]: null
         })
-        console.log("newBetQuery is : ",betInputQuery)
     }
 
     const placeBet = async () =>{
@@ -152,11 +151,9 @@ const BottomBetslipSideDrawer = (props) => {
             stakes.push(item.stake)
         })
 
-        console.log(`match ids: ${matchIds}\noutcomes: ${outcomes}\nstakes: ${stakes}`)
         
         let betResult = await makeBet(matchIds, outcomes, stakes);  
         setConfirmBetModalOpen(true);  
-        console.log("bet placed, result ", betResult);
         if(betResult)
         {
             globalOrderReceiptArr = orderReceiptArr;

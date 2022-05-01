@@ -130,8 +130,6 @@ const DashboardNavbar = (props) => {
   }, []);
 
   useEffect(()=>{
-      console.log(props.user.web3)
-      console.log(window.ethereum)
       // props.user.web3.eth.subscribe("newBlockHeaders",(err,result)=>{
       //   console.log('hello')
       // })
