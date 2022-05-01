@@ -1,5 +1,6 @@
 .dispositivo {
   position:relative;
+  transform: scale(1.5);
 }
 .dispositivo .carcasa {
   background-color:#464E59;
@@ -97,6 +98,29 @@ transition:all 0.5s cubic-bezier(0,.65,0,1.54);
   transition:all 0.5s cubic-bezier(0,.65,0,1.54);
   -webkit-transition:all 0.5s cubic-bezier(0,.65,0,1.54);
 }
+
+.dispositivo[data-animation-step="3"]{
+  margin-left:8%;
+}
+
+.pantalla{
+  background-size:contain;
+  background-repeat: no-repeat;
+}
+
+.dispositivo[data-animation-step="1"] .carcasa .pantalla {
+  background-image:url(/static/images/landing/Ipad_Screenshot_1.jpg);
+  
+}
+
+.dispositivo[data-animation-step="2"] .carcasa .pantalla {
+  background-image:url(/static/images/landing/Desktop_Screenshot_1.jpg);
+}
+
+.dispositivo[data-animation-step="3"] .carcasa .pantalla {
+  background-image:url(/static/images/landing/Phone_Screenshot_1.jpg);
+}
+
 
 /************************************portatil*/
 .dispositivo[data-animation-step="1"] .carcasa {
