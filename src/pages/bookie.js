@@ -14,7 +14,7 @@ import { DashboardLayout } from "@components/DashboardLayout";
 import { addLiquidity, getBalance } from "@utils/web3Provider";
 
 import { BookieOverview } from "@components/Bookie/BookieOverview";
-import { Staking } from "@components/Bookie/Staking";
+import  Staking  from "@components/Bookie/Staking";
 import { MyStake } from "@components/Bookie/MyStake";
 
 const BookieHomepage = (props) => {

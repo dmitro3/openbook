@@ -129,6 +129,14 @@ const DashboardNavbar = (props) => {
     listenMetaMaskDisconnect();
   }, []);
 
+  useEffect(()=>{
+      console.log(props.user.web3)
+      console.log(window.ethereum)
+      // props.user.web3.eth.subscribe("newBlockHeaders",(err,result)=>{
+      //   console.log('hello')
+      // })
+  },[])
+
   function confirmSettings(settings){
     props.setPreferUsername(props.user.userAddress,settings.preferUsername);
     props.setOddsFormat(settings.oddsFormat);

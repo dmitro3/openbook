@@ -13,7 +13,7 @@ import {connectMetaMask} from "@utils/web3Provider";
 import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
 import {makeBet} from "@utils/web3Provider";
 import {BetConfirmPopup} from "@components/Dashboard/BetConfirmPopup";
-import { getUserDaiBalance } from "@utils/web3Provider";
+
 
 // Redux Dependencies
 import {connect} from "react-redux";

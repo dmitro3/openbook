@@ -5,8 +5,9 @@ const {MaxUint256} = require("@ethersproject/constants");
 var ethers_m = require('ethers');  
 
 //redux
-import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity, setbalanceHoldValue} from "@actions/userActions";
+import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity} from "@actions/userActions";
 import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
+import {setLiqDisplayValue,setbalanceHoldValue,setWithdrawableValue,setUserStakeValue} from "@actions/bookieActions";
 import {store} from "../store"
 
 export const checkWeb3 =  async () => {
@@ -276,7 +277,7 @@ export const makeBet = async (ids, picks, amounts) => {
     return true
 }
 
-export const getUserDaiBalance = async (web3,userAddress) =>{
+const getUserDaiBalance = async (web3,userAddress) =>{
     try{
         let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
         let balanceInWei = await dai_contract.methods.balanceOf(userAddress).call()
@@ -288,6 +289,34 @@ export const getUserDaiBalance = async (web3,userAddress) =>{
         console.error("Can not get balance")
         console.error(e)
     }
+}
+
+
+
+export const handleLiqChange = async () => {
+    const res = await getPoolLiquidity();
+    store.dispatch(setLiqDisplayValue(res + " DAI"))
+
+    const res2 = await getUserLiquidity();
+    store.dispatch(setUserStakeValue(res2 + " DAI"))
+
+    const res3 = await getUserHold();
+    store.dispatch(setbalanceHoldValue(res3 + " DAI"))
+
+    store.dispatch((setWithdrawableValue(res2 - res3 + " DAI")))
+}
+
+const subscribeNewBlock = async (web3,userAddress) =>{
+    web3.eth.subscribe("newBlockHeaders",(err,result)=>{
+        if(err){
+            console.error(err)
+            return
+        }      
+        if(result){
+            getUserDaiBalance(web3,userAddress);
+            handleLiqChange();
+        }
+    })
 }
 
 const requestMetaMask = async () => {
@@ -323,6 +352,8 @@ const requestMetaMask = async () => {
                     store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
                 }
                 getUserDaiBalance(web3,userAddress);
+                subscribeNewBlock(web3,userAddress);
+                
             }   
     }catch(e){
         console.error("Can not retrieve account")
@@ -354,6 +385,8 @@ export const switchAccount = async () => {
             store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
         }     
         getUserDaiBalance(web3,userAddress);
+        subscribeNewBlock(web3,userAddress);
+
     }
 }
 
