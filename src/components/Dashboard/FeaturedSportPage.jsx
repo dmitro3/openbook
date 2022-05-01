@@ -29,7 +29,7 @@ return (
         }
         else{
             let sport_key = sport_league_entries[0];
-            let league_data = sport_league_entries[1].slice(0,6);
+            let league_data = sport_league_entries[1].slice(0,5);
             return (<CustomSwiperForFeatureRows key={index} sport_key={sport_key} league_data={league_data}/>)
         }
 

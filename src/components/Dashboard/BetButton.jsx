@@ -70,6 +70,7 @@ export const BetButton = (props) => {
             mr: 1,
             px: 1.5,
             py: 2,
+            order: props.order,
             backgroundColor: '#f5f5f5',
             cursor: 'pointer',
             '&:hover': {
