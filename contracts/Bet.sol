@@ -54,7 +54,7 @@ contract Bet is ERC1155{
     function unlockLiquidity(uint256 gameId, uint8 outcome_id) onlyMarkets external{
         for (uint i = 0; i<=2; i++){
             if (i != outcome_id){
-                lockedLiquidity = lockedLiquidity - gameWiseLiquidity[outcome_id][gameId];
+                lockedLiquidity = lockedLiquidity - gameWiseLiquidity[gameId][i];
             }
         }
     }
@@ -115,9 +115,9 @@ contract Bet is ERC1155{
             });
 
             lockedLiquidity = lockedLiquidity + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000;
-            gameWiseLiquidity[currId][99] = gameWiseLiquidity[currId][99] + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000; //This tracks the total
-            gameWiseLiquidity[currId][gameIds[i]] = gameWiseLiquidity[currId][gameIds[i]] + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000;
-
+            gameWiseLiquidity[gameIds[i]][99] = gameWiseLiquidity[gameIds[i]][99] + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000; //This tracks the total
+            gameWiseLiquidity[gameIds[i]][betIndexes[i]] = gameWiseLiquidity[gameIds[i]][betIndexes[i]] + ((bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000);
+        
 
             _mint(msg.sender, currId, 1, "");
 

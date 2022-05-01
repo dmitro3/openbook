@@ -26,6 +26,10 @@ contract Markets{
 
     mapping(uint256 => Market) private markets;
 
+    modifier onlyProvider {
+        require(msg.sender == 0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd);
+        _;
+    }
 
 
     constructor(uint256 protocolFee, uint256 _LPFee) public{
@@ -40,7 +44,7 @@ contract Markets{
     }
 
 
-    function settleMarkets(uint256[] calldata marketIds, uint8[] calldata winnerIndex) public{
+    function settleMarkets(uint256[] calldata marketIds, uint8[] calldata winnerIndex) onlyProvider public{
 
         for (uint i=0; i<marketIds.length; i++)
         {
@@ -74,7 +78,7 @@ contract Markets{
         markets[1].odds = [1,2,3];
     }
 
-    function startMarket(uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds) public {
+    function startMarket(uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds) onlyProvider public {
         uint256  currId = _nextId+1;
 
         markets[currId] = Market(
@@ -96,7 +100,7 @@ contract Markets{
     
 
 
-    function startMarkets(uint256[] calldata _matchTimestamps, string[][] calldata _names, string[][] calldata _match_details, string[][] calldata _bets, uint256[][] calldata _odds) public {
+    function startMarkets(uint256[] calldata _matchTimestamps, string[][] calldata _names, string[][] calldata _match_details, string[][] calldata _bets, uint256[][] calldata _odds) onlyProvider public {
         
         for (uint i = 0; i< _matchTimestamps.length; i++){
 
