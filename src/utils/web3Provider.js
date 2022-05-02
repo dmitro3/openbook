@@ -254,7 +254,6 @@ export const getMatches = async () => {
             all_matches.push(match_detail)
     }
 
-    console.log(all_matches)
     let odds = {}
     let i = 0;
     for (const match of all_matches)

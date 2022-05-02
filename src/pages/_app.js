@@ -16,6 +16,7 @@ import Web3 from 'web3';
 import { Provider } from "react-redux";
 import {persistor,store} from "../store";
 import { PersistGate } from 'redux-persist/integration/react'
+import { MARKET_ADDY} from "./src/config"
 
 // Setting odds, and store them into redux
 import { getOdds } from "@utils/getOdds" 
@@ -31,17 +32,24 @@ const App = (props) => {
     async function asyncUseEffectFunction() {
       let data = await getMatches();
       getOdds(data);
-      new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545')).eth.subscribe("newBlockHeaders",async (err,result)=>{
-        if(err){
-            console.error(err)
-            return
-        }      
-        if(result){
-          let data = await getMatches();
-          getOdds(data);
-        }
-      })
+      let web3 = new Web3(new Web3.providers.WebsocketProvider('ws://127.0.0.1:8545'))
+      // web3.eth.subscribe("newBlockHeaders",async (err,result)=>{
+      //   if(err){
+      //       console.error(err)
+      //       return
+      //   }      
+      //   if(result){
+      //     let data = await getMatches();
+      //     getOdds(data);
+      //   }
+      // })
+
+      //Do it here, suscribe to the new event then the two lines below
+      //     let data = await getMatches();
+      //     getOdds(data);
+      
     }
+
     asyncUseEffectFunction();
   }, []);
 
