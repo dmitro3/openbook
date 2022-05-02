@@ -17,6 +17,7 @@ import { Provider } from "react-redux";
 import {persistor,store} from "../store";
 import { PersistGate } from 'redux-persist/integration/react'
 import { MARKET_ABI, MARKET_ADDY} from "../config"
+import {setOddsChanging,setNewOdds} from "@actions/oddsActions"
 
 // Setting odds, and store them into redux
 import { getOdds } from "@utils/getOdds" 
@@ -32,38 +33,31 @@ const App = (props) => {
     async function asyncUseEffectFunction() {
       let data = await getMatches();
       getOdds(data);
-      let web3 = new Web3(new Web3.providers.WebsocketProvider('ws://127.0.0.1:8545'))
-      // web3.eth.subscribe("newBlockHeaders",async (err,result)=>{
-      //   if(err){
-      //       console.error(err)
-      //       return
-      //   }      
-      //   if(result){
-      //     let data = await getMatches();
-      //     getOdds(data);
-      //   }
-      // })
-
-      //Do it here, suscribe to the new event then the two lines below
-      //     let data = await getMatches();
-      //     getOdds(data);
-
-      let contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
-
-
-      contract.events.allEvents()
-        .on('data', (event) => {
-          if (event['event'] == 'updateOdds_Event'){
-            console.log(event['returnValues'][0]); //market id
-            console.log(event['returnValues'][1]); //new odds
-
-          }
-        })
-
-      
     }
-
     asyncUseEffectFunction();
+    let web3 = new Web3(new Web3.providers.WebsocketProvider('ws://127.0.0.1:8545'))
+    let contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
+
+    contract.events.allEvents()
+      .on('data', async (event) => {
+        if (event['event'] == 'updateOdds_Event'){
+          let data = await getMatches();
+          getOdds(data);
+          let newOdds = event['returnValues'][1].map((item)=>{
+            return Number(item)/1000
+          })
+          // console.log(event['returnValues'][0]); //market id
+          // console.log(event['returnValues'][1]); //new odds
+          store.dispatch(setOddsChanging(
+            [
+              event['returnValues'][0]
+            ]
+          ))
+          store.dispatch(setNewOdds(
+            newOdds
+          ))
+        }
+      })
   }, []);
 
   return (

@@ -1,7 +1,9 @@
 const oddsReducer = (state = {
     oddsDict: {},
     unformattedOddsDict: {},
-    isOddsLoading: true
+    isOddsLoading: true,
+    oddsChanging: [],
+    newOdds: []
 
   }, action) => {
       switch (action.type) {
@@ -21,6 +23,18 @@ const oddsReducer = (state = {
                 state = {
                     ...state,
                     isOddsLoading: false
+                }
+                break;
+            case "SET_ODDS_CHANGING":
+                state={
+                    ...state,
+                    oddsChanging: action.payload
+                }
+                break;
+            case "SET_NEW_ODDS":
+                state={
+                    ...state,
+                    newOdds: action.payload
                 }
                 break;
         }

@@ -18,3 +18,17 @@ export function setIsOddsLoadingFalse(){
         payload: ""
     }
 }
+
+export function setOddsChanging(changingOdds){
+    return {
+        type: "SET_ODDS_CHANGING",
+        payload: changingOdds
+    }
+}
+
+export function setNewOdds(newOdds){
+    return {
+        type: "SET_NEW_ODDS",
+        payload: newOdds
+    }
+}
