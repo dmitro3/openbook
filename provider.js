@@ -63,15 +63,25 @@ async function getMatches(){
 }
 
 async function updateOdds(){
-    let market = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
-    await market.methods.updateOdds(3, [2000, 1500]).send({from: account.address, gas: 500000})
+    (async function my_func() {
+        let market = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);    
 
+        let details = [{'id': 2, odds: [1150, 5630]}, {'id': 2, odds: [1170, 5630]}, 
+                        {'id': 3, odds: [4010, 1270]}, {'id': 3, odds: [4030, 1270]}, 
+                        {'id': 7, odds: [2480, 1570]}, {'id': 7, odds: [2480, 1550]}, 
+                        {'id': 8, odds: [2720, 1480]}, {'id': 8, odds: [2720, 1500]},
+                        {'id': 12, odds: [2970, 1430]}, {'id': 12, odds: [2990, 1430]}]
+        
+        const randomElement = details[Math.floor(Math.random() * details.length)];
+        await market.methods.updateOdds(randomElement['id'], randomElement['odds']).send({from: account.address, gas: 500000})
+        setTimeout( my_func, 10000 );
+    })();
 }
 
-updateOdds()
-// async function main(){
-//     await perform()
-//     await getMatches()
-// }
+async function main(){
+    await perform()
+    await getMatches()
+}
 
-// main()
+main()
+updateOdds()
