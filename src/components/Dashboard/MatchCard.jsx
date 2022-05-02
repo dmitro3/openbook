@@ -4,7 +4,7 @@ import {TeamCard } from '@components/Dashboard/TeamCard';
 import {BetButton} from '@components/Dashboard/BetButton';
 import {FavoriteButton} from '@components/Dashboard/FavoriteButton';
 const static_english_soccer_icons_path = "/static/images/team_and_player_icons/";
-import {useState, useEffect} from "react"
+import {useState, useEffect, useRef} from "react"
 
 // Redux Dependencies
 import {connect} from "react-redux";
@@ -13,25 +13,26 @@ import {addBetSlipOutcome,removeBetSlipOutcome} from '@actions/betSlipActions';
 
 const MatchCard = (props) => {
   const [betButtonOddsState,setBetButtonOddsState] = useState(['normal','normal']);
-
+  const prevOutcome = useRef()
   useEffect(()=>{
-      // setInterval(() => {   
-      //   let chance = Math.random();
-      //   let chance1 = 0.02
-      //   let chance2 = chance1*2
-      //   if(chance > 0 && chance <= chance1){
-      //     console.log("goup")
-      //     setBetButtonOddsState(["oddsUp","oddsDown"])
-      //   }
-      //   if(chance > chance1 && chance <= chance2){
-      //     console.log("godwn")
-      //     setBetButtonOddsState(["oddsDown","oddsUp"])
-      //   }
-      //   if(chance > chance2){
-      //     setBetButtonOddsState(["normal","normal"])
-      //   }
-      // }, 2000);
-    },[])
+      prevOutcome.current = props.outcomes;
+      if(props.odds.oddsChanging.includes(String(props.matchId))){
+        console.log(props.odds.oddsChanging)
+        let oldOdds = Object.values(prevOutcome.current);
+        let newOdds = props.odds.newOdds;
+        if(oldOdds[0] != newOdds[0] && oldOdds[1] != newOdds[1]){
+          if(oldOdds[0] > newOdds[0]){
+            setBetButtonOddsState(["oddsUp","oddsDown"])
+          }
+          else{
+            setBetButtonOddsState(["oddsDown","oddsUp"])
+          }
+        }
+      }
+      else{
+        setBetButtonOddsState(["normal","normal"])
+      }
+    },[props.odds.oddsChanging])
 
 
   return (
@@ -101,7 +102,8 @@ const mapStateToProps = (state) => {
   return {
       favoriteMatch: state.favoriteMatch,
       betSlip: state.betSlip,
-      settings: state.settings
+      settings: state.settings,
+      odds: state.odds
   };
 };
 
