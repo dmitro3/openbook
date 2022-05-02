@@ -81,7 +81,7 @@ async function updateOdds(){
 async function main(){
     await perform()
     await getMatches()
+    await updateOdds()
 }
 
 main()
-updateOdds()
