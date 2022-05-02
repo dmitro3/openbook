@@ -83,9 +83,6 @@ export const BetButton = (props) => {
         variant="body2"
         id={props.BetButtonId}
         onClick={(e)=>{props.inSlip ? props.removeBetSlipOutcome(props.BetButtonId) : props.addBetSlipMatch(props.BetButtonId)}}
-        // onClick={(e)=>{
-        //     Math.random() > 0.5 ? oddsGoUp(): oddsGoDown();
-        // }}
         style={props.inSlip? {border:'2px solid black'} : { border:'none'}}
         >
         

@@ -61,7 +61,6 @@ export default function CustomSwiperForFeatureRows(props) {
     if(isEnd){
       nextButtonClasses += " " + "custom_feature_swiper_disable";
     }
-    
   return (
     
     <>
@@ -125,7 +124,7 @@ export default function CustomSwiperForFeatureRows(props) {
             shortSwipes={false}
         >
         {
-            props.league_data.slice(0,8).map((match) => {
+            props.league_data.map((match) => {
             let datetime = new Date(match.timestamp);
             let dateStringForProps=datetime.toLocaleString('default', { month: 'short', day:'numeric' })
             let timeStringForProps=datetime.toLocaleString('default', { hour: 'numeric', minute:'numeric',  hourCycle: 'h23' })

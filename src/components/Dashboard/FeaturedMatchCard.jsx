@@ -17,7 +17,7 @@ const FeaturedMatchCard = (props) => {
   useEffect(()=>{
       prevOutcome.current = props.outcomes;
       if(props.odds.oddsChanging.includes(String(props.matchId))){
-        // console.log(props.odds.oddsChanging)
+        console.log(props.odds.oddsChanging)
         let oldOdds = Object.values(prevOutcome.current);
         let newOdds = props.odds.newOdds;
         if(oldOdds[0] != newOdds[0] && oldOdds[1] != newOdds[1]){
@@ -28,9 +28,9 @@ const FeaturedMatchCard = (props) => {
             setBetButtonOddsState(["oddsDown","oddsUp"])
           }
         }
-        else{
-          setBetButtonOddsState(["normal","normal"])
-        }
+      }
+      else{
+        setBetButtonOddsState(["normal","normal"])
       }
     },[props.odds.oddsChanging])
   return(

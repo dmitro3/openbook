@@ -68,9 +68,14 @@ async function updateOdds(){
 
         let details = [{'id': 2, odds: [1150, 5630]}, {'id': 2, odds: [1170, 5630]}, 
                         {'id': 3, odds: [4010, 1270]}, {'id': 3, odds: [4030, 1270]}, 
-                        {'id': 7, odds: [2480, 1570]}, {'id': 7, odds: [2480, 1550]}, 
-                        {'id': 8, odds: [2720, 1480]}, {'id': 8, odds: [2720, 1500]},
-                        {'id': 12, odds: [2970, 1430]}, {'id': 12, odds: [2990, 1430]}]
+                        {'id': 4, odds: [4020, 1270]}, {'id': 4, odds: [5080, 1100]}, 
+                        {'id': 12, odds: [3450, 1350]}, {'id': 12, odds: [2720, 2310]},
+                        {'id': 13, odds: [1330, 3710]}, {'id': 13, odds: [1530, 2470]},
+                        {'id': 14, odds: [2480, 1580]}, {'id': 14, odds: [2990, 1430]},
+                        {'id': 17, odds: [2980, 1430]}, {'id': 17, odds: [2720, 2310]},
+                        {'id': 18, odds: [3790, 1300]}, {'id': 18, odds: [1530, 2470]},
+                        {'id': 19, odds: [1800, 2000]}, {'id': 19, odds: [2990, 1430]},
+                    ]
         
         const randomElement = details[Math.floor(Math.random() * details.length)];
         await market.methods.updateOdds(randomElement['id'], randomElement['odds']).send({from: account.address, gas: 500000})

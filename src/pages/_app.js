@@ -46,8 +46,8 @@ const App = (props) => {
           let newOdds = event['returnValues'][1].map((item)=>{
             return Number(item)/1000
           })
-          // console.log(event['returnValues'][0]); //market id
-          // console.log(event['returnValues'][1]); //new odds
+          console.log(event['returnValues'][0]); //market id
+          console.log(event['returnValues'][1]); //new odds
           store.dispatch(setOddsChanging(
             [
               event['returnValues'][0]
