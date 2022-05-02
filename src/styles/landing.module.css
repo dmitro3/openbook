@@ -427,7 +427,7 @@
     justify-content: center;
     color:white;
     z-index:0;
-    padding-top: 50px;
+    padding-top: 0px;
 }
 
 
@@ -537,6 +537,8 @@
     color: #e2e1ff !important;
     margin-bottom: 30px !important;
     font-size: 24px !important;
+    width: 70%;
+    text-align: center;
 }
 
 .waveTransition3{
@@ -558,7 +560,7 @@
     background-repeat: no-repeat;
     background-position:center;
     background-size: cover;
-    background-image: url(/static/images/landing/wave_transition4.svg); 
+    background-image: url(/static/images/landing/wave_transition5.svg); 
 }
 
 

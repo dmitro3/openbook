@@ -30,7 +30,7 @@ const Dashboard = (props) => {
       <HeroBanner styles={styles} />
       <Features styles={styles} />
       <Box className={styles.uniqueBox}>
-        <Box>
+        <Box sx={{display:'flex',flexDirection: 'column'}}>
           <Typography className={styles.subTitle}>
             Why is OpenBook better?
           </Typography>
@@ -38,24 +38,23 @@ const Dashboard = (props) => {
             This is What You Get
           </Typography>
           <Typography className={styles.detailDescriptions2}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. 
+            OpenBook offersaa hybrid sportsbook model and why we think that we can solve so many of the seemingly easy but illusive issues with the growing sports betting industry. 
           </Typography>
         </Box>
 
         <Box sx={{py:'50px', display: 'flex',flexDirection: 'column',alignItems: 'flex-start',width: "50%"}}>
           <Box>
-            <Box sx={{display:'flex'}}>
+            <Box sx={{display:'flex',flexDirection: 'row'}}>
               <Image src="/static/images/landing/why_we_unique_1.png" height={80} width={80} layout="fixed"/>
               <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
                 <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>Single Liquidity Pool</Typography>
-                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Our model contains only one liquidity pool, which allows much higher betting limit. </Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>The OpenBook sportsbook protocol uses a singular liquidity pool to serve all bets, which allows much higher betting limit. </Typography>
               </Box>
             </Box>
             <LandingFooterDivider />
           </Box>
           <Box>
-            <Box sx={{display:'flex'}}>
+            <Box sx={{display:'flex',flexDirection: 'row'}}>
               <Image src="/static/images/landing/why_we_unique_2.png" height={80} width={80} layout="fixed"/>
               <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
                 <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>No deposit required</Typography>
@@ -65,7 +64,7 @@ const Dashboard = (props) => {
             <LandingFooterDivider />
           </Box>
           <Box>
-            <Box sx={{display:'flex'}}>
+            <Box sx={{display:'flex',flexDirection: 'row'}}>
             <Image src="/static/images/landing/why_we_unique_3.png" height={80} width={80} layout="fixed"/>
               <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
                 <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>Polygon based</Typography>
@@ -75,11 +74,21 @@ const Dashboard = (props) => {
             <LandingFooterDivider />
           </Box>
           <Box>
-            <Box sx={{display:'flex'}}>
+            <Box sx={{display:'flex',flexDirection: 'row'}}>
+            <Image src="/static/images/landing/why_we_unique_6.png" height={80} width={80} layout="fixed"/>
+              <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
+                <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>No user details needed</Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>By facilitating bets with DAI transferred from self-custodial MetaMask wallets, OpenBook is entirely blind to Bettor identities. </Typography>
+              </Box>
+            </Box>
+            <LandingFooterDivider />
+          </Box>
+          <Box>
+            <Box sx={{display:'flex',flexDirection: 'row'}}>
             <Image src="/static/images/landing/why_we_unique_4.png" height={80} width={80} layout="fixed"/>
               <Box sx={{display:'flex',flexDirection:"column",marginLeft:'20px'}}>
                 <Typography sx={{fontSize:'32px',color:'white',textAlign:'left',fontWeight:'500'}}>Be the bookie</Typography>
-                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Not only you can be the bettor on OpenBook, you can also be the bookie and enjoy a discount when betting on any sports game. </Typography>
+                <Typography sx={{frontSize:'18px',color:'white',textAlign:'left'}}>Not only you can be the bettor on OpenBook, you can also be the bookie by staking DAI coins into our liquidiuty pool and earn stable APR.</Typography>
               </Box>
             </Box>
             <LandingFooterDivider />
@@ -101,7 +110,7 @@ const Dashboard = (props) => {
             Invest and bet on any plaform you like, phones, laptops, ipads, desktops.
           </Typography>
         </Box>
-        <Box sx={{pt:'100px',pb:'200px',display:'flex','alignItems':'center',justifyContent: 'center'}}>
+        <Box sx={{pt:'100px',pb:'00px',display:'flex','alignItems':'center',justifyContent: 'center',minHeight:'400px'}}>
           <ChangingDevice/>
         </Box>
       </Box>

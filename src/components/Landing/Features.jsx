@@ -6,7 +6,7 @@ const featureText = {
     0: "OpenBook is built on web3 technology. All transactions are transparent and all smart contracts code is publicly audited.",
     1: "OpenBook is built on Polygon netowrk, a fast-growing ethereum 2.0 blockchain. It offers fast block mining speeds, minimal delay, and low gas fees.",
     2: "OpenBook does not store any user data; no name, address, emails, or phone number are required for using our services. We do not use any centralized database. All data is stored on Polygon blockchain.",
-    3: "OpenBook offers the lowest commission fee on the market. Traditional sports betting apps charge 10% each bet as service fee while we only charge 3%."
+    3: "OpenBook offers the lowest commission fee on the market. Traditional sports betting apps charge 10% each bet as service fee while we only charge 2%."
 }
 
 
