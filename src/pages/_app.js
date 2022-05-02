@@ -16,7 +16,7 @@ import Web3 from 'web3';
 import { Provider } from "react-redux";
 import {persistor,store} from "../store";
 import { PersistGate } from 'redux-persist/integration/react'
-import { MARKET_ADDY} from "../config"
+import { MARKET_ABI, MARKET_ADDY} from "../config"
 
 // Setting odds, and store them into redux
 import { getOdds } from "@utils/getOdds" 
@@ -47,6 +47,19 @@ const App = (props) => {
       //Do it here, suscribe to the new event then the two lines below
       //     let data = await getMatches();
       //     getOdds(data);
+
+      let contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
+
+
+      contract.events.allEvents()
+        .on('data', (event) => {
+          if (event['event'] == 'updateOdds_Event'){
+            console.log(event['returnValues'][0]); //market id
+            console.log(event['returnValues'][1]); //new odds
+
+          }
+        })
+
       
     }
 

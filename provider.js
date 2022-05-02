@@ -15,9 +15,7 @@ function toTimestamp(strDate){
  }
 
 async function perform(){
-    
-    let contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
-   
+       
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
     await token_contract.methods.approve(LIQUIDITY_ADDY, MaxUint256).send({from: account.address, gas: 122000})
 
@@ -64,9 +62,16 @@ async function getMatches(){
     }
 }
 
-async function main(){
-    await perform()
-    await getMatches()
+async function updateOdds(){
+    let market = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
+    await market.methods.updateOdds(3, [2000, 1500]).send({from: account.address, gas: 500000})
+
 }
 
-main()
+updateOdds()
+// async function main(){
+//     await perform()
+//     await getMatches()
+// }
+
+// main()

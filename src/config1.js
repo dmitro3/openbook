@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0xc1EeD9232A0A44c2463ACB83698c162966FBc78d";
-const BET_ADDY = "0xfaE849108F2A63Abe3BaB17E21Be077d07e7a9A2";
-const MARKET_ADDY = "0xC220Ed128102d888af857d137a54b9B7573A41b2"
+const LIQUIDITY_ADDY = "0xbeC6419cD931e29ef41157fe24C6928a0C952f0b";
+const BET_ADDY = "0x9eb52339B52e71B1EFD5537947e75D23b3a7719B";
+const MARKET_ADDY = "0x55027d3dBBcEA0327eF73eFd74ba0Af42A13A966"
 
 let LIQUIDITY_ABI = [
   {
@@ -1083,7 +1083,7 @@ let BET_ABI = [
 
 
 
-let MARKET_ABI = [
+let MARKET_ABI =[
   {
     "inputs": [
       {
@@ -1099,6 +1099,25 @@ let MARKET_ABI = [
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "marketId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "odds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "updateOdds_Event",
+    "type": "event"
   },
   {
     "inputs": [],
@@ -1359,7 +1378,18 @@ let MARKET_ABI = [
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "marketId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "newOdds",
+        "type": "uint256[]"
+      }
+    ],
     "name": "updateOdds",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -1379,6 +1409,8 @@ let MARKET_ABI = [
     "type": "function"
   }
 ]
+
+
 
 
 
