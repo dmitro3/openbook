@@ -11,6 +11,9 @@ contract Markets{
     address public BET_CONTRACT;
     uint32 public val_set = 0;
 
+    event updateOdds_Event(uint256 marketId, uint256[] odds);
+
+
     struct Market {
         uint256 matchTimestamp;
         string[] names;
@@ -74,8 +77,9 @@ contract Markets{
     }
 
     //Update odds
-    function updateOdds() public{
-        markets[1].odds = [1,2,3];
+    function updateOdds(uint256 marketId, uint256[] calldata newOdds) public onlyProvider{
+        markets[marketId].odds = newOdds;
+        emit updateOdds_Event(marketId, newOdds);
     }
 
     function startMarket(uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds) onlyProvider public {

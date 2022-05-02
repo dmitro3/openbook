@@ -33,7 +33,6 @@ contract Bet is ERC1155{
     uint256[] all_bets;
     uint256[] bet_history;
 
-
     address public DAI;
 
     modifier onlyMarkets {
