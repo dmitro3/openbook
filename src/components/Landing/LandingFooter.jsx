@@ -14,9 +14,10 @@ export const LandingFooter = () => {
                 <Grid item lg={3} sm={6} xl={3} xs={12}>
                   <Typography sx={{display:'block', color:'white', fontSize:'25px'}}>About</Typography>
                   {["Privacy Policy","About Us", "Documentation" ,"Terms and Conditions"].map((item,index)=>{
-                    return(
-                      <Link sx={{display:'block', color:'white'}} underline="hover" key={index} href="#">{item}</Link>
-                    )
+                    if(index==2)
+                      return(<Link sx={{display:'block', color:'white'}} underline="hover" key={index} href="https://openbook.gitbook.io/product-docs/introduction/welcome-to-openbook">{item}</Link>)              
+                    else 
+                      return( <Link sx={{display:'block', color:'white'}} underline="hover" key={index} href="#">{item}</Link>)
                   })}
                 </Grid>
                 <Grid item lg={3} sm={6} xl={3} xs={12} >

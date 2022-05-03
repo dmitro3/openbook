@@ -13,8 +13,8 @@ import Image from "next/image";
 import NextLink from "next/link";
 import { useRouter } from 'next/router'
 
-const pages = ['Home', 'Bet Now', 'Bookie', 'About Us', "Leaderboard"];
-const links = ['/landing', '/', '/bookie','#','/leaderboard']
+const pages = ['Home', 'Bet Now', "Docs", 'About Us', "Leaderboard"];
+const links = ['/landing', '/', 'https://openbook.gitbook.io/product-docs/','#','/leaderboard']
 
 export const NavBar = (props) => {
     const router = useRouter();
