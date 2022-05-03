@@ -37,7 +37,7 @@ const Dashboard = (props) => {
           <Typography className={styles.title}>
             This is What You Get
           </Typography>
-          <Typography className={styles.detailDescriptions2}>
+          <Typography className={styles.detailDescriptions3} style={{display:'100%'}}>
             OpenBook offersaa hybrid sportsbook model and why we think that we can solve so many of the seemingly easy but illusive issues with the growing sports betting industry. 
           </Typography>
         </Box>

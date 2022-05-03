@@ -9,6 +9,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import Image from "next/image";
+import NextLink from "next/link";
 
 const pages = ['Home', 'Bet Now', 'Bookie', 'About Us', "Leaderboard"];
 
@@ -39,14 +41,38 @@ export const NavBar = (props) => {
         }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
-            LOGO
-          </Typography>
+
+          <NextLink 
+            href="/featured" 
+            passHref
+            >
+            <a style={{
+              textDecoration:"none",
+              display:'flex',
+              alignItems:'center'
+            }}>
+                <div style={{
+                  width:"50px",
+                  height:"50px",
+                  margin:"auto"
+                }}>
+                  <Image
+                    src="/static/open_book_logo.png"
+                    alt="logo"
+                    width="50"
+                    height="50"
+                    layout="responsive"
+                    className="logoStyle"
+                    priority={true}
+                  />
+                </div>
+                <Typography color="neutral.100" 
+                variant="h5" 
+                sx={{ml:'20px'}}>
+                  OpenBook
+                </Typography>
+            </a>
+          </NextLink>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none'} }}>
             <IconButton

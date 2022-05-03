@@ -541,6 +541,18 @@
     text-align: center;
 }
 
+.detailDescriptions3{
+    margin: 0 !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: #e2e1ff !important;
+    margin-bottom: 30px !important;
+    font-size: 24px !important;
+    width: 100%;
+    text-align: center;
+}
+
 .waveTransition3{
     aspect-ratio:300/50;
     width:100%; 

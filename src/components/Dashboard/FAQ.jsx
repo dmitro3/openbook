@@ -55,8 +55,7 @@ export const FAQ = (props) =>{
                                         </AccordionSummary>
                                         <Box sx={{borderBottom:'1px solid #cbcbcb',width:'98%',marginLeft:'auto',marginRight:'auto'}}/>
                                         <AccordionDetails>
-                                        <Typography>
-                                        {qat.answer}
+                                        <Typography dangerouslySetInnerHTML={{__html:qat.answer}}>
                                         </Typography>
                                         </AccordionDetails>
                                 </Accordion>
