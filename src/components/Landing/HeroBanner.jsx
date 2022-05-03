@@ -1,7 +1,9 @@
 import { Box, Typography, Button, Grid} from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/router'
 export const HeroBanner = (props) => {
     let styles = props.styles;
+    const router = useRouter();
     return(
         <Box className={styles.banner} sx={{ textAlign: 'center' }}>
         <Box sx={{ paddingTop: '50px', paddingBottom: '100px'}}>
@@ -19,7 +21,7 @@ export const HeroBanner = (props) => {
                 </Typography>
                 
 
-                <Button sx={{ px: '30px', py: '10px', backgroundColor: '#571ce0', border: '1px solid #571ce0', borderRadius: '25px', color: 'white',fontSize:'30px' }}>
+                <Button sx={{ px: '30px', py: '10px', backgroundColor: '#571ce0', border: '1px solid #571ce0', borderRadius: '25px', color: 'white',fontSize:'30px' }} onClick={()=>{router.push("/")}}>
                     Get Started Now
                 </Button>
                 

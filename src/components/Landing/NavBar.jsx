@@ -11,10 +11,13 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Image from "next/image";
 import NextLink from "next/link";
+import { useRouter } from 'next/router'
 
 const pages = ['Home', 'Bet Now', 'Bookie', 'About Us', "Leaderboard"];
+const links = ['/landing', '/', '/bookie','#','/leaderboard']
 
 export const NavBar = (props) => {
+    const router = useRouter();
     let styles = props.landingStyles;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -123,7 +126,7 @@ export const NavBar = (props) => {
               <Button
                 className={`${styles.navMenuItems} ${index==0 ? styles.navBarAtive : void(0)}`}
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={()=>{router.push(links[index])}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
