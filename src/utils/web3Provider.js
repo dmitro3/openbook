@@ -1,15 +1,16 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
-const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, MARKET_ABI, MARKET_ADDY, DAI_ABI, DAI_ADDY} = require("../config")
+const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, MARKET_ABI, MARKET_ADDY, DAI_ABI, DAI_ADDY, HTTP_PROVIDER} = require("../config")
 const {MaxUint256} = require("@ethersproject/constants");
 var ethers_m = require('ethers');  
 
 //redux
-import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity} from "@actions/userActions";
+import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity, setCurrentNetwork} from "@actions/userActions";
 import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
 import {setLiqDisplayValue,setbalanceHoldValue,setWithdrawableValue,setUserStakeValue} from "@actions/bookieActions";
 import {setSettledBets,setUnsettledBets} from "@actions/accountActions";
 import {store} from "../store"
+import { WSS_PROVIDER } from 'config1';
 
 export const checkWeb3 =  async () => {
     const provider = await detectEthereumProvider();
@@ -176,6 +177,9 @@ async function process_bets(bets){
 }
 
 export const getMyBets = async() => {
+    if(!store.getState().user.web3 || !store.getState().user.web3.eth)
+        return
+
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
 
@@ -238,7 +242,7 @@ export const getMatches = async () => {
 
     // let web3  = store.getState().user.web3;
     // if (web3 == null)
-    web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
+    web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
 
     
     let contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
@@ -406,6 +410,11 @@ const requestMetaMask = async () => {
                 let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
                 let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
                 store.dispatch(logIn(userAddress));
+
+                let networkType = await web3.eth.net.getNetworkType();
+                console.log(networkType);
+                store.dispatch(setCurrentNetwork(networkType))
+
                 if(!preferUsernameFlag){
                     store.dispatch(setPreferUsername(userAddress,preferUserName));
                     store.dispatch(setPreferUsernameFlag(userAddress));
@@ -460,7 +469,7 @@ export const getBetLimit = async (ids) => {
         id_only.push(text.split('/')[0]);
     })
 
-    let web3 = store.getState().user.web3 || new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
+    let web3 = store.getState().user.web3 || new Web3(new Web3.providers.HttpProvider(WSS_PROVIDER));
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let limit = await contract.methods.getLiquidityLimit(id_only).call()
     let exactLimit = parseFloat(web3.utils.fromWei(String(limit), 'ether')).toFixed(2);

@@ -250,6 +250,11 @@ const DashboardNavbar = (props) => {
               </IconButton> 
             </Tooltip>             
 
+            <Box>
+              <Typography sx={{color:"#4591ff",ml:"20px",fontSize:'1.5rem'}}>
+                {props.user.currentNetWork}
+              </Typography>
+            </Box>
 
             <DisplayUserAddressButton 
               preferUsername={props.settings.preferUsername[props.user.userAddress]} 

@@ -16,7 +16,7 @@ import Web3 from 'web3';
 import { Provider } from "react-redux";
 import {persistor,store} from "../store";
 import { PersistGate } from 'redux-persist/integration/react'
-import { MARKET_ABI, MARKET_ADDY} from "../config"
+import { MARKET_ABI, MARKET_ADDY, WSS_PROVIDER} from "../config"
 import {setOddsChanging,setNewOdds} from "@actions/oddsActions"
 
 // Setting odds, and store them into redux
@@ -35,7 +35,7 @@ const App = (props) => {
       getOdds(data);
     }
     asyncUseEffectFunction();
-    let web3 = new Web3(new Web3.providers.WebsocketProvider('ws://127.0.0.1:8545'))
+    let web3 = new Web3(new Web3.providers.WebsocketProvider(WSS_PROVIDER))
     let contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
 
     contract.events.allEvents()
