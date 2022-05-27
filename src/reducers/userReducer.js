@@ -7,7 +7,8 @@ const oddsReducer = (state = {
     loggedIn: false,
     hasWeb3: false,
     hasProvider: false,
-    balance: 0
+    balance: 0,
+    currentNetWork: ""
   }, action) => {
       switch (action.type) {
             case "LOG_IN":
@@ -25,6 +26,12 @@ const oddsReducer = (state = {
                         provider: {},
                         web3: {},
                     }   
+                    break;
+                case "SET_CURRENT_NETWORK":
+                    state = {
+                        ...state,
+                        currentNetWork: action.payload
+                    }
                     break;
                 case "SET_WEB3":
                     state = {

@@ -5,8 +5,6 @@ import "./interfaces/IMarkets.sol";
 import "./interfaces/ILiquidity.sol";
 import "./interfaces/IERC20.sol";
 
-import "hardhat/console.sol";
-
 contract Bet is ERC1155{
 
     struct singleBet {

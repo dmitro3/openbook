@@ -19,6 +19,13 @@ export function setWeb3(web3){
     }
 }
 
+export function setCurrentNetwork(currentNetwork){
+    return {
+        type: "SET_CURRENT_NETWORK",
+        payload: currentNetwork
+    }
+}
+
 export function setEthers(ethers){
     return {
         type: "SET_ETHERS",
