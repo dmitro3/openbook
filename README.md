@@ -15,6 +15,6 @@ npm run dev
 ```
 
 ### Links
-White paper: https://openbook.gitbook.io/product-docs/introduction/welcome-to-openbook <br />
+White paper: https://openbook-bet.gitbook.io/white_paper/ <br />
 Landing page: https://openbook-unlv.vercel.app/landing <br />
 Live demo: https://openbook-unlv.vercel.app/
