@@ -55,6 +55,14 @@ export const getUserLiquidity = async () => {
     let res = await token_contract.methods.balanceOf(account[0], 0).call()
     let exactAmt =  parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
 
+
+    let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+    let res2 = await dai_contract.methods.balanceOf(LIQUIDITY_ADDY).call()
+    let exactAmt2 = parseFloat(web3.utils.fromWei(String(res2), 'ether')).toFixed(2);
+
+    if ((exactAmt2 > exactAmt) && (exactAmt2 < 1.1 * exactAmt))
+        exactAmt = exactAmt2
+
     store.dispatch(setUserLiquidity(exactAmt))
 
     return exactAmt;
