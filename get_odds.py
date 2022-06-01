@@ -16,10 +16,7 @@ full = {}
 
 for idx, row in sports.iterrows():
     
-    if row['group'] not in full:
-        full[row['group']] = {}
-
-    full[row['group']][row['title']] = {}
+   
     curr = []
     
     
@@ -58,9 +55,18 @@ for idx, row in sports.iterrows():
                 except:
                     pass
             
-            
-            curr.append(curr_event)
-        
-    full[row['group']][row['title']] = curr[:8]
+            if 'outcomes' in curr_event:
+                curr.append(curr_event)
+    
+
+    if len(curr) > 0:
+        if row['group'] not in full:
+            full[row['group']] = {}
+            full[row['group']][row['title']] = {}
+
+
+        full[row['group']][row['title']] = curr[:8]
+
+
 
 json.dump(full, open('odds.json', 'w'))
