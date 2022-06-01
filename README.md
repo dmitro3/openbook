@@ -15,6 +15,6 @@ npm run dev
 ```
 
 ### Links
-White paper: https://openbook-bet.gitbook.io/white_paper/ <br />
-Landing page: https://openbook-bet.vercel.app/landing <br />
-Live demo: https://openbook-bet.vercel.app/
+White paper: https://docs.openbook.bet/ <br />
+Landing page: https://openbook.bet/ <br />
+Live demo: https://app.openbook.bet/
