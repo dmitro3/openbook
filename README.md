@@ -14,6 +14,7 @@ npm install
 npm run dev
 ```
 
+
 ### Links
 White paper: https://docs.openbook.bet/ <br />
 Landing page: https://openbook.bet/ <br />

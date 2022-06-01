@@ -1424,14 +1424,18 @@ const LOCALHOST_PROVIDER = "http://127.0.0.1:8545"
 
 const HTTP_PROVIDER = KOVAN_PROVIDER
 
-let WSS_PROVIDER = HTTP_PROVIDER.replace("http", "wss").replace("https", "wss")
+let WSS_PROVIDER;
 let DAI_ADDY = "0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa"; //kovan addy
 
 if (HTTP_PROVIDER == LOCALHOST_PROVIDER) {
-  DAI_ADDY = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
+  DAI_ADDY = "0x6B175474E89094C44Da98b954EedeAC495271d0F"; //local addy
   WSS_PROVIDER = "ws://127.0.0.1:8545"
 }
+else
+{
+  WSS_PROVIDER= "wss://eth-kovan.alchemyapi.io/v2/HEbnEOx1ZKSDnssxjxDbsPS3LykdVbup"
+}
 
-console.log(WSS_PROVIDER)
+
 
 module.exports = {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, MARKET_ABI, MARKET_ADDY, DAI_ABI, DAI_ADDY, HTTP_PROVIDER, WSS_PROVIDER}
