@@ -176,9 +176,14 @@ export const getMyBets = async() => {
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
 
+    try{
     let bets = await contract.methods.getAllBets().call()
     let new_bets = await process_bets(bets)
     store.dispatch(setUnsettledBets(new_bets))
+    }
+    catch {
+        
+    }
 }
 
 export const getSettledBets = async() => {
