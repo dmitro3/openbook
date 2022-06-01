@@ -464,7 +464,12 @@ export const getBetLimit = async (ids) => {
 
     let web3 = store.getState().user.web3 || new Web3(new Web3.providers.HttpProvider(WSS_PROVIDER));
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+
+    try{
     let limit = await contract.methods.getLiquidityLimit(id_only).call()
     let exactLimit = parseFloat(web3.utils.fromWei(String(limit), 'ether')).toFixed(2);
-    return exactLimit;
+    return exactLimit;}
+    catch{
+        return 0;
+    }
 }

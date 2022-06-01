@@ -1,14 +1,11 @@
-const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, MARKET_ABI, MARKET_ADDY, DAI_ABI, DAI_ADDY} = require("./src/config")
+const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, MARKET_ABI, MARKET_ADDY, DAI_ABI, DAI_ADDY, HTTP_PROVIDER} = require("./src/config")
 const Web3 = require('web3');
 
-let web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
+let web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
 let private = "9a3609a0d72d681eb901bc822724593ad63d3feb32cc9e92c4b801750964a1ad";
 
 const getMatches = async () => {
-
-    // let web3  = store.getState().user.web3;
-    // if (web3 == null)
-    web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
+    web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
 
     
     let contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
