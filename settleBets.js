@@ -32,7 +32,7 @@ web3.eth.defaultAccount = account.address;
 
 async function settle(){
     let market = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
-    await market.methods.settleMarkets([2, 3, 5, 8, 11], [1, 0, 1, 0, 2]).send({from: account.address, gas: 500000})
+    await market.methods.settleMarkets([2], [1]).send({from: account.address, gas: 500000})
 }
 
 settle()
