@@ -10,6 +10,7 @@ import {useState, useEffect, useRef} from "react"
 import {connect} from "react-redux";
 import {addFavoriteMatch,removeFavoriteMatch} from "@actions/favoriteMatchActions";
 import {addBetSlipOutcome,removeBetSlipOutcome} from '@actions/betSlipActions';
+import {setBetSlipOpen,setFirstTimeBetButtonClicked} from "@actions/settingsActions";
 
 const MatchCard = (props) => {
   const [betButtonOddsState,setBetButtonOddsState] = useState(['normal','normal']);
@@ -88,6 +89,9 @@ const MatchCard = (props) => {
             removeBetSlipOutcome={props.removeBetSlipOutcome}
             inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+outcomeKey)}
             oddsChange={betButtonOddsState[index]}
+            firstTimeBetButtonClicked= {props.settings.firstTimeBetButtonClicked}
+            setBetSlipOpen={props.setBetSlipOpen}
+            setFirstTimeBetButtonClicked={props.setFirstTimeBetButtonClicked}
             />)
         })}
           <FavoriteButton FaviorteButtonId={props.matchId} addFavoriteMatch={props.addFavoriteMatch} removeFavoriteMatch={props.removeFavoriteMatch} favorited={props.favoriteMatch.favoritedMatchArray.includes(props.matchId)}/>
@@ -120,7 +124,13 @@ const mapDispatchToProps = (dispatch) => {
       },
       removeBetSlipOutcome: (outcomeID) => {
         dispatch(removeBetSlipOutcome(outcomeID));
-      }
+      },
+      setBetSlipOpen: (open) => {
+        dispatch(setBetSlipOpen(open));
+      },
+      setFirstTimeBetButtonClicked: (clicked) => {
+        dispatch(setFirstTimeBetButtonClicked(clicked));
+      },
     };
 };
 

@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState,useEffect, useLayoutEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {Typography} from "@mui/material"
 import { MdOutlineNavigateBefore,MdOutlineNavigateNext } from "react-icons/md";
@@ -25,13 +25,13 @@ export default function CustomSwiperForFeatureRows(props) {
     }
 
     //componentDidMount
-    useEffect(()=>{
+    useLayoutEffect(()=>{
       setSlideCount(getSwiperSlideCountByScreenWidth())
       window.addEventListener("resize", handleResize);
     },[])
 
     //componentDidUnmount
-    useEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
+    useLayoutEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
 
     if(my_swiper.on){
       my_swiper.on('slideChange', function (e) {

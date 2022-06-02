@@ -39,3 +39,10 @@ export function setBetSlipOpen(isBetSlipOpen){
         payload: isBetSlipOpen
     }
 }
+
+export function setFirstTimeBetButtonClicked(clicked){
+    return {
+        type: "SET_FIRST_TIME_BET_BUTTON_CLICKED",
+        payload: clicked
+    }
+}

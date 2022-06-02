@@ -34,7 +34,13 @@ export const BetButton = (props) => {
     },[props.oddsChange])
 
 
-
+    function betButtonClicked(e){
+        props.inSlip ? props.removeBetSlipOutcome(props.BetButtonId) : props.addBetSlipMatch(props.BetButtonId);
+        if(!props.firstTimeBetButtonClicked){
+            props.setFirstTimeBetButtonClicked(true);
+            props.setBetSlipOpen(true);
+        }
+    }
 
     let oddsTextStyle = "odds-normal-text"
     let oddsIncreaseTriangleStyle = "odds-increase-triangle"
@@ -82,7 +88,7 @@ export const BetButton = (props) => {
             }}
         variant="body2"
         id={props.BetButtonId}
-        onClick={(e)=>{props.inSlip ? props.removeBetSlipOutcome(props.BetButtonId) : props.addBetSlipMatch(props.BetButtonId)}}
+        onClick={(e)=>betButtonClicked(e)}
         style={props.inSlip? {border:'2px solid black'} : { border:'none'}}
         >
         

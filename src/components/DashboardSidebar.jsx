@@ -45,27 +45,24 @@ const mapSportToIcon = (sport) => {
     switch(sport){
       case "American Football":
         return <FaFootballBall />
-      break;
 
       case "Baseball":
         return <FaBaseballBall />
-      break;
 
       case "Basketball":
         return <FaBasketballBall />
-      break;
 
       case "Ice Hockey":
         return <FaHockeyPuck />
-      break;
 
       case "MMA":
         return <RiBoxingFill />
-      break;
 
       case "Soccer":
         return <FaFutbol />
-      break;
+
+      case "Mixed Martial Arts":
+        return <RiBoxingFill />
 
       default:
         return <RiMouseFill />

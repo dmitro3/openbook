@@ -34,8 +34,10 @@ const transformCircular =
 
     },
     (outboundState, key) => {
-      if(key=="settings")
+      if(key=="settings"){
         outboundState.isBetSlipOpen = false;
+        outboundState.firstTimeBetButtonClicked = false;
+      }
       return outboundState
     },
     { whitelist: ['settings'] }

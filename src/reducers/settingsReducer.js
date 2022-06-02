@@ -4,7 +4,8 @@ const settingsReducer = (state = {
     preferUsername: {},
     preferUsernameFlag: {},
     preferAvatarStyle: {},
-    isBetSlipOpen: false
+    isBetSlipOpen: false,
+    firstTimeBetButtonClicked: false
   }, action) => {
       switch (action.type) {
             case "SET_ODDS_FORMAT":
@@ -41,6 +42,12 @@ const settingsReducer = (state = {
                 state = {
                     ...state,
                     isBetSlipOpen: action.payload
+                }
+                break;
+            case "SET_FIRST_TIME_BET_BUTTON_CLICKED":
+                state = {
+                    ...state,
+                    firstTimeBetButtonClicked: action.payload
                 }
                 break;
       }

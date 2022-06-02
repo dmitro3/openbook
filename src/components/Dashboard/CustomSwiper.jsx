@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getSwiperSlideCountByScreenWidth } from "@utils/getSwiperSlideCountByScreenWidth";
 // Import Swiper styles
@@ -23,12 +23,12 @@ export const CustomSwiper = () => {
     setSlideCount(getSwiperSlideCountByScreenWidth())
   }
 
-  useEffect(()=>{
+  useLayoutEffect(()=>{
     setSlideCount(getSwiperSlideCountByScreenWidth())
     window.addEventListener("resize", handleResize);
   },[])
 
-  useEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
+  useLayoutEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
   return (
     <>
       <Swiper
