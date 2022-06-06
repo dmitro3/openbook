@@ -475,7 +475,7 @@ export const getBetLimit = async (ids) => {
         id_only.push(text.split('/')[0]);
     })
 
-    let web3 = store.getState().user.web3 || new Web3(new Web3.providers.HttpProvider(WSS_PROVIDER));
+    let web3 = store.getState().user.web3 || new Web3(new Web3.providers.WebsocketProvider(WSS_PROVIDER));
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
 
     try{

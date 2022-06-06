@@ -8,9 +8,9 @@ import "@styles/globals.css";
 import { Loader } from "@components/Dashboard/Loader";
 import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
-import Script from "next/script"
 import {getMatches} from "@utils/web3Provider";
 import Web3 from 'web3';
+import NextCors from 'nextjs-cors';
 
 // New redux dependencies
 import { Provider } from "react-redux";
@@ -21,6 +21,7 @@ import {setOddsChanging,setNewOdds} from "@actions/oddsActions"
 
 // Setting odds, and store them into redux
 import { getOdds } from "@utils/getOdds" 
+
 
 const clientSideEmotionCache = createEmotionCache();
 
