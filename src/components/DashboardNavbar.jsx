@@ -189,17 +189,16 @@ const DashboardNavbar = (props) => {
                   ['@media (max-width:900px)']: { 
                   width: '60%'
                 }}}>
-
-            <Tabs
-              value={navigationTabsValue}
-              aria-label="secondary tabs example"
-              onChange={handleNavigationTabsChange}
-              TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
-              sx={{
+            <Box sx={{
                 ['@media (max-width:900px)']: { 
                   display: 'none'
                 }
-              } }
+            }}>
+            <Tabs
+              value={navigationTabsValue}
+              aria-label="secondary tabs example"
+              onChange={(e,value)=>{handleNavigationTabsChange(e,value)}}
+              TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
             >
                 <WrapTab value={1} href="/featured" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
                 <WrapTab value={3} href="/account" label="Account"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px', visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
@@ -207,24 +206,27 @@ const DashboardNavbar = (props) => {
                 <WrapTab value={4} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
             </Tabs>
 
-            <Tabs
-              value={navigationTabsValue}
-              aria-label="icon label tabs example"
-              onChange={handleNavigationTabsChange}
-              variant="scrollable"
-              scrollButtons={true}
-              TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
-              sx={{
-                ['@media (min-width:900px)']: { 
+            </Box>
+
+            <Box sx={{
+              ['@media (min-width:900px)']: { 
                   display: 'none'
                 }
-              } }
-            >
-                <WrapTab value={1} href="/featured"  icon={<BetIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}} />
-                <WrapTab value={3} href="/account" icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}} />
-                <WrapTab value={2} href="/bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}} />
-                <WrapTab value={4} href="/leaderboard"  icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}}/>
-            </Tabs>
+            }}>
+              <Tabs
+                value={false}
+                aria-label="icon label tabs example"
+                onChange={(e,value)=>{handleNavigationTabsChange(e,value)}}
+                variant="scrollable"
+                scrollButtons={true}
+                TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
+              >
+                  <WrapTab value={1} href="/featured"  icon={<BetIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}} />
+                  <WrapTab value={3} href="/account" icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}} />
+                  <WrapTab value={2} href="/bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}} />
+                  <WrapTab value={4} href="/leaderboard"  icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}}/>
+              </Tabs>
+            </Box>
           </Box>
 
           {
