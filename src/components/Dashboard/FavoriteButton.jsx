@@ -13,6 +13,7 @@ export const FavoriteButton = (props) => {
         fontSize: '1.2rem',
         cursor: 'pointer',
         order: '99',
+        minHeight: '56px',
         '&:hover': {
             backgroundColor: '#d9d9d9'
         },

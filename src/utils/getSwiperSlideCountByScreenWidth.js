@@ -1,6 +1,6 @@
 export const getSwiperSlideCountByScreenWidth = () =>{
     let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-    if(vw >= 1800){
+    if(vw >= 1920){
         return 3
     }
     else if (vw >= 1400 ){

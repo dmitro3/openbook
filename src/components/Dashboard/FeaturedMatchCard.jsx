@@ -44,21 +44,21 @@ const FeaturedMatchCard = (props) => {
           spacing={3}
           style={{ justifyContent: 'space-between', width:"100%",marginLeft:'0px',marginRight:'0px',marginTop:'0px'}}
         >
-          <Grid item style={{paddingLeft:'0px',width:'30%'}}>
+          <Grid item style={{paddingLeft:'0px',width:'35%',paddingTop: '20px'}}>
             <TeamCard teamName={props.match1} teamIconPath={static_english_soccer_icons_path + props.match1 + ".png"}/>
           </Grid>
 
           <Grid item 
-          style={{marginLeft:'auto',marginRight:'auto',marginTop:'30px',textAlign:'center',paddingLeft:'0px'}}>
+          style={{textAlign:'center',paddingLeft:'0px',display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", alignContent: "center",paddingTop:"20px"}}>
                 <Typography>{props.dateString}</Typography>
                 <Typography>{props.timeString}</Typography>
           </Grid>       
           
-          <Grid item style={{paddingLeft:'0px',width:'30%'}}>
+          <Grid item style={{paddingLeft:'0px',width:'35%',paddingTop: '20px'}}>
             <TeamCard teamName={props.match2} teamIconPath={static_english_soccer_icons_path + props.match2 + ".png"}/>
           </Grid>
         
-        <Box sx={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'10%',right:'10%'}}>
+        <Box sx={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'2%',right:'2%'}}>
         {
           Object.keys(props.outcomes).map( (item,index) => {
             let outcomeKey = item.toString();
