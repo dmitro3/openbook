@@ -41,15 +41,14 @@ export const CustomSwiper = (props) => {
         style={{paddingTop:'0px',width:'95%'}}
         spaceBetween={15}
         onClick={(s,e)=>{s.clickedSlide.click()}}
-        slidesPerView={Number(slideCount+0.1)}
-        centeredSlides={true}
+        slidesPerView={Number(slideCount+0.2)}
+        // centeredSlides={true}
         autoplay={{
-          delay: 0,
-          // waitForTransition: true
+          delay: 1,
         }}
         loop={true}
         speed={
-          5000
+          6000
         }
         preloadImages={true}
         lazy={false}

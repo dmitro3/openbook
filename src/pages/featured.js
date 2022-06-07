@@ -22,6 +22,16 @@ const Dashboard = (props) =>
     const { height, width } = useWindowDimensions();
 
     let data = props.odds.unformattedOddsDict;
+    useEffect(()=>{
+        new ResizeObserver(() => {resetAutoPlay()}).observe(swiperRef.current);
+    },[])
+
+    const resetAutoPlay = ()=>{
+        swiperRef.current.swiper.autoplay.stop();
+        setTimeout(()=>{
+            swiperRef.current.swiper.autoplay.start();
+        },200)
+    }
 
     return (
     <>
@@ -40,6 +50,7 @@ const Dashboard = (props) =>
             }}
             onMouseEnter={() => swiperRef.current.swiper.autoplay.stop()}
             onMouseLeave={() => swiperRef.current.swiper.autoplay.start()}
+            
         >
         <CustomSwiper swiperRef={swiperRef}/>
         <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />    

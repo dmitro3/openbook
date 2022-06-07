@@ -51,8 +51,8 @@ background-clip: content-box;
 ::-webkit-scrollbar-thumb:hover {
 background-color: #7b8381;
 }
-
-/* .swiper-slide {
+/* 
+.swiper-slide {
 	opacity: .75;
 }
 
