@@ -14,9 +14,11 @@ import useWindowDimensions from '@hooks/useWindowDimension';
 // Redux Dependencies
 import {connect} from "react-redux"
 import { setBetSlipOpen } from "@actions/settingsActions";
+import {useRef} from "react"
 
 const Dashboard = (props) => 
 {
+    const swiperRef = useRef(null)
     const { height, width } = useWindowDimensions();
 
     let data = props.odds.unformattedOddsDict;
@@ -36,8 +38,10 @@ const Dashboard = (props) =>
             paddingTop: 8,
             display: 'flex'
             }}
+            onMouseEnter={() => swiperRef.current.swiper.autoplay.stop()}
+            onMouseLeave={() => swiperRef.current.swiper.autoplay.start()}
         >
-        <CustomSwiper/>
+        <CustomSwiper swiperRef={swiperRef}/>
         <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />    
         </Box>
         <Box

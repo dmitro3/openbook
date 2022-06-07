@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 // import required modules
-import { Navigation, Mousewheel, Keyboard } from "swiper";
+import SwiperCore,{ Navigation,Autoplay} from "swiper";
 
 import Image from 'next/image'
 import { useRouter } from "next/router";
@@ -14,7 +14,8 @@ import { useRouter } from "next/router";
 const swiperImageNames = ['Esport_Betting.jpg',"Online_Betting.jpg",'NBA_Betting.jpg','EPL_Betting.jpg','Esport_Betting_2.jpeg'];
 const swiperImageUrls = ['#','#','/Matches/Basketball/NBA','Matches/Soccer/EPL','#']
 
-export const CustomSwiper = () => {
+export const CustomSwiper = (props) => {
+  SwiperCore.use([Autoplay]);
   const router = useRouter();
 
   const [slideCount,setSlideCount] = useState(1);
@@ -31,16 +32,27 @@ export const CustomSwiper = () => {
   useLayoutEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
   return (
     <>
+      
       <Swiper
-        cssMode={true}
-        navigation={true}
-        modules={[Navigation]}
+        ref={props.swiperRef}
+        navigation={false}
+        modules={[Autoplay]}
         className="feature-page-pictures-swiper"
         style={{paddingTop:'0px',width:'95%'}}
-        slidesPerView={slideCount}
-        spaceBetween={30}
-        loop={true}
+        spaceBetween={15}
         onClick={(s,e)=>{s.clickedSlide.click()}}
+        slidesPerView={Number(slideCount+0.1)}
+        centeredSlides={true}
+        autoplay={{
+          delay: 0,
+          // waitForTransition: true
+        }}
+        loop={true}
+        speed={
+          5000
+        }
+        preloadImages={true}
+        lazy={false}
       >
       
         {swiperImageNames.map((item,index)=>{

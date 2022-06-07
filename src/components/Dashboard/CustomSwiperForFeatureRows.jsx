@@ -122,6 +122,7 @@ export default function CustomSwiperForFeatureRows(props) {
             slidesPerView={slideCount}
             spaceBetween={30}
             shortSwipes={false}
+            
         >
         {
             props.league_data.map((match) => {
