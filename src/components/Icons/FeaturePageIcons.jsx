@@ -19,6 +19,9 @@ export const FeaturePageIcons = (props) => {
 
         return(<RiBoxingFill style={{alignSelf:'end',height:'20px',width:'20px', position: 'relative',top: '-3px', color:'#f44336'}} />)
 
+        case "Mixed Martial Arts":
+        return(<RiBoxingFill style={{alignSelf:'end',height:'20px',width:'20px', position: 'relative',top: '-3px', color:'#f44336'}} />)
+
         case "American Football":
 
         return(<FaFootballBall style={{alignSelf:'end',height:'20px',width:'20px', position: 'relative',top: '-3px',color:'#966a5b'}} />)

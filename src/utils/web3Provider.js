@@ -389,6 +389,8 @@ const subscribeNewBlock = async (web3,userAddress) =>{
     })
 }
 
+
+
 const requestMetaMask = async () => {
     try{
             const provider = await detectEthereumProvider();
@@ -416,11 +418,7 @@ const requestMetaMask = async () => {
                 let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
                 let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
                 store.dispatch(logIn(userAddress));
-
-                let networkType = await web3.eth.net.getNetworkType();
-                console.log(networkType);
-                store.dispatch(setCurrentNetwork(networkType))
-
+                getChainName()
                 if(!preferUsernameFlag){
                     store.dispatch(setPreferUsername(userAddress,preferUserName));
                     store.dispatch(setPreferUsernameFlag(userAddress));
@@ -437,7 +435,12 @@ const requestMetaMask = async () => {
     }
 }
 
-
+export const getChainName = async () => {
+    let web3 = store.getState().user.web3
+    let networkType = await web3.eth.net.getNetworkType();
+    console.log(networkType);
+    store.dispatch(setCurrentNetwork(networkType))
+}
 
 export const disconnectMetaMask  = () => {
     store.dispatch(logOut());

@@ -48,7 +48,7 @@ export const CustomSwiper = (props) => {
         }}
         loop={true}
         speed={
-          6000
+          20000
         }
         preloadImages={true}
         lazy={false}

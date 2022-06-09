@@ -14,7 +14,7 @@ import {
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from "@mui/icons-material/Menu";
 import { Bell as BellIcon } from "@utils/icons/bell";
-import {checkWeb3, connectMetaMask, disconnectMetaMask, switchAccount} from "@utils/web3Provider";
+import {checkWeb3, connectMetaMask, disconnectMetaMask, switchAccount, getChainName} from "@utils/web3Provider";
 import {ConnectButton} from "@components/Dashboard/ConnectButton";
 import {DisplayUserAddressButton} from "@components/Dashboard/DisplayUserAddressButton";
 import {LoadingMetaMaskButton} from "@components/Dashboard/LoadingMetaMaskButton";
@@ -36,6 +36,7 @@ import {useRouter} from "next/router"
 // Redux
 import {connect} from "react-redux";
 import {setOddsFormat,setPreferUsername,setPreferAvatarStyle,setDisconnected} from "@actions/settingsActions";
+import { WrongNetworkSnackBar } from "./Dashboard/WrongNetworkSnackBar";
 
 
 
@@ -133,6 +134,17 @@ const DashboardNavbar = (props) => {
       // props.user.web3.eth.subscribe("newBlockHeaders",(err,result)=>{
       //   console.log('hello')
       // })
+  },[])
+
+  useEffect(()=>{
+    async function listenToChainChanged(){
+      if(window.ethereum){
+        window.ethereum.on('chainChanged', async function() {
+            getChainName();
+        });
+      }
+    }
+    listenToChainChanged();
   },[])
 
   function confirmSettings(settings){
@@ -253,7 +265,8 @@ const DashboardNavbar = (props) => {
             </Tooltip>             
 
             <Box>
-              <Typography sx={{color:"#4591ff",ml:"20px",fontSize:'1.5rem'}}>
+              {props.user.currentNetWork=='kovan' || props.user.currentNetWork == 'private' ? void(0) : <WrongNetworkSnackBar provider={props.user.provider} />}
+              <Typography sx={{color:"#4591ff",ml:"20px",fontSize:'1.5rem', textTransform: "capitalize"}}>
                 {props.user.currentNetWork}
               </Typography>
             </Box>
