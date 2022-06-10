@@ -265,7 +265,7 @@ const DashboardNavbar = (props) => {
             </Tooltip>             
 
             <Box>
-              {props.user.currentNetWork=='kovan' || props.user.currentNetWork == 'private' ? void(0) : <WrongNetworkSnackBar provider={props.user.provider} />}
+              {props.user.currentNetWork=='kovan' || props.user.currentNetWork == 'private' || props.user.currentNetWork == '' ? void(0) : <WrongNetworkSnackBar provider={props.user.provider} />}
               <Typography sx={{color:"#4591ff",ml:"20px",fontSize:'1.5rem', textTransform: "capitalize"}}>
                 {props.user.currentNetWork}
               </Typography>

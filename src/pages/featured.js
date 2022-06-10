@@ -48,8 +48,14 @@ const Dashboard = (props) =>
             paddingTop: 8,
             display: 'flex'
             }}
-            onMouseEnter={() => swiperRef.current.swiper.autoplay.stop()}
-            onMouseLeave={() => swiperRef.current.swiper.autoplay.start()}
+            onMouseEnter={() => {
+                if(swiperRef.current.swiper)
+                swiperRef.current.swiper.autoplay.stop()
+                }}
+            onMouseLeave={() => {
+                if(swiperRef.current.swiper)
+                swiperRef.current.swiper.autoplay.start()
+            }}
             
         >
         <CustomSwiper swiperRef={swiperRef}/>
