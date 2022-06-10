@@ -27,10 +27,12 @@ const Dashboard = (props) =>
     },[])
 
     const resetAutoPlay = ()=>{
-        swiperRef.current.swiper.autoplay.stop();
-        setTimeout(()=>{
-            swiperRef.current.swiper.autoplay.start();
-        },200)
+        if(swiperRef.current.swiper){
+            swiperRef.current.swiper.autoplay.stop();
+            setTimeout(()=>{
+                swiperRef.current.swiper.autoplay.start();
+            },200)
+        }
     }
 
     return (
