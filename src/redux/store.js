@@ -8,13 +8,13 @@ import promise from "redux-promise-middleware";
 import logger from 'redux-logger';
 
 // Custom reducers
-import betSlipReducer from "@reducers/betSlipReducer";
-import favoriteMatchReducer from "@reducers/favoriteMatchReducer";
-import oddsReducer from "@reducers/oddsReducer";
-import userReducer from "@reducers/userReducer";
-import settingsReducer from "@reducers/settingsReducer";
-import bookieReducer from "@reducers/bookieReducer";
-import accountReducer from "@reducers/accountReducer";
+import betSlipReducer from "redux/reducers/betSlipReducer";
+import favoriteMatchReducer from "redux/reducers/favoriteMatchReducer";
+import oddsReducer from "redux/reducers/oddsReducer";
+import userReducer from "redux/reducers/userReducer";
+import settingsReducer from "redux/reducers/settingsReducer";
+import bookieReducer from "redux/reducers/bookieReducer";
+import accountReducer from "redux/reducers/accountReducer";
 
 // Redux-persist
 import { persistStore, persistReducer } from 'redux-persist';

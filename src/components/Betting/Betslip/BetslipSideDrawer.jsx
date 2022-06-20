@@ -17,8 +17,8 @@ import {getBetLimit } from "@utils/web3Provider";
 
 // Redux Dependencies
 import {connect} from "react-redux";
-import {addBetSlipOutcome,removeBetSlipOutcome, removeAllBetSlipOutcomes, setBetAmount} from '@actions/betSlipActions';
-import {setDisconnected} from "@actions/settingsActions"
+import {addBetSlipOutcome,removeBetSlipOutcome, removeAllBetSlipOutcomes, setBetAmount} from 'redux/actions/betSlipActions';
+import {setDisconnected} from "redux/actions/settingsActions"
 
 
 let globalOrderReceiptArr = [];

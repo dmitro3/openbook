@@ -8,9 +8,9 @@ import {useState, useEffect, useRef} from "react"
 
 // Redux Dependencies
 import {connect} from "react-redux";
-import {addFavoriteMatch,removeFavoriteMatch} from "@actions/favoriteMatchActions";
-import {addBetSlipOutcome,removeBetSlipOutcome} from '@actions/betSlipActions';
-import {setBetSlipOpen,setFirstTimeBetButtonClicked} from "@actions/settingsActions";
+import {addFavoriteMatch,removeFavoriteMatch} from "redux/actions/favoriteMatchActions";
+import {addBetSlipOutcome,removeBetSlipOutcome} from 'redux/actions/betSlipActions';
+import {setBetSlipOpen,setFirstTimeBetButtonClicked} from "redux/actions/settingsActions";
 
 const FeaturedMatchCard = (props) => {
   const [betButtonOddsState,setBetButtonOddsState] = useState(['normal','normal']);

@@ -13,7 +13,7 @@ import useWindowDimensions from '@hooks/useWindowDimension';
 
 // Redux Dependencies
 import {connect} from "react-redux"
-import { setBetSlipOpen } from "@actions/settingsActions";
+import { setBetSlipOpen } from "redux/actions/settingsActions";
 import {useRef} from "react"
 
 const Dashboard = (props) => 

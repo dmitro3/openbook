@@ -5,7 +5,7 @@ import { Leaderboard } from "@components/Leaderboard/Leaderboard";
 
 // Redux Dependencies
 import {connect} from "react-redux"
-import { setBetSlipOpen } from "@actions/settingsActions";
+import { setBetSlipOpen } from "redux/actions/settingsActions";
 
 const Dashboard = (props) => 
 {

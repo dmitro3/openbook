@@ -35,7 +35,7 @@ import {useRouter} from "next/router"
 
 // Redux
 import {connect} from "react-redux";
-import {setOddsFormat,setPreferUsername,setPreferAvatarStyle,setDisconnected} from "@actions/settingsActions";
+import {setOddsFormat,setPreferUsername,setPreferAvatarStyle,setDisconnected} from "redux/actions/settingsActions";
 import { WrongNetworkSnackBar } from "@components/General/WrongNetworkSnackBar";
 
 

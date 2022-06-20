@@ -13,10 +13,10 @@ import Web3 from 'web3';
 
 // New redux dependencies
 import { Provider } from "react-redux";
-import {persistor,store} from "../store";
+import {persistor,store} from "../redux/store";
 import { PersistGate } from 'redux-persist/integration/react'
 import { MARKET_ABI, MARKET_ADDY, WSS_PROVIDER} from "../config"
-import {setOddsChanging,setNewOdds} from "@actions/oddsActions"
+import {setOddsChanging,setNewOdds} from "redux/actions/oddsActions"
 
 // Setting odds, and store them into redux
 import { getOdds } from "@utils/getOdds" 

@@ -5,11 +5,11 @@ const {MaxUint256} = require("@ethersproject/constants");
 var ethers_m = require('ethers');  
 
 //redux
-import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity, setCurrentNetwork} from "@actions/userActions";
-import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "@actions/settingsActions";
-import {setLiqDisplayValue,setbalanceHoldValue,setWithdrawableValue,setUserStakeValue} from "@actions/bookieActions";
-import {setSettledBets,setUnsettledBets} from "@actions/accountActions";
-import {store} from "../store"
+import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity, setCurrentNetwork} from "redux/actions/userActions";
+import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "redux/actions/settingsActions";
+import {setLiqDisplayValue,setbalanceHoldValue,setWithdrawableValue,setUserStakeValue} from "redux/actions/bookieActions";
+import {setSettledBets,setUnsettledBets} from "redux/actions/accountActions";
+import {store} from "../redux/store"
 import { WSS_PROVIDER } from 'config1';
 
 export const checkWeb3 =  async () => {

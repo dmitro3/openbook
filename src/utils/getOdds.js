@@ -1,5 +1,5 @@
-import {store} from '../store';
-import {setOdds,setUnFormattedOdds,setIsOddsLoadingFalse} from "@actions/oddsActions";
+import {store} from '../redux/store';
+import {setOdds,setUnFormattedOdds,setIsOddsLoadingFalse} from "redux/actions/oddsActions";
 
 const flatten = (curr) => {
     var dict = {};

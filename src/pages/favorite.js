@@ -10,7 +10,7 @@ import  BetslipSideDrawer from "@components/Betting/Betslip/BetslipSideDrawer";
 import BottomBetSlipDrawer from "@components/Betting/Betslip/BottomBetSlipDrawer";
 import useWindowDimensions from '@hooks/useWindowDimension';
 
-import { setBetSlipOpen } from "@actions/settingsActions";
+import { setBetSlipOpen } from "redux/actions/settingsActions";
 
 const Favorite = (props) => 
 {  
