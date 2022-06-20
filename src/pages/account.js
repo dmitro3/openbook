@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Box, Button, Tab, Tabs, Typography, Grid } from "@mui/material";
-import { DashboardLayout } from "@components/DashboardLayout";
+import { DashboardLayout } from "@components/Navigation/DashboardLayout";
 import {useState} from "react"
 
 import {Overview} from "@components/Account/Overview";

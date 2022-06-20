@@ -1,13 +1,13 @@
 import Head from "next/head";
 import { Box } from "@mui/material";
-import { DashboardLayout } from "@components/DashboardLayout";
-import { SportsBookPage } from "@components/Dashboard/SportsBookPage";
-import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal";
-import BottomBetSlipDrawer from "@components/Dashboard/BottomBetSlipDrawer";
-import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
+import { DashboardLayout } from "@components/Navigation/DashboardLayout";
+import { SportsBookPage } from "@components/Betting/Sportbook/SportsBookPage";
+import { BetslipSideDrawerEmptyModal } from "@components/Betting/Betslip/BetslipSideDrawerEmptyModal";
+import BottomBetSlipDrawer from "@components/Betting/Betslip/BottomBetSlipDrawer";
+import  BetslipSideDrawer from "@components/Betting/Betslip/BetslipSideDrawer";
 import { useState, useEffect, useMemo} from "react";
 import {useRouter} from 'next/router';
-import { SportsBookPageSkeleton } from "@components/Dashboard/SportsBookPageSkeleton";
+import { SportsBookPageSkeleton } from "@components/Betting/Sportbook/SportsBookPageSkeleton";
 import useWindowDimensions from '@hooks/useWindowDimension';
 
 // Redux Dependencies

@@ -1,14 +1,14 @@
 import Head from "next/head";
 import { Box} from "@mui/material";
-import { DashboardLayout } from "@components/DashboardLayout";
-import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal"
-import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer"
+import { DashboardLayout } from "@components/Navigation/DashboardLayout";
+import { BetslipSideDrawerEmptyModal } from "@components/Betting/Betslip/BetslipSideDrawerEmptyModal"
+import  BetslipSideDrawer from "@components/Betting/Betslip/BetslipSideDrawer"
 import { useState,useEffect} from "react"
-import { FeaturedSportPage } from "@components/Dashboard/FeaturedSportPage";
-import {CustomSwiper} from "@components/Dashboard/CustomSwiper" 
-import { HeroBanner } from "@components/Dashboard/HeroBanner";
-import { SportsBookPageSkeleton } from "@components/Dashboard/SportsBookPageSkeleton";
-import BottomBetSlipDrawer from "@components/Dashboard/BottomBetSlipDrawer";
+import { FeaturedSportPage } from "@components/Betting/Feature/FeaturedSportPage";
+import {CustomSwiper} from "@components/Betting/Feature/CustomSwiper" 
+import { HeroBanner } from "@components/Betting/Feature/HeroBanner";
+import { SportsBookPageSkeleton } from "@components/Betting/Sportbook/SportsBookPageSkeleton";
+import BottomBetSlipDrawer from "@components/Betting/Betslip/BottomBetSlipDrawer";
 import useWindowDimensions from '@hooks/useWindowDimension';
 
 // Redux Dependencies

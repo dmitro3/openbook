@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
-import { DashboardLayout } from "@components/DashboardLayout";
+import { DashboardLayout } from "@components/Navigation/DashboardLayout";
 import { addLiquidity, getBalance } from "@utils/web3Provider";
 
 import { BookieOverview } from "@components/Bookie/BookieOverview";

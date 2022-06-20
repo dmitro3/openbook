@@ -5,7 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { createEmotionCache } from "@utils/create-emotion-cache";
 import { theme } from "@styles/theme";
 import "@styles/globals.css";
-import { Loader } from "@components/Dashboard/Loader";
+import { Loader } from "@components/General/Loader";
 import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
 import {getMatches} from "@utils/web3Provider";

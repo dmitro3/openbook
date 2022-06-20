@@ -1,6 +1,6 @@
 import {Button,Dialog,DialogActions,DialogContent,DialogTitle,Typography,TextField,Box,FormControl,Select,MenuItem,Avatar,Divider} from "@mui/material";
 import {useEffect, useState} from 'react'
-import { CustomAvatar } from "@components/Dashboard/CustomAvatar";
+import { CustomAvatar } from "@components/General/CustomAvatar";
 
 export const SettingsModal = (props) => {
     const [oddsFormat, setOddsFormat] = useState("decimal");

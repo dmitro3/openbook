@@ -15,17 +15,17 @@ import { useTheme } from '@mui/material/styles';
 import MenuIcon from "@mui/icons-material/Menu";
 import { Bell as BellIcon } from "@utils/icons/bell";
 import {checkWeb3, connectMetaMask, disconnectMetaMask, switchAccount, getChainName} from "@utils/web3Provider";
-import {ConnectButton} from "@components/Dashboard/ConnectButton";
-import {DisplayUserAddressButton} from "@components/Dashboard/DisplayUserAddressButton";
-import {LoadingMetaMaskButton} from "@components/Dashboard/LoadingMetaMaskButton";
-import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
-import { InstallMetaMaskSnackBar } from "@components/Dashboard/InstallMetaMaskSnackBar";
-import { WrapTab } from "@components/WrapTab";
+import {ConnectButton} from "@components/General/ConnectButton";
+import {DisplayUserAddressButton} from "@components/General/DisplayUserAddressButton";
+import {LoadingMetaMaskButton} from "@components/General/LoadingMetaMaskButton";
+import { InstallMetaMaskButton } from "@components/General/InstallMetaMaskButton";
+import { InstallMetaMaskSnackBar } from "@components/General/InstallMetaMaskSnackBar";
+import { WrapTab } from "@components/Navigation/WrapTab";
 import { BetIcon } from "@components/Icons/BetIcon"; 
 import { TrophyIcon } from "@components/Icons/TrophyIcon";
 import { TicketIcon } from "@components/Icons/TicketIcon"
-import { LedgerIcon } from "@components/Dashboard/LedgerIcon";
-import { SupportIcon } from "./Icons/SupportIcon";
+import { LedgerIcon } from "@components/Icons/LedgerIcon";
+import { SupportIcon } from "../Icons/SupportIcon";
 import {SettingsModal} from "@components/Settings/SettingsModal"
 import {useState,useEffect, useMemo} from "react"
 import { DaiIcon } from "@components/Icons/DaiIcon";
@@ -36,7 +36,7 @@ import {useRouter} from "next/router"
 // Redux
 import {connect} from "react-redux";
 import {setOddsFormat,setPreferUsername,setPreferAvatarStyle,setDisconnected} from "@actions/settingsActions";
-import { WrongNetworkSnackBar } from "./Dashboard/WrongNetworkSnackBar";
+import { WrongNetworkSnackBar } from "@components/General/WrongNetworkSnackBar";
 
 
 

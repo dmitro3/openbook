@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
-import { DashboardLayout } from "@components/DashboardLayout";
+import { DashboardLayout } from "@components/Navigation/DashboardLayout";
 import { StakingDataCard } from "@components/Bookie/StakingDataCard";
 import { addLiquidity, getPoolLiquidity, getUserLiquidity, getUserHold, removeLiquidity,handleLiqChange } from "@utils/web3Provider";
 import { DaiIcon } from "@components/Icons/DaiIcon";

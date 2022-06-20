@@ -1,6 +1,6 @@
-import { FooterCustomDivider } from '@components/Dashboard/FooterCustomDivider';
+import { FooterCustomDivider } from '@components/Footer/FooterCustomDivider';
 import { DaiIcon } from '@components/Icons/DaiIcon';
-import { FooterLink } from '@components/Dashboard/FooterLink';
+import { FooterLink } from '@components/Footer/FooterLink';
 import { PolygonIcon } from '@components/Icons/PolygonIcon';
 import { MetaMaskIcon } from '@components/Icons/MetaMaskIcon';
 import { CoinBaseIcon } from '@components/Icons/CoinBaseIcon';

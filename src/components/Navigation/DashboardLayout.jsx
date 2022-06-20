@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Box} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import  DashboardNavbar  from '@components/DashboardNavbar';
-import DashboardSidebar from '@components/DashboardSidebar';
-import { Footer } from './Dashboard/Footer';
+import  DashboardNavbar  from '@components/Navigation/DashboardNavbar';
+import DashboardSidebar from '@components/Navigation/DashboardSidebar';
+import { Footer } from '@components/Footer/Footer';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',

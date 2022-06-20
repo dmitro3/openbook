@@ -1,19 +1,19 @@
 import PropTypes from "prop-types";
 import {IoTrashBinSharp,IoTicketOutline,IoCashOutline,IoTicket} from 'react-icons/io5';
 import {FaRegTimesCircle} from 'react-icons/fa';
-import { CgArrowDownR } from "react-icons/cg";
-import styles from '@styles/BottomBetslipSideDrawer.module.css';
-import {BetSlipEmpty} from "@components/Dashboard/BetSlipEmpty";
-import {useState,useEffect, Fragment} from 'react';
-import {DeleteAllMatchesInBetSlipModal} from "@components/Dashboard/DeleteAllMatchesInBetSlipModal"
+import { CgArrowRightR } from "react-icons/cg";
+import styles from '@styles/BetSlipDrawer.module.css';
+import {BetSlipEmpty} from "@components/Betting/Betslip/BetSlipEmpty";
+import {useState,useEffect,Fragment,useRef} from 'react';
+import {DeleteAllMatchesInBetSlipModal} from "@components/Betting/Betslip/DeleteAllMatchesInBetSlipModal"
 import {Box,List,Tabs,Tab,Input,Typography,useMediaQuery, Button} from "@mui/material";
 import { useTheme } from '@mui/material/styles';
-import {ConnectButton} from "@components/Dashboard/ConnectButton";
+import {ConnectButton} from "@components/General/ConnectButton";
 import {connectMetaMask} from "@utils/web3Provider";
-import { InstallMetaMaskButton } from "@components/Dashboard/InstallMetaMaskButton";
+import { InstallMetaMaskButton } from "@components/General/InstallMetaMaskButton";
 import {makeBet} from "@utils/web3Provider";
-import {BetConfirmPopup} from "@components/Dashboard/BetConfirmPopup";
-
+import {BetConfirmPopup} from "@components/Betting/Betslip/BetConfirmPopup";
+import {getBetLimit } from "@utils/web3Provider";
 
 // Redux Dependencies
 import {connect} from "react-redux";
@@ -25,13 +25,27 @@ let globalOrderReceiptArr = [];
 let globalTotalBet = 0;
 let globalTotalPossiblePayout = 0;
 
-const BottomBetslipSideDrawer = (props) => {
+const BetslipSideDrawer = (props) => {
     let totalPossiblePayoutDict = {};
     let orderReceiptArr = [];
     let totalBet = 0;
     let totalPossiblePayout = 0;
 
+    /* ---------- Bet limit section ------------- */
+    const [errorInBetslip, setErrorInBetslip] = useState(false);
+    const ref = useRef({
+        betLimit: 0
+    });
+    useEffect(() => {
+        async function getBetLimitFromWeb3() {
+            ref.current.betLimit = await getBetLimit(props.betSlip.betSlipOutcomeArray);
+        }
+        getBetLimitFromWeb3();
+      }, [props.betSlip.betSlipOutcomeArray]); 
+    
 
+
+    /* ---------- Bet limit section ------------- */
 
     /* Delete all matches in slip confirm modal properties */
     const [delteAllModalOpen, setdelteAllModalOpen] = useState(false);
@@ -137,6 +151,7 @@ const BottomBetslipSideDrawer = (props) => {
             ...betInputQuery,
             [matchId]: null
         })
+        console.log("newBetQuery is : ",betInputQuery)
     }
 
     const placeBet = async () =>{
@@ -151,9 +166,11 @@ const BottomBetslipSideDrawer = (props) => {
             stakes.push(item.stake)
         })
 
+        console.log(`match ids: ${matchIds}\noutcomes: ${outcomes}\nstakes: ${stakes}`)
         
         let betResult = await makeBet(matchIds, outcomes, stakes);  
         setConfirmBetModalOpen(true);  
+        console.log("bet placed, result ", betResult);
         if(betResult)
         {
             globalOrderReceiptArr = orderReceiptArr;
@@ -175,7 +192,7 @@ const BottomBetslipSideDrawer = (props) => {
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
-        <CgArrowDownR className={`${styles.slipArrow} ${props.isSlipOpened ? styles.slipArrowOpen : styles.slipArrowClosed}`} onClick={()=>(props.setSlipOpen(!props.isSlipOpened))}/>
+        <CgArrowRightR className={`${styles.slipArrow} ${props.isSlipOpened ? styles.slipArrowOpen : styles.slipArrowClosed}`} onClick={()=>(props.setSlipOpen(!props.isSlipOpened))}/>
         
             <Box className={styles.slipTopIconBlackBox}>
                 <IoTicketOutline className={styles.ticketIcon}/>
@@ -186,22 +203,19 @@ const BottomBetslipSideDrawer = (props) => {
             <Box>
                 <Box className={styles.slipTabsOutterBox}>
                     <Box className={styles.slipTabsTrashBinBox}>
-                        <IoTrashBinSharp className={styles.trashBin} onClick={handleClickOpen}/>
+                        <IoTrashBinSharp  className={styles.trashBin} onClick={handleClickOpen}/>
                         <DeleteAllMatchesInBetSlipModal fullScreen={fullScreen} open={delteAllModalOpen} handleClose={handleClose} removeAllBetSlipOutcomes={props.removeAllBetSlipOutcomes} clearAllBets={clearAllBets}/>
                     </Box>
-                    <Box sx={{display:'flex',width:"100%",justifyContent:"center"}}>
-                        <Tabs
-                            value={tabsValue}
-                            onChange={handleChange}
-                            TabIndicatorProps={{style: {backgroundColor: "white"}}}
-                            
-                        >
-                            <Tab key={1} value="Single Bet"  label="Single Bet" sx={{fontSize:'14px',padding:'0px'}}/>
-                            <Tab disabled={true} key={2} value="Paylay" label="Parlay" sx={{fontSize:'14px',padding:'0px'}}/>
-                            <Tab disabled={true} key={3} value="Others" label="Others" sx={{fontSize:'14px',padding:'0px'}}/>
-                        </Tabs>
-                    </Box>
-
+                    <Tabs
+                        value={tabsValue}
+                        onChange={handleChange}
+                        TabIndicatorProps={{style: {backgroundColor: "white"}}}
+                        
+                    >
+                        <Tab key={1} value="Single Bet"  label="Single Bet" sx={{fontSize:'14px',padding:'0px'}}/>
+                        <Tab disabled={true} key={2} value="Paylay" label="Parlay" sx={{fontSize:'14px',padding:'0px'}}/>
+                        <Tab disabled={true} key={3} value="Others" label="Others" sx={{fontSize:'14px',padding:'0px'}}/>
+                    </Tabs>
                 </Box>
                 <Box className={styles.boxBeforeBetSlipSelectedMatchBox}/>
                 <Box className={styles.betSlipSelectedMatchBox}>
@@ -246,7 +260,12 @@ const BottomBetslipSideDrawer = (props) => {
                             }
                         )
                         totalBet = Object.values(betInputQuery).reduce((accmulator,item)=>{return Number(accmulator) +  Number(item)},0).toFixed(2)
-                        
+                        let totalBetInNumber = Number(totalBet)
+                        if(!errorInBetslip)
+                            totalBetInNumber > ref.current.betLimit  ? setErrorInBetslip(true) : void(0); 
+                        if(errorInBetslip)
+                            totalBetInNumber <= ref.current.betLimit  ? setErrorInBetslip(false) : void(0);
+
                         totalPossiblePayout = Object.values(totalPossiblePayoutDict).reduce((accumulator,item)=>{return Number(accumulator) + Number(item)},0).toFixed(2)
 
 
@@ -257,25 +276,24 @@ const BottomBetslipSideDrawer = (props) => {
                                 <Box sx={{width:'50px',height:'100%'}}>
                                     <FaRegTimesCircle  className={styles.singleTicketDelete} onClick={()=>{setBetToZero(matchId);props.removeBetSlipOutcome(props.betSlip.betSlipOutcomeArray[index])}} />
                                 </Box>
-                                <Box sx={{display:'flex',width: '100%',justifyContent: 'space-between'}}>
-                                    <Box sx={{backgroundColor:'white',height:'100%',width:'100%'}}>
+                                <Box sx={{width:'270px',display:'flex'}}>
+                                    <Box sx={{backgroundColor:'white',width:'202px',height:'100%'}}>
                                         <Box sx={{display:'flex'}}>
-                                            <Typography sx={{color:'black',textAlign:'left',fontSize:'13px',fontWeight:'400',marginRight:'10px'}}>Full-time result: </Typography>
-                                            <Typography sx={{color:'black',textAlign:'center',fontSize:'13px',fontWeight:'600'}}>{displayOutcome}</Typography>
+                                            <Typography sx={{color:'black',textAlign:'left',fontSize:'13px',fontWeight:'400',width:'50%'}}>Full-time result: </Typography>
+                                            <Typography sx={{color:'black',textAlign:'center',fontSize:'13px',fontWeight:'600',width:'50%'}}>{displayOutcome}</Typography>
                                         </Box>
                                         <Box>
                                             <Typography sx={{color:'#555',textAlign:'left',fontSize:'11px',fontWeight:'400'}}>{props.odds.oddsDict[matchId]['match'][0]} vs. {props.odds.oddsDict[matchId]['match'][1]}</Typography>
                                         </Box>
                                     </Box>
-                                    <Box sx={{width:'50%',marginLeft:'0px',height:'100%',textAlign: 'center'}}>
+                                    <Box sx={{width:'54px',marginLeft:'0px',marginRight:'20px',height:'100%',textAlign: 'center'}}>
                                     <Typography sx={{color:'black',textAlign:'left',fontSize:'15px',fontWeight:'700',textAlign:'center',display: 'inline-block',verticalAlign: 'middle',lineHeight: 'normal'}}>{winningOdds}</Typography>
                                     </Box>
 
                                 </Box>
 
                             </Box>
-                            <Box sx={{display:'flex'}}>
-                            <Box sx={{width:'fit-content',height:'44px',textAlign:'center',borderRadius:'5px',backgroundColor:'#f1f1f1',display:'flex',justifyContent: 'center',alignContent:'center',alignItems:'center',px:'20px',my:"7px",width: '80%',marginLeft: '45px'}}>
+                            <Box sx={{width:'fit-content',height:'44px',textAlign:'center',borderRadius:'5px',marginLeft:'auto',marginRight:'auto',backgroundColor:'#f1f1f1',display:'flex',justifyContent: 'flex-start',alignContent:'center',alignItems:'center',px:'20px',ml:'45px',my:"7px"}}>
                                 <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'500'}}>Bet:</Typography>
                                 <Box sx={{width:'120px',height:'100%',mx:'15px'}}>
                                 <Input id="totalBetInput" 
@@ -287,7 +305,6 @@ const BottomBetslipSideDrawer = (props) => {
                                 />
                                 </Box>
                                 <Typography sx={{color:'black',textAlign:'left',fontSize:'medium',fontWeight:'700'}}>DAI</Typography>
-                            </Box>
                             </Box>
                             <Box sx={{height:'fit-content', backgroundColor:'white',display:'flex',textAlign:'center',paddingTop:'3px',paddingBottom:'3px'}}>
                                 <Box sx={{width:'50px',height:'100%'}}>
@@ -321,23 +338,27 @@ const BottomBetslipSideDrawer = (props) => {
                 </Box>
 
                 <Box className={styles.boxBeforeBetSlipSelectedMatchBox}/>
-                <Box sx={{display:'flex',justifyContent: 'center'}}>
-                    <Box sx={{"borderRight":"1px solid #efefef","display":"flex","paddingTop":"10px","marginBottom":"10px","textAlign":"center",flexDirection:'column',width: "100%"}}>
+                <Box sx={{display:'flex'}}>
+                    <Box sx={{"paddingRight":"0.8rem","borderRight":"1px solid #efefef","display":"block","marginLeft":"7%","paddingTop":"10px","marginBottom":"10px","textAlign":"left"}}>
                         <Typography sx={{whiteSpace: 'pre-wrap'}}>Bet Total</Typography>
-                        <Typography sx={{"color":"#e57714","margin":"0","fontSize":"1.35rem"}}>{totalBet} DAI</Typography>
+                        <Typography sx={{"color":"#e57714","margin":"0","fontSize":"1.35rem"}}>{totalBet.toLocaleString()} DAI</Typography>
                     </Box>
 
-                    <Box sx={{"display":"flex","paddingTop":"10px","textAlign":"center",flexDirection:'column',width: "100%"}}>
+                    <Box sx={{"display":"block","paddingTop":"10px","paddingLeft":"1rem","textAlign":"left"}}>
                         <Typography sx={{whiteSpace: 'pre-wrap'}}>Possible Winnings</Typography>
-                        <Typography sx={{"color":"#52b49c","margin":"0","fontSize":"1.35rem"}}>{totalPossiblePayout} DAI</Typography>
+                        <Typography sx={{"color":"#52b49c","margin":"0","fontSize":"1.35rem"}}>{totalPossiblePayout.toLocaleString()} DAI</Typography>
                     </Box>
+                </Box>
+
+                <Box sx={{py:'10px', display:`${errorInBetslip ? 'block' : 'none'}`}}>
+                    <Typography sx={{color:"#D14343"}}>{`⚠️ The current bet limit is ${(ref.current.betLimit ).toLocaleString()} DAI`}</Typography>
                 </Box>
 
                 {
                     !props.user.hasProvider ?
                     <InstallMetaMaskButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}}/> :
                     props.user.loggedIn ?
-                    <button className={styles.submitButton} onClick={()=>placeBet()}>
+                    <button className={`${styles.submitButton} ${errorInBetslip ? styles.disableButton : void(0) }`} onClick={()=>placeBet()}>
                         <Typography sx={{fontSize:'25px',fontWeight:'600'}}>Place a Bet</Typography>
                     </button> :
                     <ConnectButton style={{width:'100%',marginLeft:'0px',marginRight:'0px',paddingTop:'0.5rem',paddingBottom:'0.5rem',fontSize:'20px'}} setDisconnected={props.setDisconnected} connectMetaMask={connectMetaMask}/>
@@ -388,11 +409,11 @@ const mapDispatchToProps = (dispatch) => {
 };
   
 
-BottomBetslipSideDrawer.propTypes = {
+BetslipSideDrawer.propTypes = {
     setSlipOpen: PropTypes.func,
     isSlipOpened: PropTypes.bool
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BottomBetslipSideDrawer);
+export default connect(mapStateToProps, mapDispatchToProps)(BetslipSideDrawer);
 
   

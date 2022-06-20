@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Box, Button, Tab, Tabs, Typography, Grid,Container } from "@mui/material";
-import { DashboardLayout } from "@components/DashboardLayout";
+import { DashboardLayout } from "@components/Navigation/DashboardLayout";
 import { useEffect } from "react";
 import Script from 'next/script'
 

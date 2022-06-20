@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Box, Button, ListItem, Collapse,List,Chip } from '@mui/material';
 import { useMemo, useState } from 'react';
 import {MdOutlineKeyboardArrowDown} from "react-icons/md";
-import {NavItembutton} from "@components/NavItemButtonEmpty"
+import {NavItembutton} from "@components/Navigation/NavItemButtonEmpty"
 
 export const NavItemWithSubItems = (props) => {
   const { href, icon, sport, leagues, leagues_length_arr, ...others } = props;

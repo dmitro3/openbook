@@ -3,7 +3,7 @@ import MUIDataTable from "mui-datatables";
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { getSettledBets, claimBets } from "@utils/web3Provider";
 import { useEffect, useState } from "react";
-import { LoaderSpin } from '@components/Dashboard/LoaderSpin';
+import { LoaderSpin } from '@components/General/LoaderSpin';
 import {TresureChest} from "@components/Icons/TresureChest"
 
 const columns = [

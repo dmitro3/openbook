@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { Box } from "@mui/material";
-import { DashboardLayout } from "@components/DashboardLayout";
+import { DashboardLayout } from "@components/Navigation/DashboardLayout";
 import styles from '@styles/support.module.css';
-import { FAQ } from "@components/Dashboard/FAQ";
-import {ContactForm} from "@components/Dashboard/ContactForm"
+import { FAQ } from "@components/General/FAQ";
+import {ContactForm} from "@components/General/ContactForm"
 
 const Dashboard = (props) => 
 {  

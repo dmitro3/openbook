@@ -12,14 +12,14 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { NavItem } from "@components/NavItem";
+import { NavItem } from "@components/Navigation/NavItem";
 import { FaStar,FaFire,FaHandshake,FaGamepad,FaFutbol,FaBasketballBall,FaHockeyPuck,FaFootballBall,FaBaseballBall,FaFlagCheckered} from 'react-icons/fa';
 import {RiMouseFill,RiBoxingFill} from 'react-icons/ri';
-import {CustomDivider} from '@components/Dashboard/CustomDivider'
+import {CustomDivider} from '@components/General/CustomDivider'
 import {IoTicketOutline} from 'react-icons/io5'
 import {AiOutlineMergeCells} from 'react-icons/ai'
-import { NavItemWithSubItems } from "@components/NavItemWithSubItems";
-import { TechnicalSupportButton } from "@components/Dashboard/TechnicalSupportButton";
+import { NavItemWithSubItems } from "@components/Navigation/NavItemWithSubItems";
+import { TechnicalSupportButton } from "@components/General/TechnicalSupportButton";
 import { DashBoardSideBarSkeleton } from "./DashBoardSideBarSkeleton";
 import {connect} from "react-redux"
 

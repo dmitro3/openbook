@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import MatchCard from "@components/Dashboard/MatchCard";
+import MatchCard from "@components/Betting/Sportbook/MatchCard";
 import PropTypes from "prop-types";
 
 export const SportsBookPage = (props) => {

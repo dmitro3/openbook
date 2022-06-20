@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { Tabs } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { DashboardLayout } from "@components/DashboardLayout";
+import { DashboardLayout } from "@components/Navigation/DashboardLayout";
 import { BookieGrid } from "@components/Bookie/BookieGrid";
 
 const useStyle = makeStyles({

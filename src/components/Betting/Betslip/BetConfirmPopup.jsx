@@ -1,7 +1,7 @@
 import {Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle, Typography,Box} from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import { useMemo, useState,useEffect } from "react";
-import {LoaderSpin} from '@components/Dashboard/LoaderSpin'
+import {LoaderSpin} from '@components/General/LoaderSpin'
 import {useRouter} from "next/router"
 
 const columns = [

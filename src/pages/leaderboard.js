@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Box } from "@mui/material";
-import { DashboardLayout } from "@components/DashboardLayout";
-import { Leaderboard } from "@components/Dashboard/Leaderboard";
+import { DashboardLayout } from "@components/Navigation/DashboardLayout";
+import { Leaderboard } from "@components/Leaderboard/Leaderboard";
 
 // Redux Dependencies
 import {connect} from "react-redux"

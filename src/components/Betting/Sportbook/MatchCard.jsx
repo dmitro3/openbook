@@ -1,8 +1,8 @@
-import {Card, CardContent, Grid, Typography,Box, popoverClasses} from '@mui/material';
+import {Card, CardContent, Grid, Typography,Box} from '@mui/material';
 import PropTypes from "prop-types";
-import {TeamCard } from '@components/Dashboard/TeamCard';
-import {BetButton} from '@components/Dashboard/BetButton';
-import {FavoriteButton} from '@components/Dashboard/FavoriteButton';
+import {TeamCard } from '@components/Betting/Sportbook/TeamCard';
+import {BetButton} from '@components/Betting/Sportbook/BetButton';
+import {FavoriteButton} from '@components/Betting/Sportbook/FavoriteButton';
 const static_english_soccer_icons_path = "/static/images/team_and_player_icons/";
 import {useState, useEffect, useRef} from "react"
 
@@ -12,7 +12,7 @@ import {addFavoriteMatch,removeFavoriteMatch} from "@actions/favoriteMatchAction
 import {addBetSlipOutcome,removeBetSlipOutcome} from '@actions/betSlipActions';
 import {setBetSlipOpen,setFirstTimeBetButtonClicked} from "@actions/settingsActions";
 
-const FeaturedMatchCard = (props) => {
+const MatchCard = (props) => {
   const [betButtonOddsState,setBetButtonOddsState] = useState(['normal','normal']);
   const prevOutcome = useRef()
   useEffect(()=>{
@@ -34,9 +34,11 @@ const FeaturedMatchCard = (props) => {
         setBetButtonOddsState(["normal","normal"])
       }
     },[props.odds.oddsChanging])
-  return(
+
+
+  return (
     <Card
-      sx={{ height: '270px' }}
+      sx={{ height: '100%' }}
     >
       <CardContent style={{height:"100%",position:'relative',paddingBottom:'100px', marginTop:'0px'}}>
         <Grid
@@ -60,16 +62,9 @@ const FeaturedMatchCard = (props) => {
         
         <Box sx={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'2%',right:'2%'}}>
         {
-          Object.keys(props.outcomes).map( (item,index) => {
+          Object.keys(props.outcomes).map( (item,index )=> {
             let outcomeKey = item.toString();
             let outcomeValue = ""
-            let order = null;
-            if(outcomeKey == 'X'){
-              order = 1
-            }
-            else{
-              order = Number(outcomeKey);
-            }
             switch(props.settings.oddsFormat){
               case "decimal":
                 outcomeValue = Number(props.outcomes[item]).toFixed(2).toString();
@@ -84,7 +79,6 @@ const FeaturedMatchCard = (props) => {
                 outcomeValue = props.outcomes[item].toString();
             }
             
-
             return(
             <BetButton
             key={outcomeKey}
@@ -94,11 +88,10 @@ const FeaturedMatchCard = (props) => {
             addBetSlipMatch={props.addBetSlipMatch}
             removeBetSlipOutcome={props.removeBetSlipOutcome}
             inSlip={props.betSlip.betSlipOutcomeArray.includes(props.matchId+"/"+outcomeKey)}
-            order={order ? order : index}
+            oddsChange={betButtonOddsState[index]}
             firstTimeBetButtonClicked= {props.settings.firstTimeBetButtonClicked}
             setBetSlipOpen={props.setBetSlipOpen}
             setFirstTimeBetButtonClicked={props.setFirstTimeBetButtonClicked}
-            oddsChange={betButtonOddsState[index]}
             />)
         })}
           <FavoriteButton FaviorteButtonId={props.matchId} addFavoriteMatch={props.addFavoriteMatch} removeFavoriteMatch={props.removeFavoriteMatch} favorited={props.favoriteMatch.favoritedMatchArray.includes(props.matchId)}/>
@@ -107,7 +100,7 @@ const FeaturedMatchCard = (props) => {
       </CardContent>
     </Card>
   );
-    }
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -141,7 +134,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-FeaturedMatchCard.propTypes = {
+MatchCard.propTypes = {
   match1:PropTypes.string,
   match2:PropTypes.string,
   outcomes:PropTypes.object,
@@ -152,4 +145,4 @@ FeaturedMatchCard.propTypes = {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(FeaturedMatchCard);
+export default connect(mapStateToProps, mapDispatchToProps)(MatchCard);

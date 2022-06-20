@@ -1,13 +1,13 @@
-import { DashboardLayout } from "@components/DashboardLayout";
+import { DashboardLayout } from "@components/Navigation/DashboardLayout";
 import { Box, Button, Tab, Tabs, Typography, Grid,Container } from "@mui/material";
 import Head from "next/head";
 import {connect} from "react-redux";
 import {useState,useEffect} from 'react';
 import {useRouter} from 'next/router';
-import MatchCard from "@components/Dashboard/MatchCard";
-import { BetslipSideDrawerEmptyModal } from "@components/Dashboard/BetslipSideDrawerEmptyModal";
-import  BetslipSideDrawer from "@components/Dashboard/BetslipSideDrawer";
-import BottomBetSlipDrawer from "@components/Dashboard/BottomBetSlipDrawer";
+import MatchCard from "@components/Betting/Sportbook/MatchCard";
+import { BetslipSideDrawerEmptyModal } from "@components/Betting/Betslip/BetslipSideDrawerEmptyModal";
+import  BetslipSideDrawer from "@components/Betting/Betslip/BetslipSideDrawer";
+import BottomBetSlipDrawer from "@components/Betting/Betslip/BottomBetSlipDrawer";
 import useWindowDimensions from '@hooks/useWindowDimension';
 
 import { setBetSlipOpen } from "@actions/settingsActions";
