@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 import {
   AppBar,
   Badge,
@@ -30,7 +28,8 @@ import {SettingsModal} from "@components/Settings/SettingsModal"
 import {useState,useEffect, useMemo} from "react"
 import { DaiIcon } from "@components/Icons/DaiIcon";
 import {Notification} from "@utils/icons/notification";
-import {useRouter} from "next/router"
+import {useRouter} from "next/router";
+import {MobileWrapTab} from './MobileWrapTab';
 
 
 // Redux
@@ -38,13 +37,72 @@ import {connect} from "react-redux";
 import {setOddsFormat,setPreferUsername,setPreferAvatarStyle,setDisconnected} from "redux/actions/settingsActions";
 import { WrongNetworkSnackBar } from "@components/General/WrongNetworkSnackBar";
 
+import { styled, experimental_sx as sx } from '@mui/system';
 
 
 /* Function that sets the navigation theme from template */
-const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  boxShadow: theme.shadows[3],
+const NavbarRoot = styled(AppBar)(( props ) => sx({
+  backgroundColor: props.theme.palette.background.paper,
+  boxShadow: props.theme.shadows[3],
+  left: {
+    lg: 280,
+  },
+  width: {
+    lg: "calc(100% - 280px)",
+  },
+  paddingRight: '0px !important',
+  py:'0.3rem'
 }));
+
+const NavToolBar = styled(Toolbar)(( props ) => sx({
+  minHeight: 64,
+  left: 0,
+  px: 0.5,
+  fontSize: "20rem"
+}));
+
+const NavIconButton = styled(IconButton)(( props ) => sx({
+  display: "none",
+  [props.theme.breakpoints.down("lg")]: {
+    display: "inline-flex"
+  },
+}));
+
+const NavBigBothTabsBox = styled(Box)((props)=> sx({
+  borderColor: 'divider',
+  width: "100%",
+  [props.theme.breakpoints.down("smpad")]: {
+    width: "80%"
+  },
+}))
+
+const NavBigScreenTabsBox = styled(Box)((props)=> sx({
+  display: "flex",
+  [props.theme.breakpoints.down("smpad")]: {
+    display: "none"
+  },
+}))
+
+const NavSmallScreenTabsBox = styled(Box)((props)=> sx({
+  display: "none",
+  [props.theme.breakpoints.down("smpad")]: {
+    display: "flex"
+  },
+}))
+
+const NavNetworkNameBox = styled(Box)((props)=> sx({
+  display: "flex",
+  [props.theme.breakpoints.down("md")]: {
+    display: "none"
+  },
+}))
+
+const NavBellIconBox = styled(Box)((props)=> sx({
+  display: "flex",
+  [props.theme.breakpoints.down("md")]: {
+    display: "none"
+  },
+}))
 
 const DashboardNavbar = (props) => {
   /* Properties for settings modal */
@@ -86,9 +144,6 @@ const DashboardNavbar = (props) => {
       setNavigationTabsValue(false)
   },[asPath])
   
-
-
-
     /* End top navigation bar tabs variables */
 
   useEffect(function autoLogin() {
@@ -153,93 +208,49 @@ const DashboardNavbar = (props) => {
     props.setPreferAvatarStyle(props.user.userAddress,settings.preferAvatarStyle);
   }
 
-
-
-
-
-
   return (
     <>    
-      <DashboardNavbarRoot
-        sx={{
-          left: {
-            lg: 280,
-          },
-          width: {
-            lg: "calc(100% - 280px)",
-          },
-          paddingRight: '0px !important',
-          py:'0.3rem'
-        }}
-      >
-        <Toolbar
-          disableGutters
-          sx={{
-            minHeight: 64,
-            left: 0,
-            px: 0.5,
-            fontSize: "20rem"
-          }}
-        >
+      <NavbarRoot>
+        <NavToolBar disableGutters>
           {
           //Menu for the side bar menu component, appears when the screen width is too small.
           }
-          <IconButton
-            onClick={onSidebarOpen}
-            sx={{
-              display: {
-                xs: "inline-flex",
-                lg: "none",
-              },
-            }}
-          >
+          <NavIconButton onClick={onSidebarOpen}>
             <MenuIcon fontSize="small" />
-          </IconButton>
-
-
-          <Box sx={{ width: '100%', borderColor: 'divider',
-                  ['@media (max-width:900px)']: { 
-                  width: '60%'
-                }}}>
-            <Box sx={{
-                ['@media (max-width:900px)']: { 
-                  display: 'none'
-                }
-            }}>
-            <Tabs
-              value={navigationTabsValue}
-              aria-label="secondary tabs example"
-              onChange={(e,value)=>{handleNavigationTabsChange(e,value)}}
-              TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
-            >
-                <WrapTab value={1} href="/featured" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
-                <WrapTab value={3} href="/account" label="Account"icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px', visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
-                <WrapTab value={2} href="/bookie" label="Bookie"icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px', visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
-                <WrapTab value={4} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
-            </Tabs>
-
-            </Box>
-
-            <Box sx={{
-              ['@media (min-width:900px)']: { 
-                  display: 'none'
-                }
-            }}>
+          </NavIconButton>
+          
+          <NavBigBothTabsBox>
+            <NavBigScreenTabsBox>
               <Tabs
-                value={false}
-                aria-label="icon label tabs example"
+                scrollButtons={false}
+                value={navigationTabsValue}
+                aria-label="secondary tabs example"
                 onChange={(e,value)=>{handleNavigationTabsChange(e,value)}}
-                variant="scrollable"
-                scrollButtons={true}
                 TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
               >
-                  <WrapTab value={1} href="/featured"  icon={<BetIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}} />
-                  <WrapTab value={3} href="/account" icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}} />
-                  <WrapTab value={2} href="/bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}} />
-                  <WrapTab value={4} href="/leaderboard"  icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px',width:'60px',minWidth:'0px'}}/>
+                  <WrapTab value={1} href="/featured" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
+                  <WrapTab value={3} href="/account" label="Account" icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px', visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
+                  <WrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px', visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
+                  <WrapTab value={4} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
               </Tabs>
-            </Box>
-          </Box>
+
+            </NavBigScreenTabsBox>
+
+            <NavSmallScreenTabsBox>
+              <Tabs
+                scrollButtons={false}
+                value={navigationTabsValue}
+                aria-label="icon label tabs example"
+                onChange={(e,value)=>{handleNavigationTabsChange(e,value)}}
+                TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
+              >
+                  <MobileWrapTab value={1} href="/featured" label="Bet Now" icon={<BetIcon/>} iconPosition="start" />
+                  <MobileWrapTab value={3} href="/account" label="Account" icon={<TicketIcon/>} iconPosition="start" sx={{visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
+                  <MobileWrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
+                  <MobileWrapTab value={4} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start"/>
+              </Tabs>
+            </NavSmallScreenTabsBox>
+          </NavBigBothTabsBox>
 
           {
           //This is the component that helps separate the left side and the right side of the top nav bar
@@ -255,21 +266,24 @@ const DashboardNavbar = (props) => {
             <><InstallMetaMaskButton/><InstallMetaMaskSnackBar/></> :
             props.user.loggedIn ? 
             
-            <>                           
-            <Tooltip title="Notifications">
-              <IconButton sx={{ ml: '1rem',mr:'0.5rem'}}>
-                <Badge badgeContent={4} color="primary" variant="dot">
-                  <Notification fontSize="big" />
-                </Badge>
-              </IconButton> 
-            </Tooltip>             
+            <>
+            <NavBellIconBox>
+              <Tooltip title="Notifications">
+                <IconButton sx={{ ml: '1rem',mr:'0.5rem'}}>
+                  <Badge badgeContent={4} color="primary" variant="dot">
+                    <Notification fontSize="big" />
+                  </Badge>
+                </IconButton> 
+              </Tooltip>   
+            </NavBellIconBox>
+          
 
-            <Box>
+            <NavNetworkNameBox>
               {props.user.currentNetWork=='kovan' || props.user.currentNetWork == 'private' || props.user.currentNetWork == '' ? void(0) : <WrongNetworkSnackBar provider={props.user.provider} />}
               <Typography sx={{color:"#4591ff",ml:"20px",fontSize:'1.5rem', textTransform: "capitalize"}}>
                 {props.user.currentNetWork}
               </Typography>
-            </Box>
+            </NavNetworkNameBox>
 
             <DisplayUserAddressButton 
               preferUsername={props.settings.preferUsername[props.user.userAddress]} 
@@ -287,15 +301,11 @@ const DashboardNavbar = (props) => {
             />
           }
 
-        </Toolbar>
+        </NavToolBar>
       <SettingsModal fullScreen={fullScreen} open={settingsModalOpen} handleClose={handleClose} preferUsername ={props.settings.preferUsername[props.user.userAddress]} oddsFormat={props.settings.oddsFormat} preferAvatarStyle={props.settings.preferAvatarStyle[props.user.userAddress]} confirmSettings={confirmSettings} userAddress={props.user.userAddress}/>
-      </DashboardNavbarRoot>
+      </NavbarRoot>
     </>
   );
-};
-
-DashboardNavbar.propTypes = {
-  onSidebarOpen: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

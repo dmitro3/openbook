@@ -1,5 +1,3 @@
-import {Card, CardContent, Grid, Typography,Box, popoverClasses} from '@mui/material';
-import PropTypes from "prop-types";
 import {TeamCard } from '@components/Betting/Sportbook/TeamCard';
 import {BetButton} from '@components/Betting/Sportbook/BetButton';
 import {FavoriteButton} from '@components/Betting/Sportbook/FavoriteButton';
@@ -11,6 +9,7 @@ import {connect} from "react-redux";
 import {addFavoriteMatch,removeFavoriteMatch} from "redux/actions/favoriteMatchActions";
 import {addBetSlipOutcome,removeBetSlipOutcome} from 'redux/actions/betSlipActions';
 import {setBetSlipOpen,setFirstTimeBetButtonClicked} from "redux/actions/settingsActions";
+import {FeatureMatchCard,FeatureMatchCardContent,FeatureMatchCardGrid,FeatureMatchCardGridItemTeam,FeatureMatchCardGridItemTimeDate,FeatureMatchCardTypographyTimeDate,FeatureMatchCardButtonsBox} from './FeaturePageStyle'
 
 const FeaturedMatchCard = (props) => {
   const [betButtonOddsState,setBetButtonOddsState] = useState(['normal','normal']);
@@ -35,30 +34,26 @@ const FeaturedMatchCard = (props) => {
       }
     },[props.odds.oddsChanging])
   return(
-    <Card
-      sx={{ height: '270px' }}
-    >
-      <CardContent style={{height:"100%",position:'relative',paddingBottom:'100px', marginTop:'0px'}}>
-        <Grid
+    <FeatureMatchCard>
+      <FeatureMatchCardContent>
+        <FeatureMatchCardGrid
           container
           spacing={3}
-          style={{ justifyContent: 'space-between', width:"100%",marginLeft:'0px',marginRight:'0px',marginTop:'0px'}}
         >
-          <Grid item style={{paddingLeft:'0px',width:'35%',paddingTop: '20px'}}>
+          <FeatureMatchCardGridItemTeam item>
             <TeamCard teamName={props.match1} teamIconPath={static_english_soccer_icons_path + props.match1 + ".png"}/>
-          </Grid>
+          </FeatureMatchCardGridItemTeam>
 
-          <Grid item 
-          style={{textAlign:'center',paddingLeft:'0px',display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", alignContent: "center",paddingTop:"20px"}}>
-                <Typography>{props.dateString}</Typography>
-                <Typography>{props.timeString}</Typography>
-          </Grid>       
+          <FeatureMatchCardGridItemTimeDate item>
+                <FeatureMatchCardTypographyTimeDate s="green">{props.dateString}</FeatureMatchCardTypographyTimeDate>
+                <FeatureMatchCardTypographyTimeDate>{props.timeString}</FeatureMatchCardTypographyTimeDate>
+          </FeatureMatchCardGridItemTimeDate>       
           
-          <Grid item style={{paddingLeft:'0px',width:'35%',paddingTop: '20px'}}>
+          <FeatureMatchCardGridItemTeam item>
             <TeamCard teamName={props.match2} teamIconPath={static_english_soccer_icons_path + props.match2 + ".png"}/>
-          </Grid>
+          </FeatureMatchCardGridItemTeam>
         
-        <Box sx={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'2%',right:'2%'}}>
+        <FeatureMatchCardButtonsBox>
         {
           Object.keys(props.outcomes).map( (item,index) => {
             let outcomeKey = item.toString();
@@ -102,10 +97,10 @@ const FeaturedMatchCard = (props) => {
             />)
         })}
           <FavoriteButton FaviorteButtonId={props.matchId} addFavoriteMatch={props.addFavoriteMatch} removeFavoriteMatch={props.removeFavoriteMatch} favorited={props.favoriteMatch.favoritedMatchArray.includes(props.matchId)}/>
-        </Box>  
-        </Grid>
-      </CardContent>
-    </Card>
+        </FeatureMatchCardButtonsBox>  
+        </FeatureMatchCardGrid>
+      </FeatureMatchCardContent>
+    </FeatureMatchCard>
   );
     }
 
@@ -140,16 +135,5 @@ const mapDispatchToProps = (dispatch) => {
       },
     };
 };
-
-FeaturedMatchCard.propTypes = {
-  match1:PropTypes.string,
-  match2:PropTypes.string,
-  outcomes:PropTypes.object,
-  dateString:PropTypes.string,
-  timeString:PropTypes.string,
-  matchid: PropTypes.string,
-};
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeaturedMatchCard);

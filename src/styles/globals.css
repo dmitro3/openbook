@@ -51,6 +51,42 @@ background-clip: content-box;
 ::-webkit-scrollbar-thumb:hover {
 background-color: #7b8381;
 }
+
+.swiper-slide-featured-top{
+	borderRadius:30px !important;
+	overflow:auto !important;
+	height:300px !important;
+	cursor:pointer !important;
+}
+
+.MuiButtonBase-root.MuiTab-root.MuiTab-labelIcon > span{
+	margin-right:auto !important;
+	margin-left:auto !important;
+}
+
+
+
+/* @media only screen and (max-width: 1400px) {
+	.swiper-slide-featured-top {
+		height:300px !important;
+	}
+} */
+
+@media only screen and (max-width: 600px) {
+	.swiper-slide-featured-top {
+		height:200px !important;
+	}
+	.swiper{
+		margin-left: 0px !important;
+		margin-right: 0px !important;
+	}
+	.css-1hpt7kt-MuiTabs-indicator{
+		bottom: 5px !important;
+	}
+}
+
+
+
 /* 
 .swiper-slide {
 	opacity: .75;

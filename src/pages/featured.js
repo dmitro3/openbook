@@ -3,23 +3,26 @@ import { Box} from "@mui/material";
 import { DashboardLayout } from "@components/Navigation/DashboardLayout";
 import { BetslipSideDrawerEmptyModal } from "@components/Betting/Betslip/BetslipSideDrawerEmptyModal"
 import  BetslipSideDrawer from "@components/Betting/Betslip/BetslipSideDrawer"
-import { useState,useEffect} from "react"
+import { useState,useEffect,useLayoutEffect} from "react"
 import { FeaturedSportPage } from "@components/Betting/Feature/FeaturedSportPage";
 import {CustomSwiper} from "@components/Betting/Feature/CustomSwiper" 
 import { HeroBanner } from "@components/Betting/Feature/HeroBanner";
 import { SportsBookPageSkeleton } from "@components/Betting/Sportbook/SportsBookPageSkeleton";
 import BottomBetSlipDrawer from "@components/Betting/Betslip/BottomBetSlipDrawer";
 import useWindowDimensions from '@hooks/useWindowDimension';
+import { getSwiperSlideCountByScreenWidthTeamCards, getSwiperSlideCountByScreenWidth } from "@utils/getSwiperSlideCountByScreenWidth";
 
 // Redux Dependencies
 import {connect} from "react-redux"
 import { setBetSlipOpen } from "redux/actions/settingsActions";
 import {useRef} from "react"
 
-const Dashboard = (props) => 
+const Featured = (props) => 
 {
     const swiperRef = useRef(null)
     const { height, width } = useWindowDimensions();
+    const [slideCountTeamCard,setSlideCountTeamCard] = useState(1);
+    const [slideCount,setSlideCount] = useState(1);
 
     let data = props.odds.unformattedOddsDict;
     useEffect(()=>{
@@ -35,6 +38,21 @@ const Dashboard = (props) =>
         }
     }
 
+    const handleResize = () =>{
+        setSlideCount(getSwiperSlideCountByScreenWidth())
+        setSlideCountTeamCard(getSwiperSlideCountByScreenWidthTeamCards())
+      }
+  
+    //componentDidMount
+    useLayoutEffect(()=>{
+    setSlideCount(getSwiperSlideCountByScreenWidth())
+    setSlideCountTeamCard(getSwiperSlideCountByScreenWidthTeamCards())
+    window.addEventListener("resize", handleResize);
+    },[])
+
+    //componentDidUnmount
+    useLayoutEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
+
     return (
     <>
     <Head>
@@ -47,8 +65,9 @@ const Dashboard = (props) =>
         >
         <Box
             sx={{
-            paddingTop: 8,
-            display: 'flex'
+            paddingTop: {md: 8, xs: 4},
+            display: 'flex',
+            justifyContent: "center"
             }}
             onMouseEnter={() => {
                 if(swiperRef.current.swiper)
@@ -60,7 +79,7 @@ const Dashboard = (props) =>
             }}
             
         >
-        <CustomSwiper swiperRef={swiperRef}/>
+        <CustomSwiper swiperRef={swiperRef} slideCount={slideCount}/>
         <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />    
         </Box>
         <Box
@@ -81,7 +100,7 @@ const Dashboard = (props) =>
                     props.odds.isOddsLoading ? 
                     <SportsBookPageSkeleton/> : 
                     <>
-                        <FeaturedSportPage isSlipOpened={props.settings.isBetSlipOpen} data={data}/>
+                        <FeaturedSportPage isSlipOpened={props.settings.isBetSlipOpen} data={data} slideCount={slideCountTeamCard}/>
                         <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />  
                     </>
                 }
@@ -109,6 +128,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-Dashboard.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+Featured.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Featured);

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Box} from '@mui/material';
-import { styled } from '@mui/material/styles';
 import  DashboardNavbar  from '@components/Navigation/DashboardNavbar';
 import DashboardSidebar from '@components/Navigation/DashboardSidebar';
 import { Footer } from '@components/Footer/Footer';
+import { styled, experimental_sx as sx } from '@mui/system';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -15,6 +15,13 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   }
 }));
 
+const DashboardLayoutRootBox = styled(Box)((props)  => sx({
+  display: 'flex',
+  flex: '1 1 auto',
+  flexDirection: 'column',
+  width: '100%'
+}));
+
 export const DashboardLayout = (props) => {
   const { children } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -22,24 +29,16 @@ export const DashboardLayout = (props) => {
   return (
     <>
       <DashboardLayoutRoot>
-        <Box
-          sx={{
-            display: 'flex',
-            flex: '1 1 auto',
-            flexDirection: 'column',
-            width: '100%'
-          }}
-        >
+        <DashboardLayoutRootBox>
           {children}
           <Footer/>
-        </Box>
+        </DashboardLayoutRootBox>
       </DashboardLayoutRoot>
       <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
       <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
       />
-      
     </>
   );
 };

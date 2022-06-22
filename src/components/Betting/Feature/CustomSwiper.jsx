@@ -1,6 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { getSwiperSlideCountByScreenWidth } from "@utils/getSwiperSlideCountByScreenWidth";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -18,18 +16,6 @@ export const CustomSwiper = (props) => {
   SwiperCore.use([Autoplay]);
   const router = useRouter();
 
-  const [slideCount,setSlideCount] = useState(1);
-
-  const handleResize = () =>{
-    setSlideCount(getSwiperSlideCountByScreenWidth())
-  }
-
-  useLayoutEffect(()=>{
-    setSlideCount(getSwiperSlideCountByScreenWidth())
-    window.addEventListener("resize", handleResize);
-  },[])
-
-  useLayoutEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
   return (
     <>
       
@@ -38,24 +24,24 @@ export const CustomSwiper = (props) => {
         navigation={false}
         modules={[Autoplay]}
         className="feature-page-pictures-swiper"
-        style={{paddingTop:'0px',width:'95%'}}
-        spaceBetween={15}
+        style={{paddingTop:'0px',width:'95%',borderRadius:"25px"}}
+        spaceBetween={5}
         onClick={(s,e)=>{s.clickedSlide.click()}}
-        slidesPerView={Number(slideCount+0.2)}
+        slidesPerView={Number(props.slideCount+0.2)}
         // centeredSlides={true}
         autoplay={{
           delay: 1,
         }}
         loop={true}
         speed={
-          20000
+          10000
         }
         preloadImages={true}
         lazy={false}
       >
       
         {swiperImageNames.map((item,index)=>{
-          return(<SwiperSlide key={index} style={{borderRadius:"30px",overflow:'auto',width:'770px',height:'350px',cursor:'pointer'}} onClick={()=>{router.push(swiperImageUrls[index])}}><Image src={`/static/images/featured_page_pictures/${item}`} layout='fill'/></SwiperSlide>)
+          return(<SwiperSlide className="swiper-slide-featured-top" key={index} onClick={()=>{router.push(swiperImageUrls[index])}}><Image src={`/static/images/featured_page_pictures/${item}`} layout='fill'/></SwiperSlide>)
         })}
         
 

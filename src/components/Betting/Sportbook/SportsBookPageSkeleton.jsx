@@ -5,7 +5,7 @@ export const SportsBookPageSkeleton = () =>{
         <Container maxWidth={false}>
             <Grid container spacing={3}>
             {
-                [...Array(20).keys()].map((item,index)=>{
+                [...Array(10).keys()].map((item,index)=>{
                     return(
                     <Grid key={index} item lg={6} sm={12} xl={4} xs={12}>
                     <Card

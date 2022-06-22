@@ -3,8 +3,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import {Typography} from "@mui/material"
 import { MdOutlineNavigateBefore,MdOutlineNavigateNext } from "react-icons/md";
 import {FeaturePageIcons} from "@components/Icons/FeaturePageIcons"
-import { getSwiperSlideCountByScreenWidth } from "@utils/getSwiperSlideCountByScreenWidth";
-
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,26 +10,11 @@ import "swiper/css/navigation";
 import FeaturedMatchCard from "./FeaturedMatchCard";
 
 
-
-
 export default function CustomSwiperForFeatureRows(props) {
     const [my_swiper, set_my_swiper] = useState({});
     const [isBeginning,setIsBeginning] = useState(true);
     const [isEnd,setIsEnd] = useState(false);
-    const [slideCount,setSlideCount] = useState(1);
 
-    const handleResize = () =>{
-      setSlideCount(getSwiperSlideCountByScreenWidth())
-    }
-
-    //componentDidMount
-    useLayoutEffect(()=>{
-      setSlideCount(getSwiperSlideCountByScreenWidth())
-      window.addEventListener("resize", handleResize);
-    },[])
-
-    //componentDidUnmount
-    useLayoutEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
 
     if(my_swiper.on){
       my_swiper.on('slideChange', function (e) {
@@ -119,8 +102,8 @@ export default function CustomSwiperForFeatureRows(props) {
             keyboard={false}
             className="feature-page-pictures-swiper"
             style={{paddingTop:'0px',marginLeft:'20px',marginRight:'20px'}}
-            slidesPerView={slideCount}
-            spaceBetween={30}
+            slidesPerView={props.slideCount}
+            spaceBetween={10}
             shortSwipes={false}
             
         >

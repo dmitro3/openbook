@@ -1,12 +1,8 @@
-import {Typography, Button, Box} from '@mui/material';
-import PropTypes from "prop-types";
-import {GoTriangleUp,GoTriangleDown} from 'react-icons/go'
 import {useEffect, useState} from "react"
+import {BetButtonStyle,BetButtonNumber,BetButtonOdds,BetButtonTriangleUp,BetButtonTriangleDown,BetButtonSpace,BetButtonDiv} from "./SportbookStyle"
 
 export const BetButton = (props) => {
     const [oddsChange,setOddsChange] = useState("normal");
-
-
 
     const oddsGoUp =  () => {
         setOddsChange("oddsUp")
@@ -42,111 +38,21 @@ export const BetButton = (props) => {
         }
     }
 
-    let oddsTextStyle = "odds-normal-text"
-    let oddsIncreaseTriangleStyle = "odds-increase-triangle"
-    let oddsDecreaseTriangleStyle = "odds-decrease-triangle"
-    switch(oddsChange){
-        case "normal":
-            oddsTextStyle = "odds-normal-text"
-            oddsIncreaseTriangleStyle = "odds-increase-triangle"
-            oddsDecreaseTriangleStyle = "odds-decrease-triangle"
-        break;
-
-        case "oddsUp":
-            oddsTextStyle = "odds-normal-text odds-go-up-text"
-            oddsIncreaseTriangleStyle = "odds-increase-triangle odds-change-tirangle-show-up"
-        break;
-
-        case "oddsDown":
-            oddsTextStyle = "odds-normal-text odds-go-down-text" 
-            oddsDecreaseTriangleStyle = "odds-decrease-triangle odds-change-tirangle-show-up"
-        break;
-
-        default:
-            oddsTextStyle = "odds-normal-text"
-            oddsIncreaseTriangleStyle = "odds-increase-triangle"
-            oddsDecreaseTriangleStyle = "odds-decrease-triangle"
-        break;
-    }
-    
-
     return(
-        <Button
-        sx={{
-            mr: 1,
-            px: 1.5,
-            py: 2,
-            order: props.order,
-            backgroundColor: '#f5f5f5',
-            cursor: 'pointer',
-            '&:hover': {
-                backgroundColor: '#d9d9d9'
-            },
-            '*':{
-            pointerEvents: 'none'
-            }
-            }}
+        <BetButtonStyle
         variant="body2"
         id={props.BetButtonId}
         onClick={(e)=>betButtonClicked(e)}
-        style={props.inSlip? {border:'2px solid black'} : { border:'none'}}
+        inslip = {props.inSlip ? 1 : 0}
         >
         
-            <Typography sx={{mr:'auto'}}>{props.number}</Typography>
-            <div style={{padding:'0.5vw'}}></div>
-            <div style={{position:'relative'}}>
-            <Typography className={oddsTextStyle}>{props.outcome}</Typography>
-            <GoTriangleUp className={oddsIncreaseTriangleStyle}/>
-            <GoTriangleDown className={oddsDecreaseTriangleStyle}/>
+            <BetButtonNumber>{props.number}</BetButtonNumber>
+            <BetButtonSpace style={{padding:'0.5vw'}}></BetButtonSpace>
+            <BetButtonDiv style={{position:'relative'}}>
+                <BetButtonOdds oddschanging={"none"} >{props.outcome}</BetButtonOdds>
+                <BetButtonTriangleUp /*oddschanging*//>
+                <BetButtonTriangleDown /*oddschanging*//>
+            </BetButtonDiv>
 
-            <style>
-                {`
-                    .odds-increase-triangle{
-                        position:absolute;
-                        top:20px;
-                        left:20%;
-                        color: green;
-                        visibility: hidden;
-                    }
-
-                    .odds-decrease-triangle{
-                        position:absolute;
-                        top:20px;
-                        left:20%;
-                        color: red;
-                        visibility: hidden;
-                    }
-
-                    .odds-change-tirangle-show-up{
-                        visibility: visible;
-                    }
-
-                    .odds-normal-text{
-                        margin-left:auto;
-                        color: #005a98;
-                        font-weight: 400;
-                    }
-
-                    .odds-go-down-text{
-                        color: red;
-                        font-weight: 500;
-                    }
-
-                    .odds-go-up-text{
-                        color: green;
-                        font-weight: 500;
-                    }
-
-                `}
-            </style>
-            </div>
-
-        </Button>
+        </BetButtonStyle>
 )};
-
-BetButton.propTypes = {
-    number:PropTypes.string,
-    outcome:PropTypes.string,
-    BetButtonId: PropTypes.string,
-    inSlip: PropTypes.bool
-};

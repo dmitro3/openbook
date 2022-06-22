@@ -1,7 +1,6 @@
-import { Avatar,  Typography} from '@mui/material';
-import PropTypes from "prop-types";
 import Image from "next/image";
 import {useState} from 'react';
+import {TeamCardAvatar,TeamCardDiv,TeamCardTypography} from "./SportbookStyle"
 
 export const TeamCard = (props) => {
     const [imagePath,setImagePath] = useState(props.teamIconPath);
@@ -13,19 +12,8 @@ export const TeamCard = (props) => {
 
     return(
         <>
-            <Avatar
-                sx={{
-                    backgroundColor: '#f5f5f5',
-                    height: 56,
-                    width: 56,
-                    margin: 'auto'
-                }}
-                >
-                <div style={{
-                width:"50px",
-                height:"50px",
-                margin:"auto"
-                }}>
+            <TeamCardAvatar>
+                <TeamCardDiv>
                     <Image
                     src={imagePath}
                     alt="logo"
@@ -35,17 +23,10 @@ export const TeamCard = (props) => {
                     className="logoStyle"
                     onError={e=>handleError(e)}
                     />
-                </div>
+                </TeamCardDiv>
+            </TeamCardAvatar>
         
-                </Avatar>
-        
-            <Typography sx={{marginLeft:'auto',marginRight:'auto',marginTop:'10px',textAlign:'center'}}>{props.teamName}</Typography>
+            <TeamCardTypography>{props.teamName}</TeamCardTypography>
         </>
         );
-}
-
-
-TeamCard.propTypes = {
-    teamName:PropTypes.string,
-    teamIconPath:PropTypes.string
 }
