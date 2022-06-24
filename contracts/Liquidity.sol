@@ -11,7 +11,7 @@ contract Liquidity is ERC1155{
     address public DAI;
     address public BET_CONTRACT;
     uint32 public val_set = 0;
-    uint32 public totalSupply = 0;
+    uint256 public totalSupply = 0;
 
     
     modifier onlyBet{
@@ -34,14 +34,14 @@ contract Liquidity is ERC1155{
     }
 
     function getDAIBalance() public returns (uint256) {
-        return IERC20(DAI).balanceOf(this);
+        return IERC20(DAI).balanceOf(address(this));
     }
 
     function getFreeFunds() public returns (uint256) {
         return (getDAIBalance() - getLockedLiquidity());
     }
 
-    function getShareValue(uint256 _amount) returns (uint256) {
+    function getShareValue(uint256 _amount) public returns (uint256) {
         if (totalSupply == 0){
             return _amount;
         }
@@ -60,6 +60,8 @@ contract Liquidity is ERC1155{
 
         if (success)
         {
+            uint256 shares = 0;
+
             if (totalSupply > 0) {
                 shares =  _amount * (totalSupply / getFreeFunds());
             }
@@ -69,21 +71,27 @@ contract Liquidity is ERC1155{
 
          
             _mint(msg.sender, LIQUIDITY, shares, "");
-            total_shares = total_shares + shares;
+            totalSupply = totalSupply + shares;
 
         }
     }
 
-    function removeLiquidity(uint256 _amount)  public {
+    function removeLiquidity(uint256 shares)  public {
 
         uint256 balance = this.balanceOf(msg.sender, LIQUIDITY);
-        
-        require(_shareValue(_amount) >= _amount, "User's capital must be greater than requested amt");
 
-        (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, msg.sender, _amount));
+
+        require(shares >= balance, "User's capital must be greater than requested amt");
+
+        uint256 amount = getShareValue(shares);
+
+        (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, msg.sender, amount));
 
         if (success)
-            _burn(msg.sender, LIQUIDITY, _amount);
+        {
+            totalSupply = totalSupply - shares;
+            _burn(msg.sender, LIQUIDITY, shares);
+        }
 
     }
 
