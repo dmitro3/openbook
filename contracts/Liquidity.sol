@@ -3,6 +3,9 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "./interfaces/IBet.sol";
 import "./interfaces/IERC20.sol";
+import "hardhat/console.sol";
+
+//Fix the lock
 
 contract Liquidity is ERC1155{
 
@@ -33,20 +36,34 @@ contract Liquidity is ERC1155{
         return IBet(BET_CONTRACT).getLockedLiquidity();
     }
 
+    function getLockedShares() public returns (uint256) {
+        return IBet(BET_CONTRACT).getLockedLiquidity() * getDAIBalance() / totalSupply;
+    }
+
+
+    function getUserShares()  public returns (uint256, uint256, uint256) {
+        //Returns locked totalShares, lockedShares, freeShares
+
+        uint256 totalShares = this.balanceOf(msg.sender, LIQUIDITY);
+        uint256 lockedShares = getLockedShares()/totalSupply * totalShares;
+        uint256 freeShares = totalShares - lockedShares;
+
+        return (totalShares, lockedShares, freeShares);
+    }
+    
     function getDAIBalance() public returns (uint256) {
         return IERC20(DAI).balanceOf(address(this));
     }
 
-    function getFreeFunds() public returns (uint256) {
-        return (getDAIBalance() - getLockedLiquidity());
-    }
+
+
 
     function getShareValue(uint256 _amount) public returns (uint256) {
         if (totalSupply == 0){
             return _amount;
         }
 
-        return _amount * getFreeFunds() / totalSupply;
+        return _amount * getDAIBalance() / totalSupply;
     }
 
     function sendWithdrawl(address _receipent, uint256 _amount) public onlyBet returns (bool) {
@@ -56,30 +73,28 @@ contract Liquidity is ERC1155{
 
 
     function addLiquidity(uint256 _amount)  public {
+
+        uint256 shares = 0;
+
+        if (totalSupply > 0) {
+            shares =  _amount * (totalSupply / getDAIBalance());
+        }
+        else {
+            shares = _amount;
+        }
+
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, _amount));
 
         if (success)
         {
-            uint256 shares = 0;
-
-            if (totalSupply > 0) {
-                shares =  _amount * (totalSupply / getFreeFunds());
-            }
-            else {
-                shares = _amount;
-            }
-
-         
             _mint(msg.sender, LIQUIDITY, shares, "");
             totalSupply = totalSupply + shares;
-
         }
     }
 
     function removeLiquidity(uint256 shares)  public {
 
         uint256 balance = this.balanceOf(msg.sender, LIQUIDITY);
-
 
         require(shares >= balance, "User's capital must be greater than requested amt");
 

@@ -12,7 +12,7 @@ import {
 import { makeStyles, styled } from "@mui/styles";
 import { DashboardLayout } from "@components/Navigation/DashboardLayout";
 import { StakingDataCard } from "@components/Bookie/StakingDataCard";
-import { addLiquidity, getPoolLiquidity, getUserLiquidity, getUserHold, removeLiquidity,handleLiqChange } from "@utils/web3Provider";
+import { addLiquidity, removeLiquidity,handleLiqChange } from "@utils/web3Provider";
 import { DaiIcon } from "@components/Icons/DaiIcon";
 
 
@@ -67,12 +67,6 @@ const StyledTextField = styled(TextField)({
     },
   },
 });
-
-// const initLiqVals = async () => {
-//   const total = await getPoolLiquidity();
-//   const user = await getUserLiquidity();
-//   return [total, user];
-// }
 
 const Staking = (props) => {
   const styles = useStyle();

@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0x87006e75a5B6bE9D1bbF61AC8Cd84f05D9140589";
-const BET_ADDY = "0x8fC8CFB7f7362E44E472c690A6e025B80E406458";
-const MARKET_ADDY = "0x51C65cd0Cdb1A8A8b79dfc2eE965B1bA0bb8fc89"
+const LIQUIDITY_ADDY = "0x70eE76691Bdd9696552AF8d4fd634b3cF79DD529";
+const BET_ADDY = "0x9385556B571ab92bf6dC9a0DbD75429Dd4d56F91";
+const MARKET_ADDY = "0x8B190573374637f144AC8D37375d97fd84cBD3a0"
 
 let LIQUIDITY_ABI = [
   {
@@ -260,7 +260,7 @@ let LIQUIDITY_ABI = [
   },
   {
     "inputs": [],
-    "name": "getFreeFunds",
+    "name": "getLockedLiquidity",
     "outputs": [
       {
         "internalType": "uint256",
@@ -273,7 +273,7 @@ let LIQUIDITY_ABI = [
   },
   {
     "inputs": [],
-    "name": "getLockedLiquidity",
+    "name": "getLockedShares",
     "outputs": [
       {
         "internalType": "uint256",
@@ -294,6 +294,29 @@ let LIQUIDITY_ABI = [
     ],
     "name": "getShareValue",
     "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getUserShares",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
       {
         "internalType": "uint256",
         "name": "",
@@ -526,6 +549,7 @@ let LIQUIDITY_ABI = [
     "type": "function"
   }
 ]
+
 
 
 
@@ -1140,6 +1164,7 @@ let BET_ABI = [
     "type": "function"
   }
 ]
+
 
 
 
