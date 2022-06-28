@@ -60,7 +60,7 @@ const steps = [
 
 const inputs = [
   "Vault Name",
-  "Etheruem Address",
+  "Provider Address",
   "Fund Size",
   "Risk Tolerance",
   "Vigorish"
@@ -102,8 +102,8 @@ const BookieHomepage = (props) => {
 
     const [values, setValues] = React.useState({
       vaultName: '',
-      ethAddress: '',
-      fundSize: '',
+      providerAddress: '',
+      fundSize: '0',
       riskTolerance: '5',
       vigorish: '3'
     });
@@ -202,8 +202,8 @@ const BookieHomepage = (props) => {
                     defaultValue=""
                     variant="standard"
                     margin="normal"
-                    value={values.ethAddress}
-                    onChange={handleChange('ethAddress')}
+                    value={values.providerAddress}
+                    onChange={handleChange('providerAddress')}
                     placeholder="0xf6a960a726317b4cb09a35bb510906162f55b1b00f6c37978edb86f7465f793f"
                   />
                 <TextField
@@ -275,7 +275,7 @@ const BookieHomepage = (props) => {
                         </Typography>
                         <Typography sx={{ml:'20px',width:'30%'}}>
                           {Object.values(values)[index]}
-                          {index==2  ? 'DAI' : ''}
+                          {index==2  ? ' DAI' : ''}
                           {index==3 || index==4 ? '%' : ''}
                         </Typography>
                       </Box>
