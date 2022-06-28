@@ -11,7 +11,7 @@ import { styled, experimental_sx as sx } from '@mui/system';
 export const FooterBox = styled(Box)((props)=> sx({
   paddingBottom:'200px',
   marginTop:"100px",
-  overflow:'hidden'
+  // overflow:'hidden'
 }))
 
 
@@ -24,6 +24,7 @@ export const FooterGridIitem = styled(Grid)((props)  => sx({
 export const FooterGridContainer = styled(Grid)((props)  => sx({
   margin: "0px !important",
   backgroundColor:"var(--bg-color)",
+  width: "100%"
 }));
 
 export const FooterLinkTopPart = styled(Link)((props)  => sx({
@@ -43,8 +44,10 @@ export const FooterTitleTypography = styled(Typography)((props)  => sx({
 
 export const FooterTopPartBox = styled(Box)((props)  => sx({
   maxWidth: 'fit-content',
+  minWidth: '241px',
   [props.theme.breakpoints.down("sm")]: {
-    "padding":"0px 25px !important",
+    "padding":"0px 0px !important",
+    minWidth: "127px",
   },
 }));
 
@@ -66,14 +69,15 @@ export const FooterBottomPartSpanLogo = styled('span')((props)  => sx({
 }));
 
 export const MobileViewBox = styled(Box)((props)=>sx({
-  display:"flex"
+  display:"flex",
+
 }))
 
 
 
 export const Footer = () => {
     return(
-        <FooterBox sx={{paddingBottom:'200px',marginTop:"100px"}}>
+        <FooterBox>
           <FooterCustomDivider/>
             <Container>
               <FooterGridContainer container spacing={3}>

@@ -19,7 +19,6 @@ import {CustomDivider} from '@components/General/CustomDivider'
 import {IoTicketOutline} from 'react-icons/io5'
 import {AiOutlineMergeCells} from 'react-icons/ai'
 import { NavItemWithSubItems } from "@components/Navigation/NavItemWithSubItems";
-import { TechnicalSupportButton } from "@components/General/TechnicalSupportButton";
 import { DashBoardSideBarSkeleton } from "./DashBoardSideBarSkeleton";
 import {connect} from "react-redux"
 
@@ -186,7 +185,6 @@ const DashboardSidebar = (props) => {
 
 
         </Box>
-      <TechnicalSupportButton/>
       </Box>
 
     </>

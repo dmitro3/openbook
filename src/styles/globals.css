@@ -1,3 +1,8 @@
+*{
+	/*Debugging purpose*/
+	/* background: rgb(0 100 0 / 0.1) !important; */
+}
+
 :root {
 	--background-default: #f3f5f9;
 	--mobile-width: 900px;

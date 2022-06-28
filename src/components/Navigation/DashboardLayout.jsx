@@ -4,6 +4,7 @@ import  DashboardNavbar  from '@components/Navigation/DashboardNavbar';
 import DashboardSidebar from '@components/Navigation/DashboardSidebar';
 import { Footer } from '@components/Footer/Footer';
 import { styled, experimental_sx as sx } from '@mui/system';
+import { TechnicalSupportButton } from "@components/Navigation/TechnicalSupportButton";
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -39,6 +40,7 @@ export const DashboardLayout = (props) => {
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
       />
+      <TechnicalSupportButton/>
     </>
   );
 };

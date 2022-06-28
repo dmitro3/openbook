@@ -7,11 +7,11 @@ export const SportsBookPageSkeleton = () =>{
             {
                 [...Array(10).keys()].map((item,index)=>{
                     return(
-                    <Grid key={index} item lg={6} sm={12} xl={4} xs={12}>
+                    <Grid key={index} item xl={3} lgp={4} lg={6} md={6} smpad={6} sm={12} xs={12} >
                     <Card
                         sx={{ height: '100%' }}
                     >
-                        <CardContent style={{height:"100%",position:'relative',paddingBottom:'100px', marginTop:'0px'}}>
+                        <CardContent style={{height:"100%",position:'relative',paddingBottom:'100px', marginTop:'0px',paddingTop:'0px'}}>
                         <Grid
                             container
                             spacing={3}
@@ -33,7 +33,7 @@ export const SportsBookPageSkeleton = () =>{
                                 <Skeleton variant="text" width={100} sx={{mx:'auto'}} />
                             </Grid>
                         
-                        <Box sx={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'7%',left:'10%',right:'10%'}}>
+                        <Box sx={{display:"flex",alignItems: "center", justifyContent: "center",position:'absolute',bottom:'13%',left:'10%',right:'10%'}}>
                         <Skeleton variant="rectangular"  sx={{height:'51px',width:'25%',mx:"10px",borderRadius:'13%'}}/>
                         <Skeleton variant="rectangular"  sx={{height:'51px',width:'25%',mx:"10px",borderRadius:'13%'}}/>
                         <Skeleton variant="rectangular"  sx={{height:'51px',width:'25%',mx:"10px",borderRadius:'13%'}}/>

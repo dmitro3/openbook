@@ -59,7 +59,7 @@ const Dashboard = (props) =>
             display: 'flex'
             }}
         > 
-            {(routerReady && !props.odds.isOddsLoading && league_data) ? 
+            {  (routerReady && !props.odds.isOddsLoading && league_data) ? 
             <>
                 <SportsBookPage EPL_data={league_data}/>
                 <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />

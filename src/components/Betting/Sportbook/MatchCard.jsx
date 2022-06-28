@@ -3,7 +3,9 @@ import {BetButton} from '@components/Betting/Sportbook/BetButton';
 import {FavoriteButton} from '@components/Betting/Sportbook/FavoriteButton';
 const static_english_soccer_icons_path = "/static/images/team_and_player_icons/";
 import {useState, useEffect, useRef} from "react";
-import {MatchCardCard,MatchCardCardContent,MatchCardGridContainer,MatchCardGridItem,MatchCardGridItem2,MatchCardTypographyDateTime,MatchCardButtonsBox} from './SportbookStyle';
+// import {MatchCardCard,MatchCardCardContent,MatchCardGridContainer,MatchCardGridItem,MatchCardGridItem2,MatchCardTypographyDateTime,MatchCardButtonsBox} from './SportbookStyle';
+import { Avatar, Typography, Button, Card, CardContent, Grid, Box} from '@mui/material';
+import { styled, experimental_sx as sx } from '@mui/system';
 
 // Redux Dependencies
 import {connect} from "react-redux";
@@ -13,7 +15,61 @@ import {setBetSlipOpen,setFirstTimeBetButtonClicked} from "redux/actions/setting
 
 
 
+export const MatchCardCard = styled(Card)((props)  => sx({
+  height: '230px',
+  backgroundColor: props.theme.palette.background.paper
+}));
 
+export const MatchCardCardContent = styled(CardContent)((props)  => sx({
+  height:"100%",
+  position:'relative',
+  py:'15px !important', 
+  px:'8px !important', 
+}));
+
+export const MatchCardTopBox = styled(Box)((props)  => sx({
+  width:"100%",
+  margin:'0px',
+  display:'flex',
+}));
+
+export const MatchCardTopTeamCardBox = styled(Box)((props)  => sx({
+  padding:'0px',
+  width:'35%',
+}));
+
+export const MatchCardDateTimeBox = styled(Box)((props)  => sx({
+  textAlign:'center',
+  paddingLeft:'0px',
+  display: "flex", 
+  flexDirection: "column", 
+  alignItems: "center", 
+  justifyContent: "center", 
+  alignContent: "center",
+  width: "30%"
+}));
+
+export const MatchCardTypographyDateTime1 = styled(Typography)((props)  => sx({
+  paddingLeft:'0px',
+  width:'100%',
+  paddingTop: '0px'
+}));
+
+export const MatchCardTypographyDateTime2 = styled(Typography)((props)  => sx({
+  paddingLeft:'0px',
+  width:'100%',
+  paddingTop: '20px'
+}));
+
+export const MatchCardButtonsBox = styled(Box)((props)  => sx({
+  display:"flex",
+  alignItems: "center", 
+  justifyContent: "center",
+  position: "absolute",
+  bottom: "7%",
+  left: "5%",
+  right: "5%"
+}));
 
 const MatchCard = (props) => {
   const [betButtonOddsState,setBetButtonOddsState] = useState(['normal','normal']);
@@ -42,20 +98,21 @@ const MatchCard = (props) => {
   return (
     <MatchCardCard>
       <MatchCardCardContent>
-        <MatchCardGridContainer container spacing={3}>
-          <MatchCardGridItem item>
+        <MatchCardTopBox>
+          <MatchCardTopTeamCardBox>
             <TeamCard teamName={props.match1} teamIconPath={static_english_soccer_icons_path + props.match1 + ".png"}/>
-          </MatchCardGridItem>
+          </MatchCardTopTeamCardBox>
 
-          <MatchCardGridItem2 item>
-                <MatchCardTypographyDateTime>{props.dateString}</MatchCardTypographyDateTime>
-                <MatchCardTypographyDateTime>{props.timeString}</MatchCardTypographyDateTime>
-          </MatchCardGridItem2>       
+          <MatchCardDateTimeBox>
+                <MatchCardTypographyDateTime1>{props.dateString}</MatchCardTypographyDateTime1>
+                <MatchCardTypographyDateTime2>{props.timeString}</MatchCardTypographyDateTime2>
+          </MatchCardDateTimeBox>       
           
-          <MatchCardGridItem item>
+          <MatchCardTopTeamCardBox item>
             <TeamCard teamName={props.match2} teamIconPath={static_english_soccer_icons_path + props.match2 + ".png"}/>
-          </MatchCardGridItem>
-        
+          </MatchCardTopTeamCardBox>
+        </MatchCardTopBox>  
+
         <MatchCardButtonsBox>
         {
           Object.keys(props.outcomes).map( (item,index )=> {
@@ -92,7 +149,7 @@ const MatchCard = (props) => {
         })}
           <FavoriteButton FaviorteButtonId={props.matchId} addFavoriteMatch={props.addFavoriteMatch} removeFavoriteMatch={props.removeFavoriteMatch} favorited={props.favoriteMatch.favoritedMatchArray.includes(props.matchId)}/>
         </MatchCardButtonsBox>  
-        </MatchCardGridContainer>
+
       </MatchCardCardContent>
     </MatchCardCard>
   );

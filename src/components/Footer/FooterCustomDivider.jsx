@@ -11,7 +11,7 @@ export const FooterCustomDivider = (props) => {
       opacity: 0.1,
       border: '0.8px solid',
       mx: 'auto',
-      width: '97%'
+      width: '90%'
     }}
 
     style={props.style}

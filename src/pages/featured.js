@@ -25,8 +25,10 @@ const Featured = (props) =>
     const [slideCount,setSlideCount] = useState(1);
 
     let data = props.odds.unformattedOddsDict;
+    let rb = ""
     useEffect(()=>{
-        new ResizeObserver(() => {resetAutoPlay()}).observe(swiperRef.current);
+        rb = new ResizeObserver(() => {resetAutoPlay()})
+        rb.observe(swiperRef.current);
     },[])
 
     const resetAutoPlay = ()=>{
@@ -51,7 +53,10 @@ const Featured = (props) =>
     },[])
 
     //componentDidUnmount
-    useLayoutEffect( () => () => {window.removeEventListener("resize", handleResize)}, [] );
+    useLayoutEffect( () => () => {
+        window.removeEventListener("resize", handleResize);
+        rb.disconnect();
+    }, [] );
 
     return (
     <>
