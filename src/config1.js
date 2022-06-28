@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0x683d9CDD3239E0e01E8dC6315fA50AD92aB71D2d";
-const BET_ADDY = "0x0fe4223AD99dF788A6Dcad148eB4086E6389cEB6";
-const MARKET_ADDY = "0x1c9fD50dF7a4f066884b58A05D91e4b55005876A";
+const LIQUIDITY_ADDY = "0xCd7c00Ac6dc51e8dCc773971Ac9221cC582F3b1b";
+const BET_ADDY = "0x94fFA1C7330845646CE9128450F8e6c3B5e44F86";
+const MARKET_ADDY = "0x8ac87219a0F5639BC01b470F87BA2b26356CB2B9";
 
 let LIQUIDITY_ABI = [
   {
@@ -304,6 +304,19 @@ let LIQUIDITY_ABI = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getTotalSupply",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -311,18 +324,8 @@ let LIQUIDITY_ABI = [
         "type": "address"
       }
     ],
-    "name": "getUserShares",
+    "name": "getUserLockedShares",
     "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      },
       {
         "internalType": "uint256",
         "name": "",
@@ -555,6 +558,8 @@ let LIQUIDITY_ABI = [
     "type": "function"
   }
 ]
+
+
 
 
 

@@ -33,6 +33,7 @@ export const connectMetaMask = async () =>{
 
 } 
 
+
 export const getPoolLiquidity = async () => {
     let web3 = store.getState().user.web3;
     let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
@@ -74,8 +75,8 @@ export const getUserHold = async () =>{
 
     let account = await web3.eth.getAccounts()
 
-    let details = await liquidity_contract.methods.getUserShares(account[0]).call()
-    let exactAmt =  parseFloat(web3.utils.fromWei(String(details[1]), 'ether')).toFixed(2);
+    let details = await liquidity_contract.methods.getUserLockedShares(account[0]).call()
+    let exactAmt =  parseFloat(web3.utils.fromWei(String(details), 'ether')).toFixed(2);
 
 
     let locked = await liquidity_contract.methods.getLockedShares().call()

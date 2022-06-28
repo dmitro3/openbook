@@ -77,11 +77,13 @@ contract Liquidity is ERC1155{
         uint256 shares = 0;
 
         if (totalSupply > 0) {
-            shares =  _amount * (totalSupply / getDAIBalance());
+            shares =  _amount * (totalSupply / getDAIBalance()); //okay this is wrong. actually no. not sure why
         }
         else {
             shares = _amount;
         }
+
+        console.log(_amount, totalSupply, getDAIBalance());
 
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, _amount));
 
