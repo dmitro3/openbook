@@ -40,16 +40,16 @@ contract Liquidity is ERC1155{
         return IBet(BET_CONTRACT).getLockedLiquidity() * getDAIBalance() / totalSupply;
     }
 
-
-    function getUserShares()  public returns (uint256, uint256, uint256) {
-        //Returns locked totalShares, lockedShares, freeShares
-
-        uint256 totalShares = this.balanceOf(msg.sender, LIQUIDITY);
-        uint256 lockedShares = getLockedShares()/totalSupply * totalShares;
-        uint256 freeShares = totalShares - lockedShares;
-
-        return (totalShares, lockedShares, freeShares);
+    function getTotalSupply() public returns (uint256) {
+        return totalSupply;
     }
+
+
+    function getUserLockedShares(address user)  public returns (uint256) {
+        uint256 locked = getLockedShares()/getTotalSupply() * this.balanceOf(user, LIQUIDITY);
+        return locked;
+    }
+
     
     function getDAIBalance() public returns (uint256) {
         return IERC20(DAI).balanceOf(address(this));

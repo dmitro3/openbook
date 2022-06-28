@@ -1,6 +1,6 @@
-const LIQUIDITY_ADDY = "0x70eE76691Bdd9696552AF8d4fd634b3cF79DD529";
-const BET_ADDY = "0x9385556B571ab92bf6dC9a0DbD75429Dd4d56F91";
-const MARKET_ADDY = "0x8B190573374637f144AC8D37375d97fd84cBD3a0"
+const LIQUIDITY_ADDY = "0x683d9CDD3239E0e01E8dC6315fA50AD92aB71D2d";
+const BET_ADDY = "0x0fe4223AD99dF788A6Dcad148eB4086E6389cEB6";
+const MARKET_ADDY = "0x1c9fD50dF7a4f066884b58A05D91e4b55005876A";
 
 let LIQUIDITY_ABI = [
   {
@@ -304,7 +304,13 @@ let LIQUIDITY_ABI = [
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
     "name": "getUserShares",
     "outputs": [
       {
@@ -549,6 +555,7 @@ let LIQUIDITY_ABI = [
     "type": "function"
   }
 ]
+
 
 
 

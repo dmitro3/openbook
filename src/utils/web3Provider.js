@@ -39,9 +39,12 @@ export const getPoolLiquidity = async () => {
     let res = await dai_contract.methods.balanceOf(LIQUIDITY_ADDY).call()
     let exactAmt = parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
     
-    store.dispatch(setPoolLiquidity(exactAmt))
+    let liquidity_contract = new web3.eth.Contract(LIQUIDITY_ABI, LIQUIDITY_ADDY);
+    let res2 = await liquidity_contract.methods.getTotalSupply().call()
+    let exactAmt2 = parseFloat(web3.utils.fromWei(String(res2), 'ether')).toFixed(2);
 
-    return exactAmt;
+
+    return [exactAmt, exactAmt2];
 }
 
 
@@ -53,24 +56,40 @@ export const getUserLiquidity = async () => {
     let account = await web3.eth.getAccounts()
 
     let res = await token_contract.methods.balanceOf(account[0], 0).call()
-    let exactAmt =  parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
-    // alert(exactAmt)
-    store.dispatch(setUserLiquidity(exactAmt))
 
-    return exactAmt;
+    let liquidity_contract = new web3.eth.Contract(LIQUIDITY_ABI, LIQUIDITY_ADDY);
+
+    let exactDAI = await liquidity_contract.methods.getShareValue(res).call()
+    
+    let exactAmt =  parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
+    exactDAI =  parseFloat(web3.utils.fromWei(String(exactDAI), 'ether')).toFixed(2);
+
+    return [exactAmt, exactDAI];
 }
 
 export const getUserHold = async () =>{
     let web3 = store.getState().user.web3;
-    let bet_contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+    let liquidity_contract = new web3.eth.Contract(LIQUIDITY_ABI, LIQUIDITY_ADDY);
     let balance = 0;
 
     let account = await web3.eth.getAccounts()
 
-    let res = await bet_contract.methods.lockedLiquidity().call()
-    let exactAmt =  parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
+    let details = await liquidity_contract.methods.getUserShares(account[0]).call()
+    let exactAmt =  parseFloat(web3.utils.fromWei(String(details[1]), 'ether')).toFixed(2);
 
-    return exactAmt;
+
+    let locked = await liquidity_contract.methods.getLockedShares().call()
+
+    let lockedDAI = await liquidity_contract.methods.getShareValue(locked).call()
+
+    locked =  parseFloat(web3.utils.fromWei(String(locked), 'ether')).toFixed(2);
+    lockedDAI =  parseFloat(web3.utils.fromWei(String(lockedDAI), 'ether')).toFixed(2);
+
+    // let hodl = await liquidity_contract.methods.getDAIBalance().call()
+    // let supply = await liquidity_contract.methods.getTotalSupply().call()
+    
+
+    return [locked, lockedDAI];
 }
         
 export const addLiquidity = async (amount) => {
@@ -354,16 +373,16 @@ const getUserDaiBalance = async (web3,userAddress) =>{
 }
 
 export const handleLiqChange = async () => {
-    const res = await getPoolLiquidity();
-    store.dispatch(setLiqDisplayValue(res + " DAI"))
+    const [totalShares, totalDAI] = await getPoolLiquidity();
+    store.dispatch(setLiqDisplayValue(totalShares + " Shares, " + totalDAI + " DAI"))
 
-    const res2 = await getUserLiquidity();
-    store.dispatch(setUserStakeValue(res2 + " DAI"))
+    const [userShares, userDAI] = await getUserLiquidity();
+    store.dispatch(setUserStakeValue(userShares + " Shares, " + userDAI + " DAI"))
 
-    const res3 = await getUserHold();
-    store.dispatch(setbalanceHoldValue(res3 + " DAI"))
+    let [lockedShares, lockedDAI] = await getUserHold();
+    store.dispatch(setbalanceHoldValue(lockedShares + " Shares, " + lockedDAI + " DAI"))
 
-    store.dispatch((setWithdrawableValue(res2 - res3 + " DAI")))
+    store.dispatch((setWithdrawableValue((userShares-lockedShares) + " Shares, " + (userDAI-lockedDAI) + " DAI")))
 }
 
 const subscribeNewBlock = async (web3,userAddress) =>{
