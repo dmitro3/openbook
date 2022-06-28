@@ -44,7 +44,7 @@ export const getPoolLiquidity = async () => {
     let exactAmt2 = parseFloat(web3.utils.fromWei(String(res2), 'ether')).toFixed(2);
 
 
-    return [exactAmt, exactAmt2];
+    return [exactAmt2, exactAmt];
 }
 
 
