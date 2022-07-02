@@ -10,7 +10,7 @@ const useStyle = makeStyles({
     margin: "1rem",
     textAlign: "center",
     fontSize: "48px",
-    color: "midnightblue",
+    color: "#5048E5",
   },
 });
 

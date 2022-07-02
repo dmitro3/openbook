@@ -1,25 +1,39 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Typography, Box } from '@mui/material';
 import { StakingDivider } from '@components/Bookie/StakingDivider';
 
 export const StakingDataCard = (props) => {
 	return(
 		<Card 
 		variant="outlined"
+		
 		>
-			<CardContent sx={{ p: "0.5rem", '&:last-child': { pb: "0.5rem" }}}>
-				<Typography 
-				variant="h6"
-				sx={{color: "midnightblue"}}
-				>
-					{props.title}
-				</Typography>
-				<StakingDivider />
-				<Typography 
-				variant="h6" 
-				sx={{color: "#004e92", textAlign: "right"}}
-				>
-					{props.data}
-				</Typography>
+			<CardContent sx={{py:'16px !important'}}>
+				<Box sx={{display:'flex',justifyContent:'space-between',}}>
+					<Box>
+						<Typography 
+						variant="h5"
+						sx={{color: "#5048E5"}}
+						>
+							{props.title}
+						</Typography>
+						<Typography 
+						variant="p"
+						sx={{color: "#161440"}}
+						>
+							{props.description}
+						</Typography>
+					</Box>
+
+					<Box sx={{display:'flex',alignItems:'center'}}>
+						<Typography 
+						variant="h6" 
+						sx={{color: `${props.unit == "shares" ? "#1890ff" : "#f0ad39"}`, textAlign: "right"}}
+						>
+							{`${props.data} ${props.unit}`}
+						</Typography>
+					</Box>
+				</Box>
+
 			</CardContent>
 		</Card>
 )};

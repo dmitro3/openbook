@@ -14,9 +14,10 @@ import {
   InputAdornment,
   Slide 
 } from "@mui/material";
+import { styled, experimental_sx as sx } from '@mui/system';
 
 
-const steps = [
+  const steps = [
     'Gerneral Info',
     'Vault Details',
     'Confirmation',
@@ -25,7 +26,7 @@ const steps = [
   const inputs = [
     "Vault Name",
     "Provider Address",
-    "Fund Size",
+    "Initial Vault Deposit",
     "Risk Tolerance",
     "Vigorish"
   ]
@@ -33,6 +34,12 @@ const steps = [
   const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
+
+  export const QuestionTextField = styled(TextField)((props)  => sx({
+    '& .MuiFilledInput-root': {
+      backgroundColor: 'white'
+    }
+}));
 
 export const AddVaultPopup = (props) => {
     
@@ -69,8 +76,8 @@ export const AddVaultPopup = (props) => {
         keepMounted
         onClose={props.handleClose}
         PaperProps={{
-          style:{
-            minWidth:'600px'
+          sx:{
+            minWidth:'500px'
           }
         }}
         
@@ -90,30 +97,35 @@ export const AddVaultPopup = (props) => {
               component="form"
               noValidate
               autoComplete="off"
+              sx={{minHeight:'263px'}}
             >
             { activeStep == 0 ? 
               <Box sx={{
               display: 'flex',
               flexDirection: 'column'
             }}>
-              <TextField
+              <QuestionTextField
                 label={inputs[0]}
-                variant="standard"
+                variant="filled"
                 margin="normal"
                 value={values.vaultName}
                 onChange={handleChange('vaultName')}
               />
-              <TextField
+              <QuestionTextField
                 label={inputs[1]}
-                variant="standard"
+                variant="filled"
                 margin="normal"
                 value={values.providerAddress}
                 onChange={handleChange('providerAddress')}
-                placeholder="0xf6a960a726317b4cb09a35bb510906162f55b1b00f6c37978edb86f7465f793f"
+                placeholder="0x000...000"
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">?</InputAdornment>,
+                }}
+                helperText="Ehtereum contract address that provides the odds of the games"
               />
-            <TextField
+            <QuestionTextField
                 label={inputs[2]}
-                variant="standard"
+                variant="filled"
                 margin="normal"
                 InputProps={{
                   endAdornment: <InputAdornment position="end">DAI</InputAdornment>,
@@ -132,9 +144,9 @@ export const AddVaultPopup = (props) => {
               display: 'flex',
               flexDirection: 'column'
             }}>
-              <TextField
+              <QuestionTextField
                 label={inputs[3]}
-                variant="standard"
+                variant="filled"
                 margin="normal"
                 InputProps={{
                   endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -144,9 +156,9 @@ export const AddVaultPopup = (props) => {
                 value={values.riskTolerance}
                 onChange={handleChange('riskTolerance')}
               />
-              <TextField
+              <QuestionTextField
                 label={inputs[4]}
-                variant="standard"
+                variant="filled"
                 margin="normal"
                 InputProps={{
                   endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -171,11 +183,11 @@ export const AddVaultPopup = (props) => {
             {
               inputs.map((input,index)=>{
                 return(
-                  <Box sx={{display: 'flex'}} key={index}>
-                    <Typography sx={{width:'30%'}}>
+                  <Box sx={{display: 'flex', justifyContent:'space-between'}} key={index}>
+                    <Typography sx={{}}>
                       {input}:
                     </Typography>
-                    <Typography sx={{ml:'20px',width:'30%'}}>
+                    <Typography sx={{color: "#5048e5",fontWeight: "bold", width:`${index==1 ? '70%' : 'auto'}`, overflowX: 'auto'}}>
                       {Object.values(values)[index]}
                       {index==2  ? ' DAI' : ''}
                       {index==3 || index==4 ? '%' : ''}

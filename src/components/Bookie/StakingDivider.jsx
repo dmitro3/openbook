@@ -7,7 +7,7 @@ export const StakingDivider = (props) => {
     <Divider
     variant="inset"
     sx={{
-      border: "1px solid midnightblue",
+      border: "1px solid #5048E5",
       my: 1,
       opacity: 0.25,
       mx: 'auto',

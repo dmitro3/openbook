@@ -27,7 +27,7 @@ const useStyle = makeStyles({
     marginTop: "1rem",
     textAlign: "center",
     fontSize: "48px",
-    color: "midnightblue",
+    color: "#5048E5",
   },
   subtitle: {
     marginBottom: "1rem",
@@ -39,7 +39,7 @@ const useStyle = makeStyles({
   stakingHeader: {
     textAlign: "center",
     fontSize: "36px",
-    color: "midnightblue",
+    color: "#5048E5",
   },
   stakingText: {
     marginBottom: "1rem",

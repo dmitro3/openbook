@@ -107,7 +107,7 @@ export const VaultCard = (props) => {
                 </Box>
 
                 <Box sx={{width:'100%',display:'flex',justifyContent:'flex-end',mt:'50px'}}>
-                <Button variant="contained">
+                <Button variant="contained" onClick={()=>props.handleVaultDetailPopupClickOpen()}>
                     Details
                 </Button>
                 </Box>
