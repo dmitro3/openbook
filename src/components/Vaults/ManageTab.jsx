@@ -11,9 +11,9 @@ import {
   import {useState} from 'react'
 
 export const EditTextField = styled(TextField)((props)  => sx({
-    '& .MuiFilledInput-root': {
-      backgroundColor: 'white'
-    }
+    // '& .MuiFilledInput-root': {
+    //   backgroundColor: 'white'
+    // }
 }));
   
 const inputs = [
@@ -53,7 +53,7 @@ export const ManageTab = (props) => {
 
                             <EditTextField
                                 label={input.name}
-                                variant="filled"
+                                variant="outlined"
                                 margin="normal"
                                 InputProps={input.name!="Vault Name" ? {
                                 endAdornment: <InputAdornment position="end">%</InputAdornment>,

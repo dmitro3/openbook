@@ -118,9 +118,6 @@ export const AddVaultPopup = (props) => {
                 value={values.providerAddress}
                 onChange={handleChange('providerAddress')}
                 placeholder="0x000...000"
-                InputProps={{
-                  endAdornment: <InputAdornment position="end">?</InputAdornment>,
-                }}
                 helperText="Ehtereum contract address that provides the odds of the games"
               />
             <QuestionTextField
