@@ -32,10 +32,6 @@ contract Bet is ERC1155{
 
     address public DAI;
 
-    modifier onlyMarkets {
-        require (msg.sender == MARKET_CONTRACT);
-        _;
-    }
 
 
     constructor(address _DAI, address _MARKET_CONTRACT, address _LIQUIDITY_CONTRACT, uint256 _RISK_CAP) public ERC1155(""){
@@ -53,14 +49,14 @@ contract Bet is ERC1155{
             total = total + bet_amounts[i];
         }
 
-        require(total <= getLiquidityLimit(gameIds), "Not enough liquidity");
+        // require(total <= IVault(_vault).getLiquidityLimit(gameIds), "Not enough liquidity");
 
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, LIQUIDITY_CONTRACT, total));
         require(success, "Cannot transfer DAI");
     }
 
-    function createBets(uint256[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts) public returns (uint256[] memory){
-        performTransfer(gameIds, bet_amounts); //because of 20 var limit error
+    function createBets(uint256[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts, address _vault) public returns (uint256[] memory){
+        performTransfer(gameIds, bet_amounts, _vault); //because of 20 var limit error
 
         uint256[] memory curr_bets = new uint256[](bet_amounts.length);
 
@@ -83,10 +79,8 @@ contract Bet is ERC1155{
                 status: 0
             });
 
-            lockedLiquidity = lockedLiquidity + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000;
-            gameWiseLiquidity[gameIds[i]][99] = gameWiseLiquidity[gameIds[i]][99] + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000; //This tracks the total
-            gameWiseLiquidity[gameIds[i]][betIndexes[i]] = gameWiseLiquidity[gameIds[i]][betIndexes[i]] + ((bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000);
-        
+
+            // IVault(_vault).lockLiquidity(gameIds, betIndexes, bet_amounts);
 
             _mint(msg.sender, currId, 1, "");
 
@@ -138,7 +132,6 @@ contract Bet is ERC1155{
 
         if (totalWithdraw > 0)
         {
-            lockedLiquidity = lockedLiquidity - totalWithdraw;
             bool succ = ILiquidity(LIQUIDITY_CONTRACT).sendWithdrawl(msg.sender, totalWithdraw);
             require(succ, "Cannot transfer DAI");
             return succ;

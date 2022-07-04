@@ -10,7 +10,6 @@ contract Markets{
     address public BET_CONTRACT;
     uint32 public val_set = 0;
 
-    event updateOdds_Event(uint256 marketId, uint256[] odds);
 
 
     struct Market {
@@ -65,10 +64,6 @@ contract Markets{
 
     function marketDetailsById(uint256 id) public view returns (Market memory) {
         return markets[id];
-    }
-
-    function getOddsById(uint256 id) public view returns (uint256[] memory) {
-        return markets[id].odds;
     }
 
     function getOutcomeById(uint256 id) public view returns (uint8) {

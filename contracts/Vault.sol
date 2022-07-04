@@ -9,13 +9,20 @@ import "hardhat/console.sol";
 
 contract Vault is ERC1155{
 
+    address public BET_CONTRACT;
+    address public MARKET_CONTRACT;
+    address public PROVIDER;
+
+    address public DAI;
+
     //This is the ID for the the NFT
     uint32 public constant LIQUIDITY = 0;
-    address public DAI;
-    address public BET_CONTRACT;
     uint32 public val_set = 0;
     uint256 public totalSupply = 0;
     uint256 public lockedLiquidity = 0;
+
+    event updateOdds_Event(uint256 marketId, uint256[] odds);
+
 
     mapping(uint256 => mapping(uint256 => uint256)) public gameWiseLiquidity;
 
@@ -25,8 +32,21 @@ contract Vault is ERC1155{
         _;
     }
 
-   constructor(address _DAI) public ERC1155(""){
+    modifier onlyMarkets {
+        require (msg.sender == MARKET_CONTRACT);
+        _;
+    }
+
+    modifier onlyProvider {
+        require (msg.sender == PROVIDER);
+        _;
+    }
+
+
+   constructor(address _DAI, address _MARKET_CONTRACT, address _PROVIDER) public ERC1155(""){
        DAI = _DAI;
+       MARKET_CONTRACT = _MARKET_CONTRACT;
+       PROVIDER = _PROVIDER;
     }
 
     function setBetContract(address _bet_contract) public{
@@ -61,6 +81,9 @@ contract Vault is ERC1155{
         return IERC20(DAI).balanceOf(address(this));
     }
 
+    function getOddsById(uint256 id) public view returns (uint256[] memory) {
+        return markets[id].odds;
+    }
 
     function unlockLiquidity(uint256 gameId, uint8 outcome_id) onlyMarkets external{
         for (uint i = 0; i<=2; i++){
@@ -104,6 +127,8 @@ contract Vault is ERC1155{
     }
 
     function sendWithdrawl(address _receipent, uint256 _amount) public onlyBet returns (bool) {
+        lockedLiquidity = lockedLiquidity - _amount;
+
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, this, _receipent, _amount));
         return success;
     }
@@ -129,6 +154,12 @@ contract Vault is ERC1155{
             _mint(msg.sender, LIQUIDITY, shares, "");
             totalSupply = totalSupply + shares;
         }
+    }
+
+    function lockLiquidity(uint256[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts) {
+        lockedLiquidity = lockedLiquidity + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000;
+        gameWiseLiquidity[gameIds[i]][99] = gameWiseLiquidity[gameIds[i]][99] + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000; //This tracks the total
+        gameWiseLiquidity[gameIds[i]][betIndexes[i]] = gameWiseLiquidity[gameIds[i]][betIndexes[i]] + ((bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000);
     }
 
     function removeLiquidity(uint256 shares)  public {
