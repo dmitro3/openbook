@@ -7,7 +7,7 @@ import "hardhat/console.sol";
 
 //Fix the lock
 
-contract Liquidity is ERC1155{
+contract Vault is ERC1155{
 
     //This is the ID for the the NFT
     uint32 public constant LIQUIDITY = 0;
@@ -15,8 +15,11 @@ contract Liquidity is ERC1155{
     address public BET_CONTRACT;
     uint32 public val_set = 0;
     uint256 public totalSupply = 0;
+    uint256 public lockedLiquidity = 0;
 
-    
+    mapping(uint256 => mapping(uint256 => uint256)) public gameWiseLiquidity;
+
+
     modifier onlyBet{
         require(msg.sender == BET_CONTRACT);
         _;
@@ -44,6 +47,9 @@ contract Liquidity is ERC1155{
         return totalSupply;
     }
 
+    function getLockedLiquidity() external returns (uint256){
+        return lockedLiquidity;
+    }
 
     function getUserLockedShares(address user)  public returns (uint256) {
         uint256 locked = getLockedShares()/getTotalSupply() * this.balanceOf(user, LIQUIDITY);
@@ -56,7 +62,38 @@ contract Liquidity is ERC1155{
     }
 
 
+    function unlockLiquidity(uint256 gameId, uint8 outcome_id) onlyMarkets external{
+        for (uint i = 0; i<=2; i++){
+            if (i != outcome_id){
+                lockedLiquidity = lockedLiquidity - gameWiseLiquidity[gameId][i];
+            }
+        }
+    }
 
+    function getLiquidityLimit(uint256[] calldata gameIds) public returns (uint256){
+        uint256 totalLiq = IERC20(DAI).balanceOf(LIQUIDITY_CONTRACT);
+
+        uint256 limit = totalLiq * RISK_CAP / 100;
+        uint256 totalBet = 0;
+
+        for (uint i=0; i < gameIds.length; i++){
+            totalBet = totalBet + gameWiseLiquidity[gameIds[i]][99];
+        }
+
+
+         if (totalBet > limit){
+             return 0;
+         }
+
+         return limit - totalBet;
+    }
+
+
+    //Update odds
+    function updateOdds(uint256 marketId, uint256[] calldata newOdds) public onlyProvider{
+        markets[marketId].odds = newOdds;
+        emit updateOdds_Event(marketId, newOdds);
+    }
 
     function getShareValue(uint256 _amount) public returns (uint256) {
         if (totalSupply == 0){

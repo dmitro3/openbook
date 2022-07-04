@@ -14,6 +14,7 @@ contract Bet is ERC1155{
         uint8 betIndex; //0,1,2. What outcome the user chose
         uint128 bet_amount;         // the amount gambled by the user
         uint256 to_win; //the amount user can win
+        address vault; //the vault taking the bet
         uint8 status; //0 means pending, 1 means settled, 2 means canceled
     }
 
@@ -25,8 +26,6 @@ contract Bet is ERC1155{
     uint256 public RISK_CAP = 10;
 
     mapping(uint256 => singleBet) private _bets;
-    uint256 public lockedLiquidity = 0;
-    mapping(uint256 => mapping(uint256 => uint256)) public gameWiseLiquidity;
 
     uint256[] all_bets;
     uint256[] bet_history;
@@ -46,35 +45,6 @@ contract Bet is ERC1155{
        RISK_CAP = RISK_CAP;
     }
 
-    function getLockedLiquidity() external returns (uint256){
-        return lockedLiquidity;
-    }
-
-    function unlockLiquidity(uint256 gameId, uint8 outcome_id) onlyMarkets external{
-        for (uint i = 0; i<=2; i++){
-            if (i != outcome_id){
-                lockedLiquidity = lockedLiquidity - gameWiseLiquidity[gameId][i];
-            }
-        }
-    }
-
-    function getLiquidityLimit(uint256[] calldata gameIds) public returns (uint256){
-        uint256 totalLiq = IERC20(DAI).balanceOf(LIQUIDITY_CONTRACT);
-
-        uint256 limit = totalLiq * RISK_CAP / 100;
-        uint256 totalBet = 0;
-
-        for (uint i=0; i < gameIds.length; i++){
-            totalBet = totalBet + gameWiseLiquidity[gameIds[i]][99];
-        }
-
-
-         if (totalBet > limit){
-             return 0;
-         }
-
-         return limit - totalBet;
-    }
 
     function performTransfer(uint256[] calldata gameIds, uint128[] calldata bet_amounts) internal {
         uint128 total = 0;

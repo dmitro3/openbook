@@ -1,5 +1,4 @@
 pragma solidity ^0.8.0;
-import "./interfaces/IBet.sol";
 
 
 contract Markets{
@@ -53,7 +52,7 @@ contract Markets{
         {
             markets[marketIds[i]].active = false;
             markets[marketIds[i]].winnerIndex = winnerIndex[i];
-            IBet(BET_CONTRACT).unlockLiquidity(marketIds[i], winnerIndex[i]);
+            // IBet(BET_CONTRACT).unlockLiquidity(marketIds[i], winnerIndex[i]);
 
         }
 
@@ -74,12 +73,6 @@ contract Markets{
 
     function getOutcomeById(uint256 id) public view returns (uint8) {
         return markets[id].winnerIndex;
-    }
-
-    //Update odds
-    function updateOdds(uint256 marketId, uint256[] calldata newOdds) public onlyProvider{
-        markets[marketId].odds = newOdds;
-        emit updateOdds_Event(marketId, newOdds);
     }
 
     function startMarket(uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds) onlyProvider public {

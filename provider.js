@@ -83,10 +83,8 @@ async function updateOdds(){
     })();
 }
 
-async function main(){
+async function provider(){
     await perform()
     await getMatches()
-    // await updateOdds()
+    await updateOdds()
 }
-
-main()
