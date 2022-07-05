@@ -44,6 +44,10 @@ contract Markets{
         val_set = 1;
     }
 
+    function getDefaultOddsById(uint256 id) public view returns (uint256[] memory) {
+        return markets[id].odds;
+    }
+
 
     function settleMarkets(uint256[] calldata marketIds, uint8[] calldata winnerIndex) onlyProvider public{
 
@@ -51,7 +55,9 @@ contract Markets{
         {
             markets[marketIds[i]].active = false;
             markets[marketIds[i]].winnerIndex = winnerIndex[i];
-            // IBet(BET_CONTRACT).unlockLiquidity(marketIds[i], winnerIndex[i]);
+
+            
+            // IVault(BET_CONTRACT).unlockLiquidity(marketIds[i], winnerIndex[i]);
 
         }
 

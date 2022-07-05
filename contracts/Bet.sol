@@ -2,7 +2,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "./interfaces/IMarkets.sol";
-import "./interfaces/ILiquidity.sol";
+import "./interfaces/IVault.sol";
 import "./interfaces/IERC20.sol";
 
 contract Bet is ERC1155{
@@ -23,7 +23,6 @@ contract Bet is ERC1155{
 
     /// The ID of the next token that will be minted. Skips 0
     uint256 private _nextId = 1;
-    uint256 public RISK_CAP = 10;
 
     mapping(uint256 => singleBet) private _bets;
 
@@ -34,22 +33,21 @@ contract Bet is ERC1155{
 
 
 
-    constructor(address _DAI, address _MARKET_CONTRACT, address _LIQUIDITY_CONTRACT, uint256 _RISK_CAP) public ERC1155(""){
+    constructor(address _DAI, address _MARKET_CONTRACT, address _LIQUIDITY_CONTRACT) public ERC1155(""){
        DAI = _DAI;
        MARKET_CONTRACT = _MARKET_CONTRACT;
        LIQUIDITY_CONTRACT = _LIQUIDITY_CONTRACT;
-       RISK_CAP = RISK_CAP;
     }
 
 
-    function performTransfer(uint256[] calldata gameIds, uint128[] calldata bet_amounts) internal {
+    function performTransfer(uint256[] calldata gameIds, uint128[] calldata bet_amounts, address _vault) internal {
         uint128 total = 0;
 
         for (uint i=0; i<bet_amounts.length; i++) {
             total = total + bet_amounts[i];
         }
 
-        // require(total <= IVault(_vault).getLiquidityLimit(gameIds), "Not enough liquidity");
+        require(total <= IVault(_vault).getLiquidityLimit(gameIds), "Not enough liquidity");
 
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, LIQUIDITY_CONTRACT, total));
         require(success, "Cannot transfer DAI");
@@ -64,7 +62,7 @@ contract Bet is ERC1155{
 
 
             uint256  currId = _nextId+1;
-            uint256[] memory odds = IMarkets(MARKET_CONTRACT).getOddsById(gameIds[i]);
+            uint256[] memory odds = IVault(_vault).getOddsById(gameIds[i]);
 
             curr_bets[i] = currId;
 
@@ -76,11 +74,12 @@ contract Bet is ERC1155{
                 betIndex: betIndexes[i],
                 bet_amount: bet_amounts[i],
                 to_win: (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000,
+                vault: _vault,
                 status: 0
             });
 
 
-            // IVault(_vault).lockLiquidity(gameIds, betIndexes, bet_amounts);
+            IVault(_vault).lockLiquidity(i, odds, gameIds, betIndexes, bet_amounts);
 
             _mint(msg.sender, currId, 1, "");
 
@@ -105,7 +104,7 @@ contract Bet is ERC1155{
         return (_bets[id].timestamp, _bets[id].punter, _bets[id].gameId, _bets[id].betIndex, _bets[id].bet_amount, _bets[id].to_win, _bets[id].status);
     }
 
-    function withdrawBets(uint256[] calldata tokenIds, uint256[] calldata indexes) public returns (bool) {
+    function withdrawBets(uint256[] calldata tokenIds, uint256[] calldata indexes, address _vault) public returns (bool) {
         uint totalWithdraw = 0;
 
         for (uint i=0; i<tokenIds.length; i++)
@@ -132,7 +131,7 @@ contract Bet is ERC1155{
 
         if (totalWithdraw > 0)
         {
-            bool succ = ILiquidity(LIQUIDITY_CONTRACT).sendWithdrawl(msg.sender, totalWithdraw);
+            bool succ = IVault(_vault).sendWithdrawl(msg.sender, totalWithdraw);
             require(succ, "Cannot transfer DAI");
             return succ;
         }
