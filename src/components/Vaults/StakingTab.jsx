@@ -4,10 +4,13 @@ import {
   Box,
   TextField,
   Typography,
+  CardContent,
+  Card,
+  InputAdornment,
+  Input
 } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
 import { addLiquidity, removeLiquidity } from "@utils/web3Provider";
-import { DaiIcon } from "@components/Icons/DaiIcon";
 
   const useStyle = makeStyles({
     root: {
@@ -26,33 +29,21 @@ import { DaiIcon } from "@components/Icons/DaiIcon";
     },
   });
 
-  const StyledTextField = styled(TextField)({
-    "& label.Mui-focused": {
-      color: "#004e92",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#004e92",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "#5048e5",
-        borderWidth: "2px",
-      },
-      "&:hover fieldset": {
-        borderColor: "royalblue",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#004e92",
-      },
-    },
-  });
-
-
 export const StakingTab = (props) => {
     const styles = useStyle();
     let withdrawableValue = props.withdrawableValue;
-    const [depositAmountInput, setDepositAmountInput] = useState("0");
+    const [depositAmountInput, setDepositAmountInput] = useState("");
+    const [withdrawAmountInput, setWithdrawAmountInput] = useState("");
     const [withdrawable,setWithdrawable] = useState(true);
+
+    const handleDepositAmountInput = (event, value) => {
+      setDepositAmountInput(value);
+    }
+
+    const handleWidthdrawAmountInput = (event,value) => {
+      setWithdrawAmountInput(value);
+    }
+
     const stringToNum = (txt) => {
         if(txt.split){
           let number = txt.split(" ")[0];
@@ -75,75 +66,114 @@ export const StakingTab = (props) => {
           setWithdrawable(true);
         }
       }
+
+    const inputAdornmentForDAI = () => {
+      return(
+        <InputAdornment position="end" sx={{"& p": {
+          color: "#f0ad39"
+        }}}>DAI</InputAdornment>
+      )
+    }
+
+    const inputAdornmentForShares = () => {
+      return(
+        <InputAdornment position="end" sx={{"& p": {
+          color: "#1890ff"
+        }}}>shares</InputAdornment>
+      )
+    }
+
+    // const withdrawInputAdornmentForShares = () => {
+    //   return(
+    //     <InputAdornment position="end" sx={{
+    //       color: "#1890ff"
+    //     }}>/{500} shares</InputAdornment>
+    //   )
+    // }
+
+    // const withdrawInputAdornmentForDAI = () => {
+    //   return(
+    //     <InputAdornment position="end" sx={{
+    //       color: "#f0ad39"
+    //     }}>/{500} DAI</InputAdornment>
+    //   )
+    // }
+
+
     return (
-        <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          flexBasis: "40%",
-          paddingRight: "1rem",
-          alignItems: 'flex-start'
-        }}
-      >
-        <h3 className={styles.stakingHeader}>Staking Menu</h3>
-        <Typography className={styles.stakingText}>
-          Input the amount of DAI you want to stake or from the OpenBook Liquidity
-          Pool
-        </Typography>
+      <>
+        <Box>
+          <Box>
+            <Card>
+              <CardContent>
+                <Box sx={{display:'flex',"justifyContent":"space-between","alignContent":"center","alignItems":"center"}}>
+                <TextField
+                      label={"Enter stake amount"}
+                      variant="outlined"
+                      InputProps={{
+                      endAdornment: props.switchState ? inputAdornmentForDAI() : inputAdornmentForShares(),
+                      inputMode: 'numeric', 
+                      pattern: '[0-9]*' ,
+                      }}
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      value={depositAmountInput}
+                      onChange={(event,value)=>{handleDepositAmountInput(event,value)}}
+                      sx={{
+                          width:'80%'
+                      }}
+                  />
+                    <Button
+                      variant="contained"
+                      onClick={() => {addLiquidity(depositAmountInput);}}
+                      sx={{
+                        height:"50px",
+                        width:"18%"
+                      }}
+                    >
+                      Stake
+                    </Button>
+                </Box>
+              </CardContent>
+            </Card>
 
-        {/* Deposit Amount input box */}
-        <Box
-          sx={{
-            display: "flex",
-            width: "100%",
-            marginTop: "50px",
-            justifyContent: 'flex-start'
-          }}
-        >
-          <StyledTextField
-            value={depositAmountInput}
-            id="deposit-input"
-            variant="outlined"
-            label=" Amount"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange={(e) => setDepositAmountInput(e.target.value)}
-            InputProps={{
-              endAdornment: <DaiIcon />,
-            }}
-          />
+            <Card sx={{mt:'20px'}}>
+              <CardContent>
+                <Box sx={{display:'flex',"justifyContent":"space-between","alignContent":"center","alignItems":"center"}}>
+                <TextField
+                      label={"Enter withdraw amount"}
+                      variant="outlined"
+                      InputProps={{
+                      endAdornment: props.switchState ? inputAdornmentForDAI() : inputAdornmentForShares(),
+                      inputMode: 'numeric', 
+                      pattern: '[0-9]*' 
+                      }}
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      value={withdrawAmountInput}
+                      onChange={(event,value)=>{handleWidthdrawAmountInput(event,value)}}
+                      sx={{
+                          width:'80%'
+                      }}
+                      placeholder={"5000 MAX"}
+                  />
+                    <Button
+                      variant="contained"
+                      onClick={() => {removeLiquidity(withdrawAmountInput);}}
+                      sx={{
+                        height:"50px",
+                        width:"18%"
+                      }}
+                    >
+                      Withdrawl
+                    </Button>
+                </Box>
+              </CardContent>
+            </Card>
+          </Box>
         </Box>
-
-        {/* Buttons box */}
-        <Box sx={{ display: "flex", width: "100%", marginTop: "1rem",justifyContent:'flex-start' }}>
-          <Button
-            variant="contained"
-            sx={{ marginRight: "7px" }}
-            onClick={() => {addLiquidity(depositAmountInput);}}
-          >
-            Stake DAI
-          </Button>
-
-          <Button
-            variant="contained"
-            sx={{ marginLeft: "7px" }}
-            className={withdrawable ? void(0) : "disbaleButton"}
-            onClick={() => {removeLiquidity(depositAmountInput);}}
-          >
-            Withdraw DAI
-          </Button>
-          <style>
-            {`        
-              .disbaleButton{
-                background-color: #8d8d8d;
-                cursor: not-allowed;
-                pointer-events: none;
-              }
-            `}
-          </style>
-        </Box>
-      </Box>
+      </>
     )
 }

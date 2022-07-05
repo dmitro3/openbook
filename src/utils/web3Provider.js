@@ -10,7 +10,7 @@ import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "redu
 import {setLiqDisplayValue,setbalanceHoldValue,setWithdrawableValue,setUserStakeValue} from "redux/actions/bookieActions";
 import {setSettledBets,setUnsettledBets} from "redux/actions/accountActions";
 import {store} from "../redux/store"
-import { WSS_PROVIDER } from 'config1';
+import { WSS_PROVIDER } from 'config';
 
 export const checkWeb3 =  async () => {
     const provider = await detectEthereumProvider();
