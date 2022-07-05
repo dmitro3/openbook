@@ -34,6 +34,48 @@ const useStyle = makeStyles({
   },
 });
 
+const AntSwitch = styled(Switch)(({ theme }) => ({
+  width: 28,
+  height: 16,
+  padding: 0,
+  display: 'flex',
+  marginInline:'5px',
+  '&:active': {
+    '& .MuiSwitch-thumb': {
+      width: 15,
+    },
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      transform: 'translateX(9px)',
+    },
+  },
+  '& .MuiSwitch-switchBase': {
+    padding: 2,
+    '&.Mui-checked': {
+      transform: 'translateX(12px)',
+      color: '#fff',
+      '& + .MuiSwitch-track': {
+        opacity: 1,
+        backgroundColor: '#f1ae39'
+      },
+    },
+  },
+  '& .MuiSwitch-thumb': {
+    boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    transition: theme.transitions.create(['width'], {
+      duration: 200,
+    }),
+  },
+  '& .MuiSwitch-track': {
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor: '#1890ff',
+    boxSizing: 'border-box',
+  },
+}));
+
 const Staking = (props) => {
   const styles = useStyle();
   let liqDisplayValue = props.bookie.liqDisplayValue;
@@ -41,7 +83,9 @@ const Staking = (props) => {
   let withdrawableValue = props.bookie.withdrawableValue;
   let userStakeValue = props.bookie.userStakeValue;
 
+  const [switchState, setSwitchState] = useState(true);
   const [tabValue, setTabValue] = useState('general');
+  
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
@@ -83,10 +127,20 @@ const Staking = (props) => {
         </Tabs>
       </Box>
         <Box sx={{display:`${tabValue == "general" ? "block" : "none"}`}}>
-          <GeneralTab liqDisplayValue={liqDisplayValue} balanceHoldValue={balanceHoldValue} withdrawableValue={withdrawableValue} userStakeValue={userStakeValue}/> 
+          <Box sx={{display: 'flex', alignItems: 'center', width:'100%', justifyContent:'flex-end',mb:'15px'}}>
+            <Typography>Shares</Typography>
+            <AntSwitch onChange={(event)=>{setSwitchState(!switchState)}} checked={!!switchState}/>
+            <Typography>DAI</Typography>
+          </Box>
+          <GeneralTab liqDisplayValue={liqDisplayValue} balanceHoldValue={balanceHoldValue} withdrawableValue={withdrawableValue} userStakeValue={userStakeValue} switchState={switchState}/> 
         </Box>
         <Box sx={{display:`${tabValue == "staking" ? "block" : "none"}`}}>
-          <StakingTab  withdrawableValue={withdrawableValue}/> 
+          <Box sx={{display: 'flex', alignItems: 'center', width:'100%', justifyContent:'flex-end',mb:'15px'}}>
+              <Typography>Shares</Typography>
+              <AntSwitch onChange={(event)=>{setSwitchState(!switchState)}} checked={!!switchState} />
+              <Typography>DAI</Typography>
+            </Box>
+          <StakingTab  withdrawableValue={withdrawableValue} switchState={switchState}/> 
         </Box>
 
         <Box sx={{display:`${tabValue == "manage" ? "block" : "none"}`}}>
