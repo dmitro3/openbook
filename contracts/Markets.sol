@@ -6,13 +6,13 @@ import "./interfaces/IVault.sol";
 
 contract Markets{
     uint256 public protocolFee;
-    uint256 public LPFee;
     uint256[] market_ids;
     uint256 private _nextId = 1;
 
     address public BET_CONTRACT;
     address public MANAGER_CONTRACT;
     uint32 public val_set = 0;
+    uint32 public vault_set = 0;
 
 
 
@@ -22,7 +22,6 @@ contract Markets{
         string[] match_details;
         uint8 winnerIndex;
         uint256 protocolFee;
-        uint256 LPFee;
         uint256 creationTimestamp;
         string[] bets;
         uint256[] odds;
@@ -37,16 +36,20 @@ contract Markets{
     }
 
 
-    constructor(uint256 protocolFee, uint256 _LPFee, address _MANAGER_CONTRACT) public{
+    constructor(uint256 protocolFee) public{
         protocolFee = protocolFee;
-        LPFee = _LPFee;
-        MANAGER_CONTRACT = _MANAGER_CONTRACT;
     }
 
     function setBetContract(address _bet_contract) public{
         require(val_set == 0);
         BET_CONTRACT = _bet_contract;
         val_set = 1;
+    }
+
+    function setVaultMgrContract(address _manager_contract) public{
+        require(vault_set == 0);
+        MANAGER_CONTRACT = _manager_contract;
+        vault_set = 1;
     }
 
     function getDefaultOddsById(uint256 id) public view returns (uint256[] memory) {
@@ -90,7 +93,6 @@ contract Markets{
                 _match_details,
                 99,
                 protocolFee,
-                LPFee,
                 block.timestamp,
                 _bets,
                 _odds,
@@ -115,7 +117,6 @@ contract Markets{
                     _match_details[i],
                     99,
                     protocolFee,
-                    LPFee,
                     block.timestamp,
                     _bets[i],
                     _odds[i],
