@@ -30,26 +30,6 @@ describe('Contract tests', () => {
         //get signer
         [owner] = await ethers.getSigners();
 
-        //Deploy the contracts
-        const Liquidity = await ethers.getContractFactory("Liquidity");
-        liq = await Liquidity.deploy(DAI_ADDY);
-        await liq.deployed();  
-
-        const Market = await ethers.getContractFactory("Markets");
-        market = await Market.deploy(1, 2);
-        await market.deployed();  
-
-        const Bet = await ethers.getContractFactory("Bet");
-        bet = await Bet.deploy(DAI_ADDY, market.address, liq.address, 10);
-        await bet.deployed();  
-
-        await liq.setBetContract(bet.address);
-        await market.setBetContract(bet.address);
-
-
-        console.log("Liquidity Contract Deployed at " + liq.address);
-        console.log("Bet Contract Deployed at " + bet.address);
-        console.log("Market Contract Deployed at " + market.address);
 
 
         //Transfer from a whale to our account to run tests
@@ -87,72 +67,18 @@ describe('Contract tests', () => {
 
 
     it("Add Liquidity", async function () {
-        amt = 10
-        await USER_DAI.approve(liq.address, amt);
-        await liq.addLiquidity(amt);
 
-        expect(await liq.balanceOf(owner.address, 0)).to.equal(amt);
-        expect(await DAI.balanceOf(liq.address)).to.equal(amt);
     })
 
     it("Create Match at a time", async function () {
-        let data = require('../odds.json');
 
-        for (sport in data){
-            for (league in data[sport]){
-                for (var match of data[sport][league]){
-                    curr_odds = Object.values(match['outcomes'])
-
-                    let new_odds = []
-
-                    for (var odd of curr_odds)
-                        new_odds.push(parseInt(odd * 1000))
-                    
-                    // await market.startMarket(toTimestamp(match['timestamp']), match['match'], [sport, league], Object.keys(match['outcomes']), new_odds)
-                }
-            }
-        }
     })
 
     it("Create Matches", async function () {
-        let data = require('../odds.json');
-        var matchTimestamp = []
-        var names = []
-        var match_details = []
-        var bets = []
-        var odds = []
-
-        for (sport in data){
-            for (league in data[sport]){
-                for (var match of data[sport][league]){
-                    matchTimestamp.push(toTimestamp(match['timestamp']))
-                    names.push(match['match'])
-                    match_details.push([sport, league])
-                    bets.push(Object.keys(match['outcomes']))
-                    
-                    curr_odds = Object.values(match['outcomes'])
-
-                    let new_odds = []
-
-                    for (var odd of curr_odds)
-                        new_odds.push(parseInt(odd * 1000))
-                    
-                    odds.push(new_odds)
-                }
-            }
-        }
-
-        // await market.startMarkets(matchTimestamp, names, match_details, bets, odds)
-
-        //10^-9 * 4493659 * 55 * 2 = 0.5$ for polygon
-
+       
     })
 
     it("Make all bets", async function () {
-        total = 30
 
-        // await USER_DAI.approve(bet.address, amt);
-        // let bet_id = await bet.createBets([22], [1], [amt]);
-        // expect(await bet.balanceOf(owner.address, 2)).to.equal(1);
     })
 })
