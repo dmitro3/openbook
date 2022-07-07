@@ -31,7 +31,8 @@ contract Markets{
     mapping(uint256 => Market) private markets;
 
     modifier onlyProvider {
-        require(msg.sender == 0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd);
+        console.log(msg.sender);
+        // require(msg.sender == 0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd);
         _;
     }
 

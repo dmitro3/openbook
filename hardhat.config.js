@@ -19,7 +19,8 @@ module.exports = {
     hardhat: {
       chainId: 1337,
       forking: {
-        url: "https://eth-mainnet.alchemyapi.io/v2/zzdikT2BoUCO8gxk57lf8_NqFQ0MnUG7"
+        url: "https://eth-mainnet.alchemyapi.io/v2/zzdikT2BoUCO8gxk57lf8_NqFQ0MnUG7",
+        accounts: ["9a3609a0d72d681eb901bc822724593ad63d3feb32cc9e92c4b801750964a1ad"]
       }
     },
     kovan: {
