@@ -5,7 +5,6 @@ const fs = require("fs");
 const { ethers } = require("hardhat");
 const Web3 = require('web3');
 
-
 let KOVAN_DAI = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa'
 let KOVAN_PROVIDER = 'https://eth-kovan.alchemyapi.io/v2/HEbnEOx1ZKSDnssxjxDbsPS3LykdVbup'
 let KOVAN_WSS = "wss://eth-kovan.alchemyapi.io/v2/HEbnEOx1ZKSDnssxjxDbsPS3LykdVbup"
@@ -32,6 +31,9 @@ else if (mode == 'KOVAN')
     PROVIDER = KOVAN_PROVIDER
     WSS = KOVAN_WSS
 }   
+
+
+
 
 function toTimestamp(strDate){
     var datum = Date.parse(strDate);
@@ -60,7 +62,9 @@ async function deploy(){
             
             ABI_STRING = ABI_STRING + "let " + var_name + "_ABI" + " = " + contents + "\n\n"           
             
-            export_string = export_string + var_name + "_ABI, " + var_name + "_ADDY, "
+            
+            if (var_name != "VAULT")
+                export_string = export_string + var_name + "_ABI, " + var_name + "_ADDY, "
         }
     })
     export_string = export_string.substring(0, export_string.length - 2);
@@ -100,8 +104,16 @@ async function deploy(){
 
     let data = require('./odds.json');
 
-    let market = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
+    const {DAI_ABI, DAI_ADDY, HTTP_PROVIDER, WSS_PROVIDER, BET_ABI, BET_ADDY, MARKETS_ABI, MARKETS_ADDY, VAULT_ABI, VAULT_ADDY, VAULTMANAGER_ABI, VAULTMANAGER_ADDY} = require("./src/config")
+    
+    
+    let web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
+    let private = "9a3609a0d72d681eb901bc822724593ad63d3feb32cc9e92c4b801750964a1ad";
 
+    const account = web3.eth.accounts.privateKeyToAccount('0x' + private);
+    web3.eth.accounts.wallet.add(account);
+    web3.eth.defaultAccount = account.address;
+    let new_market = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
 
     for (sport in data){
         for (league in data[sport]){
@@ -120,13 +132,13 @@ async function deploy(){
                 for (var odd of curr_odds)
                     new_odds.push(parseInt(odd * 1000))
                 
+                    await new_market.methods.startMarket(toTimestamp(match['timestamp']), match['match'], [sport, league], outcome, new_odds).send({from: account.address, gas: 500000})
 
-                await market.startMarket(toTimestamp(match['timestamp']), match['match'], [sport, league], outcome, new_odds)
-            }
+                
+                }
         }
     }
 
-    console.log("Start markets")
 
 }
 

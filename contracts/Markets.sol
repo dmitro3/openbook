@@ -2,7 +2,7 @@ pragma solidity ^0.8.0;
 
 import "./interfaces/IVaultManager.sol";
 import "./interfaces/IVault.sol";
-
+import "hardhat/console.sol";
 
 contract Markets{
     uint256 public protocolFee;
@@ -85,6 +85,8 @@ contract Markets{
     }
 
     function startMarket(uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds) onlyProvider public {
+        
+        console.log("Starting Market");
         uint256  currId = _nextId+1;
 
         markets[currId] = Market(

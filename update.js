@@ -20,7 +20,7 @@ async function perform(){
     await token_contract.methods.approve(LIQUIDITY_ADDY, MaxUint256).send({from: account.address, gas: 122000})
 
 
-    let market = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
+    let market = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
 
     let data = require('./odds.json');
 
