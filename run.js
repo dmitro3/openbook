@@ -3,6 +3,7 @@ const exec = util.promisify(require('child_process').exec);
 const { promises: { readdir } } = require('fs')
 const fs = require("fs");
 const { ethers } = require("hardhat");
+const Web3 = require('web3');
 
 
 let KOVAN_DAI = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa'
@@ -32,7 +33,12 @@ else if (mode == 'KOVAN')
     WSS = KOVAN_WSS
 }   
 
-async function main(){
+function toTimestamp(strDate){
+    var datum = Date.parse(strDate);
+    return datum/1000;
+ }
+
+async function deploy(){
     let abis = await exec("yarn run hardhat export-abi")
     let path = './abi/contracts'
     let dir = await readdir(path, { withFileTypes: true })
@@ -89,6 +95,41 @@ async function main(){
 
     ABI_STRING = ABI_STRING + export_string
     fs.writeFileSync('src/config.js', ABI_STRING);
+
+    //now add matches
+
+    let data = require('./odds.json');
+
+    let market = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
+
+
+    for (sport in data){
+        for (league in data[sport]){
+            for (var match of data[sport][league]){
+                let new_outcome = new Map()
+                let curr_odds = Object.values(match['outcomes'])
+                let outcome = Object.keys(match['outcomes'])
+
+                // if (match['outcomes']["X"] !== undefined){
+                //     outcome = ['1', 'X', '2']
+                //     curr_odds = [ match['outcomes']['1'], match['outcomes']['X'], match['outcomes']['2']]
+                // }
+
+                let new_odds = []
+
+                for (var odd of curr_odds)
+                    new_odds.push(parseInt(odd * 1000))
+                
+
+                await market.startMarket(toTimestamp(match['timestamp']), match['match'], [sport, league], outcome, new_odds)
+            }
+        }
+    }
+
+    console.log("Start markets")
+
 }
 
-main()
+
+
+deploy()
