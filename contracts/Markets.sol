@@ -1,5 +1,8 @@
 pragma solidity ^0.8.0;
 
+import "./interfaces/IVaultManager.sol";
+import "./interfaces/IVault.sol";
+
 
 contract Markets{
     uint256 public protocolFee;
@@ -8,6 +11,7 @@ contract Markets{
     uint256 private _nextId = 1;
 
     address public BET_CONTRACT;
+    address public MANAGER_CONTRACT;
     uint32 public val_set = 0;
 
 
@@ -33,9 +37,10 @@ contract Markets{
     }
 
 
-    constructor(uint256 protocolFee, uint256 _LPFee) public{
+    constructor(uint256 protocolFee, uint256 _LPFee, address _MANAGER_CONTRACT) public{
         protocolFee = protocolFee;
         LPFee = _LPFee;
+        MANAGER_CONTRACT = _MANAGER_CONTRACT;
     }
 
     function setBetContract(address _bet_contract) public{
@@ -56,12 +61,12 @@ contract Markets{
             markets[marketIds[i]].active = false;
             markets[marketIds[i]].winnerIndex = winnerIndex[i];
 
-            
-            // IVault(BET_CONTRACT).unlockLiquidity(marketIds[i], winnerIndex[i]);
+            address[] memory vaults = IVaultManager(MANAGER_CONTRACT).getAllVaults();
 
+            for (uint j=0; j<vaults.length; j++) {
+                IVault(vaults[j]).unlockLiquidity(marketIds[i], winnerIndex[i]);            
+            }
         }
-
-
     }
 
     function getAllMarkets() public view returns (uint256 [] memory){
