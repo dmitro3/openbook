@@ -19,7 +19,6 @@ contract Bet is ERC1155{
     }
 
     address public MARKET_CONTRACT;
-    address public LIQUIDITY_CONTRACT;
 
     /// The ID of the next token that will be minted. Skips 0
     uint256 private _nextId = 1;
@@ -33,10 +32,9 @@ contract Bet is ERC1155{
 
 
 
-    constructor(address _DAI, address _MARKET_CONTRACT, address _LIQUIDITY_CONTRACT) public ERC1155(""){
+    constructor(address _DAI, address _MARKET_CONTRACT) public ERC1155(""){
        DAI = _DAI;
        MARKET_CONTRACT = _MARKET_CONTRACT;
-       LIQUIDITY_CONTRACT = _LIQUIDITY_CONTRACT;
     }
 
 
@@ -49,7 +47,7 @@ contract Bet is ERC1155{
 
         require(total <= IVault(_vault).getLiquidityLimit(gameIds), "Not enough liquidity");
 
-        (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, LIQUIDITY_CONTRACT, total));
+        (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, _vault, total));
         require(success, "Cannot transfer DAI");
     }
 

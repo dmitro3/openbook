@@ -76,8 +76,19 @@ async function main(){
     ABI_STRING = ABI_STRING + "let VAULTMANAGER_ADDY='" + vault.address + "'\n"
 
 
+    const BetContract = await ethers.getContractFactory("Bet");
+    bet = await BetContract.deploy(DAI, market.address);
+    await bet.deployed();  
+    console.log("Bet Contract Deployed at " + bet.address);
+
+    ABI_STRING = ABI_STRING + "let BET_ADDY='" + bet.address + "'\n\n"
+
+
+    await market.setBetContract(bet.address);
+    await market.setVaultMgrContract(vault.address);
+
     ABI_STRING = ABI_STRING + export_string
-    fs.writeFileSync('config.js', ABI_STRING);
+    fs.writeFileSync('src/config.js', ABI_STRING);
 }
 
 main()
