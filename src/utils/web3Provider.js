@@ -213,9 +213,9 @@ export const getSettledBets = async() => {
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
 
-    // let bets = await contract.methods.getSettledBets().call()
-    // let new_bets = await process_bets(bets)
-    // store.dispatch(setSettledBets(new_bets))
+    let bets = await contract.methods.getSettledBets().call()
+    let new_bets = await process_bets(bets)
+    store.dispatch(setSettledBets(new_bets))
 }
 
 export const claimBets = async () => {
@@ -261,17 +261,17 @@ export const getMatches = async () => {
     // if (web3 == null)
     web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
 
-    console.log(MARKETS_ABI, MARKETS_ADDY)
     let contract = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
     
     let matches = await contract.methods.getAllMarkets().call()
+    console.log("Matches", matches)
     let all_matches = []
 
     for (const match of matches) {
         let match_detail = await contract.methods.marketDetailsById(match).call()
-        if (match_detail[9] == true)
+        if (match_detail[8] == true)
             all_matches.push(match_detail)
     }
 
@@ -293,14 +293,14 @@ export const getMatches = async () => {
           match: match[1]
         }
 
-        //7 and 8
+        //6 and 7
         let outcome = {}
 
         for (var j =0; j< match.length; j++)
         {
 
-          if (match[7][j] != null)
-            outcome[match[7][j]] = parseInt(match[8][j])/1000
+          if (match[6][j] != null)
+            outcome[match[6][j]] = parseInt(match[7][j])/1000
         }
 
         game =
