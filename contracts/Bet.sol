@@ -4,7 +4,7 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "./interfaces/IMarkets.sol";
 import "./interfaces/IVault.sol";
 import "./interfaces/IERC20.sol";
-import "hardhat/console.sol";
+
 contract Bet is ERC1155{
 
     struct singleBet {

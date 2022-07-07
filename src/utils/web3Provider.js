@@ -1,6 +1,6 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
-const {LIQUIDITY_ABI, LIQUIDITY_ADDY, BET_ABI, BET_ADDY, MARKET_ABI, MARKET_ADDY, DAI_ABI, DAI_ADDY, HTTP_PROVIDER} = require("../config")
+const {DAI_ABI, DAI_ADDY, HTTP_PROVIDER, WSS_PROVIDER, BET_ABI, BET_ADDY, MARKETS_ABI, MARKETS_ADDY, VAULTMANAGER_ABI, VAULTMANAGER_ADDY} = require("../config")
 const {MaxUint256} = require("@ethersproject/constants");
 var ethers_m = require('ethers');  
 
@@ -10,7 +10,6 @@ import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "redu
 import {setLiqDisplayValue,setbalanceHoldValue,setWithdrawableValue,setUserStakeValue} from "redux/actions/bookieActions";
 import {setSettledBets,setUnsettledBets} from "redux/actions/accountActions";
 import {store} from "../redux/store"
-import { WSS_PROVIDER } from 'config';
 
 export const checkWeb3 =  async () => {
     const provider = await detectEthereumProvider();
@@ -136,7 +135,7 @@ export const removeLiquidity = async (amount) => {
 
 async function process_bets(bets){
     let web3 = store.getState().user.web3;
-    let match_contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
+    let match_contract = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
@@ -214,9 +213,9 @@ export const getSettledBets = async() => {
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
 
-    let bets = await contract.methods.getSettledBets().call()
-    let new_bets = await process_bets(bets)
-    store.dispatch(setSettledBets(new_bets))
+    // let bets = await contract.methods.getSettledBets().call()
+    // let new_bets = await process_bets(bets)
+    // store.dispatch(setSettledBets(new_bets))
 }
 
 export const claimBets = async () => {
@@ -262,8 +261,8 @@ export const getMatches = async () => {
     // if (web3 == null)
     web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
 
-    
-    let contract = new web3.eth.Contract(MARKET_ABI, MARKET_ADDY);
+    console.log(MARKETS_ABI, MARKETS_ADDY)
+    let contract = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
     
@@ -275,6 +274,8 @@ export const getMatches = async () => {
         if (match_detail[9] == true)
             all_matches.push(match_detail)
     }
+
+    console.log(all_matches)
 
     let odds = {}
     let i = 0;
@@ -311,6 +312,8 @@ export const getMatches = async () => {
         odds[match[2][0]][match[2][1]].push(game)
         i = i + 1
     }
+
+
     return odds;
 }
 
