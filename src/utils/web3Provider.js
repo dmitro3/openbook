@@ -377,16 +377,16 @@ const getUserDaiBalance = async (web3,userAddress) =>{
 }
 
 export const handleLiqChange = async () => {
-    const [totalShares, totalDAI] = await getPoolLiquidity();
-    store.dispatch(setLiqDisplayValue(totalShares + " Shares, " + totalDAI + " DAI"))
+    // const [totalShares, totalDAI] = await getPoolLiquidity();
+    // store.dispatch(setLiqDisplayValue(totalShares + " Shares, " + totalDAI + " DAI"))
 
-    const [userShares, userDAI] = await getUserLiquidity();
-    store.dispatch(setUserStakeValue(userShares + " Shares, " + userDAI + " DAI"))
+    // const [userShares, userDAI] = await getUserLiquidity();
+    // store.dispatch(setUserStakeValue(userShares + " Shares, " + userDAI + " DAI"))
 
-    let [lockedShares, lockedDAI] = await getUserHold();
-    store.dispatch(setbalanceHoldValue(lockedShares + " Shares, " + lockedDAI + " DAI"))
+    // let [lockedShares, lockedDAI] = await getUserHold();
+    // store.dispatch(setbalanceHoldValue(lockedShares + " Shares, " + lockedDAI + " DAI"))
 
-    store.dispatch((setWithdrawableValue((userShares-lockedShares) + " Shares, " + (userDAI-lockedDAI) + " DAI")))
+    // store.dispatch((setWithdrawableValue((userShares-lockedShares) + " Shares, " + (userDAI-lockedDAI) + " DAI")))
 }
 
 const subscribeNewBlock = async (web3,userAddress) =>{

@@ -27,8 +27,8 @@ import { styled, experimental_sx as sx } from '@mui/system';
     "Vault Name",
     "Provider Address",
     "Initial Vault Deposit",
-    "Risk Tolerance",
-    "Vigorish"
+    "Imbalance Threshold",
+    "Imbalance Ratio"
   ]
 
   const Transition = forwardRef(function Transition(props, ref) {
@@ -118,7 +118,7 @@ export const AddVaultPopup = (props) => {
                 value={values.providerAddress}
                 onChange={handleChange('providerAddress')}
                 placeholder="0x000...000"
-                helperText="Ehtereum contract address that provides the odds of the games"
+                helperText="Ethereum address that will provide odds"
               />
             <QuestionTextField
                 label={inputs[2]}

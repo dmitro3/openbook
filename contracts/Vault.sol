@@ -14,16 +14,25 @@ contract Vault is ERC1155{
     address public BET_CONTRACT;
     address public MARKET_CONTRACT;
     address public PROVIDER;
+    string public VAULT_NAME;
+
+    uint256 public IMBALANCE_FROM;
+    uint256 public IMBALANCE_RATIO;
+
+    bool public external_lp_enabled;
+
+
+    bool public status;
+
 
     address public DAI;
-
-    uint256 public RISK_CAP;
 
     //This is the ID for the the NFT
     uint32 public constant LIQUIDITY = 0;
     uint32 public val_set = 0;
     uint256 public totalSupply = 0;
     uint256 public lockedLiquidity = 0;
+    uint256 public lp_cut = 10;
 
     event updateOdds_Event(uint256 marketId, uint256[] odds);
 
@@ -48,17 +57,24 @@ contract Vault is ERC1155{
     }
 
 
-   constructor(address _DAI, address _MARKET_CONTRACT, address _PROVIDER, uint256 _RISK_CAP) public ERC1155(""){
-       DAI = _DAI;
-       MARKET_CONTRACT = _MARKET_CONTRACT;
-       PROVIDER = _PROVIDER;
-       RISK_CAP = _RISK_CAP;
+   constructor(string memory _VAULT_NAME, address _DAI, address _MARKET_CONTRACT, address _PROVIDER, uint256 _IMBALANCE_FROM, uint256 _IMBALANCE_RATIO, bool _external_lp_enabled) public ERC1155(""){
+        VAULT_NAME = _VAULT_NAME;
+        DAI = _DAI;
+        MARKET_CONTRACT = _MARKET_CONTRACT;
+        PROVIDER = _PROVIDER;
+        IMBALANCE_FROM = _IMBALANCE_FROM;
+        IMBALANCE_RATIO = _IMBALANCE_RATIO;
+        external_lp_enabled = _external_lp_enabled;
     }
 
     function setBetContract(address _bet_contract) public{
         require(val_set == 0);
         BET_CONTRACT = _bet_contract;
         val_set = 1;
+    }
+
+    function getVaultDetails() public returns (string memory, address, address, address, uint256, uint256, bool) {
+        return (VAULT_NAME, DAI, MARKET_CONTRACT, PROVIDER, IMBALANCE_FROM, IMBALANCE_RATIO, external_lp_enabled);
     }
 
     function getLockedShares() public returns (uint256) {
@@ -105,7 +121,7 @@ contract Vault is ERC1155{
     function getLiquidityLimit(uint256[] calldata gameIds) public returns (uint256){
         uint256 totalLiq = IERC20(DAI).balanceOf(address(this));
 
-        uint256 limit = totalLiq * RISK_CAP / 100;
+        uint256 limit = totalLiq * lp_cut / 100;
         uint256 totalBet = 0;
 
         for (uint i=0; i < gameIds.length; i++){

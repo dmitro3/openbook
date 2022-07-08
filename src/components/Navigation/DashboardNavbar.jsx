@@ -229,10 +229,9 @@ const DashboardNavbar = (props) => {
                 TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
               >
                   <WrapTab value={1} href="/featured" label="Bet Now" icon={<BetIcon/>} iconPosition="start" sx={{py:'0px'}} />
-                  <WrapTab value={3} href="/account" label="Account" icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px', visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
-                  <WrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{py:'0px', visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
-                  <WrapTab value={4} href="/vaults" label="Vaults" icon={<VaultIcon/>} iconPosition="start" sx={{py:'0px'}}/>
-                  <WrapTab value={5} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+                  <WrapTab value={2} href="/account" label="My Bets" icon={<TicketIcon/>} iconPosition="start" sx={{py:'0px', visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
+                  <WrapTab value={3} href="/vaults" label="Vaults" icon={<VaultIcon/>} iconPosition="start" sx={{py:'0px'}}/>
+                  <WrapTab value={4} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start" sx={{py:'0px'}}/>
               </Tabs>
 
             </NavBigScreenTabsBox>
@@ -246,10 +245,9 @@ const DashboardNavbar = (props) => {
                 TabIndicatorProps={/*{style: {background:'#be5df6'}}*/{style:{backgroundColor:'#837dec'}}}
               >
                   <MobileWrapTab value={1} href="/featured" label="Bet Now" icon={<BetIcon/>} iconPosition="start" />
-                  <MobileWrapTab value={3} href="/account" label="Account" icon={<TicketIcon/>} iconPosition="start" sx={{visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
-                  <MobileWrapTab value={2} href="/bookie" label="Bookie" icon={<LedgerIcon/>} iconPosition="start" sx={{visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
-                  <MobileWrapTab value={4} href="/vaults" label="Vaults" icon={<VaultIcon/>} iconPosition="start"/>
-                  <MobileWrapTab value={5} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start"/>
+                  <MobileWrapTab value={2} href="/account" label="My Bets" icon={<TicketIcon/>} iconPosition="start" sx={{visibility:`${props.user.loggedIn? "visible" : "hidden"}`, position:`${props.user.loggedIn ? "relative" : "absolute"}`}} />
+                  <MobileWrapTab value={3} href="/vaults" label="Vaults" icon={<VaultIcon/>} iconPosition="start"/>
+                  <MobileWrapTab value={4} href="/leaderboard" label="Leaderboard" icon={<TrophyIcon/>} iconPosition="start"/>
               </Tabs>
             </NavSmallScreenTabsBox>
           </NavBigBothTabsBox>
