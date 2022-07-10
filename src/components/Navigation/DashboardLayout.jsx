@@ -40,7 +40,7 @@ export const DashboardLayout = (props) => {
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
       />
-      <TechnicalSupportButton/>
+      {/* <TechnicalSupportButton/> */}
     </>
   );
 };

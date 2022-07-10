@@ -12,7 +12,9 @@ import {
   Step,
   StepLabel,
   InputAdornment,
-  Slide 
+  Slide,
+  Checkbox,
+  Tooltip
 } from "@mui/material";
 import { styled, experimental_sx as sx } from '@mui/system';
 
@@ -62,11 +64,19 @@ export const AddVaultPopup = (props) => {
       providerAddress: '',
       fundSize: '0',
       riskTolerance: '5',
-      vigorish: '3'
+      vigorish: '3',
+      allowExternalLP: true
     });
   
     const handleChange = (prop) => (event) => {
-      setValues({ ...values, [prop]: event.target.value });
+      if(prop=="allowExternalLP"){
+        setValues({ ...values, [prop]: event.target.checked ? true: false });
+      }
+      else{
+        setValues({ ...values, [prop]: event.target.value });
+      }
+
+
     };
 
     return (
@@ -141,18 +151,32 @@ export const AddVaultPopup = (props) => {
               display: 'flex',
               flexDirection: 'column'
             }}>
+             <Tooltip title={"This is  % of total liquidity betted in a single outcome after which the inbalance ratio check and limit will kick off."} 
+             arrow 
+             disableFocusListener 
+             disableTouchListener 
+             enterDelay={700}
+             placement="top">
               <QuestionTextField
-                label={inputs[3]}
-                variant="filled"
-                margin="normal"
-                InputProps={{
-                  endAdornment: <InputAdornment position="end">%</InputAdornment>,
-                  inputMode: 'numeric', 
-                  pattern: '[0-9]*' 
-                }}
-                value={values.riskTolerance}
-                onChange={handleChange('riskTolerance')}
-              />
+                  label={inputs[3]}
+                  variant="filled"
+                  margin="normal"
+                  InputProps={{
+                    endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                    inputMode: 'numeric', 
+                    pattern: '[0-9]*' 
+                  }}
+                  value={values.riskTolerance}
+                  onChange={handleChange('riskTolerance')}
+                />
+             </Tooltip>
+
+             <Tooltip title={"If the imbalance threshold has been met and one outcome gets n% of the bets, stop taking bet in that outcome, where is the number selected."} 
+             arrow 
+             disableFocusListener 
+             disableTouchListener 
+             enterDelay={700}
+             placement="top">
               <QuestionTextField
                 label={inputs[4]}
                 variant="filled"
@@ -165,6 +189,14 @@ export const AddVaultPopup = (props) => {
                 value={values.vigorish}
                 onChange={handleChange('vigorish')}
               />
+             </Tooltip>
+
+
+
+              <Box sx={{display:'flex',justifyContent:'space-between',mt:'16px',mb:'8px'}}>
+                <Typography>Allow external LP?</Typography>
+                <Checkbox value={values.allowExternalLP} onChange={handleChange("allowExternalLP")} />
+              </Box>
             </Box>            
             : 
                 void(0)
