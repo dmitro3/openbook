@@ -193,9 +193,9 @@ export const AddVaultPopup = (props) => {
 
 
 
-              <Box sx={{display:'flex',justifyContent:'space-between',mt:'16px',mb:'8px'}}>
+              <Box sx={{display:'flex',justifyContent:'space-between',mt:'16px',mb:'8px',alignItems:'center'}}>
                 <Typography>Allow external LP?</Typography>
-                <Checkbox value={values.allowExternalLP} onChange={handleChange("allowExternalLP")} />
+                <Checkbox checked={values.allowExternalLP} onChange={handleChange("allowExternalLP")} />
               </Box>
             </Box>            
             : 
