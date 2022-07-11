@@ -46,7 +46,9 @@ const BookieHomepage = (props) => {
     const handleVaultDetailPopupClose = () => {
       setVaultDetailsPopupOpen(false);
     };
- 
+    
+
+  const vaults = [{'vaultName': "OpenBook Official Vault", "mainColor": "#4591ff", "volume": "7000", "apr": "4.5", "status": "active", "data": [5000,6000,6500,7000] }]
 
   return (
     <>
@@ -64,11 +66,9 @@ const BookieHomepage = (props) => {
         > 
           <VaultsBox>
           <Grid container spacing={2}>
+            /* loop here */
             <Grid item xl={3} lgp={3} lg={3} md={4} smpad={4} sm={6} xs={12} >
               <VaultCard vaultName={"OpenBook Official Vault"} mainColor={"#4591ff"} volume={7000} apr={4.5} status={'active'} data={[5000,6000,6500,7000]} handleVaultDetailPopupClickOpen={handleVaultDetailPopupClickOpen}/>
-            </Grid>
-            <Grid item xl={3} lgp={3} lg={3} md={4} smpad={4} sm={6} xs={12} >
-              <VaultCard vaultName={"Draftking Vault"} mainColor={"#3fbf55"} volume={3000} apr={5.0} status={'ready'} data={[2900,2800,3000]} handleVaultDetailPopupClickOpen={handleVaultDetailPopupClickOpen}/>
             </Grid>
 
 

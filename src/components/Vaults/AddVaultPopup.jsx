@@ -17,6 +17,7 @@ import {
   Tooltip
 } from "@mui/material";
 import { styled, experimental_sx as sx } from '@mui/system';
+import {createVault} from "@utils/web3Provider";
 
 
   const steps = [
@@ -258,7 +259,7 @@ export const AddVaultPopup = (props) => {
         {
           activeStep == 2
           ?
-          <Button onClick={()=>handleNext()}>
+          <Button onClick={()=>createVault(values)}>
                 Finish
           </Button>
           :

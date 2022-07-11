@@ -317,6 +317,28 @@ export const getMatches = async () => {
     return odds;
 }
 
+export const createVault = async (values) => {
+    alert("Creating Vault")
+
+    let web3 = store.getState().user.web3;
+    let contract = new web3.eth.Contract(VAULTMANAGER_ABI, VAULTMANAGER_ADDY);
+    let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+
+    let account = await web3.eth.getAccounts()
+    let userAddress = account[0];
+
+    if (values.fundSize > 0){
+        let x = await token_contract.methods.allowance(userAddress, BET_ADDY).call()
+        if (x < values.fundSize)
+        {
+            await token_contract.methods.approve(VAULTMANAGER_ADDY, MaxUint256).send({from: userAddress})
+        }
+    }
+
+    await contract.methods.createVault(values.vaultName, values.providerAddress, values.riskTolerance, values.vigorish, values.allowExternalLP, values.fundSize).send({from: userAddress})
+
+}
+
 export const makeBet = async (ids, picks, amounts) => {
     console.log("Making Bet");
     let web3 = store.getState().user.web3;
