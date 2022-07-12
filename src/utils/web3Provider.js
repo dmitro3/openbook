@@ -335,7 +335,7 @@ export const createVault = async (values) => {
         }
     }
 
-    await contract.methods.createVault(values.vaultName, values.providerAddress, values.riskTolerance, values.vigorish, values.allowExternalLP, values.fundSize).send({from: userAddress})
+    await contract.methods.createVault(values.vaultName, values.providerAddress, values.vigorish, values.riskTolerance, values.allowExternalLP, values.fundSize).send({from: userAddress})
 
 }
 
