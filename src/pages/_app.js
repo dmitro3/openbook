@@ -8,7 +8,7 @@ import "@styles/globals.css";
 import { Loader } from "@components/General/Loader";
 import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
-import {getMatches} from "@utils/web3Provider";
+import {getMatches, getAllVaults} from "@utils/web3Provider";
 import Web3 from 'web3';
 
 // New redux dependencies
@@ -32,6 +32,7 @@ const App = (props) => {
   useEffect(() => {
     async function asyncUseEffectFunction() {
       let data = await getMatches();
+      let vaults = await getAllVaults();
       getOdds(data);
     }
     asyncUseEffectFunction();

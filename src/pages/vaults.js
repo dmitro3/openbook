@@ -11,6 +11,7 @@ import { styled, experimental_sx as sx } from '@mui/system';
 import { AddVaultPopup } from "@components/Vaults/AddVaultPopup";
 import { VaultCard } from "@components/Vaults/VaultCard";
 import { VaultDetailsPopup } from "@components/Vaults/VaultDetailsPopup";
+import {getAllVaults} from "@utils/web3Provider";
 
 
 export const VaultsBox = styled(Box)((props)  => sx({
@@ -46,7 +47,7 @@ const BookieHomepage = (props) => {
     const handleVaultDetailPopupClose = () => {
       setVaultDetailsPopupOpen(false);
     };
-    
+
 
   const vaults = [{'vaultName': "OpenBook Official Vault", "mainColor": "#4591ff", "volume": "7000", "apr": "4.5", "status": "active", "data": [5000,6000,6500,7000] }]
 

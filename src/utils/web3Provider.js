@@ -1,6 +1,6 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from 'web3';
-const {DAI_ABI, DAI_ADDY, HTTP_PROVIDER, WSS_PROVIDER, BET_ABI, BET_ADDY, MARKETS_ABI, MARKETS_ADDY, VAULTMANAGER_ABI, VAULTMANAGER_ADDY} = require("../config")
+const {DAI_ABI, DAI_ADDY, HTTP_PROVIDER, WSS_PROVIDER, VAULT_ABI, BET_ABI, BET_ADDY, MARKETS_ABI, MARKETS_ADDY, VAULTMANAGER_ABI, VAULTMANAGER_ADDY} = require("../config")
 const {MaxUint256} = require("@ethersproject/constants");
 var ethers_m = require('ethers');  
 
@@ -93,7 +93,6 @@ export const getUserHold = async () =>{
 }
         
 export const addLiquidity = async (amount) => {
-    console.log("Adding liquidity");
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(LIQUIDITY_ABI, LIQUIDITY_ADDY);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
@@ -117,7 +116,6 @@ export const addLiquidity = async (amount) => {
 }
 
 export const removeLiquidity = async (amount) => {
-    console.log("Removing liquidity");
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(LIQUIDITY_ABI, LIQUIDITY_ADDY);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
@@ -223,7 +221,6 @@ export const claimBets = async () => {
 
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let account = await web3.eth.getAccounts()
-    console.log(account)
     let userAddress = account[0];
 
     let bets = await contract.methods.getAllBets().call()
@@ -243,9 +240,6 @@ export const claimBets = async () => {
         indexes.push(idx)
         idx = idx + 1
     }
-
-    console.log(claims)
-    console.log(indexes)
     
     let res = await contract.methods.withdrawBets(claims, indexes).send({from: userAddress})
     
@@ -266,7 +260,6 @@ export const getMatches = async () => {
     let userAddress = account[0];
     
     let matches = await contract.methods.getAllMarkets().call()
-    console.log("Matches", matches)
     let all_matches = []
 
     for (const match of matches) {
@@ -274,8 +267,6 @@ export const getMatches = async () => {
         if (match_detail[8] == true)
             all_matches.push(match_detail)
     }
-
-    console.log(all_matches)
 
     let odds = {}
     let i = 0;
@@ -317,9 +308,35 @@ export const getMatches = async () => {
     return odds;
 }
 
-export const createVault = async (values) => {
-    alert("Creating Vault")
+export const getAllVaults = async () => {
+    let web3 = store.getState().user.web3;
 
+    let contract = new web3.eth.Contract(VAULTMANAGER_ABI, VAULTMANAGER_ADDY);
+    let vaults = await contract.methods.getAllVaults().call()
+
+
+    let all_vaults = []
+    for (const vault of vaults)
+    {
+        let vault_contract = new web3.eth.Contract(VAULT_ABI, vault);
+        let details = await vault_contract.methods.getVaultDetails().call()
+        
+        let curr = {}
+        curr['VAULT_NAME'] = details[0]
+        curr['PROVIDER'] = details[3]
+        curr['IMBALANCE_FROM'] = details[4]
+        curr['IMBALANCE_RATIO'] = details[5]
+        curr['LP_ENABLED'] = details[6]
+
+        all_vaults.push(curr)
+    }
+
+    console.log(all_vaults)
+    return all_vaults
+
+}
+
+export const createVault = async (values) => {
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(VAULTMANAGER_ABI, VAULTMANAGER_ADDY);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
@@ -340,7 +357,6 @@ export const createVault = async (values) => {
 }
 
 export const makeBet = async (ids, picks, amounts) => {
-    console.log("Making Bet");
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
@@ -475,7 +491,6 @@ const requestMetaMask = async () => {
 export const getChainName = async () => {
     let web3 = store.getState().user.web3
     let networkType = await web3.eth.net.getNetworkType();
-    console.log(networkType);
     store.dispatch(setCurrentNetwork(networkType))
 }
 
