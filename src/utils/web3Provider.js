@@ -327,7 +327,11 @@ export const getAllVaults = async () => {
         curr['IMBALANCE_FROM'] = details[4]
         curr['IMBALANCE_RATIO'] = details[5]
         curr['LP_ENABLED'] = details[6]
-
+        curr['VOLUME'] = 0
+        curr['EXPECTED_APR'] = 0
+        curr['STATUS'] = 'ACTIVE'
+        curr['data'] = [5000,6000,6500,7000] 
+        curr['mainColor'] = "#4591ff"
         all_vaults.push(curr)
     }
 
