@@ -30,7 +30,6 @@ const VaultSelectDropDown = (props) => {
       props.setSelectedVaultIndex(event.target.value);
     };
 
-    console.log( props.vaults_state.vaults)
     
   return (
     <>
@@ -38,7 +37,7 @@ const VaultSelectDropDown = (props) => {
     props.vaults_state.vaults.length <= 0 ? 
     <h1> vaults not found </h1>  
     : 
-    <Box sx={{minWidth:'500px'}}>
+    <Box sx={{minWidth:'200px'}}>
     <FormControl fullWidth>
       <Select
         value={props.vaults_state.selectedVaultIndex}
