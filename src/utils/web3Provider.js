@@ -310,7 +310,6 @@ export const getMatches = async () => {
 
 export const getAllVaults = async () => {
     let web3 = store.getState().user.web3;
-
     let contract = new web3.eth.Contract(VAULTMANAGER_ABI, VAULTMANAGER_ADDY);
     let vaults = await contract.methods.getAllVaults().call()
 
@@ -335,7 +334,7 @@ export const getAllVaults = async () => {
         all_vaults.push(curr)
     }
 
-    console.log(all_vaults)
+    // console.log(all_vaults)
     return all_vaults
 
 }
@@ -357,7 +356,7 @@ export const createVault = async (values) => {
     }
 
     await contract.methods.createVault(values.vaultName, values.providerAddress, values.vigorish, values.riskTolerance, values.allowExternalLP, values.fundSize).send({from: userAddress})
-
+    return true;
 }
 
 export const makeBet = async (ids, picks, amounts) => {

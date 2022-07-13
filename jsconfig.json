@@ -5,8 +5,8 @@
         "@utils/*": ["utils/*"],
         "@components/*": ["components/*"],
         "@styles/*": ["styles/*"],
-        "@reducers/*": ["reducers/*"],
-        "@actions/*": ["actions/*"],
+        "@reducers/*": ["redux/reducers/*"],
+        "@actions/*": ["redux/actions/*"],
         "@hooks/*": ["hooks/*"],
         "@pages/*": ["pages/*"],
         "@root/*": ["../*"]

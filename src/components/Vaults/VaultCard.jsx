@@ -14,11 +14,23 @@ const statusToColor = {
         backgroundColor: 'rgba(43, 169, 114, 0.2)',
         color: '#2ba972'
     },
+    'ACTIVE':{
+        backgroundColor: 'rgba(43, 169, 114, 0.2)',
+        color: '#2ba972'
+    },
     'ready': {
         backgroundColor: 'rgb(255 194 37 / 20%)',
         color: 'rgb(191 144 25);'
     },
+    'READY':{
+        backgroundColor: 'rgb(255 194 37 / 20%)',
+        color: 'rgb(191 144 25);'
+    },
     'disabled' : {
+        backgroundColor: 'rgba(43, 169, 114, 0.2)',
+        color: '#2ba972' 
+    },
+    'DISABLED':{
         backgroundColor: 'rgba(43, 169, 114, 0.2)',
         color: '#2ba972' 
     }

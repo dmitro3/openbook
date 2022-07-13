@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Box,
@@ -13,6 +13,11 @@ import { VaultCard } from "@components/Vaults/VaultCard";
 import { VaultDetailsPopup } from "@components/Vaults/VaultDetailsPopup";
 import {getAllVaults} from "@utils/web3Provider";
 
+//redux
+import {connect} from "react-redux";
+import {setVaults,setSelectedVaultIndex} from '@actions/vaultsAction'
+import VaultSelectDropDown from "@components/Vaults/VaultSelectDropDown";
+ 
 
 export const VaultsBox = styled(Box)((props)  => sx({
   minHeight: "80vh",
@@ -29,6 +34,8 @@ const BookieHomepage = (props) => {
   // };
 
     const [addVaultPopupOpen, setAddVaultPopupOpen] = useState(false);
+
+    const [loadingVaults,setLoadingVaults] = useState(true);
 
     const handleAddVaultPopupClickOpen = () => {
       setAddVaultPopupOpen(true);
@@ -49,8 +56,22 @@ const BookieHomepage = (props) => {
     };
 
 
-  const vaults = [{'vaultName': "OpenBook Official Vault", "mainColor": "#4591ff", "volume": "7000", "apr": "4.5", "status": "active", "data": [5000,6000,6500,7000] }]
+    useEffect(() => {
+      async function fetchVaults() {
+          let temp_vaults = await getAllVaults();
+          // console.log(temp_vaults) 
+          if(temp_vaults.length > 0){
+            props.setVaults(temp_vaults);
+            props.setSelectedVaultIndex(0);
+            setLoadingVaults(false);
 
+          }
+      }
+
+      if(props.user.web3)
+        fetchVaults()
+    }, [props.user.loggedIn]); // Or [] if effect doesn't need props or state
+    
   return (
     <>
       <Head>
@@ -65,17 +86,40 @@ const BookieHomepage = (props) => {
               position: 'relative'
             }}
         > 
-          <VaultsBox>
+        {loadingVaults ? 
+        <h1>loading</h1> 
+        : 
+        <Box>
+        <Box sx={{display:'flex',width:'100%',justifyContent:'flex-end',pb:'50px'}}>
+          <VaultSelectDropDown/>
+        </Box>
+        <VaultsBox>
           <Grid container spacing={2}>
-            /* loop here */
-            <Grid item xl={3} lgp={3} lg={3} md={4} smpad={4} sm={6} xs={12} >
-              <VaultCard vaultName={"OpenBook Official Vault"} mainColor={"#4591ff"} volume={7000} apr={4.5} status={'active'} data={[5000,6000,6500,7000]} handleVaultDetailPopupClickOpen={handleVaultDetailPopupClickOpen}/>
-            </Grid>
-
-
+            {
+              props.vaults_state.vaults.map((vault,index)=>{
+                return(
+                  <Grid item xl={3} lgp={3} lg={3} md={4} smpad={4} sm={6} xs={12} key={index} >
+                    <VaultCard
+                    vaultName={vault.VAULT_NAME}
+                    mainColor={"#4591ff"}
+                    volume={vault.VOLUME}
+                    apr={vault.EXPECTED_APR}
+                    status={vault.STATUS}
+                    data={[5000,6000,6500,7000]}
+                    handleVaultDetailPopupClickOpen={handleVaultDetailPopupClickOpen}
+                    >
+                    </VaultCard>
+                  </Grid>
+                )
+              })
+            }
           </Grid>
 
-          </VaultsBox>
+          </VaultsBox>      
+        </Box>
+  
+        }
+
 
           <Box sx={{
             position: 'absolute',
@@ -95,8 +139,27 @@ const BookieHomepage = (props) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+      user: state.user,
+      vaults_state: state.vaults
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setVaults: (vaults) => {
+        dispatch(setVaults(vaults));
+    },
+    setSelectedVaultIndex: (index) => {
+      dispatch(setSelectedVaultIndex(index))
+    }
+};
+};
+
 BookieHomepage.getLayout = (page) => {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
 
-export default BookieHomepage;
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookieHomepage);

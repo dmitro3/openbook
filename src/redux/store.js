@@ -15,6 +15,7 @@ import userReducer from "redux/reducers/userReducer";
 import settingsReducer from "redux/reducers/settingsReducer";
 import bookieReducer from "redux/reducers/bookieReducer";
 import accountReducer from "redux/reducers/accountReducer";
+import vaultsReducer from "@reducers/vaultsReducer";
 
 // Redux-persist
 import { persistStore, persistReducer } from 'redux-persist';
@@ -47,7 +48,7 @@ const persistConfig = {
   key: 'root',
   storage: storage,
   transforms: [transformCircular],
-  blacklist: ['user','odds','bookie','account']
+  blacklist: ['user','odds','bookie','account','vaults']
 }
 
 const bindMiddleware = (middleware) => {
@@ -60,7 +61,7 @@ const bindMiddleware = (middleware) => {
   };
   
 export const makeStore = () => {
-    const rootReducer = combineReducers({favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer,odds:oddsReducer,user:userReducer,settings:settingsReducer, bookie:bookieReducer,account:accountReducer});
+    const rootReducer = combineReducers({favoriteMatch:favoriteMatchReducer,betSlip:betSlipReducer,odds:oddsReducer,user:userReducer,settings:settingsReducer, bookie:bookieReducer,account:accountReducer,vaults:vaultsReducer});
     const persistedReducer = persistReducer(persistConfig, rootReducer)
     const store = createStore(
         persistedReducer,
