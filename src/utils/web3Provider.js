@@ -10,6 +10,7 @@ import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "redu
 import {setLiqDisplayValue,setbalanceHoldValue,setWithdrawableValue,setUserStakeValue} from "redux/actions/bookieActions";
 import {setSettledBets,setUnsettledBets} from "redux/actions/accountActions";
 import {store} from "../redux/store"
+import { setVaultsData } from '@actions/vaultsAction';
 
 export const checkWeb3 =  async () => {
     const provider = await detectEthereumProvider();
@@ -399,11 +400,11 @@ export const handleLiqChange = async () => {
         vaultsData[vault]['DAI']['locked'] =  parseFloat(web3.utils.fromWei(String(lockedDAI), 'ether')).toFixed(2);
 
 
-        vaultsData[vault]['Shares']['Withdrawable'] = vaultsData[vault]['Shares']['user'] - vaultsData[vault]['Shares']['locked']
-        vaultsData[vault]['DAI']['Withdrawable'] = vaultsData[vault]['DAI']['user'] - vaultsData[vault]['DAI']['locked']
+        vaultsData[vault]['Shares']['withdrawable'] = vaultsData[vault]['Shares']['user'] - vaultsData[vault]['Shares']['locked']
+        vaultsData[vault]['DAI']['withdrawable'] = vaultsData[vault]['DAI']['user'] - vaultsData[vault]['DAI']['locked']
 
     }
-    console.log(vaultsData)
+    store.dispatch(setVaultsData(vaultsData))
 }
 
 const subscribeNewBlock = async (web3,userAddress) =>{

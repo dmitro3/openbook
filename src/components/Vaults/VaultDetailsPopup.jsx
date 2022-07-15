@@ -1,4 +1,4 @@
-import { useState,forwardRef } from "react";
+import { useState,forwardRef, useEffect } from "react";
 import {
   Button,
   Box,
@@ -36,7 +36,6 @@ const steps = [
   });
 
 export const VaultDetailsPopup = (props) => {
-    
     return (
         <Dialog
         open={props.open}

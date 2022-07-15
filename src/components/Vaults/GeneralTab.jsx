@@ -9,12 +9,12 @@ import { StakingDataCard } from "@components/Bookie/StakingDataCard";
 
 
 export const GeneralTab = (props) => {
-  let liqDisplayValue = props.liqDisplayValue;
-  let balanceHoldValue = props.balanceHoldValue;
-  let withdrawableValue = props.withdrawableValue;
-  let userStakeValue = props.userStakeValue;
+  let liqDisplayValue = props.vaultsData.liqDisplayValue;
+  let balanceHoldValue = props.vaultsData.balanceHoldValue;
+  let withdrawableValue = props.vaultsData.withdrawableValue;
+  let userStakeValue = props.vaultsData.userStakeValue;
   const [switchState, setSwitchState] = useState(true);
-
+  console.log(props.vaultsData)
   return (
     <Box
         sx={{

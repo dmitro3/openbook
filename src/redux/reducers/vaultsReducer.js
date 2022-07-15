@@ -1,6 +1,7 @@
 const vaultsReducer = (state = {
     vaults: null,
-    selectedVaultAddress: null
+    selectedVaultAddress: null,
+    vaultsData: null
   }, action) => {
       switch (action.type) {
             case "SET_VAULTS":
@@ -13,6 +14,12 @@ const vaultsReducer = (state = {
                 state = {
                     ...state,
                     selectedVaultAddress: action.payload
+                }
+                break;
+            case "SET_VAULTS_DATA":
+                state={
+                    ...state,
+                    vaultsData: action.payload
                 }
                 break;
         }

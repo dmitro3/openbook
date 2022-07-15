@@ -25,8 +25,6 @@ export const VaultsBox = styled(Box)((props)  => sx({
 }));
 
 
-
-
 const BookieHomepage = (props) => {
   // const [bookieTabsValue, setBookieTabsValue] = useState("staking");
   // const handleBookieTabsChange = (event, newValue) => {
@@ -107,7 +105,7 @@ const BookieHomepage = (props) => {
           {
             props.vaults_state.vaults.map((vault,index)=>{
               return(
-                <VaultDetailsPopup key={index} open={vaultDetailsPopupOpen} handleClose={handleVaultDetailPopupClose} vault={vault} />
+                <VaultDetailsPopup key={index} open={vaultDetailsPopupOpen} handleClose={handleVaultDetailPopupClose} vault={vault}/>
               )
             })
           }    

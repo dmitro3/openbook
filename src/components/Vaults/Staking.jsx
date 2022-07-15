@@ -76,12 +76,51 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
+let liqDisplayValue = 0
+let balanceHoldValue =  0
+let withdrawableValue =  0
+let userStakeValue = 0
+
 const Staking = (props) => {
   const styles = useStyle();
-  let liqDisplayValue = props.bookie.liqDisplayValue;
-  let balanceHoldValue = props.bookie.balanceHoldValue;
-  let withdrawableValue = props.bookie.withdrawableValue;
-  let userStakeValue = props.bookie.userStakeValue;
+  const [values,setValues] = useState({
+    DAI:{
+      liqDisplayValue : 0,
+      balanceHoldValue : 0,
+      withdrawableValue : 0,
+      userStakeValue : 0,
+    },
+    Shares:{
+      liqDisplayValue : 0,
+      balanceHoldValue : 0,
+      withdrawableValue :  0,
+      userStakeValue : 0,
+    }
+  })
+
+  useEffect(()=>{
+    if (props.vaults_state.vaultsData == null)
+      return
+    let vaultAdddress = props.vault.ADDRESS;
+    let vaultsData = props.vaults_state.vaultsData;
+    let temp_values = {
+      DAI:{
+        liqDisplayValue: vaultsData[vaultAdddress].DAI.total,
+        balanceHoldValue: vaultsData[vaultAdddress].DAI.locked,
+        withdrawableValue: vaultsData[vaultAdddress].DAI.withdrawable,
+        userStakeValue: vaultsData[vaultAdddress].DAI.user,
+      },
+      Shares:{
+        liqDisplayValue: vaultsData[vaultAdddress].Shares.total,
+        balanceHoldValue: vaultsData[vaultAdddress].Shares.locked,
+        withdrawableValue: vaultsData[vaultAdddress].Shares.withdrawable,
+        userStakeValue: vaultsData[vaultAdddress].Shares.user,
+      }
+    }
+    setValues(temp_values);
+    // console.log(props.vaults_state.vaultsData)
+    // console.log(vaultAdddress)
+  },[props.vaults_state.vaultsData])
 
   const [switchState, setSwitchState] = useState(true);
   const [tabValue, setTabValue] = useState('general');
@@ -132,7 +171,7 @@ const Staking = (props) => {
             <AntSwitch onChange={(event)=>{setSwitchState(!switchState)}} checked={!!switchState}/>
             <Typography>DAI</Typography>
           </Box>
-          <GeneralTab liqDisplayValue={liqDisplayValue} balanceHoldValue={balanceHoldValue} withdrawableValue={withdrawableValue} userStakeValue={userStakeValue} switchState={switchState}/> 
+          <GeneralTab switchState={switchState} vaultsData={switchState ? values.DAI : values.Shares}/> 
         </Box>
         <Box sx={{display:`${tabValue == "staking" ? "block" : "none"}`}}>
           <Box sx={{display: 'flex', alignItems: 'center', width:'100%', justifyContent:'flex-end',mb:'15px'}}>
@@ -164,7 +203,7 @@ Staking.getLayout = (page) => {
 const mapStateToProps = (state) => {
   return {
       user: state.user,
-      bookie: state.bookie
+      vaults_state: state.vaults
   };
 };
 

@@ -11,3 +11,11 @@ export function setSelectedVaultAddress(address){
         payload: address
     }
 }
+
+export function setVaultsData(vaultsData){
+    return{
+        type: "SET_VAULTS_DATA",
+        payload: vaultsData
+
+    }
+}

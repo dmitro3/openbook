@@ -152,7 +152,7 @@ export const StakingTab = (props) => {
                         shrink: true
                       }}
                       value={withdrawAmountInput}
-                      onChange={(event,value)=>{handleWidthdrawAmountInput(event,value)}}
+                      onChange={(event)=>{handleWidthdrawAmountInput(event)}}
                       sx={{
                           width:'80%'
                       }}

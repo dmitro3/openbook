@@ -34,10 +34,6 @@ const App = (props) => {
     async function asyncUseEffectFunction() {
       let data = await getMatches();
       let temp_vaults = await getAllVaults();
-
-      await handleLiqChange();
-
-      console.log(temp_vaults) 
       store.dispatch(setVaults(temp_vaults))
       if(temp_vaults.length > 0)
         store.dispatch(setSelectedVaultAddress(temp_vaults[0].PROVIDER))
