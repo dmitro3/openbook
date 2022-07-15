@@ -25,9 +25,9 @@ const inputs = [
 
 export const ManageTab = (props) => {
     const [values, setValues] = useState({
-        vaultName: props.valueName,
-        riskTolerance: '5',
-        vigorish: '3'
+        vaultName: props.vault.VAULT_NAME,
+        riskTolerance: props.vault.IMBALANCE_FROM,
+        vigorish: props.vault.IMBALANCE_RATIO
       });
 
 

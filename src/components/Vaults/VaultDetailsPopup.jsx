@@ -51,7 +51,7 @@ export const VaultDetailsPopup = (props) => {
         
       >
         <DialogContent>
-        <Staking vaultName={props.vaultName}/>
+        <Staking vault={props.vault}/>
         </DialogContent>
       </Dialog>
     )

@@ -62,7 +62,7 @@ const BookieHomepage = (props) => {
           // console.log(temp_vaults) 
           if(temp_vaults.length > 0){
             props.setVaults(temp_vaults);
-            props.setSelectedVaultIndex(0);
+            props.setSelectedVaultIndex(temp_vaults[0]['ADDRESS']);
             setLoadingVaults(false);
 
           }
@@ -101,6 +101,7 @@ const BookieHomepage = (props) => {
                   <Grid item xl={3} lgp={3} lg={3} md={4} smpad={4} sm={6} xs={12} key={index} >
                     <VaultCard
                     vaultName={vault.VAULT_NAME}
+                    address={vault.ADDRESS}
                     mainColor={"#4591ff"}
                     volume={vault.VOLUME}
                     apr={vault.EXPECTED_APR}
@@ -132,7 +133,16 @@ const BookieHomepage = (props) => {
           </Box>
 
           <AddVaultPopup open={addVaultPopupOpen} handleClose={handleAddVaultPopupClose}/>
-          <VaultDetailsPopup open={vaultDetailsPopupOpen} handleClose={handleVaultDetailPopupClose} vaultName={"OpenBook Official Vault"}/>
+
+            {
+              props.vaults_state.vaults.map((vault,index)=>{
+                return(
+                  <VaultDetailsPopup open={vaultDetailsPopupOpen} handleClose={handleVaultDetailPopupClose} vault={vault} />
+                )
+              })
+            }
+
+
 
       </Box>
     </>
