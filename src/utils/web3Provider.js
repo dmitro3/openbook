@@ -105,11 +105,11 @@ export const addLiquidity = async (vault, amount) => {
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
     
-    let x = await token_contract.methods.allowance(userAddress, LIQUIDITY_ADDY).call()
+    let x = await token_contract.methods.allowance(userAddress, vault.ADDRESS).call()
     
     if (x < amt)
     {
-        await token_contract.methods.approve(LIQUIDITY_ADDY, MaxUint256).send({from: userAddress})
+        await token_contract.methods.approve(vault.ADDRESS, MaxUint256).send({from: userAddress})
     }
 
     let exactAmt = web3.utils.toWei(String(amount), 'ether')
