@@ -38,10 +38,9 @@ const App = (props) => {
       await handleLiqChange();
 
       console.log(temp_vaults) 
-      if(temp_vaults.length > 0){
-        store.dispatch(setVaults(temp_vaults))
+      store.dispatch(setVaults(temp_vaults))
+      if(temp_vaults.length > 0)
         store.dispatch(setSelectedVaultAddress(temp_vaults[0].PROVIDER))
-      }
       getOdds(data);
     }
     asyncUseEffectFunction();
