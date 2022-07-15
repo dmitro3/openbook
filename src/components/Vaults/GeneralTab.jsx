@@ -14,7 +14,6 @@ export const GeneralTab = (props) => {
   let withdrawableValue = props.vaultsData.withdrawableValue;
   let userStakeValue = props.vaultsData.userStakeValue;
   const [switchState, setSwitchState] = useState(true);
-  console.log(props.vaultsData)
   return (
     <Box
         sx={{

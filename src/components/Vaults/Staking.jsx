@@ -118,7 +118,7 @@ const Staking = (props) => {
       }
     }
     setValues(temp_values);
-    // console.log(props.vaults_state.vaultsData)
+    console.log(props.vaults_state.vaultsData)
     // console.log(vaultAdddress)
   },[props.vaults_state.vaultsData])
 
@@ -179,7 +179,7 @@ const Staking = (props) => {
               <AntSwitch onChange={(event)=>{setSwitchState(!switchState)}} checked={!!switchState} />
               <Typography>DAI</Typography>
             </Box>
-          <StakingTab vault={props.vault} withdrawableValue={withdrawableValue} switchState={switchState}/> 
+          <StakingTab vault={props.vault} withdrawableValue={switchState ? values.DAI.withdrawableValue : values.Shares.withdrawableValue} switchState={switchState}/> 
         </Box>
 
         <Box sx={{display:`${tabValue == "manage" ? "block" : "none"}`}}>

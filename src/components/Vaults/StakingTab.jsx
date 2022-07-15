@@ -156,7 +156,7 @@ export const StakingTab = (props) => {
                       sx={{
                           width:'80%'
                       }}
-                      placeholder={"5000 MAX"}
+                      placeholder={`${props.withdrawableValue} MAX`}
                   />
                     <Button
                       variant="contained"
