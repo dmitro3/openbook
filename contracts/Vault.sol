@@ -77,6 +77,14 @@ contract Vault is ERC1155{
         return (VAULT_NAME, DAI, MARKET_CONTRACT, PROVIDER, IMBALANCE_FROM, IMBALANCE_RATIO, external_lp_enabled);
     }
 
+    function editVault(_VAULT_NAME, _PROVIDER, _IMBALANCE_FROM, _IMBALANCE_RATIO, _external_lp_enabled) onlyProvider{
+        VAULT_NAME = _VAULT_NAME;
+        PROVIDER = _PROVIDER;
+        IMBALANCE_FROM = _IMBALANCE_FROM;
+        IMBALANCE_RATIO = _IMBALANCE_RATIO;
+        external_lp_enabled = _external_lp_enabled;
+    }
+
     function getLockedShares() public returns (uint256) {
 
         if (getDAIBalance() > 0){
