@@ -99,7 +99,7 @@ const Staking = (props) => {
 
   return (
     <>
-      <h1 className={styles.bookieHeader}>{props.vaultName}</h1>
+      <h1 className={styles.bookieHeader}>{props.vault.VAULT_NAME}</h1>
 
       {/* Two column layout */}
       <Box
@@ -140,11 +140,11 @@ const Staking = (props) => {
               <AntSwitch onChange={(event)=>{setSwitchState(!switchState)}} checked={!!switchState} />
               <Typography>DAI</Typography>
             </Box>
-          <StakingTab  withdrawableValue={withdrawableValue} switchState={switchState}/> 
+          <StakingTab vault={props.vault} withdrawableValue={withdrawableValue} switchState={switchState}/> 
         </Box>
 
         <Box sx={{display:`${tabValue == "manage" ? "block" : "none"}`}}>
-          <ManageTab valueName={props.vaultName}/>
+          <ManageTab vault={props.vault}/>
         </Box>
 
 

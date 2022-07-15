@@ -92,9 +92,10 @@ export const getUserHold = async () =>{
     return [locked, lockedDAI];
 }
         
-export const addLiquidity = async (amount) => {
+export const addLiquidity = async (vault, amount) => {
+    console.log(amount, vault)
     let web3 = store.getState().user.web3;
-    let contract = new web3.eth.Contract(LIQUIDITY_ABI, LIQUIDITY_ADDY);
+    let contract = new web3.eth.Contract(VAULT_ABI, vault.ADDRESS);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
 
     amount = parseInt(amount)
@@ -321,6 +322,7 @@ export const getAllVaults = async () => {
         let details = await vault_contract.methods.getVaultDetails().call()
         
         let curr = {}
+        curr['ADDRESS'] = vault
         curr['VAULT_NAME'] = details[0]
         curr['PROVIDER'] = details[3]
         curr['IMBALANCE_FROM'] = details[4]

@@ -18,8 +18,6 @@ contract VaultManager{
             require(success, "Cannot transfer DAI");
         }
         
-
-        
         Vault vault = new Vault(_VAULT_NAME, DAI, MARKET_CONTRACT, _PROVIDER, _IMBALANCE_FROM, _IMBALANCE_RATIO, _external_lp_enabled);
         vaults.push(address(vault));
     }

@@ -126,7 +126,7 @@ export const StakingTab = (props) => {
                   />
                     <Button
                       variant="contained"
-                      onClick={() => {addLiquidity(depositAmountInput);}}
+                      onClick={() => {addLiquidity(props.vault, depositAmountInput);}}
                       sx={{
                         height:"50px",
                         width:"18%"
