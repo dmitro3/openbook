@@ -160,7 +160,7 @@ export const StakingTab = (props) => {
                   />
                     <Button
                       variant="contained"
-                      onClick={() => {removeLiquidity(withdrawAmountInput);}}
+                      onClick={() => {removeLiquidity(props.vault, withdrawAmountInput);}}
                       sx={{
                         height:"50px",
                         width:"18%"
