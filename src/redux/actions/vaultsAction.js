@@ -5,9 +5,9 @@ export function setVaults(vaults){
     }
 }
 
-export function setSelectedVaultIndex(index){
+export function setSelectedVaultAddress(address){
     return {
-        type: "SET_SELECTED_VAULT_INDEX",
-        payload: index
+        type: "SET_SELECTED_VAULT_ADDRESS",
+        payload: address
     }
 }

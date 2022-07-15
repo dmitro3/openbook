@@ -15,7 +15,7 @@ import { styled, experimental_sx as sx } from '@mui/system';
 
 //redux
 import {connect} from "react-redux";
-import {setSelectedVaultIndex} from '@actions/vaultsAction'
+import {setSelectedVaultAddress} from '@actions/vaultsAction'
  
 
 export const VaultsBox = styled(Box)((props)  => sx({
@@ -27,7 +27,7 @@ export const VaultsBox = styled(Box)((props)  => sx({
 const VaultSelectDropDown = (props) => {
 
     const handleChange = (event) => {
-      props.setSelectedVaultIndex(event.target.value);
+      props.setSelectedVaultAddress(event.target.value);
     };
 
     
@@ -40,15 +40,15 @@ const VaultSelectDropDown = (props) => {
     <Box sx={{minWidth:'200px'}}>
     <FormControl fullWidth>
       <Select
-        value={props.vaults_state.selectedVaultIndex}
+        value={props.vaults_state.selectedVaultAddress}
         onChange={handleChange}
       >
         {
             props.vaults_state.vaults.map((vault,index)=>{
                 return(
-                <MenuItem value={index} key={index}>
+                <MenuItem value={vault.PROVIDER} key={index}>
                     <Box sx={{display:'flex',width:'100%',justifyContent:'space-between'}}>
-                        {index == props.vaults_state.selectedVaultIndex ?
+                        {props.vaults_state.selectedVaultAddress === vault.PROVIDER ?
                         <Typography variant="h5">✔️</Typography>
                         : 
                         <Box></Box>
@@ -78,8 +78,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSelectedVaultIndex: (index) => {
-        dispatch(setSelectedVaultIndex(index))
+      setSelectedVaultAddress: (address) => {
+        dispatch(setSelectedVaultAddress(address))
         }
     };
 };

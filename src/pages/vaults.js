@@ -15,7 +15,7 @@ import {getAllVaults} from "@utils/web3Provider";
 
 //redux
 import {connect} from "react-redux";
-import {setVaults,setSelectedVaultIndex} from '@actions/vaultsAction'
+import {setVaults,setSelectedVaultAddress} from '@actions/vaultsAction'
 import VaultSelectDropDown from "@components/Vaults/VaultSelectDropDown";
  
 
@@ -35,7 +35,7 @@ const BookieHomepage = (props) => {
 
     const [addVaultPopupOpen, setAddVaultPopupOpen] = useState(false);
 
-    const [loadingVaults,setLoadingVaults] = useState(true);
+    const [loadingVaults,setLoadingVaults] = useState(false);
 
     const handleAddVaultPopupClickOpen = () => {
       setAddVaultPopupOpen(true);
@@ -54,24 +54,7 @@ const BookieHomepage = (props) => {
     const handleVaultDetailPopupClose = () => {
       setVaultDetailsPopupOpen(false);
     };
-
-
-    useEffect(() => {
-      async function fetchVaults() {
-          let temp_vaults = await getAllVaults();
-          // console.log(temp_vaults) 
-          if(temp_vaults.length > 0){
-            props.setVaults(temp_vaults);
-            props.setSelectedVaultIndex(0);
-            setLoadingVaults(false);
-
-          }
-      }
-
-      if(props.user.web3)
-        fetchVaults()
-    }, [props.user.loggedIn]); // Or [] if effect doesn't need props or state
-    
+   
   return (
     <>
       <Head>
@@ -83,11 +66,15 @@ const BookieHomepage = (props) => {
               py: 8,
               display: 'flex',
               px:'10px',
-              position: 'relative'
+              position: 'relative',
+              flexDirection: 'column'
             }}
         > 
-        {loadingVaults ? 
+        {props.vaults_state.vaults == null ? 
         <h1>loading</h1> 
+        :
+        props.vaults_state.vaults.length <= 0 ? 
+        <h1>Empty Vault</h1>
         : 
         <Box>
         <Box sx={{display:'flex',width:'100%',justifyContent:'flex-end',pb:'50px'}}>
@@ -119,8 +106,6 @@ const BookieHomepage = (props) => {
         </Box>
   
         }
-
-
           <Box sx={{
             position: 'absolute',
             right:'50px',
@@ -151,8 +136,8 @@ const mapDispatchToProps = (dispatch) => {
     setVaults: (vaults) => {
         dispatch(setVaults(vaults));
     },
-    setSelectedVaultIndex: (index) => {
-      dispatch(setSelectedVaultIndex(index))
+    setSelectedVaultAddress: (address) => {
+      dispatch(setSelectedVaultAddress(address))
     }
 };
 };

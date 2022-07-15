@@ -1,6 +1,6 @@
 const vaultsReducer = (state = {
-    vaults: [],
-    selectedVaultIndex: null
+    vaults: null,
+    selectedVaultAddress: null
   }, action) => {
       switch (action.type) {
             case "SET_VAULTS":
@@ -9,10 +9,10 @@ const vaultsReducer = (state = {
                     vaults: action.payload
                 }   
                 break;
-            case "SET_SELECTED_VAULT_INDEX":
+            case "SET_SELECTED_VAULT_ADDRESS":
                 state = {
                     ...state,
-                    selectedVaultIndex: action.payload
+                    selectedVaultAddress: action.payload
                 }
                 break;
         }

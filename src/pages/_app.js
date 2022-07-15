@@ -17,6 +17,7 @@ import {persistor,store} from "../redux/store";
 import { PersistGate } from 'redux-persist/integration/react'
 import { MARKETS_ABI, MARKETS_ADDY, WSS_PROVIDER} from "../config"
 import {setOddsChanging,setNewOdds} from "redux/actions/oddsActions"
+import {setVaults,setSelectedVaultAddress} from '@actions/vaultsAction'
 
 // Setting odds, and store them into redux
 import { getOdds } from "@utils/getOdds" 
@@ -32,7 +33,12 @@ const App = (props) => {
   useEffect(() => {
     async function asyncUseEffectFunction() {
       let data = await getMatches();
-      let vaults = await getAllVaults();
+      let temp_vaults = await getAllVaults();
+      console.log(temp_vaults) 
+      if(temp_vaults.length > 0){
+        store.dispatch(setVaults(temp_vaults))
+        store.dispatch(setSelectedVaultAddress(temp_vaults[0].PROVIDER))
+      }
       getOdds(data);
     }
     asyncUseEffectFunction();
