@@ -8,7 +8,7 @@ import "@styles/globals.css";
 import { Loader } from "@components/General/Loader";
 import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
-import {getMatches, getAllVaults} from "@utils/web3Provider";
+import {getMatches, getAllVaults, handleLiqChange} from "@utils/web3Provider";
 import Web3 from 'web3';
 
 // New redux dependencies
@@ -34,6 +34,9 @@ const App = (props) => {
     async function asyncUseEffectFunction() {
       let data = await getMatches();
       let temp_vaults = await getAllVaults();
+
+      await handleLiqChange();
+
       console.log(temp_vaults) 
       if(temp_vaults.length > 0){
         store.dispatch(setVaults(temp_vaults))
