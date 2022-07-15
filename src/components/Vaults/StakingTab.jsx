@@ -30,42 +30,41 @@ import { addLiquidity, removeLiquidity } from "@utils/web3Provider";
   });
 
 export const StakingTab = (props) => {
-    const styles = useStyle();
     let withdrawableValue = props.withdrawableValue;
     const [depositAmountInput, setDepositAmountInput] = useState("");
     const [withdrawAmountInput, setWithdrawAmountInput] = useState("");
     const [withdrawable,setWithdrawable] = useState(true);
 
-    const handleDepositAmountInput = (event, value) => {
-      setDepositAmountInput(value);
+    const handleDepositAmountInput = (event) => {
+      setDepositAmountInput(event.target.value)
     }
 
-    const handleWidthdrawAmountInput = (event,value) => {
-      setWithdrawAmountInput(value);
+    const handleWidthdrawAmountInput = (event) => {
+      setWithdrawAmountInput(event.target.value);
     }
 
-    const stringToNum = (txt) => {
-        if(txt.split){
-          let number = txt.split(" ")[0];
-          return Number(number)
-        }
-        else{
-          return 0;
-        }
-      }
+    // const stringToNum = (txt) => {
+    //     if(txt.split){
+    //       let number = txt.split(" ")[0];
+    //       return Number(number)
+    //     }
+    //     else{
+    //       return 0;
+    //     }
+    //   }
     
-      let depositAmountInputNumber = Number(depositAmountInput);
-      let withdrawableValueNumber = stringToNum(withdrawableValue);
-      if(withdrawable){
-        if(depositAmountInputNumber > withdrawableValueNumber){
-          setWithdrawable(false);
-        }
-      }
-      else{
-        if(depositAmountInputNumber <= withdrawableValueNumber){
-          setWithdrawable(true);
-        }
-      }
+    //   let depositAmountInputNumber = Number(depositAmountInput);
+    //   let withdrawableValueNumber = stringToNum(withdrawableValue);
+    //   if(withdrawable){
+    //     if(depositAmountInputNumber > withdrawableValueNumber){
+    //       setWithdrawable(false);
+    //     }
+    //   }
+    //   else{
+    //     if(depositAmountInputNumber <= withdrawableValueNumber){
+    //       setWithdrawable(true);
+    //     }
+    //   }
 
     const inputAdornmentForDAI = () => {
       return(
@@ -119,14 +118,14 @@ export const StakingTab = (props) => {
                         shrink: true
                       }}
                       value={depositAmountInput}
-                      onChange={(event,value)=>{handleDepositAmountInput(event,value)}}
+                      onChange={(event)=>{handleDepositAmountInput(event)}}
                       sx={{
                           width:'80%'
                       }}
                   />
                     <Button
                       variant="contained"
-                      onClick={() => {addLiquidity(props.vault, depositAmountInput);}}
+                      onClick={() => { /*addLiquidity(props.vault,depositAmountInput)*/ console.warn(props.vault,depositAmountInput) }}
                       sx={{
                         height:"50px",
                         width:"18%"

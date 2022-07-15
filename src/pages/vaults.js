@@ -77,33 +77,33 @@ const BookieHomepage = (props) => {
         <h1>Empty Vault</h1>
         : 
         <Box>
-        <Box sx={{display:'flex',width:'100%',justifyContent:'flex-end',pb:'50px'}}>
-          <VaultSelectDropDown/>
-        </Box>
-        <VaultsBox>
-          <Grid container spacing={2}>
-            {
-              props.vaults_state.vaults.map((vault,index)=>{
-                return(
-                  <Grid item xl={3} lgp={3} lg={3} md={4} smpad={4} sm={6} xs={12} key={index} >
-                    <VaultCard
-                    vaultName={vault.VAULT_NAME}
-                    address={vault.ADDRESS}
-                    mainColor={"#4591ff"}
-                    volume={vault.VOLUME}
-                    apr={vault.EXPECTED_APR}
-                    status={vault.STATUS}
-                    data={[5000,6000,6500,7000]}
-                    handleVaultDetailPopupClickOpen={handleVaultDetailPopupClickOpen}
-                    >
-                    </VaultCard>
-                  </Grid>
-                )
-              })
-            }
-          </Grid>
+          <Box sx={{display:'flex',width:'100%',justifyContent:'flex-end',pb:'50px'}}>
+            <VaultSelectDropDown/>
+          </Box>
+          <VaultsBox>
+            <Grid container spacing={2}>
+              {
+                props.vaults_state.vaults.map((vault,index)=>{
+                  return(
+                    <Grid item xl={3} lgp={3} lg={3} md={4} smpad={4} sm={6} xs={12} key={index} >
+                      <VaultCard
+                      vaultName={vault.VAULT_NAME}
+                      address={vault.ADDRESS}
+                      mainColor={"#4591ff"}
+                      volume={vault.VOLUME}
+                      apr={vault.EXPECTED_APR}
+                      status={vault.STATUS}
+                      data={[5000,6000,6500,7000]}
+                      handleVaultDetailPopupClickOpen={handleVaultDetailPopupClickOpen}
+                      >
+                      </VaultCard>
+                    </Grid>
+                  )
+                })
+              }
+            </Grid>
 
-          </VaultsBox>  
+            </VaultsBox>  
           {
             props.vaults_state.vaults.map((vault,index)=>{
               return(
