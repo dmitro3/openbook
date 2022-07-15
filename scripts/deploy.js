@@ -136,8 +136,10 @@ async function deploy(){
 
     const VaultManager = await ethers.getContractFactory("VaultManager");
     let vault = await VaultManager.deploy(DAI, market.address);
-    await vault.deployed();  
     console.log("VaultManager Contract Deployed at " + vault.address);
+
+    await vault.createVault("OpenBook Official Vault", "0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd", 3, 3, true, 0);
+    console.log("Default Vault Deployed");
 
     ABI_STRING = ABI_STRING + "let VAULTMANAGER_ADDY='" + vault.address + "'\n"
 
