@@ -103,8 +103,17 @@ const BookieHomepage = (props) => {
             }
           </Grid>
 
-          </VaultsBox>      
+          </VaultsBox>  
+          {
+            props.vaults_state.vaults.map((vault,index)=>{
+              return(
+                <VaultDetailsPopup key={index} open={vaultDetailsPopupOpen} handleClose={handleVaultDetailPopupClose} vault={vault} />
+              )
+            })
+          }    
         </Box>
+
+
   
         }
           <Box sx={{
@@ -118,17 +127,6 @@ const BookieHomepage = (props) => {
           </Box>
 
           <AddVaultPopup open={addVaultPopupOpen} handleClose={handleAddVaultPopupClose}/>
-
-            {
-              props.vaults_state.vaults.map((vault,index)=>{
-                return(
-                  <VaultDetailsPopup key={index} open={vaultDetailsPopupOpen} handleClose={handleVaultDetailPopupClose} vault={vault} />
-                )
-              })
-            }
-
-
-
       </Box>
     </>
   );
