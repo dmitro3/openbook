@@ -78,7 +78,13 @@ contract Vault is ERC1155{
     }
 
     function getLockedShares() public returns (uint256) {
-        return lockedLiquidity * getDAIBalance() / totalSupply;
+
+        if (getDAIBalance() > 0){
+            return lockedLiquidity * getDAIBalance() / totalSupply;
+        }
+        else{
+            return 0;
+        }
     }
 
     function getTotalSupply() public returns (uint256) {
@@ -90,8 +96,16 @@ contract Vault is ERC1155{
     }
 
     function getUserLockedShares(address user)  public returns (uint256) {
-        uint256 locked = getLockedShares()/getTotalSupply() * this.balanceOf(user, LIQUIDITY);
-        return locked;
+
+        if (getTotalSupply() > 0)
+        {
+            uint256 locked = getLockedShares()/getTotalSupply() * this.balanceOf(user, LIQUIDITY);
+            return locked;
+        }
+        else{
+            return 0;
+        }
+
     }
 
     
