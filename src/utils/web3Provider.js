@@ -359,36 +359,34 @@ const getUserDaiBalance = async (web3,userAddress) =>{
 }
 
 export const handleLiqChange = async () => {
-    console.log("Running")
     let web3 = store.getState().user.web3;
     let account = await web3.eth.getAccounts()
 
     let contract = new web3.eth.Contract(VAULTMANAGER_ABI, VAULTMANAGER_ADDY);
     let vaults = await contract.methods.getAllVaults().call()
     let dai_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+    var vaultsData = {}
 
     for (const vault of vaults)
     {
+        vaultsData[vault] = {}
+        vaultsData[vault]['DAI'] = {}
+        vaultsData[vault]['Shares'] = {}
+
         let vault_contract = new web3.eth.Contract(VAULT_ABI, vault);
         
         let res = await dai_contract.methods.balanceOf(vault).call()
-        let totalDAI = parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
+        vaultsData[vault]['DAI']['total'] = parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
 
         let res2 = await vault_contract.methods.getTotalSupply().call()
-        let totalShares = parseFloat(web3.utils.fromWei(String(res2), 'ether')).toFixed(2);
-
-        // store.dispatch(setLiqDisplayValue(totalShares + " Shares, " + totalDAI + " DAI"))
-        
+        vaultsData[vault]['Shares']['total'] = parseFloat(web3.utils.fromWei(String(res2), 'ether')).toFixed(2);        
 
         let res3 = await vault_contract.methods.balanceOf(account[0], 0).call()
-        let userShares =  parseFloat(web3.utils.fromWei(String(res3), 'ether')).toFixed(2);
+        vaultsData[vault]['Shares']['user'] =  parseFloat(web3.utils.fromWei(String(res3), 'ether')).toFixed(2);
 
 
         let exactDAI = await vault_contract.methods.getShareValue(res3).call()
-        let userDAI =  parseFloat(web3.utils.fromWei(String(exactDAI), 'ether')).toFixed(2);
-
-        // store.dispatch(setUserStakeValue(userShares + " Shares, " + userDAI + " DAI"))
-
+        vaultsData[vault]['DAI']['user'] =  parseFloat(web3.utils.fromWei(String(exactDAI), 'ether')).toFixed(2);
 
         let details = await vault_contract.methods.getUserLockedShares(account[0]).call()
         let exactAmt =  parseFloat(web3.utils.fromWei(String(details), 'ether')).toFixed(2);
@@ -397,17 +395,15 @@ export const handleLiqChange = async () => {
         let locked = await vault_contract.methods.getLockedShares().call()
         let lockedDAI = await vault_contract.methods.getShareValue(locked).call()
 
-        let lockedShares =  parseFloat(web3.utils.fromWei(String(locked), 'ether')).toFixed(2);
-        lockedDAI =  parseFloat(web3.utils.fromWei(String(lockedDAI), 'ether')).toFixed(2);
-
-        // store.dispatch(setbalanceHoldValue(lockedShares + " Shares, " + lockedDAI + " DAI"))
+        vaultsData[vault]['Shares']['locked']  =  parseFloat(web3.utils.fromWei(String(locked), 'ether')).toFixed(2);
+        vaultsData[vault]['DAI']['locked'] =  parseFloat(web3.utils.fromWei(String(lockedDAI), 'ether')).toFixed(2);
 
 
-        // store.dispatch((setWithdrawableValue((userShares-lockedShares) + " Shares, " + (userDAI-lockedDAI) + " DAI")))
+        vaultsData[vault]['Shares']['Withdrawable'] = vaultsData[vault]['Shares']['user'] - vaultsData[vault]['Shares']['locked']
+        vaultsData[vault]['DAI']['Withdrawable'] = vaultsData[vault]['DAI']['user'] - vaultsData[vault]['DAI']['locked']
 
     }
-    console.log("Done")
-
+    console.log(vaultsData)
 }
 
 const subscribeNewBlock = async (web3,userAddress) =>{
