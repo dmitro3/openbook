@@ -2,8 +2,6 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "./interfaces/IBet.sol";
-import "./interfaces/IMarkets.sol";
-
 import "./interfaces/IERC20.sol";
 import "hardhat/console.sol";
 
@@ -114,13 +112,7 @@ contract Vault is ERC1155{
     }
 
     function getOddsById(uint256 id) public view returns (uint256[] memory) {
-        if (vault_odds[id][0] > 0){
-            return vault_odds[id];
-        }
-        else{
-            return IMarkets(MARKET_CONTRACT).getDefaultOddsById(id);
-        }
-
+        return vault_odds[id];
     }
 
     function unlockLiquidity(uint256 gameId, uint8 outcome_id) onlyMarkets external{

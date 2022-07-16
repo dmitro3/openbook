@@ -4,6 +4,7 @@ const { promises: { readdir } } = require('fs')
 const fs = require("fs");
 const { ethers } = require("hardhat");
 const hre = require("hardhat");
+const {initiate_oracle} = require("./oracle")
 
 const Web3 = require('web3');
 const { ConstructionOutlined } = require('@mui/icons-material');
@@ -42,10 +43,6 @@ else if (process.env.HARDHAT_NETWORK == 'kovan')
 
 
 
-function toTimestamp(strDate){
-    var datum = Date.parse(strDate);
-    return datum/1000;
- }
 
 async function perform_whale_transfer() {
     await hre.network.provider.request({
@@ -135,6 +132,8 @@ async function deploy(){
     ABI_STRING = ABI_STRING + "let MARKETS_ADDY='" + market.address + "'\n"
 
     const VaultManager = await ethers.getContractFactory("VaultManager");
+
+    console.log(DAI)
     let vault = await VaultManager.deploy(DAI, market.address);
     console.log("VaultManager Contract Deployed at " + vault.address);
 
@@ -156,11 +155,9 @@ async function deploy(){
     await market.setVaultMgrContract(vault.address);
 
     ABI_STRING = ABI_STRING + export_string
-    fs.writeFileSync('src/config.js', ABI_STRING);
+    fs.writeFileSync('src/config.js', ABI_STRING);   
 
-    //now add matches
-
-   
+    await initiate_oracle()
 }
 
 deploy()
