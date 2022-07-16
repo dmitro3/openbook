@@ -33,8 +33,6 @@ const BookieHomepage = (props) => {
 
     const [addVaultPopupOpen, setAddVaultPopupOpen] = useState(false);
 
-    const [loadingVaults,setLoadingVaults] = useState(false);
-
     const handleAddVaultPopupClickOpen = () => {
       setAddVaultPopupOpen(true);
     };

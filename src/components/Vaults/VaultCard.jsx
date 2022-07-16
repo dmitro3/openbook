@@ -68,7 +68,7 @@ export const VaultsCardDataActiveTypography = styled(Typography)((props)  => sx(
     "alignItems":"center",
     "padding":"4px 8px",
     textTransform:'capitalize',
-    '&::before':{
+    '&:before':{
       "content":'""',
       backgroundColor: statusToColor[props.status]['color'],
       "width":"4px",

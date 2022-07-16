@@ -38,6 +38,7 @@ import {setOddsFormat,setPreferUsername,setPreferAvatarStyle,setDisconnected} fr
 import { WrongNetworkSnackBar } from "@components/General/WrongNetworkSnackBar";
 
 import { styled, experimental_sx as sx } from '@mui/system';
+import VaultSelectDropDown from "@components/Vaults/VaultSelectDropDown";
 
 
 /* Function that sets the navigation theme from template */
@@ -267,7 +268,7 @@ const DashboardNavbar = (props) => {
             props.user.loggedIn ? 
             
             <>
-            <NavBellIconBox>
+            {/* <NavBellIconBox>
               <Tooltip title="Notifications">
                 <IconButton sx={{ ml: '1rem',mr:'0.5rem'}}>
                   <Badge badgeContent={4} color="primary" variant="dot">
@@ -275,9 +276,10 @@ const DashboardNavbar = (props) => {
                   </Badge>
                 </IconButton> 
               </Tooltip>   
-            </NavBellIconBox>
-          
+            </NavBellIconBox> */}
 
+            <VaultSelectDropDown/>
+          
             <NavNetworkNameBox>
               {props.user.currentNetWork=='kovan' || props.user.currentNetWork == 'private' || props.user.currentNetWork == '' ? void(0) : <WrongNetworkSnackBar provider={props.user.provider} />}
               <Typography sx={{color:"#4591ff",ml:"20px",fontSize:'1.5rem', textTransform: "capitalize"}}>

@@ -22,6 +22,7 @@ import {setVaults,setSelectedVaultAddress} from '@actions/vaultsAction'
 // Setting odds, and store them into redux
 import { getOdds } from "@utils/getOdds" 
 
+import getAllWeb3s from "@utils/web3s";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -40,7 +41,14 @@ const App = (props) => {
         store.dispatch(setSelectedVaultAddress(temp_vaults[0].ADDRESS))
       getOdds(data);
     }
+
+    async function asyncGetWeb3s(){
+      let web3s = await getAllWeb3s();
+      console.log(web3s);
+    }
+    asyncGetWeb3s();
     asyncUseEffectFunction();
+
     let web3 = new Web3(new Web3.providers.WebsocketProvider(WSS_PROVIDER))
     let contract = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
 

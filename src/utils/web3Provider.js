@@ -202,7 +202,7 @@ export const getMatches = async () => {
 
     // let web3  = store.getState().user.web3;
     // if (web3 == null)
-    web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
+    let web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
 
     let contract = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
     let account = await web3.eth.getAccounts()
