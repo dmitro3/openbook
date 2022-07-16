@@ -77,14 +77,6 @@ contract Vault is ERC1155{
         return (VAULT_NAME, DAI, MARKET_CONTRACT, PROVIDER, IMBALANCE_FROM, IMBALANCE_RATIO, external_lp_enabled);
     }
 
-    function editVault(_VAULT_NAME, _PROVIDER, _IMBALANCE_FROM, _IMBALANCE_RATIO, _external_lp_enabled) onlyProvider{
-        VAULT_NAME = _VAULT_NAME;
-        PROVIDER = _PROVIDER;
-        IMBALANCE_FROM = _IMBALANCE_FROM;
-        IMBALANCE_RATIO = _IMBALANCE_RATIO;
-        external_lp_enabled = _external_lp_enabled;
-    }
-
     function getLockedShares() public returns (uint256) {
 
         if (getDAIBalance() > 0){
@@ -186,7 +178,7 @@ contract Vault is ERC1155{
         uint256 shares = 0;
 
         if (totalSupply > 0) {
-            shares =  _amount * (totalSupply / getDAIBalance()); //okay this is wrong. actually no. not sure why
+            shares =  _amount * (totalSupply / getDAIBalance());
         }
         else {
             shares = _amount;
@@ -212,6 +204,8 @@ contract Vault is ERC1155{
     function removeLiquidity(uint256 shares)  public {
 
         uint256 balance = this.balanceOf(msg.sender, LIQUIDITY);
+        console.log(balance);
+        console.log(shares);
 
         require(shares >= balance, "User's capital must be greater than requested amt");
 
