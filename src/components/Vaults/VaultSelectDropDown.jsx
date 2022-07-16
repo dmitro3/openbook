@@ -46,9 +46,9 @@ const VaultSelectDropDown = (props) => {
         {
             props.vaults_state.vaults.map((vault,index)=>{
                 return(
-                <MenuItem value={vault.PROVIDER} key={index}>
+                <MenuItem value={vault.ADDRESS} key={index}>
                     <Box sx={{display:'flex',width:'100%',justifyContent:'space-between'}}>
-                        {props.vaults_state.selectedVaultAddress === vault.PROVIDER ?
+                        {props.vaults_state.selectedVaultAddress === vault.ADDRESS ?
                         <Typography variant="h5">✔️</Typography>
                         : 
                         <Box></Box>
