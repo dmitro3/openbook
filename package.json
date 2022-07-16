@@ -38,6 +38,7 @@
     "@nomiclabs/hardhat-web3": "^2.0.0",
     "@openzeppelin/contracts": "^4.5.0",
     "apexcharts": "^3.35.0",
+    "axios": "^0.27.2",
     "bn.js": "^5.2.0",
     "chart.js": "^3.5.1",
     "date-fns": "^2.25.0",
