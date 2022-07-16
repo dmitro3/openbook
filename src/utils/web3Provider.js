@@ -58,17 +58,25 @@ export const addLiquidity = async (vault, amount) => {
 
 export const removeLiquidity = async (vault, amount) => {
     let web3 = store.getState().user.web3;
+    let account = await web3.eth.getAccounts()
+    let userAddress = account[0];
+
     let contract = new web3.eth.Contract(VAULT_ABI, vault.ADDRESS);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
+
+    let supply = await contract.methods.balanceOf(userAddress, 0).call()
+
 
     amount = parseInt(amount)
     let amt = BigInt(10 ** 18) * BigInt(amount)
     
 
-    let account = await web3.eth.getAccounts()
-    let userAddress = account[0];
+
 
     let exactAmt = web3.utils.toWei(String(amount), 'ether')
+
+    console.log(exactAmt, userAddress)
+
     await contract.methods.removeLiquidity(exactAmt).send({from: userAddress})
 }
 
@@ -276,7 +284,6 @@ export const getAllVaults = async () => {
         all_vaults.push(curr)
     }
 
-    // console.log(all_vaults)
     return all_vaults
 
 }
@@ -377,6 +384,7 @@ export const handleLiqChange = async () => {
         let vault_contract = new web3.eth.Contract(VAULT_ABI, vault);
         
         let res = await dai_contract.methods.balanceOf(vault).call()
+        console.log(vault, res)
         vaultsData[vault]['DAI']['total'] = parseFloat(web3.utils.fromWei(String(res), 'ether')).toFixed(2);
 
         let res2 = await vault_contract.methods.getTotalSupply().call()
@@ -404,6 +412,8 @@ export const handleLiqChange = async () => {
         vaultsData[vault]['DAI']['withdrawable'] = vaultsData[vault]['DAI']['user'] - vaultsData[vault]['DAI']['locked']
 
     }
+
+
     store.dispatch(setVaultsData(vaultsData))
 }
 
