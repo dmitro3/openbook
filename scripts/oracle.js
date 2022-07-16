@@ -29,13 +29,11 @@ async function initiate_oracle(){
     let all_matches = {}
 
     for (const match of matches) {
-        let match_detail = await markets.marketDetailsById(match).call()
+        let match_detail = await markets.marketDetailsById(match)
 
         if (match_detail[8] == true)
             all_matches['id'] = match_detail
     }
-
-    console.log(all_matches)
 
     for (const row of sports){
         let res = await axios.get(`https://api.the-odds-api.com/v4/sports/${row['key']}/scores?apiKey=${process.env.ODDS_API}&daysFrom=1`);
@@ -77,6 +75,10 @@ async function initiate_oracle(){
 
                 await markets.startMarket(event['id'], toTimestamp(event['commence_time']), [event['home_team'], event['away_team']], [row['group'], row['title']], outcomes_lst)
             }
+        }
+
+        if (process.env.HARDHAT_NETWORK == 'localhost'){
+            break;
         }
     }
 }
