@@ -114,7 +114,6 @@ contract Vault is ERC1155{
     }
 
     function getOddsById(uint256 id) public view returns (uint256[] memory) {
-        //return defaul odds if not exist
         if (vault_odds[id][0] > 0){
             return vault_odds[id];
         }

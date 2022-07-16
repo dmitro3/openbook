@@ -308,7 +308,8 @@ export const createVault = async (values) => {
     return true;
 }
 
-export const makeBet = async (ids, picks, amounts) => {
+export const makeBet = async (vault, ids, picks, amounts) => {
+    console.log("Vault is" + vault)
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
     let token_contract = new web3.eth.Contract(DAI_ABI, DAI_ADDY);
@@ -348,7 +349,7 @@ export const makeBet = async (ids, picks, amounts) => {
     }
 
 
-    await contract.methods.createBets(ids, new_picks, newAmts).send({from: userAddress})
+    await contract.methods.createBets(ids, new_picks, newAmts, vault).send({from: userAddress})
     return true
 }
 
@@ -513,7 +514,8 @@ export const switchAccount = async () => {
     }
 }
 
-export const getBetLimit = async (ids) => {
+export const getBetLimit = async (ids, vault) => {
+    
     
     let id_only = []
     ids.map((text, index) => {
@@ -521,7 +523,7 @@ export const getBetLimit = async (ids) => {
     })
 
     let web3 = store.getState().user.web3 || new Web3(new Web3.providers.WebsocketProvider(WSS_PROVIDER));
-    let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
+    let contract = new web3.eth.Contract(VAULT_ABI, vault);
 
     try{
         let limit = await contract.methods.getLiquidityLimit(id_only).call()

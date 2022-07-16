@@ -38,7 +38,7 @@ const BetslipSideDrawer = (props) => {
     });
     useEffect(() => {
         async function getBetLimitFromWeb3() {
-            ref.current.betLimit = await getBetLimit(props.betSlip.betSlipOutcomeArray);
+            ref.current.betLimit = await getBetLimit(props.betSlip.betSlipOutcomeArray, props.vault_state.selectedVaultAddress);
         }
         getBetLimitFromWeb3();
       }, [props.betSlip.betSlipOutcomeArray]); 
@@ -168,7 +168,7 @@ const BetslipSideDrawer = (props) => {
 
         console.log(`match ids: ${matchIds}\noutcomes: ${outcomes}\nstakes: ${stakes}`)
         
-        let betResult = await makeBet(matchIds, outcomes, stakes);  
+        let betResult = await makeBet(props.vault_state.selectedVaultAddress, matchIds, outcomes, stakes);  
         setConfirmBetModalOpen(true);  
         console.log("bet placed, result ", betResult);
         if(betResult)
@@ -384,7 +384,8 @@ const mapStateToProps = (state) => {
     return {
         betSlip: state.betSlip,
         odds: state.odds,
-        user: state.user
+        user: state.user,
+        vault_state: state.vaults
     };
 };
 
