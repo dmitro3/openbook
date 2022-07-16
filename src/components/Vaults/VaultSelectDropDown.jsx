@@ -26,12 +26,10 @@ export const VaultSelectionDrownDownLoadingTypography = styled(Typography)((prop
 
 
 const VaultSelectDropDown = (props) => {
-
     const handleChange = (event) => {
       props.setSelectedVaultAddress(event.target.value);
     };
-
-    
+ 
   return (
     <>
 
@@ -45,7 +43,7 @@ const VaultSelectDropDown = (props) => {
     : 
     <FormControl fullWidth>
       <Select
-        value={props.vaults_state.selectedVaultAddress}
+        value={props.vaults_state.selectedVaultAddress || ''}
         onChange={handleChange}
         variant="outlined"
         sx={{

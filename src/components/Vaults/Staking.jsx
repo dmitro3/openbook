@@ -76,11 +76,6 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-let liqDisplayValue = 0
-let balanceHoldValue =  0
-let withdrawableValue =  0
-let userStakeValue = 0
-
 const Staking = (props) => {
   const styles = useStyle();
   const [values,setValues] = useState({
@@ -118,8 +113,6 @@ const Staking = (props) => {
       }
     }
     setValues(temp_values);
-    console.log(props.vaults_state.vaultsData)
-    // console.log(vaultAdddress)
   },[props.vaults_state.vaultsData])
 
   const [switchState, setSwitchState] = useState(true);
