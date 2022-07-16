@@ -42,10 +42,6 @@ else if (process.env.HARDHAT_NETWORK == 'kovan')
 
 
 
-function toTimestamp(strDate){
-    var datum = Date.parse(strDate);
-    return datum/1000;
- }
 
 async function perform_whale_transfer() {
     await hre.network.provider.request({
@@ -159,7 +155,7 @@ async function deploy(){
     fs.writeFileSync('src/config.js', ABI_STRING);
 
     //now add matches
-
+    
    
 }
 

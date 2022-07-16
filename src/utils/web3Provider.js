@@ -213,7 +213,7 @@ export const getMatches = async () => {
 
     for (const match of matches) {
         let match_detail = await contract.methods.marketDetailsById(match).call()
-        if (match_detail[8] == true)
+        if (match_detail[9] == true)
             all_matches.push(match_detail)
     }
 
@@ -221,11 +221,11 @@ export const getMatches = async () => {
     let i = 0;
     for (const match of all_matches)
     {
-      if (!(match[2][0] in odds))
-        odds[match[2][0]] = {}
+      if (!(match[3][0] in odds))
+        odds[match[3][0]] = {}
 
-      if (!(match[2][1] in odds[match[2][0]]))
-        odds[match[2][0]][match[2][1]] = []
+      if (!(match[3][1] in odds[match[3][0]]))
+        odds[match[3][0]][match[3][1]] = []
 
         let game = {
           timestamp : new Date(match[0]* 1000),
@@ -239,8 +239,8 @@ export const getMatches = async () => {
         for (var j =0; j< match.length; j++)
         {
 
-          if (match[6][j] != null)
-            outcome[match[6][j]] = parseInt(match[7][j])/1000
+          if (match[7][j] != null)
+            outcome[match[7][j]] = parseInt(match[8][j])/1000
         }
 
         game =
@@ -249,7 +249,7 @@ export const getMatches = async () => {
           outcomes: outcome
         } 
 
-        odds[match[2][0]][match[2][1]].push(game)
+        odds[match[3][0]][match[3][1]].push(game)
         i = i + 1
     }
 

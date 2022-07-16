@@ -16,7 +16,7 @@
 //             for (var odd of curr_odds)
 //                 new_odds.push(parseInt(odd * 1000))
 
-//                 await market.startMarket(toTimestamp(match['timestamp']), match['match'], [sport, league], outcome, new_odds)
+//                 await market.startMarket(match['id'], toTimestamp(match['timestamp']), match['match'], [sport, league], outcome, new_odds)
 
             
 //             }

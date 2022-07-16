@@ -17,6 +17,7 @@ contract Markets{
 
 
     struct Market {
+        string id;
         uint256 matchTimestamp;
         string[] names;
         string[] match_details;
@@ -30,9 +31,8 @@ contract Markets{
 
     mapping(uint256 => Market) private markets;
 
-    modifier onlyProvider {
-        console.log(msg.sender);
-        // require(msg.sender == 0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd);
+    modifier onlyOracle {
+        require(msg.sender == 0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd);
         _;
     }
 
@@ -57,22 +57,6 @@ contract Markets{
         return markets[id].odds;
     }
 
-
-    function settleMarkets(uint256[] calldata marketIds, uint8[] calldata winnerIndex) onlyProvider public{
-
-        for (uint i=0; i<marketIds.length; i++)
-        {
-            markets[marketIds[i]].active = false;
-            markets[marketIds[i]].winnerIndex = winnerIndex[i];
-
-            address[] memory vaults = IVaultManager(MANAGER_CONTRACT).getAllVaults();
-
-            for (uint j=0; j<vaults.length; j++) {
-                IVault(vaults[j]).unlockLiquidity(marketIds[i], winnerIndex[i]);            
-            }
-        }
-    }
-
     function getAllMarkets() public view returns (uint256 [] memory){
         return market_ids;
     }
@@ -85,12 +69,24 @@ contract Markets{
         return markets[id].winnerIndex;
     }
 
-    function startMarket(uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds) onlyProvider public {
+    function settleMarket(uint256 marketId, uint8 winnerIndex) onlyOracle public{
+        markets[marketId].active = false;
+        markets[marketId].winnerIndex = winnerIndex;
+
+        address[] memory vaults = IVaultManager(MANAGER_CONTRACT).getAllVaults();
+
+        for (uint j=0; j<vaults.length; j++) {
+            IVault(vaults[j]).unlockLiquidity(marketId, winnerIndex);            
+        }
+    }
+
+    function startMarket(string calldata id, uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds) onlyOracle public {
         
         console.log("Starting Market");
         uint256  currId = _nextId+1;
 
         markets[currId] = Market(
+                id,
                 matchTimestamp,
                 _names,
                 _match_details,
@@ -104,31 +100,5 @@ contract Markets{
 
         market_ids.push(currId);
         _nextId++;
-    }
-    
-
-
-    function startMarkets(uint256[] calldata _matchTimestamps, string[][] calldata _names, string[][] calldata _match_details, string[][] calldata _bets, uint256[][] calldata _odds) onlyProvider public {
-        
-        for (uint i = 0; i< _matchTimestamps.length; i++){
-
-            uint256  currId = _nextId+1;
-            
-            markets[currId] = Market(
-                    _matchTimestamps[i],
-                    _names[i],
-                    _match_details[i],
-                    99,
-                    protocolFee,
-                    block.timestamp,
-                    _bets[i],
-                    _odds[i],
-                    true
-                );
-
-            market_ids.push(currId);
-            _nextId++;
-            
-        }
     }
 }
