@@ -26,6 +26,9 @@ module.exports = {
     kovan: {
       url: "https://eth-kovan.alchemyapi.io/v2/HEbnEOx1ZKSDnssxjxDbsPS3LykdVbup",
       accounts: ["9a3609a0d72d681eb901bc822724593ad63d3feb32cc9e92c4b801750964a1ad"]
+    },
+    localhost: {
+      accounts: ["9a3609a0d72d681eb901bc822724593ad63d3feb32cc9e92c4b801750964a1ad"]
     }
   },
   gasReporter: {

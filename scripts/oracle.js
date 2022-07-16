@@ -54,34 +54,35 @@ async function initiate_oracle(){
         
         for (const event of res2.data){
             if ((event['id'] in all_matches) == false){
-                let outcomes = []
+                let outcomes_lst = ['1']
+                let draw_found = false;
+                
+                for (let outcomes in event['bookmakers']){
+                    for (let outcome in event['bookmakers'][outcomes]['markets'][0]['outcomes']){
 
-                for (let outcome in event['bookmakers']){
-                    try{
-                        if (outcome['name'] == event['home_team']){
-                            outcomes.push("1")
+                        let sel = event['bookmakers'][outcomes]['markets'][0]['outcomes'][outcome]
+                        if (sel['name'] == 'Draw'){
+                            draw_found = true
                         }
-
-                        if (outcome['name'] == event['away_team']){
-                            outcomes.push("2")
-                        }
-
-                        if (outcome['name'] == 'Draw'){
-                            outcomes.push("X")
-                        }
-                    }
-                    catch {
-
                     }
                 }
 
-                await markets.startMarket(event['id'], toTimestamp(event['commence_time']), [event['home_team'], event['away_team']], [row['group'], row['title']], outcomes)
+                outcomes_lst.push('2')
+                
+                if (draw_found == true){
+                    outcomes_lst.push('X')
+                }
+
+                console.log(event['id'], toTimestamp(event['commence_time']), [event['home_team'], event['away_team']], [row['group'], row['title']], outcomes_lst)
+
+                await markets.startMarket(event['id'], toTimestamp(event['commence_time']), [event['home_team'], event['away_team']], [row['group'], row['title']], outcomes_lst)
             }
         }
-
-        break
-
     }
+}
+
+if (require.main === module) {
+    initiate_oracle()
 }
 
 module.exports = {initiate_oracle}

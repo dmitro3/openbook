@@ -31,6 +31,7 @@ contract Markets{
     mapping(uint256 => Market) private markets;
 
     modifier onlyOracle {
+        console.log(msg.sender);
         require(msg.sender == 0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd);
         _;
     }
@@ -64,7 +65,7 @@ contract Markets{
         return markets[id].winnerIndex;
     }
 
-    function settleMarket(uint256 marketId, uint8 winnerIndex) onlyOracle public{
+    function settleMarket(uint256 marketId, uint8 winnerIndex) public onlyOracle{
         markets[marketId].active = false;
         markets[marketId].winnerIndex = winnerIndex;
 
@@ -75,7 +76,7 @@ contract Markets{
         }
     }
 
-    function startMarket(string calldata id, uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets) onlyOracle public {
+    function startMarket(string calldata id, uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets) public onlyOracle {
         
         console.log("Starting Market");
         uint256  currId = _nextId+1;
