@@ -135,7 +135,6 @@ async function deploy(){
     ABI_STRING = ABI_STRING + "let MARKETS_ADDY='" + market.address + "'\n"
 
     const VaultManager = await ethers.getContractFactory("VaultManager");
-    console.log(DAI)
     let vault = await VaultManager.deploy(DAI, market.address);
     console.log("VaultManager Contract Deployed at " + vault.address);
 
