@@ -37,7 +37,7 @@ const App = (props) => {
 
       store.dispatch(setVaults(temp_vaults))
       if(temp_vaults.length > 0)
-        store.dispatch(setSelectedVaultAddress(temp_vaults[0].PROVIDER))
+        store.dispatch(setSelectedVaultAddress(temp_vaults[0].ADDRESS))
       getOdds(data);
     }
     asyncUseEffectFunction();
