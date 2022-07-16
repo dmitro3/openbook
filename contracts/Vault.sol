@@ -204,10 +204,7 @@ contract Vault is ERC1155{
     function removeLiquidity(uint256 shares)  public {
 
         uint256 balance = this.balanceOf(msg.sender, LIQUIDITY);
-        console.log(balance);
-        console.log(shares);
-
-        require(shares >= balance, "User's capital must be greater than requested amt");
+        require(balance >= shares, "User's capital must be greater than requested amt");
 
         uint256 amount = getShareValue(shares);
 

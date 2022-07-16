@@ -524,9 +524,10 @@ export const getBetLimit = async (ids) => {
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
 
     try{
-    let limit = await contract.methods.getLiquidityLimit(id_only).call()
-    let exactLimit = parseFloat(web3.utils.fromWei(String(limit), 'ether')).toFixed(2);
-    return exactLimit;}
+        let limit = await contract.methods.getLiquidityLimit(id_only).call()
+        let exactLimit = parseFloat(web3.utils.fromWei(String(limit), 'ether')).toFixed(2);
+        return exactLimit;
+    }
     catch{
         return 0;
     }
