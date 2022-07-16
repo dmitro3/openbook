@@ -25,7 +25,6 @@ contract Markets{
         uint256 protocolFee;
         uint256 creationTimestamp;
         string[] bets;
-        uint256[] odds;
         bool active; // false if resolved
     }
 
@@ -53,10 +52,6 @@ contract Markets{
         vault_set = 1;
     }
 
-    function getDefaultOddsById(uint256 id) public view returns (uint256[] memory) {
-        return markets[id].odds;
-    }
-
     function getAllMarkets() public view returns (uint256 [] memory){
         return market_ids;
     }
@@ -80,7 +75,7 @@ contract Markets{
         }
     }
 
-    function startMarket(string calldata id, uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets, uint256[] calldata _odds) onlyOracle public {
+    function startMarket(string calldata id, uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets) onlyOracle public {
         
         console.log("Starting Market");
         uint256  currId = _nextId+1;
@@ -94,7 +89,6 @@ contract Markets{
                 protocolFee,
                 block.timestamp,
                 _bets,
-                _odds,
                 true
             );
 

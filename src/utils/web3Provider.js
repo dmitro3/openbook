@@ -114,7 +114,7 @@ async function process_bets(bets){
             res['odds'] = parseFloat(res['return']/res['stake']).toFixed(2);
             res['result'] = bet[6]
 
-            if (match_details[9] == true)
+            if (match_details[8] == true)
             {
                 res['result'] = "😰"
             }
@@ -213,7 +213,7 @@ export const getMatches = async () => {
 
     for (const match of matches) {
         let match_detail = await contract.methods.marketDetailsById(match).call()
-        if (match_detail[9] == true)
+        if (match_detail[8] == true)
             all_matches.push(match_detail)
     }
 

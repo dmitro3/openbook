@@ -2,15 +2,6 @@ const axios = require('axios')
 const { ethers } = require("hardhat");
 const {DAI_ABI, DAI_ADDY, HTTP_PROVIDER, WSS_PROVIDER, VAULT_ABI, BET_ABI, BET_ADDY, MARKETS_ABI, MARKETS_ADDY, VAULTMANAGER_ABI, VAULTMANAGER_ADDY} = require("../src/config")
 
-sports = [
-            {'key': 'americanfootball_ncaaf', 'group': 'American Football', 'title': 'NCAAF'},
-            {'key': 'americanfootball_nfl', 'group': 'American Football', 'title': 'NFL'},
-            {'key': 'soccer_usa_mls', 'group': 'Soccer', 'title': 'MLS'},
-            {'key': 'soccer_epl', 'group': 'Soccer', 'title': 'EPL'},
-            {'key': 'soccer_spain_la_liga', 'group': 'Soccer', 'title': 'La Liga - Spain'},
-            {'key': 'soccer_italy_serie_a', 'group': 'Soccer', 'title': 'Serie A - Italy'},
-            {'key': 'soccer_fifa_world_cup', 'group': 'Soccer', 'title': 'FIFA World Cup'},
-        ]
 
 
 function toTimestamp(strDate){
@@ -19,7 +10,17 @@ function toTimestamp(strDate){
 }
         
 
-async function oracle(){
+async function initiate_oracle(){
+
+    sports = [
+        {'key': 'americanfootball_ncaaf', 'group': 'American Football', 'title': 'NCAAF'},
+        {'key': 'americanfootball_nfl', 'group': 'American Football', 'title': 'NFL'},
+        {'key': 'soccer_usa_mls', 'group': 'Soccer', 'title': 'MLS'},
+        {'key': 'soccer_epl', 'group': 'Soccer', 'title': 'EPL'},
+        {'key': 'soccer_spain_la_liga', 'group': 'Soccer', 'title': 'La Liga - Spain'},
+        {'key': 'soccer_italy_serie_a', 'group': 'Soccer', 'title': 'Serie A - Italy'},
+        {'key': 'soccer_fifa_world_cup', 'group': 'Soccer', 'title': 'FIFA World Cup'},
+    ]
 
     const MyContract = await ethers.getContractFactory("Markets");
     const markets = await MyContract.attach(MARKETS_ADDY);
@@ -30,7 +31,7 @@ async function oracle(){
     for (const match of matches) {
         let match_detail = await markets.marketDetailsById(match).call()
 
-        if (match_detail[9] == true)
+        if (match_detail[8] == true)
             all_matches['id'] = match_detail
     }
 
@@ -48,16 +49,39 @@ async function oracle(){
         }
 
         
+        let res2 = await axios.get(`https://api.the-odds-api.com/v4/sports/${row['key']}/odds?regions=uk&markets=h2h&apiKey=${process.env.ODDS_API}&daysFrom=1`);
 
         
+        for (const event of res2.data){
+            if ((event['id'] in all_matches) == false){
+                let outcomes = []
 
-        if ((details['id'] in all_matches) == false){
-            console.log(details)
-            await market.startMarket(toTimestamp(match['commence_time']), match['match'], [sport, league], outcome, new_odds)
+                for (let outcome in event['bookmakers']){
+                    try{
+                        if (outcome['name'] == event['home_team']){
+                            outcomes.push("1")
+                        }
+
+                        if (outcome['name'] == event['away_team']){
+                            outcomes.push("2")
+                        }
+
+                        if (outcome['name'] == 'Draw'){
+                            outcomes.push("X")
+                        }
+                    }
+                    catch {
+
+                    }
+                }
+
+                await markets.startMarket(event['id'], toTimestamp(event['commence_time']), [event['home_team'], event['away_team']], [row['group'], row['title']], outcomes)
+            }
         }
+
+        break
+
     }
-    console.log()
 }
 
-//run every 5 mins or so
-oracle()
+module.exports = {initiate_oracle}
