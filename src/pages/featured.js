@@ -74,15 +74,6 @@ const Featured = (props) =>
             display: 'flex',
             justifyContent: "center"
             }}
-            onMouseEnter={() => {
-                if(swiperRef.current.swiper)
-                swiperRef.current.swiper.autoplay.stop()
-                }}
-            onMouseLeave={() => {
-                if(swiperRef.current.swiper)
-                swiperRef.current.swiper.autoplay.start()
-            }}
-            
         >
         <CustomSwiper swiperRef={swiperRef} slideCount={slideCount}/>
         <BetslipSideDrawerEmptyModal setSlipOpen={props.setBetSlipOpen} isSlipOpened={props.settings.isBetSlipOpen}  />    
