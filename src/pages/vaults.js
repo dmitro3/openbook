@@ -11,7 +11,6 @@ import { styled, experimental_sx as sx } from '@mui/system';
 import { AddVaultPopup } from "@components/Vaults/AddVaultPopup";
 import { VaultCard } from "@components/Vaults/VaultCard";
 import { VaultDetailsPopup } from "@components/Vaults/VaultDetailsPopup";
-import {getAllVaults} from "@utils/web3Provider";
 
 //redux
 import {connect} from "react-redux";
@@ -73,9 +72,6 @@ const BookieHomepage = (props) => {
         <h1>Empty Vault</h1>
         : 
         <Box>
-          <Box sx={{display:'flex',width:'100%',justifyContent:'flex-end',pb:'50px'}}>
-            <VaultSelectDropDown/>
-          </Box>
           <VaultsBox>
             <Grid container spacing={2}>
               {
@@ -108,9 +104,6 @@ const BookieHomepage = (props) => {
             })
           }    
         </Box>
-
-
-  
         }
           <Box sx={{
             position: 'absolute',
