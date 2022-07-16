@@ -34,7 +34,7 @@ const BetslipSideDrawer = (props) => {
     /* ---------- Bet limit section ------------- */
     const [errorInBetslip, setErrorInBetslip] = useState(false);
     const ref = useRef({
-        betLimit: 0
+        betLimit: 5000
     });
     useEffect(() => {
         async function getBetLimitFromWeb3() {

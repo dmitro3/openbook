@@ -25,3 +25,10 @@ export function setBetAmount(betAmount){
         payload: betAmount
     }
 }
+
+export function setBetLimit(betLimit){
+    return{
+        type: "SET_BET_LIMIT",
+        payload: betLimit
+    }
+}

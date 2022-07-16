@@ -1,6 +1,7 @@
 const betSlipReducer = (state = {
     betSlipOutcomeArray: [],
-    betAmount: 30.00
+    betAmount: 30.00,
+    betLimit: 0.0
   }, action) => {
       switch (action.type) {
             case "ADD_BET_SLIP_OUTCOME":
@@ -47,6 +48,11 @@ const betSlipReducer = (state = {
                     betAmount: action.payload
                 }
                 break;
+            case "SET_BET_LIMIT":
+                state ={
+                    ...state,
+                    betLimit: action.payload
+                }
       }
       return state;
   };
