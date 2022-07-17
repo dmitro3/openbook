@@ -110,9 +110,7 @@ async function update_odds(){
 
     for (let match in platform_matches){
         await vault_contract.methods.updateOdds(match, [2000, 2000]).send({'from': account.address})
-
         console.log(await vault_contract.methods.getOddsById(match).call())
-
     }
 
 
@@ -131,29 +129,8 @@ async function update_odds(){
  
 }
 
-update_odds()
+if (require.main === module) {
+    update_odds()
+}
 
-//add odds for games deemed
-
-
-
-// let data = require('../odds.json');
-
-// for (sport in data){
-//     for (league in data[sport]){
-//         for (var match of data[sport][league]){
-//             let new_outcome = new Map()
-//             let curr_odds = Object.values(match['outcomes'])
-//             let outcome = Object.keys(match['outcomes'])
-
-//             let new_odds = []
-
-//             for (var odd of curr_odds)
-//                 new_odds.push(parseInt(odd * 1000))
-
-//                 await market.startMarket(match['id'], toTimestamp(match['timestamp']), match['match'], [sport, league], outcome, new_odds)
-
-            
-//             }
-//     }
-// }
+module.exports = {update_odds}

@@ -5,6 +5,7 @@ const fs = require("fs");
 const { ethers } = require("hardhat");
 const hre = require("hardhat");
 const {initiate_oracle} = require("./oracle")
+const {update_odds} = require("./provider")
 
 const Web3 = require('web3');
 const { ConstructionOutlined } = require('@mui/icons-material');
@@ -148,7 +149,9 @@ async function deploy(){
     ABI_STRING = ABI_STRING + export_string
     fs.writeFileSync('src/config.js', ABI_STRING);   
 
-    // await initiate_oracle()
+    await initiate_oracle()
+    await update_odds()
+
 }
 
 deploy()
