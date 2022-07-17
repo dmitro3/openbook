@@ -199,20 +199,13 @@ export const claimBets = async () => {
 }
 
 export const getMatches = async (vault) => {
-    let web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
-
-    let vaults = await getAllVaults()
-    console.log(vaults)
+    let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
+    let matches = await contract.methods.getAllMarkets().call()
 
     
     let vault_contract = new web3.eth.Contract(VAULT_ABI, vault.ADDRESS);
-
-    let account = await web3.eth.getAccounts()
-    let userAddress = account[0];
-    
-    let matches = await contract.methods.getAllMarkets().call()
-    let all_matches = []
+    console.log("All Matches", matches)
     let odds = {}
     let i = 0;
 
