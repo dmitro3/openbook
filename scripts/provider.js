@@ -20,7 +20,37 @@ async function update_odds(){
     //Set odds in an easy to access dictionary
     for (const row of sports){
         let res2 = await axios.get(`https://api.the-odds-api.com/v4/sports/${row['key']}/odds?regions=uk&markets=h2h&apiKey=${process.env.ODDS_API}&daysFrom=1`);
-        
+
+
+        for (const event of res2.data){
+
+            let odds = {};
+
+            for (let outcomes in event['bookmakers']){
+                for (let outcome in event['bookmakers'][outcomes]['markets'][0]['outcomes']){
+
+                    let sel = event['bookmakers'][outcomes]['markets'][0]['outcomes'][outcome]
+
+                    if (sel['name'] == event['home_team'])
+                        odds["1"] = sel['price']
+
+                    if (sel['name'] == event['away_team'])
+                        odds["2"] = sel['price']
+
+                    if (sel['name'] == "Draw")
+                        odds["X"] = sel['price']
+
+                }
+            }
+            console.log(odds)
+
+            if (process.env.HARDHAT_NETWORK == 'localhost'){
+                break;
+            }
+        }
+
+
+
     }
 
     // const MyContract = await ethers.getContractFactory("Markets");
