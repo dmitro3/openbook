@@ -110,7 +110,7 @@ async function update_odds(){
 
     for (let match in platform_matches){
         await vault_contract.methods.updateOdds(match, [2000, 2000]).send({'from': account.address})
-        console.log(await vault_contract.methods.getOddsById(match).call())
+        // console.log(await vault_contract.methods.getOddsById(match).call())
     }
 
 
