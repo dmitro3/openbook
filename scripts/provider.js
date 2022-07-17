@@ -110,23 +110,9 @@ async function update_odds(){
 
     for (let match in platform_matches){
         await vault_contract.methods.updateOdds(match, [2000, 2000]).send({'from': account.address})
-        // console.log(await vault_contract.methods.getOddsById(match).call())
+        console.log(platform_matches[match])
     }
 
-
-    
-
-
-    //set to random value for now
-
-    // //manually set to your vault
-
-
-
-
-    // compare api odds with vault. Change odds if different.
-    
- 
 }
 
 if (require.main === module) {

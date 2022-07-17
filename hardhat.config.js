@@ -27,9 +27,6 @@ module.exports = {
       url: "https://eth-kovan.alchemyapi.io/v2/HEbnEOx1ZKSDnssxjxDbsPS3LykdVbup",
       accounts: [process.env.ETH_KEY]
     },
-    localhost: {
-      // accounts: [process.env.ETH_KEY]
-    }
   },
   gasReporter: {
     currency: 'USD',

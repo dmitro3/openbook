@@ -202,10 +202,10 @@ export const getMatches = async (vault) => {
     let web3 = store.getState().user.web3;
     let contract = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
     let matches = await contract.methods.getAllMarkets().call()
+    console.log("All Matches", matches)
 
     
     let vault_contract = new web3.eth.Contract(VAULT_ABI, vault.ADDRESS);
-    console.log("All Matches", matches)
     let odds = {}
     let i = 0;
 
