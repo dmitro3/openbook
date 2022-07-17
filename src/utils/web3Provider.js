@@ -220,7 +220,7 @@ export const getMatches = async (vault) => {
             }
 
             try{
-                let curr_odds = vault_contract.methods.getOddsById(match).call()
+                let curr_odds = await vault_contract.methods.getOddsById(match).call()
 
                 if (!(match_details['match_details'][0] in odds))
                     odds[match_details['match_details'][0]] = {}
