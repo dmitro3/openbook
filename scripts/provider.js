@@ -92,25 +92,37 @@ async function get_platform_matches(web3){
             }
         }
     }
-    return match_details, sports
+    return [match_details, sports]
 }
 
 async function update_odds(){
     const web3 = new Web3(HTTP_PROVIDER);
     const account = web3.eth.accounts.privateKeyToAccount("0x" + process.env.ETH_KEY);
 
-    let platform_matches, platform_sports = await get_platform_matches(web3)
-    console.log(platform_sports)
-    let api_odds = await get_api_odds(platform_sports)
+    let [platform_matches, platform_sports] = await get_platform_matches(web3)
+    // let api_odds = await get_api_odds(platform_sports)
+
+    let mgr_contract = new web3.eth.Contract(VAULTMANAGER_ABI, VAULTMANAGER_ADDY);
+    let vaults = await mgr_contract.methods.getAllVaults().call()
+    let vault = vaults[0]
+    let vault_contract = new web3.eth.Contract(VAULT_ABI, vault);
+
+
+    for (let match in platform_matches){
+        await vault_contract.methods.updateOdds(match, [2000, 2000]).send({'from': account.address})
+
+        console.log(await vault_contract.methods.getOddsById(match).call())
+
+    }
+
+
     
 
-    console.log(api_odds)
+
+    //set to random value for now
 
     // //manually set to your vault
-    // let mgr_contract = new web3.eth.Contract(VAULTMANAGER_ABI, VAULTMANAGER_ADDY);
-    // let vaults = await mgr_contract.methods.getAllVaults().call()
-    // let vault = vaults[0]
-    // let vault_contract = new web3.eth.Contract(VAULT_ABI, vault);
+
 
 
 
