@@ -263,7 +263,8 @@ export const getMatches = async (vault) => {
 }
 
 export const getAllVaults = async () => {
-    let web3 = store.getState().user.web3;
+
+    let web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
     let contract = new web3.eth.Contract(VAULTMANAGER_ABI, VAULTMANAGER_ADDY);
     let vaults = await contract.methods.getAllVaults().call()
 

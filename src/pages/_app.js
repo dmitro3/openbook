@@ -33,12 +33,14 @@ const App = (props) => {
 
   useEffect(() => {
     async function asyncUseEffectFunction() {
-      let data = await getMatches(props.vault);
-      let temp_vaults = await getAllVaults();
 
-      store.dispatch(setVaults(temp_vaults))
-      if(temp_vaults.length > 0)
-        store.dispatch(setSelectedVaultAddress(temp_vaults[0].ADDRESS))
+      let vaults = await getAllVaults();
+      store.dispatch(setVaults(vaults))
+      if(vaults.length > 0)
+        store.dispatch(setSelectedVaultAddress(vaults[0].ADDRESS))
+
+      let data = await getMatches(vaults[0]);
+      
       getOdds(data);
     }
 
