@@ -222,31 +222,34 @@ export const getMatches = async (vault) => {
                 match: match_details['names']
             }
 
+            try{
+                let curr_odds = vault_contract.methods.getOddsById(match).call()
 
-            let curr_odds = vault_contract.methods.getOddsById(match).call()
+                if (!(match_details['match_details'][0] in odds))
+                    odds[match_details['match_details'][0]] = {}
+            
+                if (!(match_details['match_details'][1] in odds[match_details['match_details'][0]]))
+                    odds[match_details['match_details'][0]][match_details['match_details'][1]] = []
+            
 
-            if (!(match_details['match_details'][0] in odds))
-                odds[match_details['match_details'][0]] = {}
+                let outcome = {}
+            
+                for (var j =0; j< match_details['match_details'].length; j++)
+                {
         
-            if (!(match_details['match_details'][1] in odds[match_details['match_details'][0]]))
-                odds[match_details['match_details'][0]][match_details['match_details'][1]] = []
-        
-
-            let outcome = {}
-        
-            for (var j =0; j< match_details['match_details'].length; j++)
-            {
-    
-                if (match_details['bets'][j] != null)
-                    outcome[match_details['bets'][j]] = parseInt(curr_odds[j])/1000
-            }
-        
-            game =  {
-                        ...game,
-                        outcomes: outcome
-                    } 
+                    if (match_details['bets'][j] != null)
+                        outcome[match_details['bets'][j]] = parseInt(curr_odds[j])/1000
+                }
+            
+                game =  {
+                            ...game,
+                            outcomes: outcome
+                        } 
+                    
+                odds[match_details['match_details'][0]][match_details['match_details'][1]].push(game)
+            } catch {
                 
-            odds[match_details['match_details'][0]][match_details['match_details'][1]].push(game)
+            }
             i = i + 1
         }
     }

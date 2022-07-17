@@ -6,22 +6,37 @@ const {MARKETS_ADDY} = require("../src/config")
 // get all markets and set odds
 
 async function update_odds(){
-    const MyContract = await ethers.getContractFactory("Markets");
-    const markets = await MyContract.attach(MARKETS_ADDY);
 
-    let matches = await markets.getAllMarkets()
-    let all_matches = {}
+    sports = [
+        {'key': 'americanfootball_ncaaf', 'group': 'American Football', 'title': 'NCAAF'},
+        {'key': 'americanfootball_nfl', 'group': 'American Football', 'title': 'NFL'},
+        {'key': 'soccer_usa_mls', 'group': 'Soccer', 'title': 'MLS'},
+        {'key': 'soccer_epl', 'group': 'Soccer', 'title': 'EPL'},
+        {'key': 'soccer_spain_la_liga', 'group': 'Soccer', 'title': 'La Liga - Spain'},
+        {'key': 'soccer_italy_serie_a', 'group': 'Soccer', 'title': 'Serie A - Italy'},
+        {'key': 'soccer_fifa_world_cup', 'group': 'Soccer', 'title': 'FIFA World Cup'},
+    ]
 
-    for (const match of matches) {
-        let match_detail = await markets.marketDetailsById(match)
-
-        console.log(match_detail['id'], match_detail['matchTimestamp'])
-
-        if (match_detail[8] == true)
-            all_matches[match_detail['id']] = match_detail
+    //Set odds in an easy to access dictionary
+    for (const row of sports){
+        let res2 = await axios.get(`https://api.the-odds-api.com/v4/sports/${row['key']}/odds?regions=uk&markets=h2h&apiKey=${process.env.ODDS_API}&daysFrom=1`);
+        
     }
 
-    console.log(all_matches)
+    // const MyContract = await ethers.getContractFactory("Markets");
+    // const markets = await MyContract.attach(MARKETS_ADDY);
+
+    // let matches = await markets.getAllMarkets()
+
+    // for (const match of matches) {
+    //     let match_detail = await markets.marketDetailsById(match)
+
+    //     console.log(match_detail['id'], match_detail['matchTimestamp'])
+
+    //     if (match_detail['active'] == true){
+
+    //     }
+    // }
 }
 
 update_odds()

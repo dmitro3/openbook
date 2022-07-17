@@ -22,7 +22,19 @@ async function initiate_oracle(){
         {'key': 'soccer_fifa_world_cup', 'group': 'Soccer', 'title': 'FIFA World Cup'},
     ]
 
-    const MyContract = await ethers.getContractFactory("Markets");
+    let MyContract = await ethers.getContractFactory("Markets")
+
+    if (process.env.HARDHAT_NETWORK == 'localhost'){
+        let PROVIDER = "0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd"
+        await hre.network.provider.request({
+            method: "hardhat_impersonateAccount",
+            params: [PROVIDER],
+          });
+
+          const signer = await ethers.provider.getSigner(PROVIDER);
+          MyContract = await ethers.getContractFactory("Markets", signer);
+    }
+
     const markets = await MyContract.attach(MARKETS_ADDY);
     
     let matches = await markets.getAllMarkets()
@@ -31,7 +43,7 @@ async function initiate_oracle(){
     for (const match of matches) {
         let match_detail = await markets.marketDetailsById(match)
 
-        if (match_detail[8] == true)
+        if (match_detail['active'] == true)
             all_matches[match_detail['id']] = match_detail
     }
 
@@ -49,7 +61,8 @@ async function initiate_oracle(){
         
         let res2 = await axios.get(`https://api.the-odds-api.com/v4/sports/${row['key']}/odds?regions=uk&markets=h2h&apiKey=${process.env.ODDS_API}&daysFrom=1`);
 
-        
+        let count = 0
+
         for (const event of res2.data){
             if ((event['id'] in all_matches) == false){
                 let outcomes_lst = ['1']
@@ -72,6 +85,13 @@ async function initiate_oracle(){
                 }
 
                 console.log(event['id'], toTimestamp(event['commence_time']), [event['home_team'], event['away_team']], [row['group'], row['title']], outcomes_lst)
+                
+                count = count + 1
+                
+                if (process.env.HARDHAT_NETWORK == 'localhost'){
+                    if (count > 5)
+                        break
+                }
 
                 await markets.startMarket(event['id'], toTimestamp(event['commence_time']), [event['home_team'], event['away_team']], [row['group'], row['title']], outcomes_lst)
             }

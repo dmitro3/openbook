@@ -28,7 +28,7 @@ module.exports = {
       accounts: [process.env.ETH_KEY]
     },
     localhost: {
-      accounts: [process.env.ETH_KEY]
+      // accounts: [process.env.ETH_KEY]
     }
   },
   gasReporter: {
