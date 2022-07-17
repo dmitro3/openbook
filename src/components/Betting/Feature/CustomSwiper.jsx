@@ -29,12 +29,9 @@ export const CustomSwiper = (props) => {
         onClick={(s,e)=>{s.clickedSlide.click()}}
         slidesPerView={Number(props.slideCount+0.2)}
         // centeredSlides={true}
-        autoplay={{
-          delay: 1,
-        }}
         loop={true}
         speed={
-          10000
+          3000
         }
         preloadImages={true}
         lazy={false}
