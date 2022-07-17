@@ -148,10 +148,9 @@ async function deploy(){
 
     ABI_STRING = ABI_STRING + export_string
     fs.writeFileSync('src/config.js', ABI_STRING);   
-
-    await initiate_oracle()
-    await update_odds()
-
 }
 
-deploy()
+
+if (require.main === module) {
+    deploy()
+}
