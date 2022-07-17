@@ -33,7 +33,7 @@ const App = (props) => {
 
   useEffect(() => {
     async function asyncUseEffectFunction() {
-      let data = await getMatches();
+      let data = await getMatches(props.vault);
       let temp_vaults = await getAllVaults();
 
       store.dispatch(setVaults(temp_vaults))
