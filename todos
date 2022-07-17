@@ -1,4 +1,5 @@
 Fix the limits
 Separate web3 providers
 move vaults selection to nav bar
-Only show games whose odds have been added by current bookie
+Fix odds update and odds.
+Only show games whose odds have been added by current bookie.

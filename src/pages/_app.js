@@ -55,7 +55,7 @@ const App = (props) => {
     contract.events.allEvents()
       .on('data', async (event) => {
         if (event['event'] == 'updateOdds_Event'){
-          let data = await getMatches();
+          let data = await getMatches(props.vault);
           getOdds(data);
           let newOdds = event['returnValues'][1].map((item)=>{
             return Number(item)/1000

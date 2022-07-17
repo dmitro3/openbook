@@ -100,9 +100,9 @@ async function process_bets(bets){
 
             let res = {}
             res['bet_time'] = bet_detail[0]
-            res['game_time'] = match_details[0]
-            res['league'] = match_details[2][1]
-            res['game'] = match_details[1].join(' vs ')
+            res['game_time'] = match_details['matchTimestamp']
+            res['league'] = match_details['match_details'][1]
+            res['game'] = match_details['names'].join(' vs ')
             
             if (bet_detail[3] == '2')
                 res['bet'] = "Draw"
@@ -114,12 +114,12 @@ async function process_bets(bets){
             res['odds'] = parseFloat(res['return']/res['stake']).toFixed(2);
             res['result'] = bet[6]
 
-            if (match_details[9] == true)
+            if (match_details['active'] == true)
             {
                 res['result'] = "😰"
             }
             else{
-                if (match_details[3] == bet_detail[3])
+                if (match_details['winnerIndex'] == bet_detail[3])
                 {
                     res['result'] = "😊"
                 }
@@ -198,59 +198,57 @@ export const claimBets = async () => {
     }
 }
 
-export const getMatches = async () => {
-
-    // let web3  = store.getState().user.web3;
-    // if (web3 == null)
+export const getMatches = async (vault) => {
     let web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
 
     let contract = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
+    let vault_contract = new web3.eth.Contract(VAULT_ABI, vault.ADDRESS);
+
     let account = await web3.eth.getAccounts()
     let userAddress = account[0];
     
     let matches = await contract.methods.getAllMarkets().call()
     let all_matches = []
-
-    for (const match of matches) {
-        let match_detail = await contract.methods.marketDetailsById(match).call()
-        if (match_detail[8] == true)
-            all_matches.push(match_detail)
-    }
-
     let odds = {}
     let i = 0;
-    for (const match of all_matches)
-    {
-      if (!(match[2][0] in odds))
-        odds[match[2][0]] = {}
 
-      if (!(match[2][1] in odds[match[2][0]]))
-        odds[match[2][0]][match[2][1]] = []
+    for (const match of matches) {
+        let match_details = await contract.methods.marketDetailsById(match).call()
 
-        let game = {
-          timestamp : new Date(match[0]* 1000),
-          id: matches[i],
-          match: match[1]
+        if (match_details['active'] == true){
+            let game = {
+                timestamp : new Date(match_details['matchTimestamp']* 1000),
+                id: match,
+                match: match_details['names']
+            }
+
+
+            let curr_odds = vault_contract.methods.getOddsById(match).call()
+
+            if (!(match_details['match_details'][0] in odds))
+                odds[match_details['match_details'][0]] = {}
+        
+            if (!(match_details['match_details'][1] in odds[match_details['match_details'][0]]))
+                odds[match_details['match_details'][0]][match_details['match_details'][1]] = []
+        
+
+            let outcome = {}
+        
+            for (var j =0; j< match_details['match_details'].length; j++)
+            {
+    
+                if (match_details['bets'][j] != null)
+                    outcome[match_details['bets'][j]] = parseInt(curr_odds[j])/1000
+            }
+        
+            game =  {
+                        ...game,
+                        outcomes: outcome
+                    } 
+                
+            odds[match_details['match_details'][0]][match_details['match_details'][1]].push(game)
+            i = i + 1
         }
-
-        //6 and 7
-        let outcome = {}
-
-        for (var j =0; j< match.length; j++)
-        {
-
-          if (match[6][j] != null)
-            outcome[match[6][j]] = parseInt(match[7][j])/1000
-        }
-
-        game =
-        {
-          ...game,
-          outcomes: outcome
-        } 
-
-        odds[match[2][0]][match[2][1]].push(game)
-        i = i + 1
     }
 
 

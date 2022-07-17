@@ -1,6 +1,6 @@
 const axios = require('axios')
 const { ethers } = require("hardhat");
-const {DAI_ABI, DAI_ADDY, HTTP_PROVIDER, WSS_PROVIDER, VAULT_ABI, BET_ABI, BET_ADDY, MARKETS_ABI, MARKETS_ADDY, VAULTMANAGER_ABI, VAULTMANAGER_ADDY} = require("../src/config")
+const {MARKETS_ADDY} = require("../src/config")
 
 
 
@@ -32,7 +32,7 @@ async function initiate_oracle(){
         let match_detail = await markets.marketDetailsById(match)
 
         if (match_detail[8] == true)
-            all_matches['id'] = match_detail
+            all_matches[match_detail['id']] = match_detail
     }
 
     for (const row of sports){
