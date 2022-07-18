@@ -192,7 +192,7 @@ export const claimBets = async () => {
         idx = idx + 1
     }
     
-    let res = await contract.methods.withdrawBets(claims, indexes).send({from: userAddress})
+    let res = await contract.methods.withdrawBets(claims, indexes, vaults).send({from: userAddress})
     
     if (res == true)
     {
