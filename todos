@@ -1,7 +1,9 @@
-Fix the limits
 Separate web3 providers
-move vaults selection to nav bar
-Fix odds update and odds.
-Only show games whose odds have been added by current bookie.
-
 Move login logic ealier
+
+
+Fix odds
+Only show games whose odds have been added by current bookie; 
+Fix the limits
+Make bets work again
+Make settlement work
