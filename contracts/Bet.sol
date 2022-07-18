@@ -98,13 +98,11 @@ contract Bet is ERC1155{
         return bet_history;
     }
 
-    function betDetailsByID(uint256 id) public returns (uint256, address, uint256, uint8, uint128, uint256, uint8){
-        return (_bets[id].timestamp, _bets[id].punter, _bets[id].gameId, _bets[id].betIndex, _bets[id].bet_amount, _bets[id].to_win, _bets[id].status);
+    function betDetailsByID(uint256 id) public returns (singleBet memory){
+        return _bets[id];
     }
 
-    function withdrawBets(uint256[] calldata tokenIds, uint256[] calldata indexes, address _vault) public returns (bool) {
-        uint totalWithdraw = 0;
-
+    function withdrawBets(uint256[] calldata tokenIds, uint256[] calldata indexes, address[] calldata vaults) public returns (bool) {
         for (uint i=0; i<tokenIds.length; i++)
         {
             singleBet storage curr_bet = _bets[tokenIds[i]];
@@ -117,21 +115,18 @@ contract Bet is ERC1155{
 
                 if (curr_bet.betIndex == winnerIndex)
                 {
-                    totalWithdraw = totalWithdraw + curr_bet.to_win;
+                    if ((curr_bet.to_win) > 0)
+                    {
+                        bool succ = IVault(vaults[i]).sendWithdrawl(msg.sender, curr_bet.to_win);
+                    }
+
+                    bet_history.push(tokenIds[i]);
+                    delete all_bets[indexes[i]];
+                    _burn(msg.sender, tokenIds[i], 1);
                 }
 
-                bet_history.push(tokenIds[i]);
-                delete all_bets[indexes[i]];
-                _burn(msg.sender, tokenIds[i], 1);
+
             }            
-        }
-
-
-        if (totalWithdraw > 0)
-        {
-            bool succ = IVault(_vault).sendWithdrawl(msg.sender, totalWithdraw);
-            require(succ, "Cannot transfer DAI");
-            return succ;
         }
         
         return true;

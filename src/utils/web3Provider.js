@@ -92,27 +92,27 @@ async function process_bets(bets){
     for (const bet of bets) {
         let bet_detail = await contract.methods.betDetailsByID(bet).call()
         
-        if (bet_detail[1] == userAddress)
+        if (bet_detail['punter'] == userAddress)
         {
-            let match_details = await match_contract.methods.marketDetailsById(bet_detail[2]).call()
+            let match_details = await match_contract.methods.marketDetailsById(bet_detail['gameId']).call()
             
             
 
             let res = {}
-            res['bet_time'] = bet_detail[0]
+            res['bet_time'] = bet_detail['timestamp']
             res['game_time'] = match_details['matchTimestamp']
             res['league'] = match_details['match_details'][1]
             res['game'] = match_details['names'].join(' vs ')
             
-            if (bet_detail[3] == '2')
+            if (bet_detail['betIndex'] == '2')
                 res['bet'] = "Draw"
             else
-                res['bet'] = match_details[1][bet_detail[3]]
+                res['bet'] = match_details[1][bet_detail['betIndex']]
 
-            res['stake'] = web3.utils.fromWei(String(bet_detail[4]), 'ether')
-            res['return'] = web3.utils.fromWei(String(bet_detail[5]), 'ether')
+            res['stake'] = web3.utils.fromWei(String(bet_detail['bet_amount']), 'ether')
+            res['return'] = web3.utils.fromWei(String(bet_detail['to_win']), 'ether')
             res['odds'] = parseFloat(res['return']/res['stake']).toFixed(2);
-            res['result'] = bet[6]
+            res['result'] = bet['vault']
 
             if (match_details['active'] == true)
             {
@@ -143,9 +143,9 @@ export const getMyBets = async() => {
     let contract = new web3.eth.Contract(BET_ABI, BET_ADDY);
 
     try{
-    let bets = await contract.methods.getAllBets().call()
-    let new_bets = await process_bets(bets)
-    store.dispatch(setUnsettledBets(new_bets))
+        let bets = await contract.methods.getAllBets().call()
+        let new_bets = await process_bets(bets)
+        store.dispatch(setUnsettledBets(new_bets))
     }
     catch {
         
@@ -175,18 +175,20 @@ export const claimBets = async () => {
     let bets = await contract.methods.getAllBets().call()
     let claims = []
     let indexes = []
+    let vaults = []
     let idx = 0
     for (const bet of bets) 
     {
 
         let bet_detail = await contract.methods.betDetailsByID(bet).call()
 
-        if (bet_detail[1] == userAddress)
+        if (bet_detail['punter'] == userAddress)
         {
             claims.push(bet)
-        }
+            indexes.push(idx)
+            vaults.push(bet_detail['vault'])
 
-        indexes.push(idx)
+        }
         idx = idx + 1
     }
     
