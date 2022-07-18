@@ -169,8 +169,6 @@ contract Vault is ERC1155{
             shares = _amount;
         }
 
-        console.log(_amount, totalSupply, getDAIBalance());
-
         (bool success, bytes memory data) = DAI.call(abi.encodeWithSelector(0x23b872dd, msg.sender, this, _amount));
 
         if (success)
@@ -181,11 +179,8 @@ contract Vault is ERC1155{
     }
 
     function lockLiquidity(uint256 i, uint256[] calldata odds, uint256[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts) public onlyBet {
-        console.log("Step1");
         lockedLiquidity = lockedLiquidity + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000;
-        console.log("Step2");
         gameWiseLiquidity[gameIds[i]][99] = gameWiseLiquidity[gameIds[i]][99] + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000; //This tracks the total
-        console.log("Step3");
         gameWiseLiquidity[gameIds[i]][betIndexes[i]] = gameWiseLiquidity[gameIds[i]][betIndexes[i]] + ((bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000);
     }
 

@@ -77,12 +77,6 @@ contract Bet is ERC1155{
                 status: 0
             });
 
-            console.log(i);
-            // console.log(odds);
-            // console.log(gameIds);
-            // console.log(betIndexes);
-            // console.log(bet_amounts);
-
             IVault(_vault).lockLiquidity(i, odds, gameIds, betIndexes, bet_amounts);
 
             _mint(msg.sender, currId, 1, "");

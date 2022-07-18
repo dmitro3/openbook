@@ -75,7 +75,6 @@ contract Markets{
 
     function startMarket(string calldata id, uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets) public onlyOracle {
         
-        console.log("Starting Market");
         uint256  currId = _nextId+1;
 
         markets[currId] = Market(
