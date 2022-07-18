@@ -123,24 +123,24 @@ async function deploy(){
 
     ABI_STRING = ABI_STRING + "let MARKETS_ADDY='" + market.address + "'\n"
 
-    const VaultManager = await ethers.getContractFactory("VaultManager");
-
-    console.log(DAI)
-    let vault = await VaultManager.deploy(DAI, market.address);
-    console.log("VaultManager Contract Deployed at " + vault.address);
-
-    await vault.createVault("OpenBook Official Vault", "0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd", 3, 3, true, 0);
-    console.log("Default Vault Deployed");
-
-    ABI_STRING = ABI_STRING + "let VAULTMANAGER_ADDY='" + vault.address + "'\n"
-
-
     const BetContract = await ethers.getContractFactory("Bet");
     let bet = await BetContract.deploy(DAI, market.address);
     await bet.deployed();  
     console.log("Bet Contract Deployed at " + bet.address);
 
     ABI_STRING = ABI_STRING + "let BET_ADDY='" + bet.address + "'\n\n"
+
+
+    const VaultManager = await ethers.getContractFactory("VaultManager");
+
+    console.log(DAI)
+    let vault = await VaultManager.deploy(DAI, market.address, bet.address);
+    console.log("VaultManager Contract Deployed at " + vault.address);
+
+    await vault.createVault("OpenBook Official Vault", "0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd", 3, 3, true, 0);
+    console.log("Default Vault Deployed");
+
+    ABI_STRING = ABI_STRING + "let VAULTMANAGER_ADDY='" + vault.address + "'\n"
 
 
     await market.setBetContract(bet.address);

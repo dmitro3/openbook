@@ -27,7 +27,6 @@ contract Vault is ERC1155{
 
     //This is the ID for the the NFT
     uint32 public constant LIQUIDITY = 0;
-    uint32 public val_set = 0;
     uint256 public totalSupply = 0;
     uint256 public lockedLiquidity = 0;
     uint256 public lp_cut = 10;
@@ -55,20 +54,15 @@ contract Vault is ERC1155{
     }
 
 
-   constructor(string memory _VAULT_NAME, address _DAI, address _MARKET_CONTRACT, address _PROVIDER, uint256 _IMBALANCE_FROM, uint256 _IMBALANCE_RATIO, bool _external_lp_enabled) public ERC1155(""){
+   constructor(string memory _VAULT_NAME, address _DAI, address _MARKET_CONTRACT, address _BET_CONTRACT, address _PROVIDER, uint256 _IMBALANCE_FROM, uint256 _IMBALANCE_RATIO, bool _external_lp_enabled) public ERC1155(""){
         VAULT_NAME = _VAULT_NAME;
         DAI = _DAI;
         MARKET_CONTRACT = _MARKET_CONTRACT;
+        BET_CONTRACT = _BET_CONTRACT;
         PROVIDER = _PROVIDER;
         IMBALANCE_FROM = _IMBALANCE_FROM;
         IMBALANCE_RATIO = _IMBALANCE_RATIO;
         external_lp_enabled = _external_lp_enabled;
-    }
-
-    function setBetContract(address _bet_contract) public{
-        require(val_set == 0);
-        BET_CONTRACT = _bet_contract;
-        val_set = 1;
     }
 
     function getVaultDetails() public returns (string memory, address, address, address, uint256, uint256, bool) {
@@ -187,8 +181,11 @@ contract Vault is ERC1155{
     }
 
     function lockLiquidity(uint256 i, uint256[] calldata odds, uint256[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts) public onlyBet {
+        console.log("Step1");
         lockedLiquidity = lockedLiquidity + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000;
+        console.log("Step2");
         gameWiseLiquidity[gameIds[i]][99] = gameWiseLiquidity[gameIds[i]][99] + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000; //This tracks the total
+        console.log("Step3");
         gameWiseLiquidity[gameIds[i]][betIndexes[i]] = gameWiseLiquidity[gameIds[i]][betIndexes[i]] + ((bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000);
     }
 

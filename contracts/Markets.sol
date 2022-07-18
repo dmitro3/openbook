@@ -14,8 +14,6 @@ contract Markets{
     uint32 public val_set = 0;
     uint32 public vault_set = 0;
 
-
-
     struct Market {
         string id;
         uint256 matchTimestamp;
