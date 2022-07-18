@@ -2,6 +2,10 @@ const axios = require('axios')
 const {VAULTMANAGER_ADDY, VAULTMANAGER_ABI, VAULT_ABI, MARKETS_ADDY, MARKETS_ABI, HTTP_PROVIDER} = require("../src/config")
 const Web3 = require("web3")
 
+function toTimestamp(strDate){
+    var datum = Date.parse(strDate);
+    return datum/1000;
+}
 
 async function get_api_odds(platform_sports){
 
@@ -25,18 +29,20 @@ async function get_api_odds(platform_sports){
         odds[sport] = {}
 
         for (var league of platform_sports[sport]){
-            odds[sport][league] = []
-
+            if ((league in odds[sport]) == false){
+                odds[sport][league] = []
+            }
+        
             let key = odds_directory[sport][league]
             let res2 = await axios.get(`https://api.the-odds-api.com/v4/sports/${key}/odds?regions=uk&markets=h2h&apiKey=${process.env.ODDS_API}&daysFrom=1`);
             
             for (const event of res2.data){    
+                let curr_odds = {}
+
                 for (let outcomes in event['bookmakers']){
                     for (let outcome in event['bookmakers'][outcomes]['markets'][0]['outcomes']){
     
                         let sel = event['bookmakers'][outcomes]['markets'][0]['outcomes'][outcome]
-                        let curr_odds = {}
-                        let curr_details = {}
 
                         if (sel['name'] == event['home_team'])
                             curr_odds["1"] = sel['price']
@@ -49,16 +55,19 @@ async function get_api_odds(platform_sports){
                         
 
 
-                        curr_details['home'] = event['home_team']
-                        curr_details['away'] = event['away_team']
-                        curr_details['time'] = event['commence_time']
-
-                        curr_details['odds'] = curr_odds
-
-                        odds[sport][league].push(curr_details)
-                        break
+                        
                     }
-                }    
+                }
+
+                let curr_details = {}
+
+                curr_details['home'] = event['home_team']
+                curr_details['away'] = event['away_team']
+                curr_details['time'] = event['commence_time']
+
+                curr_details['odds'] = curr_odds
+
+                odds[sport][league].push(curr_details)
             }
         }
     }
@@ -100,7 +109,7 @@ async function update_odds(){
     const account = web3.eth.accounts.privateKeyToAccount("0x" + process.env.ETH_KEY);
 
     let [platform_matches, platform_sports] = await get_platform_matches(web3)
-    // let api_odds = await get_api_odds(platform_sports)
+    let api_odds = await get_api_odds(platform_sports)
 
     let mgr_contract = new web3.eth.Contract(VAULTMANAGER_ABI, VAULTMANAGER_ADDY);
     let vaults = await mgr_contract.methods.getAllVaults().call()
@@ -109,10 +118,24 @@ async function update_odds(){
 
 
     for (let match in platform_matches){
-        await vault_contract.methods.updateOdds(match, [2000, 2000]).send({'from': account.address})
-        console.log(platform_matches[match])
-    }
+        let match_details = platform_matches[match]
+        let sel = api_odds[match_details['match_details'][0]][match_details['match_details'][1]]
 
+        for (let api_details of sel){
+            //you will be using a different API provider. In those case use match['names'] 
+            if ((match_details['names'][0] == api_details['home'] && match_details['names'][1] == api_details['away']) | (match_details['names'][1] == api_details['home'] && match_details['names'][0] == api_details['away'])){ 
+                if (toTimestamp(api_details['time']) == match_details['matchTimestamp']){ //some platforms might have to do with n minutes check
+                    if (JSON.stringify(Object.keys(api_details['odds'])) == JSON.stringify(match_details['bets'])){
+                        let new_odds = Object.values(api_details['odds'])
+                        new_odds = new_odds.map(x => x * 1000);
+                        await vault_contract.methods.updateOdds(match, new_odds).send({'from': account.address})
+
+                    }
+
+                }           
+            }
+        }
+    }
 }
 
 if (require.main === module) {
