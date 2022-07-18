@@ -4,9 +4,7 @@ fix oddsData format
 landing page modification
 
 
-Fix odds
-Only show games whose odds have been added by current bookie; 
-Fix the limits
+Change limit handling to new way
 Make bets work again
 Make settlement work
 
