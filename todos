@@ -1,5 +1,7 @@
 Separate web3 providers
 Move login logic ealier
+fix oddsData format
+landing page modification
 
 
 Fix odds
@@ -7,3 +9,4 @@ Only show games whose odds have been added by current bookie;
 Fix the limits
 Make bets work again
 Make settlement work
+
