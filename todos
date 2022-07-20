@@ -1,7 +1,5 @@
 Separate web3 providers
-fix oddsData format
 landing page modification
-Decide how to get data and vaults base on user web3 status
 
 
 Change limit handling to new way
