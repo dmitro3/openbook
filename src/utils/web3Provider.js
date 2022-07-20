@@ -7,15 +7,18 @@ var ethers_m = require('ethers');
 //redux
 import {setProvider,setWeb3,setWeb3Loading,setEthers,logIn,logOut,setHasWeb3True,setHasProviderTrue, setBalance, setPoolLiquidity, setUserLiquidity, setCurrentNetwork} from "redux/actions/userActions";
 import {setPreferUsername,setPreferUsernameFlag,setPreferAvatarStyle} from "redux/actions/settingsActions";
-import {setLiqDisplayValue,setbalanceHoldValue,setWithdrawableValue,setUserStakeValue} from "redux/actions/bookieActions";
 import {setSettledBets,setUnsettledBets} from "redux/actions/accountActions";
 import {store} from "../redux/store"
 import { setVaultsData } from '@actions/vaultsAction';
 
-export const checkWeb3 =  async () => {
+export const checkAndGetWeb3 =  async () => {
     const provider = await detectEthereumProvider();
     if(provider){
         const web3 = new Web3(provider);
+        const ethers = new ethers_m.providers.Web3Provider(provider)
+        store.dispatch(setProvider(provider));
+        store.dispatch(setWeb3(web3));
+        store.dispatch(setEthers(ethers));
         store.dispatch(setHasWeb3True());
         store.dispatch(setHasProviderTrue());
         store.dispatch(setWeb3Loading(false));
@@ -213,7 +216,8 @@ export const claimBets = async () => {
 }
 
 export const getMatches = async (vault) => {
-    let web3 = store.getState().user.web3;
+    let web3 = null;
+    store.getState().user.hasWeb3 ? web3 = store.getState().user.web3 : web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
     let contract = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
     let matches = await contract.methods.getAllMarkets().call()
     console.log("All Matches", matches)
@@ -271,10 +275,10 @@ export const getMatches = async (vault) => {
 
 export const getAllVaults = async () => {
 
-    let web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
+    let web3 = null;
+    store.getState().user.hasWeb3 ? web3 = store.getState().user.web3 : web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
     let contract = new web3.eth.Contract(VAULTMANAGER_ABI, VAULTMANAGER_ADDY);
     let vaults = await contract.methods.getAllVaults().call()
-
 
     let all_vaults = []
     for (const vault of vaults)
@@ -444,46 +448,39 @@ const subscribeNewBlock = async (web3,userAddress) =>{
     })
 }
 
-
-
 const requestMetaMask = async () => {
     try{
-            const provider = await detectEthereumProvider();
-            const web3 = {}
-            const ethers = {}
+        let web3 = null;
+        let provider = null;
+        let ethers = null;
+        if(store.getState().user.hasWeb3 && store.getState().user.hasProvider && store.getState().user.ethers){
+            web3 = store.getState().user.web3;
+            provider = store.getState().user.provder;
+            ethers = store.getState().user.ethers;
+        }
+        else{
+            alert("MetaMask not detected")
+            return
+        }
+        await ethers.send("eth_requestAccounts", []);
 
-            if(provider){
-                web3 = new Web3(provider);
-                store.dispatch(setProvider(provider));
-                store.dispatch(setWeb3(web3));
-
-                ethers = new ethers_m.providers.Web3Provider(provider)
-                store.dispatch(setEthers(ethers));
-
+        let accounts = await web3.eth.getAccounts()
+        if(accounts.length != 0){
+            let userAddress = accounts[0];
+            let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
+            let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
+            store.dispatch(logIn(userAddress));
+            getChainName()
+            if(!preferUsernameFlag){
+                store.dispatch(setPreferUsername(userAddress,preferUserName));
+                store.dispatch(setPreferUsernameFlag(userAddress));
+                store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
             }
-            else{
-                alert("MetaMask not detected")
-                return
-            }
-            await ethers.send("eth_requestAccounts", []);
-
-            let accounts = await web3.eth.getAccounts()
-            if(accounts.length != 0){
-                let userAddress = accounts[0];
-                let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
-                let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
-                store.dispatch(logIn(userAddress));
-                getChainName()
-                if(!preferUsernameFlag){
-                    store.dispatch(setPreferUsername(userAddress,preferUserName));
-                    store.dispatch(setPreferUsernameFlag(userAddress));
-                    store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
-                }
-                getUserDaiBalance(web3,userAddress);
-                subscribeNewBlock(web3,userAddress);
-                getMyBets();
-                getSettledBets();
-            }   
+            getUserDaiBalance(web3,userAddress);
+            subscribeNewBlock(web3,userAddress);
+            getMyBets();
+            getSettledBets();
+        }   
     }catch(e){
         console.error("Can not retrieve account")
         console.error(e)
@@ -501,27 +498,40 @@ export const disconnectMetaMask  = () => {
 }
 
 export const switchAccount = async () => {
-    let web3 = store.getState().user.web3
-    let accounts = await web3.eth.getAccounts()
-    if(accounts.length == 0){
-            disconnectMetaMask();
+    try{
+        let web3 = null;
+        let provider = null;
+        let ethers = null;
+        if(store.getState().user.hasWeb3 && store.getState().user.hasProvider && store.getState().user.ethers){
+            web3 = store.getState().user.web3;
+            provider = store.getState().user.provder;
+            ethers = store.getState().user.ethers;
+        }
+        else{
+            alert("MetaMask not detected")
             return
-    }
-    else{
-        let userAddress = accounts[0]
-        let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
-        store.dispatch(logIn(userAddress));
-        if(!preferUsernameFlag){
-            let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
-            store.dispatch(setPreferUsername(userAddress,preferUserName));
-            store.dispatch(setPreferUsernameFlag(userAddress));
-            store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
-        }     
-        getUserDaiBalance(web3,userAddress);
-        subscribeNewBlock(web3,userAddress);
-        getMyBets();
-        getSettledBets();
+        }
+        await ethers.send("eth_requestAccounts", []);
 
+        let accounts = await web3.eth.getAccounts()
+        if(accounts.length != 0){
+            let userAddress = accounts[0];
+            let preferUserName = `${userAddress.slice(0,5)}...${userAddress.slice(userAddress.length-4)}`;
+            let preferUsernameFlag = store.getState().settings.preferUsernameFlag[userAddress];
+            store.dispatch(logIn(userAddress));
+            if(!preferUsernameFlag){
+                store.dispatch(setPreferUsername(userAddress,preferUserName));
+                store.dispatch(setPreferUsernameFlag(userAddress));
+                store.dispatch(setPreferAvatarStyle(userAddress,"robot"));
+            }
+            getUserDaiBalance(web3,userAddress);
+            subscribeNewBlock(web3,userAddress);
+            getMyBets();
+            getSettledBets();
+        }   
+    }catch(e){
+        console.error("Can not retrieve account")
+        console.error(e)
     }
 }
 

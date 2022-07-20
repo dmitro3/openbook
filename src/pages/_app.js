@@ -8,7 +8,7 @@ import "@styles/globals.css";
 import { Loader } from "@components/General/Loader";
 import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
-import {getMatches, getAllVaults, connectMetaMask, checkWeb3, switchAccount, disconnectMetaMask, getChainName} from "@utils/web3Provider";
+import {getMatches, getAllVaults, connectMetaMask, checkAndGetWeb3, switchAccount, disconnectMetaMask, getChainName} from "@utils/web3Provider";
 import Web3 from 'web3';
 
 // New redux dependencies
@@ -51,23 +51,17 @@ const App = (props) => {
 
       */
 
-      // First step auto login.
-      let connectUserWeb3Success = false;
+      // First step get user web3
+      let web3Existed = null;
       try{
-        let web3Existed = null;
-
-        web3Existed = await checkWeb3();
-        if(!web3Existed || store.getState().settings.disconnected || !window.ethereum.isConnected())
-          return //for now I just returned, later we swtich the web3 provider here.
-        
-        connectUserWeb3Success = await connectMetaMask();
+        web3Existed = await checkAndGetWeb3();
       }
       catch(error){
-        console.error("AUTO LOGIN ERROR")
+        console.error("GET USER WEB3 ERROR")
         console.error(error);
       }
 
-      // After auto login, the user web3 is now stored in the redux user store.
+      // After getting user web3, which now stored in the redux user store.
       // Second step, getting vaults.
       let vaults = null;
       try{
@@ -97,7 +91,20 @@ const App = (props) => {
         console.error(error);
       }
 
-      //Fourth step, kick start accounts changed listener
+      //Fourth step, auto login
+      try{
+        if(!web3Existed || store.getState().settings.disconnected || !window.ethereum.isConnected())
+          return // If the user don't have user web3 (MetaMask) that means we are not logging in and we don't set any listeners so we return here
+        
+        await connectMetaMask();
+      }
+      catch(error){
+        console.error("AUTO LOGIN ERROR");
+        console.error(error);
+      }
+
+
+      //Fifth step, kick start accounts changed listener
       try{
         if(window.ethereum){
           window.ethereum.on("accountsChanged", async function() {
@@ -110,7 +117,7 @@ const App = (props) => {
         console.error(error);
       }
 
-      //Fifth step, kick start accounts disconnect listener
+      //Sixth step, kick start accounts disconnect listener
       try{
         if(window.ethereum){
           window.ethereum.on("disconnect", async function() {
@@ -123,7 +130,7 @@ const App = (props) => {
         console.error(error);
       }
 
-      //Sixth step, kick start chain changed listener
+      //Seventh step, kick start chain changed listener
       try{
         if(window.ethereum){
           window.ethereum.on('chainChanged', async function() {
@@ -138,7 +145,7 @@ const App = (props) => {
 
     }
 
-    //The previous 6 steps are in this function, they are all require await hence they are put in a async function.
+    //The previous 7 steps are in this function, they are all require await hence they are put in a async function.
     asyncUseEffectFunction();
     
 

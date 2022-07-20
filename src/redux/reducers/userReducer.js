@@ -3,6 +3,7 @@ const oddsReducer = (state = {
     web3: null,
     contract: null,
     provider: null,
+    ethers: null,
     web3Loading: true,
     loggedIn: false,
     hasWeb3: false,
@@ -45,6 +46,11 @@ const oddsReducer = (state = {
                     provider: action.payload
                     }
                     break;
+                case "SET_ETHERS":
+                    state = {
+                        ...state,
+                        ethers: action.payload
+                    }
                 case "SET_WEB3_LOADING":
                     state = {
                         ...state,
@@ -69,6 +75,7 @@ const oddsReducer = (state = {
                         balance: action.payload
                     }
                     break;
+                
       }
       return state;
   };
