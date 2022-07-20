@@ -29,8 +29,19 @@ export const checkWeb3 =  async () => {
 }
 
 export const connectMetaMask = async () =>{
-    store.getState().user.hasProvider ?  requestMetaMask() : console.error("Cannot connect MetaMask, try reload browser!")
-
+    if(store.getState().user.hasProvider){
+        try{
+            requestMetaMask()
+            return true;
+        }
+        catch(error){
+            console.error("connectMetaMask ERROR")
+            console.error(error);
+        }
+    }
+    else{
+        console.error("Cannot connect MetaMask, try reload browser!")
+    }
 } 
  
 export const addLiquidity = async (vault, amount) => {

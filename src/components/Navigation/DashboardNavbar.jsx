@@ -147,62 +147,6 @@ const DashboardNavbar = (props) => {
   
     /* End top navigation bar tabs variables */
 
-  useEffect(function autoLogin() {
-      checkWeb3()
-      .then((web3Existed)=>{
-        if(!web3Existed)
-          return
-        if(props.settings.disconnected)
-          return
-        if(!window.ethereum.isConnected())
-          return
-
-        connectMetaMask();
-      })
-      .catch((error)=>{
-        console.error(error);
-      });
-  }, []);
-
-  useEffect(() => {
-    async function listenMMAccount() {
-      if(window.ethereum){
-        window.ethereum.on("accountsChanged", async function() {
-          switchAccount();
-        });
-      }
-    }
-    listenMMAccount();
-  }, []);
-
-  useEffect(() => {
-    async function listenMetaMaskDisconnect() {
-      if(window.ethereum){
-        window.ethereum.on("disconnect", async function() {
-          disconnectMetaMask();
-        });
-      }
-    }
-    listenMetaMaskDisconnect();
-  }, []);
-
-  useEffect(()=>{
-      // props.user.web3.eth.subscribe("newBlockHeaders",(err,result)=>{
-      //   console.log('hello')
-      // })
-  },[])
-
-  useEffect(()=>{
-    async function listenToChainChanged(){
-      if(window.ethereum){
-        window.ethereum.on('chainChanged', async function() {
-            getChainName();
-        });
-      }
-    }
-    listenToChainChanged();
-  },[])
-
   function confirmSettings(settings){
     props.setPreferUsername(props.user.userAddress,settings.preferUsername);
     props.setOddsFormat(settings.oddsFormat);
