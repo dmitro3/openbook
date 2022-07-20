@@ -113,6 +113,7 @@ const Staking = (props) => {
       }
     }
     setValues(temp_values);
+    // console.log(vaultsData)
   },[props.vaults_state.vaultsData])
 
   const [switchState, setSwitchState] = useState(true);

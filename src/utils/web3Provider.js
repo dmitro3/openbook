@@ -41,6 +41,7 @@ export const connectMetaMask = async () =>{
     }
     else{
         console.error("Cannot connect MetaMask, try reload browser!")
+        return false;
     }
 } 
  
@@ -421,11 +422,9 @@ export const handleLiqChange = async () => {
         vaultsData[vault]['DAI']['locked'] =  parseFloat(web3.utils.fromWei(String(lockedDAI), 'ether')).toFixed(2);
 
 
-        vaultsData[vault]['Shares']['withdrawable'] = vaultsData[vault]['Shares']['user'] - vaultsData[vault]['Shares']['locked']
-        vaultsData[vault]['DAI']['withdrawable'] = vaultsData[vault]['DAI']['user'] - vaultsData[vault]['DAI']['locked']
-
+        vaultsData[vault]['Shares']['withdrawable'] = parseFloat(vaultsData[vault]['Shares']['user'] - vaultsData[vault]['Shares']['locked']).toFixed(2)
+        vaultsData[vault]['DAI']['withdrawable'] = parseFloat(vaultsData[vault]['DAI']['user'] - vaultsData[vault]['DAI']['locked']).toFixed(2)
     }
-
 
     store.dispatch(setVaultsData(vaultsData))
 }
