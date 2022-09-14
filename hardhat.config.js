@@ -2,6 +2,8 @@ require("@nomiclabs/hardhat-waffle");
 require('hardhat-abi-exporter');
 require("hardhat-interface-generator");
 require("hardhat-gas-reporter");
+require('hardhat-contract-sizer');
+require('dotenv').config()
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -19,12 +21,12 @@ module.exports = {
     hardhat: {
       chainId: 1337,
       forking: {
-        url: "https://eth-mainnet.alchemyapi.io/v2/zzdikT2BoUCO8gxk57lf8_NqFQ0MnUG7",
+        url: "https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API}",
         accounts: [process.env.ETH_KEY]
       }
     },
     kovan: {
-      url: "https://eth-kovan.alchemyapi.io/v2/HEbnEOx1ZKSDnssxjxDbsPS3LykdVbup",
+      url: "https://eth-kovan.alchemyapi.io/v2/${process.env.ALCHEMY_API}",
       accounts: [process.env.ETH_KEY]
     },
   },

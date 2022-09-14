@@ -1,3 +1,4 @@
+.env
 src/config.js
 src/@openzeppelin/
 src/@chainlink/
