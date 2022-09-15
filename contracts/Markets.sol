@@ -13,6 +13,7 @@ contract Markets{
     address public MANAGER_CONTRACT;
     uint32 public val_set = 0;
     uint32 public vault_set = 0;
+    address public oracle;
 
     struct Market {
         string id;
@@ -29,13 +30,16 @@ contract Markets{
     mapping(uint256 => Market) private markets;
 
     modifier onlyOracle {
-        require(msg.sender == 0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd);
+        require(msg.sender == oracle);
         _;
     }
 
 
     constructor(uint256 protocolFee) public{
         protocolFee = protocolFee;
+        oracle = msg.sender;
+        console.log("Oracle is");
+        console.log(oracle);
     }
 
     function setBetContract(address _bet_contract) public{

@@ -15,6 +15,7 @@ const { ConstructionOutlined } = require('@mui/icons-material');
 
 let contracts = {};
 let connection = {}
+let signer;
 
 if (process.env.HARDHAT_NETWORK == 'kovan'){
     contracts['DAI'] = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa'
@@ -24,8 +25,15 @@ if (process.env.HARDHAT_NETWORK == 'kovan'){
     contracts['DAI'] = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
     connection['PROVIDER'] = 'http://127.0.0.1:8545'
     connection['WSS'] = 'ws://127.0.0.1:8545'
+      
 }
  
+
+
+if (process.env.HARDHAT_NETWORK == 'localhost'){
+    
+}
+
 
 let erc20ABI = [{ "constant": true, "inputs": [], "name": "name", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "guy", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "src", "type": "address" }, { "name": "dst", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "wad", "type": "uint256" }], "name": "withdraw", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "dst", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "deposit", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "allowance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "payable": true, "stateMutability": "payable", "type": "fallback" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": true, "name": "guy", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": true, "name": "dst", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "dst", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Deposit", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Withdrawal", "type": "event" }]
 
@@ -42,26 +50,15 @@ async function perform_whale_transfer() {
 
     let WHALE_ADDY = "0xF977814e90dA44bFA03b6295A0616a897441aceC"
 
-    await hre.network.provider.request({
-        method: "hardhat_impersonateAccount",
-        params: [WHALE_ADDY],
-      });
-
-
-    //get signer
-    [owner] = await ethers.getSigners();
-
-
-
     //Transfer from a whale to our account to run tests
-    const whale_signer = await ethers.provider.getSigner(WHALE_ADDY);
+    const whale_signer = await ethers.getImpersonatedSigner(WHALE_ADDY);
 
 
     DAI_CONTRACT = await ethers.getContractAt(erc20ABI, DAI, whale_signer);
-    USER_DAI = await ethers.getContractAt(erc20ABI, DAI, owner);
+    USER_DAI = await ethers.getContractAt(erc20ABI, DAI, signer);
     const FUND_AMOUNT = (BigInt(30000)*BigInt(10**18)).toString()
 
-    for (let addy of [owner.address, '0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9', '0x99c6fD3bC02dEB420F192eFb3ED0D6f479856D4B']) {
+    for (let addy of [signer.address, '0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9', '0x99c6fD3bC02dEB420F192eFb3ED0D6f479856D4B']) {
 
         await DAI_CONTRACT.transfer(addy, FUND_AMOUNT, {
             from: WHALE_ADDY,
@@ -93,16 +90,7 @@ async function updateOracleOnce(){
 
     let MyContract = await ethers.getContractFactory("Markets")
 
-    if (process.env.HARDHAT_NETWORK == 'localhost'){
-        let PROVIDER = "0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd"
-        await hre.network.provider.request({
-            method: "hardhat_impersonateAccount",
-            params: [PROVIDER],
-          });
-
-          const signer = await ethers.provider.getSigner(PROVIDER);
-          MyContract = await ethers.getContractFactory("Markets", signer);
-    }
+    
 
     const markets = await MyContract.attach(MARKETS_ADDY);
     
@@ -187,6 +175,10 @@ async function updateOracleOnce(){
 async function deploy(){
 
     if (process.env.HARDHAT_NETWORK == 'localhost'){
+
+        signer = await ethers.getImpersonatedSigner("0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd");
+
+
         await perform_whale_transfer()
     }
 
@@ -237,7 +229,6 @@ async function deploy(){
 
     const VaultManager = await ethers.getContractFactory("VaultManager");
 
-    console.log(DAI)
     let vault = await VaultManager.deploy(DAI, market.address, bet.address);
     console.log("VaultManager Contract Deployed at " + vault.address);
 
@@ -253,7 +244,9 @@ async function deploy(){
     ABI_STRING = ABI_STRING + export_string
     fs.writeFileSync('src/config.js', ABI_STRING);   
 
+    console.log("Updating oracle")
     await updateOracleOnce()
+    console.log("Updating odds")
     await update_odds()
 }
 
