@@ -4,7 +4,6 @@ const { promises: { readdir } } = require('fs')
 const fs = require("fs");
 const { ethers } = require("hardhat");
 const hre = require("hardhat");
-const {update_odds} = require("./provider")
 const axios = require('axios')
 require('dotenv').config()
 
@@ -70,7 +69,7 @@ async function perform_whale_transfer() {
     }
 }
 
-async function updateOracleOnce(){
+async function updateOracleOnce(MARKETS_ADDY){
     //This will create and settle markets
     //https://api.the-odds-api.com/v4/sports?apiKey=&all=true
     sports = [
@@ -83,15 +82,11 @@ async function updateOracleOnce(){
         {'key': 'soccer_fifa_world_cup', 'group': 'Soccer', 'title': 'FIFA World Cup'},
     ]
 
-    const {MARKETS_ADDY} = require("../src/config")
 
 
     let MyContract = await ethers.getContractFactory("Markets")
-
-    
-
     const markets = await MyContract.attach(MARKETS_ADDY);
-    
+    console.log(MARKETS_ADDY)
     let matches = await markets.getAllMarkets()
     let all_matches = {}
 
@@ -243,8 +238,10 @@ async function deploy(){
     fs.writeFileSync('src/config.js', ABI_STRING);   
 
     console.log("Updating oracle")
-    await updateOracleOnce()
+    await updateOracleOnce(market.address)
     console.log("Updating odds")
+
+    const {update_odds} = require("./provider")
     await update_odds()
 }
 
