@@ -18,7 +18,7 @@ interface IVault {
   function getTotalSupply (  ) external returns ( uint256 );
   function getUserLockedShares ( address user ) external returns ( uint256 );
   function isApprovedForAll ( address account, address operator ) external view returns ( bool );
-  function lockLiquidity ( uint256 i, uint256[] calldata, uint256[] calldata, uint8[] calldata, uint128[] calldata ) external;
+  function lockLiquidity ( uint256[] calldata, uint256, uint256, uint256) external;
   function lockedLiquidity (  ) external view returns ( uint256 );
   function removeLiquidity ( uint256 shares ) external;
   function safeBatchTransferFrom ( address from, address to, uint256[] calldata, uint256[] calldata, bytes calldata ) external;

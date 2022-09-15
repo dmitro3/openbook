@@ -77,6 +77,18 @@ contract Markets{
         }
     }
 
+    function updateMarket(uint256 marketId, Market memory new_market) public onlyOracle{
+        markets[marketId].id = new_market.id;
+        markets[marketId].matchTimestamp = new_market.matchTimestamp;
+        markets[marketId].names = new_market.names;
+        markets[marketId].match_details = new_market.match_details;
+        markets[marketId].winnerIndex = new_market.winnerIndex;
+        markets[marketId].protocolFee = new_market.protocolFee;
+        markets[marketId].creationTimestamp = new_market.creationTimestamp;
+        markets[marketId].bets = new_market.bets;
+        markets[marketId].active = new_market.active;
+    }
+
     function startMarket(string calldata id, uint256 matchTimestamp, string[] memory _names, string[] calldata _match_details, string[] calldata _bets) public onlyOracle {
         uint256  currId = _nextId+1;
 

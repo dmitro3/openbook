@@ -1,6 +1,1 @@
-Separate web3 providers
-landing page modification
-
-
-Change limit handling to new way
-Mock settle script and verify
+Only show future games on UI. Make this check while creating bet

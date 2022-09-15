@@ -1,6 +1,9 @@
 interface IMarkets {
   function BET_CONTRACT (  ) external view returns ( address );
   function LPFee (  ) external view returns ( uint256 );
+  function marketDetailsById ( uint256 id ) external view returns (string calldata, uint256, string[] calldata, string[] calldata, uint8, uint256, uint256, string[] calldata, bool );
+
+
   function getAllMarkets (  ) external view returns ( uint256[] calldata );
   function getDefaultOddsById ( uint256 id ) external view returns ( uint256[] calldata );
   function getOutcomeById ( uint256 id ) external view returns ( uint8 );

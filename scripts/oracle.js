@@ -9,7 +9,6 @@ async function updateOracleOnce(){
     sports = [
         {'key': 'americanfootball_ncaaf', 'group': 'American Football', 'title': 'NCAAF'},
         {'key': 'americanfootball_nfl', 'group': 'American Football', 'title': 'NFL'},
-        {'key': 'soccer_usa_mls', 'group': 'Soccer', 'title': 'MLS'},
         {'key': 'soccer_epl', 'group': 'Soccer', 'title': 'EPL'},
         {'key': 'soccer_spain_la_liga', 'group': 'Soccer', 'title': 'La Liga - Spain'},
         {'key': 'soccer_italy_serie_a', 'group': 'Soccer', 'title': 'Serie A - Italy'},
@@ -32,26 +31,27 @@ async function updateOracleOnce(){
     }
 
     for (const row of sports){
-        let res = await axios.get(`https://api.the-odds-api.com/v4/sports/${row['key']}/scores?apiKey=${process.env.ODDS_API}&daysFrom=1`);
+        //manual settlement
+        // let res = await axios.get(`https://api.the-odds-api.com/v4/sports/${row['key']}/scores?apiKey=${process.env.ODDS_API}&daysFrom=1`);
 
-        for (const details of res.data){
-            if (details['completed'] == true){                
-                if (details['id'] in all_matches){
-                    details['scores'][0]['score']
-                    details['scores'][0]['name']
+        // for (const details of res.data){
+        //     if (details['completed'] == true){                
+        //         if (details['id'] in all_matches){
+        //             details['scores'][0]['score']
+        //             details['scores'][0]['name']
 
-                    details['scores'][1]['score']
-                    details['scores'][1]['score']
+        //             details['scores'][1]['score']
+        //             details['scores'][1]['score']
 
-                    //https://api.the-odds-api.com/v4/sports/soccer_italy_serie_a/scores?apiKey=0abaea50bbee7801d5d2da8f8b95393f&daysFrom=3
-                    //fix the settlement
+        //             //https://api.the-odds-api.com/v4/sports/soccer_italy_serie_a/scores?apiKey=0abaea50bbee7801d5d2da8f8b95393f&daysFrom=3
+        //             //fix the settlement
 
-                    //we can manually settle too lol
+        //             //we can manually settle too lol
 
-                    // await markets.settleMarket(details['id'], 1)
-                }
-            }
-        }
+        //             // await markets.settleMarket(details['id'], 1)
+        //         }
+        //     }
+        // }
 
         
         let res2 = await axios.get(`https://api.the-odds-api.com/v4/sports/${row['key']}/odds?regions=uk&markets=h2h&apiKey=${process.env.ODDS_API}&daysFrom=1`);

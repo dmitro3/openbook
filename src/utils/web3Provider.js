@@ -230,7 +230,7 @@ export const getMatches = async (vault) => {
     for (const match of matches) {
         let match_details = await contract.methods.marketDetailsById(match).call()
 
-        if (match_details['active'] == true){
+        if ((match_details['active'] == true) && (match_details['matchTimestamp'] < new Date().getTime())){
             let game = {
                 timestamp : new Date(match_details['matchTimestamp']* 1000),
                 id: match,

@@ -63,6 +63,11 @@ contract Bet is ERC1155{
             uint256  currId = _nextId+1;
             uint256[] memory odds = IVault(_vault).getOddsById(gameIds[i]);
 
+
+            // hacky logic until a better oracle found as oracle must handle this
+            (, uint256 matchTimestamp, , , , , , ,) = IMarkets(MARKET_CONTRACT).marketDetailsById(gameIds[i]);
+            require(block.timestamp < matchTimestamp);
+
             curr_bets[i] = currId;
 
 
@@ -77,7 +82,7 @@ contract Bet is ERC1155{
                 status: 0
             });
 
-            IVault(_vault).lockLiquidity(i, odds, gameIds, betIndexes, bet_amounts);
+            IVault(_vault).lockLiquidity(odds, gameIds[i], betIndexes[i], bet_amounts[i]);
 
             _mint(msg.sender, currId, 1, "");
 

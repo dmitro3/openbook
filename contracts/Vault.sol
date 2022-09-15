@@ -178,10 +178,10 @@ contract Vault is ERC1155{
         }
     }
 
-    function lockLiquidity(uint256 i, uint256[] calldata odds, uint256[] calldata gameIds, uint8[] calldata betIndexes, uint128[] calldata bet_amounts) public onlyBet {
-        lockedLiquidity = lockedLiquidity + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000;
-        gameWiseLiquidity[gameIds[i]][99] = gameWiseLiquidity[gameIds[i]][99] + (bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000; //This tracks the total
-        gameWiseLiquidity[gameIds[i]][betIndexes[i]] = gameWiseLiquidity[gameIds[i]][betIndexes[i]] + ((bet_amounts[i] * odds[uint256(betIndexes[i])]) / 1000);
+    function lockLiquidity(uint256[] calldata odds, uint256 gameId, uint256 betIndex, uint256 bet_amount) public onlyBet {
+        lockedLiquidity = lockedLiquidity + (bet_amount * odds[uint256(betIndex)]) / 1000;
+        gameWiseLiquidity[gameId][99] = gameWiseLiquidity[gameId][99] + (bet_amount * odds[uint256(betIndex)]) / 1000; //This tracks the total
+        gameWiseLiquidity[gameId][betIndex] = gameWiseLiquidity[gameId][betIndex] + ((bet_amount * odds[uint256(betIndex)]) / 1000);
     }
 
     function removeLiquidity(uint256 shares)  public {
