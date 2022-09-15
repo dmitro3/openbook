@@ -3,8 +3,6 @@ const exec = util.promisify(require('child_process').exec);
 const { promises: { readdir } } = require('fs')
 const fs = require("fs");
 const { ethers } = require("hardhat");
-const hre = require("hardhat");
-const axios = require('axios')
 require('dotenv').config()
 
 const Web3 = require('web3');
@@ -25,13 +23,6 @@ if (process.env.HARDHAT_NETWORK == 'kovan'){
       
 }
  
-
-
-if (process.env.HARDHAT_NETWORK == 'localhost'){
-    
-}
-
-
 let erc20ABI = [{ "constant": true, "inputs": [], "name": "name", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "guy", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "src", "type": "address" }, { "name": "dst", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "wad", "type": "uint256" }], "name": "withdraw", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "dst", "type": "address" }, { "name": "wad", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "deposit", "outputs": [], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "allowance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "payable": true, "stateMutability": "payable", "type": "fallback" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": true, "name": "guy", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": true, "name": "dst", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "dst", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Deposit", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "src", "type": "address" }, { "indexed": false, "name": "wad", "type": "uint256" }], "name": "Withdrawal", "type": "event" }]
 
 let DAI = contracts['DAI'];
@@ -66,101 +57,6 @@ async function perform_whale_transfer() {
             to: addy,
             value: ethers.utils.parseEther("1")
         });
-    }
-}
-
-async function updateOracleOnce(MARKETS_ADDY){
-    //This will create and settle markets
-    //https://api.the-odds-api.com/v4/sports?apiKey=&all=true
-    sports = [
-        {'key': 'americanfootball_ncaaf', 'group': 'American Football', 'title': 'NCAAF'},
-        {'key': 'americanfootball_nfl', 'group': 'American Football', 'title': 'NFL'},
-        {'key': 'soccer_usa_mls', 'group': 'Soccer', 'title': 'MLS'},
-        {'key': 'soccer_epl', 'group': 'Soccer', 'title': 'EPL'},
-        {'key': 'soccer_spain_la_liga', 'group': 'Soccer', 'title': 'La Liga - Spain'},
-        {'key': 'soccer_italy_serie_a', 'group': 'Soccer', 'title': 'Serie A - Italy'},
-        {'key': 'soccer_fifa_world_cup', 'group': 'Soccer', 'title': 'FIFA World Cup'},
-    ]
-
-
-
-    let MyContract = await ethers.getContractFactory("Markets")
-    const markets = await MyContract.attach(MARKETS_ADDY);
-    console.log(MARKETS_ADDY)
-    let matches = await markets.getAllMarkets()
-    let all_matches = {}
-
-    for (const match of matches) {
-        let match_detail = await markets.marketDetailsById(match)
-
-        if (match_detail['active'] == true)
-            all_matches[match_detail['id']] = match_detail
-    }
-
-    for (const row of sports){
-        let res = await axios.get(`https://api.the-odds-api.com/v4/sports/${row['key']}/scores?apiKey=${process.env.ODDS_API}&daysFrom=1`);
-
-        for (const details of res.data){
-            if (details['completed'] == true){                
-                if (details['id'] in all_matches){
-                    details['scores'][0]['score']
-                    details['scores'][0]['name']
-
-                    details['scores'][1]['score']
-                    details['scores'][1]['score']
-
-                    //https://api.the-odds-api.com/v4/sports/soccer_italy_serie_a/scores?apiKey=0abaea50bbee7801d5d2da8f8b95393f&daysFrom=3
-                    //fix the settlement
-
-                    //we can manually settle too lol
-
-                    // await markets.settleMarket(details['id'], 1)
-                }
-            }
-        }
-
-        
-        let res2 = await axios.get(`https://api.the-odds-api.com/v4/sports/${row['key']}/odds?regions=uk&markets=h2h&apiKey=${process.env.ODDS_API}&daysFrom=1`);
-
-        let count = 0
-
-        for (const event of res2.data){
-            if ((event['id'] in all_matches) == false){
-                let outcomes_lst = ['1']
-                let draw_found = false;
-                
-                for (let outcomes in event['bookmakers']){
-                    for (let outcome in event['bookmakers'][outcomes]['markets'][0]['outcomes']){
-
-                        let sel = event['bookmakers'][outcomes]['markets'][0]['outcomes'][outcome]
-                        if (sel['name'] == 'Draw'){
-                            draw_found = true
-                        }
-                    }
-                }
-
-                outcomes_lst.push('2')
-                
-                if (draw_found == true){
-                    outcomes_lst.push('X')
-                }
-
-                
-                count = count + 1
-                
-                if (process.env.HARDHAT_NETWORK == 'localhost'){
-                    if (count > 5)
-                        break
-                }
-
-                console.log(event['id'], toTimestamp(event['commence_time']), [event['home_team'], event['away_team']], [row['group'], row['title']], outcomes_lst)
-                await markets.startMarket(event['id'], toTimestamp(event['commence_time']), [event['home_team'], event['away_team']], [row['group'], row['title']], outcomes_lst)
-            }
-        }
-
-        if (process.env.HARDHAT_NETWORK == 'localhost'){
-            break;
-        }
     }
 }
 
@@ -236,16 +132,11 @@ async function deploy(){
 
     ABI_STRING = ABI_STRING + export_string
     fs.writeFileSync('src/config.js', ABI_STRING);   
-
-    console.log("Updating oracle")
-    await updateOracleOnce(market.address)
-    console.log("Updating odds")
-
-    const {update_odds} = require("./provider")
-    await update_odds()
 }
 
 
 if (require.main === module) {
     deploy()
 }
+
+module.exports = {deploy, toTimestamp}

@@ -1,11 +1,8 @@
 const axios = require('axios')
 const {VAULTMANAGER_ADDY, VAULTMANAGER_ABI, VAULT_ABI, MARKETS_ADDY, MARKETS_ABI, HTTP_PROVIDER} = require("../src/config")
 const Web3 = require("web3")
+const {toTimestamp} = require("./deploy")
 
-function toTimestamp(strDate){
-    var datum = Date.parse(strDate);
-    return datum/1000;
-}
 
 async function get_api_odds(platform_sports){
 
@@ -104,7 +101,7 @@ async function get_platform_matches(web3){
     return [match_details, sports]
 }
 
-async function update_odds(){
+async function updateOddsOnce() {
     const web3 = new Web3(HTTP_PROVIDER);
     const account = web3.eth.accounts.privateKeyToAccount("0x" + process.env.ETH_KEY);
 
@@ -138,8 +135,13 @@ async function update_odds(){
     }
 }
 
-if (require.main === module) {
-    update_odds()
+async function runOdds(){
+    await updateOddsOnce()
+    setTimeout(runOdds, 5000);
 }
 
-module.exports = {update_odds}
+if (require.main === module) {
+    runOdds()
+}
+
+module.exports = {updateOddsOnce}
