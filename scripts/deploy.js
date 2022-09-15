@@ -8,8 +8,6 @@ const {update_odds} = require("./provider")
 const axios = require('axios')
 require('dotenv').config()
 
-console.log(process.env.ODDS_API)
-
 const Web3 = require('web3');
 const { ConstructionOutlined } = require('@mui/icons-material');
 
