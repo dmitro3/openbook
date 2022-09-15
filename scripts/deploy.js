@@ -4,7 +4,6 @@ const { promises: { readdir } } = require('fs')
 const fs = require("fs");
 const { ethers } = require("hardhat");
 const hre = require("hardhat");
-const {initiate_oracle} = require("./oracle")
 const {update_odds} = require("./provider")
 const axios = require('axios')
 require('dotenv').config()
@@ -84,7 +83,6 @@ async function updateOracleOnce(){
         {'key': 'americanfootball_nfl', 'group': 'American Football', 'title': 'NFL'},
         {'key': 'soccer_usa_mls', 'group': 'Soccer', 'title': 'MLS'},
         {'key': 'soccer_epl', 'group': 'Soccer', 'title': 'EPL'},
-        {'key': 'soccer_uefa_champs_league', 'group': 'Soccer', 'title': 'UEFA Champions League'},
         {'key': 'soccer_spain_la_liga', 'group': 'Soccer', 'title': 'La Liga - Spain'},
         {'key': 'soccer_italy_serie_a', 'group': 'Soccer', 'title': 'Serie A - Italy'},
         {'key': 'soccer_fifa_world_cup', 'group': 'Soccer', 'title': 'FIFA World Cup'},
@@ -124,7 +122,17 @@ async function updateOracleOnce(){
         for (const details of res.data){
             if (details['completed'] == true){                
                 if (details['id'] in all_matches){
-                    console.log(details)
+                    details['scores'][0]['score']
+                    details['scores'][0]['name']
+
+                    details['scores'][1]['score']
+                    details['scores'][1]['score']
+
+                    //https://api.the-odds-api.com/v4/sports/soccer_italy_serie_a/scores?apiKey=0abaea50bbee7801d5d2da8f8b95393f&daysFrom=3
+                    //fix the settlement
+
+                    //we can manually settle too lol
+
                     // await markets.settleMarket(details['id'], 1)
                 }
             }
@@ -198,11 +206,11 @@ async function deploy(){
 
         if (name.includes(".sol")){
             let full_path = path + "/" + name + "/" + name.replace(".sol", ".json");
-            let contents = fs.readFileSync(full_path).toString()
+            let contents = fs.readFileSync(full_path).toString().replace(/(\r\n|\n|\r)/gm,"")
 
             let var_name = name.replace(".sol", "").toUpperCase()
             
-            ABI_STRING = ABI_STRING + "let " + var_name + "_ABI" + " = " + contents + "\n\n"           
+            ABI_STRING = ABI_STRING + "let " + var_name + "_ABI" + " = " + contents.replace(/\s/g, '') + "\n\n"           
             
             
             if (var_name != "VAULT")
@@ -233,8 +241,8 @@ async function deploy(){
     let vault = await VaultManager.deploy(DAI, market.address, bet.address);
     console.log("VaultManager Contract Deployed at " + vault.address);
 
-    // await vault.createVault("OpenBook Official Vault", "0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd", 3, 3, true, 0);
-    // console.log("Default Vault Deployed");
+    await vault.createVault("OpenBook Official Vault", "0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd", 3, 3, true, 0);
+    console.log("Default Vault Deployed");
 
     ABI_STRING = ABI_STRING + "let VAULTMANAGER_ADDY='" + vault.address + "'\n"
 
@@ -246,6 +254,7 @@ async function deploy(){
     fs.writeFileSync('src/config.js', ABI_STRING);   
 
     await updateOracleOnce()
+    await update_odds()
 }
 
 

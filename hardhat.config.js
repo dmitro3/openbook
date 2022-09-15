@@ -21,12 +21,12 @@ module.exports = {
     hardhat: {
       chainId: 1337,
       forking: {
-        url: "https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API}",
+        url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API}`,
         accounts: [process.env.ETH_KEY]
       }
     },
     kovan: {
-      url: "https://eth-kovan.alchemyapi.io/v2/${process.env.ALCHEMY_API}",
+      url: `https://eth-kovan.alchemyapi.io/v2/${process.env.ALCHEMY_API}`,
       accounts: [process.env.ETH_KEY]
     },
   },
