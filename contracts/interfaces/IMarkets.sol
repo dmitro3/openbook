@@ -3,6 +3,7 @@ interface IMarkets {
   function LPFee (  ) external view returns ( uint256 );
   function marketDetailsById ( uint256 id ) external view returns (string calldata, uint256, string[] calldata, string[] calldata, uint8, uint256, uint256, string[] calldata, bool );
 
+  function getStartingById ( uint256  ) external view returns ( uint256 );
 
   function getAllMarkets (  ) external view returns ( uint256[] calldata );
   function getDefaultOddsById ( uint256 id ) external view returns ( uint256[] calldata );

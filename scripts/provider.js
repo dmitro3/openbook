@@ -124,7 +124,8 @@ async function updateOddsOnce() {
                 if (toTimestamp(api_details['time']) == match_details['matchTimestamp']){ //some platforms might have to do with n minutes check
                     if (JSON.stringify(Object.keys(api_details['odds'])) == JSON.stringify(match_details['bets'])){
                         let new_odds = Object.values(api_details['odds'])
-                        new_odds = new_odds.map(x => x * 1000);
+                        new_odds = new_odds.map(x => Math.round(x * 1000));
+                        
                         await vault_contract.methods.updateOdds(match, new_odds).send({'from': account.address})
 
                     }

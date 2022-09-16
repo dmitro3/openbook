@@ -46,7 +46,7 @@ async function perform_whale_transfer() {
     USER_DAI = await ethers.getContractAt(erc20ABI, DAI, signer);
     const FUND_AMOUNT = (BigInt(30000)*BigInt(10**18)).toString()
 
-    for (let addy of [signer.address, '0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9', '0x99c6fD3bC02dEB420F192eFb3ED0D6f479856D4B']) {
+    for (let addy of [signer.address, '0xDF2f2cda0110fB8424EAc1239AfA00Ab9976c9d9', '0x99c6fD3bC02dEB420F192eFb3ED0D6f479856D4B', '0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd']) {
 
         await DAI_CONTRACT.transfer(addy, FUND_AMOUNT, {
             from: WHALE_ADDY,
@@ -66,8 +66,6 @@ async function deploy(){
     if (process.env.HARDHAT_NETWORK == 'localhost'){
 
         signer = await ethers.getImpersonatedSigner("0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd");
-
-
         await perform_whale_transfer()
     }
 
@@ -101,14 +99,16 @@ async function deploy(){
     export_string = export_string.substring(0, export_string.length - 2);
     export_string = export_string + "}"
 
-    const Market = await ethers.getContractFactory("Markets");
+    const Market = await ethers.getContractFactory("Markets", signer);
     let market = await Market.deploy(0);
     await market.deployed();  
     console.log("Market Contract Deployed at " + market.address);
 
+    console.log(await market.oracle())
+
     ABI_STRING = ABI_STRING + "let MARKETS_ADDY='" + market.address + "'\n"
 
-    const BetContract = await ethers.getContractFactory("Bet");
+    const BetContract = await ethers.getContractFactory("Bet", signer);
     let bet = await BetContract.deploy(DAI, market.address);
     await bet.deployed();  
     console.log("Bet Contract Deployed at " + bet.address);
@@ -116,7 +116,7 @@ async function deploy(){
     ABI_STRING = ABI_STRING + "let BET_ADDY='" + bet.address + "'\n\n"
 
 
-    const VaultManager = await ethers.getContractFactory("VaultManager");
+    const VaultManager = await ethers.getContractFactory("VaultManager", signer);
 
     let vault = await VaultManager.deploy(DAI, market.address, bet.address);
     console.log("VaultManager Contract Deployed at " + vault.address);

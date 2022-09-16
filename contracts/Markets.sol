@@ -66,6 +66,10 @@ contract Markets{
         return markets[id].winnerIndex;
     }
 
+    function getStartingById(uint256 id) public view returns (uint256) {
+        return markets[id].matchTimestamp;
+    }
+
     function settleMarket(uint256 marketId, uint8 winnerIndex) public onlyOracle{
         markets[marketId].active = false;
         markets[marketId].winnerIndex = winnerIndex;

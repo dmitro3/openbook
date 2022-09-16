@@ -65,7 +65,7 @@ contract Bet is ERC1155{
 
 
             // hacky logic until a better oracle found as oracle must handle this
-            (, uint256 matchTimestamp, , , , , , ,) = IMarkets(MARKET_CONTRACT).marketDetailsById(gameIds[i]);
+            uint256 matchTimestamp = IMarkets(MARKET_CONTRACT).getStartingById(gameIds[i]);
             require(block.timestamp < matchTimestamp);
 
             curr_bets[i] = currId;

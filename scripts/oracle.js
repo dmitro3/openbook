@@ -16,8 +16,9 @@ async function updateOracleOnce(){
     ]
 
 
+    let signer = await ethers.getImpersonatedSigner("0x5664198BDb6AB7337b70742ff4BDD935f81e4Dcd");
 
-    let MyContract = await ethers.getContractFactory("Markets")
+    let MyContract = await ethers.getContractFactory("Markets", signer)
     const markets = await MyContract.attach(MARKETS_ADDY);
 
     let matches = await markets.getAllMarkets()
@@ -92,9 +93,9 @@ async function updateOracleOnce(){
             }
         }
 
-        if (process.env.HARDHAT_NETWORK == 'localhost'){
-            break;
-        }
+        // if (process.env.HARDHAT_NETWORK == 'localhost'){
+        //     break;
+        // }
     }
 }
 
