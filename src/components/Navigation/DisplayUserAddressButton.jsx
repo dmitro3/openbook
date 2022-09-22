@@ -89,6 +89,7 @@ const options = [
     'username',
     'balance',
     'testnet',
+    'Get Testnet DAI',
     'Settings',
     'Support',
     'Log Out'
@@ -120,6 +121,9 @@ export const DisplayUserAddressButton = (props) => {
           props.disconnectMetaMask();
           props.setDisconnected(true);
           router.push('/featured');
+        }
+        else if(option=="Get Testnet DAI"){
+          // Function here to get testnet DAI
         }
         else if(option == 'Settings'){
           props.openSettingsModal();
@@ -194,6 +198,9 @@ export const DisplayUserAddressButton = (props) => {
                   break;
                 case "testnet":
                   returnTypography = <DisplayUserAddressButtonMenuTypography option={option}>{props.testnet}</DisplayUserAddressButtonMenuTypography>
+                  break;
+                case "Get Testnet DAI":
+                  returnTypography = <DisplayUserAddressButtonMenuTypography option={option}>{option} 💰</DisplayUserAddressButtonMenuTypography>
                   break;
                 default:
                   returnTypography = <DisplayUserAddressButtonMenuTypography option={option}>{option}</DisplayUserAddressButtonMenuTypography>

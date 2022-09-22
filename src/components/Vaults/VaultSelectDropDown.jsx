@@ -46,16 +46,13 @@ const VaultSelectDropDown = (props) => {
         value={props.vaults_state.selectedVaultAddress || ''}
         onChange={handleChange}
         variant="outlined"
+        disableUnderline
         sx={{
           '& .MuiOutlinedInput-notchedOutline': {
               borderWidth: '0px',
             },   
             "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
               border:'none',
-              borderBottomWidth: '1px',
-              borderBottomColor:'#5048E5',
-              borderBottomStyle: 'solid',
-              borderRadius: "0px 0px 0 0"
             },    
         }}
       >
