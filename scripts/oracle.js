@@ -10,9 +10,9 @@ async function updateOracleOnce(){
         {'key': 'americanfootball_ncaaf', 'group': 'American Football', 'title': 'NCAAF'},
         {'key': 'americanfootball_nfl', 'group': 'American Football', 'title': 'NFL'},
         {'key': 'soccer_epl', 'group': 'Soccer', 'title': 'EPL'},
-        {'key': 'soccer_spain_la_liga', 'group': 'Soccer', 'title': 'La Liga - Spain'},
-        {'key': 'soccer_italy_serie_a', 'group': 'Soccer', 'title': 'Serie A - Italy'},
-        {'key': 'soccer_fifa_world_cup', 'group': 'Soccer', 'title': 'FIFA World Cup'},
+        // {'key': 'soccer_spain_la_liga', 'group': 'Soccer', 'title': 'La Liga - Spain'},
+        // {'key': 'soccer_italy_serie_a', 'group': 'Soccer', 'title': 'Serie A - Italy'},
+        // {'key': 'soccer_fifa_world_cup', 'group': 'Soccer', 'title': 'FIFA World Cup'},
     ]
 
 
@@ -105,7 +105,8 @@ async function runOracle(){
 }
 
 if (require.main === module) {
-    runOracle()
+    // runOracle()
+    updateOracleOnce()
 }
 
 module.exports = {updateOracleOnce}

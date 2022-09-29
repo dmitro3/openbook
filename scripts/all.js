@@ -5,8 +5,8 @@ async function main(){
     const { updateOracleOnce } = require("./oracle");
     await updateOracleOnce()
 
-    const { updateOddsOnce } = require("./provider");
-    await updateOddsOnce()
+    // const { updateOddsOnce } = require("./provider");
+    // await updateOddsOnce()
 
 }
 

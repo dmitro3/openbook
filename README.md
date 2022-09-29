@@ -1,21 +1,23 @@
 # OpenBook
 
- a decentralized sportsbook where users can participate as both bettor and bookie.
-
-## Description
-
-Our innovative model allows OpenBook to facilitate a wider variety of sports and individual games, higher limits, lower fees, and a smoother betting experience for bettors while introducing a new way to play by contributing to the betting pool.
+A 3 Actor based sportsbook involving bettors, odds providers and liquidity providers. This model incentivizes best odds allowing OpenBook to facilitate a wider variety of sports and individual games, higher limits, lower fees, and a smoother betting experience for bettors while introducing a new way to capture yields for the LPs.
 
 ## Getting Started
-### Executing program
+Create an .env file by copying .env-example and filling the values.
 
-```
-npm install
-npm run dev
-```
+Start the hardhat node with:
+> npx hardhat node
 
+
+While that is running, deploy everything using:
+> npx run build:hardhat
+
+Then start the web server with:
+> npm run dev
+
+Then open browser and switch metamask network to localhost.
 
 ### Links
 White paper: https://docs.openbook.bet/ <br />
 Landing page: https://openbook.bet/ <br />
-Live demo: https://app.openbook.bet/
+Live Deployment: https://app.openbook.bet/

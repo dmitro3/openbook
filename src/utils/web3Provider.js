@@ -216,6 +216,7 @@ export const claimBets = async () => {
 }
 
 export const getMatches = async (vault) => {
+    console.log("getting")
     let web3 = null;
     store.getState().user.hasWeb3 ? web3 = store.getState().user.web3 : web3 = new Web3(new Web3.providers.HttpProvider(HTTP_PROVIDER));
     let contract = new web3.eth.Contract(MARKETS_ABI, MARKETS_ADDY);
