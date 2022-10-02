@@ -10,7 +10,12 @@ Start the hardhat node with:
 
 
 While that is running, deploy everything using:
-> npx run build:hardhat
+> npm run build:hardhat
+
+To bring the odds:
+>npm run provider
+
+The script will keep running to update odds but you can close it.
 
 Then start the web server with:
 > npm run dev
