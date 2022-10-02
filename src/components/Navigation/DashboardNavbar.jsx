@@ -7,7 +7,8 @@ import {
   Tooltip,
   Tabs,
   useMediaQuery,
-  Typography
+  Typography,
+  Button
 } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from "@mui/icons-material/Menu";
@@ -229,6 +230,10 @@ const DashboardNavbar = (props) => {
               <Typography sx={{color:"#4591ff",ml:"20px",fontSize:'1.5rem', textTransform: "capitalize"}}>
                 {props.user.currentNetWork}
               </Typography>
+            </NavNetworkNameBox>
+
+            <NavNetworkNameBox sx={{width:'200px',whiteSpace: "nowrap"}}>
+              <Button variant="text" >Get Testnet DAI 💰</Button>
             </NavNetworkNameBox>
 
             <DisplayUserAddressButton 
