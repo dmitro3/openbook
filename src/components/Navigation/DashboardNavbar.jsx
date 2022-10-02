@@ -233,7 +233,9 @@ const DashboardNavbar = (props) => {
             </NavNetworkNameBox>
 
             <NavNetworkNameBox sx={{width:'200px',whiteSpace: "nowrap"}}>
-              <Button variant="text" >Get Testnet DAI 💰</Button>
+              <Button variant="text" onClick={()=>{
+                console.log("You got 5000 DAI")
+              }}>Get Testnet DAI 💰</Button>
             </NavNetworkNameBox>
 
             <DisplayUserAddressButton 
