@@ -12,7 +12,6 @@
     "lint": "next lint",
     "lint-fix": "next lint --fix",
     "build:hardhat": "npx hardhat run scripts/all.js --network localhost",
-
     "deploy": "npx hardhat run scripts/deploy.js --network localhost",
     "oracle": "npx hardhat run scripts/oracle.js --network localhost",
     "provider": "npx hardhat run scripts/provider.js --network localhost"
